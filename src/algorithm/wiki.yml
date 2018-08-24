@@ -1,0 +1,5 @@
+type: dir
+title: アルゴリズム
+order:
+  - FastZetaTransform
+  - Hu-Tucker

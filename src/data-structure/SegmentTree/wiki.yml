@@ -1,0 +1,11 @@
+type: dir
+title: セグメントツリー
+order:
+  - SegmentTree
+  - LazySegmentTree
+  - SegmentTree2D
+  - DynamicSegmentTree
+  # - DynamicSegmentTree2D
+  - FractionalCascadingSegmentTree
+  - PersistentSegmentTree
+

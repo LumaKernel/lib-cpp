@@ -1,0 +1,10 @@
+type: dir
+title: math
+order:
+  - general
+  - GaussJordan
+  - Givens
+  - matrix
+  - moebius
+  - FFT
+  - Montgomery

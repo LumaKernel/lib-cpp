@@ -1,0 +1,8 @@
+type: dir
+title: いろいろ
+order:
+  - ConvexHullTrick
+  - ModuloInteger
+  - bitUtil
+  - Factorial
+  - XorShift

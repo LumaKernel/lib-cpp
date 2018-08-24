@@ -1,0 +1,9 @@
+type: dir
+title: 文字列
+order:
+  - Manacher
+  - KMP
+  - z-algorithm
+  - AhoCorasick
+  - Tree2String
+  - StringUtil

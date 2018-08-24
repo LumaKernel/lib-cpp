@@ -1,0 +1,9 @@
+type: dir
+title: データ構造
+id: data-structure
+order:
+  - SegmentTree
+  - misc
+  - Heap
+  - BST
+

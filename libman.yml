@@ -1,0 +1,13 @@
+WorkingDir: ./
+SrcDir: ./src
+DistDir: ./dist
+BackUpDir: ./backup
+TempDir: ./tmp
+ClangFormatOptionPath: ./.clang-format
+FormatOption:
+  AllowStructOneLine: true
+wikiYAML:
+  layout: lib
+CopyWiki: ~/work/myblog
+CopySnippet: false
+CopyPrintable: false
