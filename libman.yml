@@ -8,6 +8,12 @@ FormatOption:
   AllowStructOneLine: true
 wikiYAML:
   layout: lib
-CopyWiki: ~/work/myblog
+printableYAML:
+  layout: printable
+  permalink: one
+  top: true
+  title: one
+CopyWiki: ~/work/library-cpp
 CopySnippet: false
-CopyPrintable: false
+CopyPrintable: ~/work/library-cpp/one.md
+
