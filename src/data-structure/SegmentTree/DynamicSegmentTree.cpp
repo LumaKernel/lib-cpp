@@ -7,6 +7,7 @@ using ll = long long;
 // @snippet     dynamicsegtree
 // @alias       segdynamic
 // @name DynamicSegTree
+// @title 動的セグメントツリー
 // Note : to get faster, use map by yourself
 // .entity : number of materialized leaves
 /// --- DynamicSegTree {{{ ///

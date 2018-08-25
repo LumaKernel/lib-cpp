@@ -5,6 +5,7 @@ using ll = long long;
 
 // @@
 // @name LazySegmentTree Library
+// @title 遅延セグメントツリー
 // @snippet     lazysegmenttree
 // @alias       lazy lazyseg
 // NOTE : query in range!

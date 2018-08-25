@@ -1,2 +1,5 @@
 // @name Strongly Connected Component
-verify : http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=2708176#1
+
+#検証
+
+http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=2708176#1
