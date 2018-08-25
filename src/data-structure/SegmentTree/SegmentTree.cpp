@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name SegmentTree Library
 // @snippet     segmenttree
@@ -13,26 +17,26 @@
 //   static constexpr T identity() { return _identity_element_; }
 // };
 
-template<class Monoid>
+template < class Monoid >
 struct SegTree {
 private:
   using T = typename Monoid::T;
   int n;
-  std::vector<T> data;
+  std::vector< T > data;
   // call after touch data[i]
   void prop(int i) { data[i] = Monoid::op(data[2 * i], data[2 * i + 1]); }
+
 public:
-  SegTree(): n(0) {}
-  SegTree(int n): n(n) {
-    data.resize(n * 2, Monoid::identity());
+  SegTree() : n(0) {}
+  SegTree(int n) : n(n) { data.resize(n * 2, Monoid::identity()); }
+  template < class InputIter,
+             class = typename std::iterator_traits< InputIter >::value_type >
+  SegTree(InputIter first, InputIter last)
+      : SegTree(std::distance(first, last)) {
+    copy(first, last, std::begin(data) + n);
+    // fill from deep
+    for(int i = n - 1; i > 0; i--) prop(i);
   }
-  template<class InputIter, class = typename std::iterator_traits<InputIter>::value_type>
-    SegTree(InputIter first, InputIter last)
-    : SegTree(std::distance(first, last)) {
-      copy(first, last, std::begin(data) + n);
-      // fill from deep
-      for(int i = n - 1; i > 0; i--) prop(i);
-    }
   void set(int i, const T& v) {
     data[i += n] = v;
     while(i >>= 1) prop(i); // propUp
@@ -48,13 +52,13 @@ public:
   }
   inline void dum(int r = -1) {
 #ifdef DEBUG
-    std::ostream & o =
+    std::ostream& o =
 #ifdef USE_COUT
-      std::cout
+        std::cout
 #else
-      std::cerr
+        std::cerr
 #endif
-      ;
+        ;
     if(r < 0) r = n;
     o << "{";
     for(int i = 0; i < std::min(r, n); i++) o << (i ? ", " : "") << get(i);
@@ -67,7 +71,7 @@ public:
 
 // Monoid examples {{{
 
-constexpr long long inf = std::numeric_limits<long long>::max();
+constexpr long long inf = std::numeric_limits< long long >::max();
 // using P = pair<ll, ll>
 
 struct MonoidMin {
@@ -90,4 +94,3 @@ struct MonoidMax {
 
 // using RMQ = SegTree<MonoidMin>;
 // RMQ rmq(N);
-

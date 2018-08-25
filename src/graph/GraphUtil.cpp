@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @snippet     treediameter
 // @alias       diameteroftree chokkei
@@ -7,9 +11,10 @@
 
 int treeDiameter(UnWeightedGraph tree) {
   int far = 0, dep = -1;
-  function<void(int, int, int)> dfs = [&](int i, int p, int d) {
+  function< void(int, int, int) > dfs = [&](int i, int p, int d) {
     if(dep < d) far = i, dep = d;
-    for(int j : tree[i]) if(j != p) dfs(j, i, d + 1);
+    for(int j : tree[i])
+      if(j != p) dfs(j, i, d + 1);
   };
   dfs(0, -1, 0);
   dep = -1;
@@ -23,14 +28,16 @@ int treeDiameter(UnWeightedGraph tree) {
 // @snippet     dijkstragraph
 // @name dijkstra graph
 // dijkstra {{{
-using P = tuple<ll, int>;
-vector<ll> dist(n, 1e18);
-priority_queue< P, vector<P>, greater<P> > pq;
+using P = tuple< ll, int >;
+vector< ll > dist(n, 1e18);
+priority_queue< P, vector< P >, greater< P > > pq;
 pq.emplace(0, s);
 dist[s] = 0;
 while(pq.size()) {
-  ll di; int i;
-  tie(di, i) = pq.top(); pq.pop();
+  ll di;
+  int i;
+  tie(di, i) = pq.top();
+  pq.pop();
   if(dist[i] < di) continue;
   for(auto to : g) {
     int j = to.first;
@@ -48,14 +55,16 @@ while(pq.size()) {
 // @alias       bfs01 01bfs
 // @name dijkstra grid
 // dijkstra {{{
-using P = tuple<ll, int, int>;
-vector<vector<ll>> dist(h, vector<ll>(w, 1e18));
-deque<P> pq;
+using P = tuple< ll, int, int >;
+vector< vector< ll > > dist(h, vector< ll >(w, 1e18));
+deque< P > pq;
 pq.emplace_back(0, sy, sx);
 dist[sy][sx] = 0;
 while(pq.size()) {
-  ll di; int y, x;
-  tie(di, y, x) = pq.front(); pq.pop_front();
+  ll di;
+  int y, x;
+  tie(di, y, x) = pq.front();
+  pq.pop_front();
   if(dist[y][x] < di) continue;
   for(int d = 0; d < 4; d++) {
     int ny = y + dy[d];

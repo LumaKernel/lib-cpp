@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name Biedge Component Decomposition Libary
 // @title 二辺連結成分分解
@@ -13,16 +17,16 @@
 
 struct Biedge {
   Lowlink lowlink;
-  vector<int> comp;
-  vector< vector<int> > tree;
+  vector< int > comp;
+  vector< vector< int > > tree;
 
-  Biedge(Lowlink lowlink): lowlink(lowlink){ decomposite(); }
-  Biedge(UnWeightedGraph g): lowlink(g){
+  Biedge(Lowlink lowlink) : lowlink(lowlink) { decomposite(); }
+  Biedge(UnWeightedGraph g) : lowlink(g) {
     lowlink.build();
     decomposite();
   }
 
-  vector<int> used;
+  vector< int > used;
 
 private:
   void decomposite() {
@@ -33,7 +37,8 @@ private:
     comp.resize(n, -1);
 
     int gid = 0;
-    for(int i = 0; i < n; i++) if(!used[i]) dfs(gid++, i, -1);
+    for(int i = 0; i < n; i++)
+      if(!used[i]) dfs(gid++, i, -1);
 
     tree.resize(gid);
   }
@@ -50,7 +55,7 @@ private:
           tree[gid].emplace_back(comp[j]);
           tree[comp[j]].emplace_back(gid);
         }
-      }else if(!used[j]){
+      } else if(!used[j]) {
         dfs(gid, j, i);
       }
     }
@@ -58,4 +63,3 @@ private:
 };
 
 /// }}}--- ///
-

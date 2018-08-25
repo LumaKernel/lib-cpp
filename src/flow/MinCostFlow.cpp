@@ -1,21 +1,29 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @snippet     mincostflow
 // @name MinCostFlow Library
 /// --- MinCostFlow Library {{{ ///
 struct MinCostFlow {
   struct Edge {
-    int to; ll cap, cost; size_t rev;
+    int to;
+    ll cap, cost;
+    size_t rev;
   };
   int n;
-  vector< vector<Edge> > graph;
-  vector<ll> dist;
-  vector<int> prevv, previ;
+  vector< vector< Edge > > graph;
+  vector< ll > dist;
+  vector< int > prevv, previ;
   ll inf;
-  MinCostFlow(int n, ll inf): n(n), graph(n), dist(n), prevv(n), previ(n), inf(inf) {}
+  MinCostFlow(int n, ll inf)
+      : n(n), graph(n), dist(n), prevv(n), previ(n), inf(inf) {}
   void addEdge(int a, int b, ll cap, ll cost, int undirected = 0) {
-    graph[a].emplace_back((Edge) {b, cap, cost, graph[b].size()});
-    graph[b].emplace_back((Edge) {a, undirected ? cap : 0, -cost, graph[a].size() - 1});
+    graph[a].emplace_back((Edge){b, cap, cost, graph[b].size()});
+    graph[b].emplace_back(
+        (Edge){a, undirected ? cap : 0, -cost, graph[a].size() - 1});
   }
   ll solve(int s, int t, ll f) {
     ll res = 0;
@@ -62,4 +70,3 @@ struct MinCostFlow {
 // const int N = 100000;
 // ll inf = 1e18;
 // MinCostFlow ecas(N, inf);
-

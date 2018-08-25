@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @snippet     mstarborescence
 // @name MSTArborescence Library
@@ -7,12 +11,12 @@
 // int MSTArborescence(WeightedDirectedGraph, int root)
 /// --- MSTArborescence Library {{{ ///
 
-long long MSTArborescence(
-  vector< vector< pair<int, int> > > &graph, int start, long long sum = 0) {
+long long MSTArborescence(vector< vector< pair< int, int > > > &graph,
+                          int start, long long sum = 0) {
   int n = graph.size();
-  
-  vector<int> rev(n, -1);
-  vector<long long> weight(n, INF);
+
+  vector< int > rev(n, -1);
+  vector< long long > weight(n, INF);
   for(int idx = 0; i < n; i++) {
     for(auto &e : graph[idx]) {
       if(se(e) < weight[fi(e)]) {
@@ -21,17 +25,17 @@ long long MSTArborescence(
       }
     }
   }
-  
+
   SCC scc(n);
   for(int i = 0; i < n; i++) {
     if(start == i) continue;
     scc.addEdge(rev[i], i);
     sum += weight[i];
   }
-  vector< vector<int> > renew;
+  vector< vector< int > > renew;
   scc.decomposite(renew);
   if(renew.size() == n) return sum;
-  vector< vector< pair<int, int> > > fixed(renew.size());
+  vector< vector< pair< int, int > > > fixed(renew.size());
   for(int i = 0; i < n; i++) {
     for(P &e : graph[i]) {
       if(scc[i] == scc[fi(e)]) continue;
@@ -42,4 +46,3 @@ long long MSTArborescence(
 }
 
 /// ---}}} ///
-

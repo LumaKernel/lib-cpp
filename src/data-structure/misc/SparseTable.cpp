@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name Sparse Table Library
 // @snippet     sparsetable
@@ -12,21 +16,23 @@
 //   static T op(T const &a, T const &b) { return _a_op_b_; }
 // };
 
-template<class SemiLattice>
+template < class SemiLattice >
 struct SparseTable {
   using T = typename SemiLattice::T;
   std::size_t n;
-  std::vector<std::size_t> log2;
-  std::vector< std::vector<T> > t;
+  std::vector< std::size_t > log2;
+  std::vector< std::vector< T > > t;
   T identity;
-  SparseTable():n(0) {}
-  SparseTable(std::size_t n, T identity = T()): n(n), log2(n + 1), identity(identity) {
+  SparseTable() : n(0) {}
+  SparseTable(std::size_t n, T identity = T())
+      : n(n), log2(n + 1), identity(identity) {
     for(std::size_t i = 2; i <= n; i++) log2[i] = log2[i >> 1] + 1;
-    t.resize(log2[n] + 1, std::vector<T>(n, identity));
+    t.resize(log2[n] + 1, std::vector< T >(n, identity));
   }
-  template<class InputIter, class = typename std::iterator_traits<InputIter>::value_type>
+  template < class InputIter,
+             class = typename std::iterator_traits< InputIter >::value_type >
   SparseTable(InputIter first, InputIter last, T identity = T())
-  : SparseTable(std::distance(first, last), identity) {
+      : SparseTable(std::distance(first, last), identity) {
     std::copy(first, last, std::begin(t[0]));
     build();
   }
@@ -59,4 +65,3 @@ struct SparseTable {
 // }}}
 
 // SparseTable<RMQSL> rmq(N, inf);
-

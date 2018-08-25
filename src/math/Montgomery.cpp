@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name Montgomery Library
 // @title モンゴメリ乗算
@@ -6,7 +10,7 @@
 // @alias       mongome montogome
 /// --- Montgomery Library {{{ ///
 
-template<int mod = (int) 1e9 + 7>
+template < int mod = (int) 1e9 + 7 >
 struct Montgomery {
   int modlen = 64 - __builtin_clzll(mod);
   long long r2 = (1ll << (modlen * 2)) % mod;
@@ -53,4 +57,3 @@ struct Montgomery {
 /// }}}--- ///
 
 Montgomery<> montgomery;
-

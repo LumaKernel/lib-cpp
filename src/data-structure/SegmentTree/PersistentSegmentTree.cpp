@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name PersistentSegmentTree Library
 // @snippet     persistent_seg
@@ -13,24 +17,25 @@
 //   static constexpr T identity() { return _identity_element_; }
 // };
 
-template<class Monoid>
+template < class Monoid >
 struct PersistentSegTree {
 private:
   using T = typename Monoid::T;
   int n;
-  vector<T> data;
-  vector<int> lch, rch;
+  vector< T > data;
+  vector< int > lch, rch;
   int lastRoot = 0;
+
 public:
-  PersistentSegTree(): n(0) {}
-  PersistentSegTree(int t)
-    : data(1, Monoid::identity()), lch(1, 0), rch(1, 0) {
-      n = 1;
-      while(n < t) n <<= 1;
-    }
-  template<class InputIter, class = typename std::iterator_traits<InputIter>::value_type>
+  PersistentSegTree() : n(0) {}
+  PersistentSegTree(int t) : data(1, Monoid::identity()), lch(1, 0), rch(1, 0) {
+    n = 1;
+    while(n < t) n <<= 1;
+  }
+  template < class InputIter,
+             class = typename std::iterator_traits< InputIter >::value_type >
   PersistentSegTree(InputIter first, InputIter last)
-  : PersistentSegTree(distance(first, last)) {
+      : PersistentSegTree(distance(first, last)) {
     assign(first, last);
   }
   int set(int i, const T& v, int root = 0) {
@@ -40,7 +45,8 @@ public:
     lastRoot = k;
     return k;
   }
-  template<class InputIter, class = typename std::iterator_traits<InputIter>::value_type>
+  template < class InputIter,
+             class = typename std::iterator_traits< InputIter >::value_type >
   void assign(InputIter first, InputIter last) {
     assert(n >= distance(first, last));
     data.resize(n * 2 - 1, Monoid::identity());
@@ -83,11 +89,10 @@ public:
     if(k == 0) return Monoid::identity();
     if(b <= l || r <= a) return Monoid::identity();
     if(a <= l && r <= b) return data[k];
-    return Monoid::op(
-        query(a, b, l, (l + r) >> 1, lch[k]),
-        query(a, b, (l + r) >> 1, r, rch[k])
-        );
+    return Monoid::op(query(a, b, l, (l + r) >> 1, lch[k]),
+                      query(a, b, (l + r) >> 1, r, rch[k]));
   }
+
 private:
   int make() {
     data.emplace_back(Monoid::identity());
@@ -109,7 +114,7 @@ private:
 struct RMQMonoid {
   using T = long long;
   static T op(const T& a, const T& b) { return std::min(a, b); }
-  static constexpr T identity() { return numeric_limits<T>::max(); }
+  static constexpr T identity() { return numeric_limits< T >::max(); }
 };
 struct RSQMonoid {
   using T = long long;
@@ -119,12 +124,11 @@ struct RSQMonoid {
 struct RMaxQMonoid {
   using T = long long;
   static T op(const T& a, const T& b) { return std::max(a, b); }
-  static constexpr T identity() { return numeric_limits<T>::min(); }
+  static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 
-using RMQ = PersistentSegTree<RMQMonoid>;
-using RSQ = PersistentSegTree<RSQMonoid>;
-using RMaxQ = PersistentSegTree<RMaxQMonoid>;
+using RMQ = PersistentSegTree< RMQMonoid >;
+using RSQ = PersistentSegTree< RSQMonoid >;
+using RMaxQ = PersistentSegTree< RMaxQMonoid >;
 
 // }}}
-

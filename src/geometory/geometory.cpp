@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name geometory
 // @snippet     geometory
@@ -8,14 +12,18 @@ using Scalar = long double;
 constexpr Scalar EPS = 1e-11;
 constexpr Scalar PI = 3.14159265358979323;
 /// --- Geometory Library {{{ ///
-using Point = complex<Scalar>;
-using Polygon = vector<Point>;
-struct Line : pair<Point, Point> { Line(Point a, Point b): pair<Point, Point>(a, b) {} };
-struct Segment : pair<Point, Point> { Segment(Point a, Point b): pair<Point, Point>(a, b) {} };
+using Point = complex< Scalar >;
+using Polygon = vector< Point >;
+struct Line : pair< Point, Point > {
+  Line(Point a, Point b) : pair< Point, Point >(a, b) {}
+};
+struct Segment : pair< Point, Point > {
+  Segment(Point a, Point b) : pair< Point, Point >(a, b) {}
+};
 #define X real()
 #define Y imag()
-#define dot(a, b) real(conj(a)*b)
-#define cross(a, b) imag(conj(a)*b)
+#define dot(a, b) real(conj(a) * b)
+#define cross(a, b) imag(conj(a) * b)
 #define norm abs
 
 int sign(Scalar x) {
@@ -30,7 +38,8 @@ int sign(Scalar x) {
 // -2 : b--c--a
 //  0 : b--a--c
 int ccw(Point a, Point b, Point c) {
-  b -= a; c -= a;
+  b -= a;
+  c -= a;
   if(cross(b, c) > EPS) return +1;
   if(cross(b, c) < -EPS) return -1;
   if(dot(b, c) < 0) return 0;
@@ -38,18 +47,12 @@ int ccw(Point a, Point b, Point c) {
   return -2;
 }
 
-inline Point normalize(Point v) {
-  return v / norm(v);
-}
+inline Point normalize(Point v) { return v / norm(v); }
 
-inline Point normal(Point v) {
-  return v * Point(cos(PI / 2), sin(PI / 2));
-}
+inline Point normal(Point v) { return v * Point(cos(PI / 2), sin(PI / 2)); }
 
 // [0, pi]
-Scalar arg(Point a, Point b) {
-  return acos(dot(a, b) / norm(a) / norm(b));
-}
+Scalar arg(Point a, Point b) { return acos(dot(a, b) / norm(a) / norm(b)); }
 
 // triangle, arg a
 Scalar arg(Scalar a, Scalar b, Scalar c) {
@@ -57,9 +60,7 @@ Scalar arg(Scalar a, Scalar b, Scalar c) {
 }
 
 // Sarrus
-Scalar area3(Point a, Point b) {
-  return abs(a.X * b.Y - a.Y * b.X) / 2;
-}
+Scalar area3(Point a, Point b) { return abs(a.X * b.Y - a.Y * b.X) / 2; }
 
 // Heron's formula
 Scalar area3(Scalar a, Scalar b, Scalar c) {
@@ -69,14 +70,16 @@ Scalar area3(Scalar a, Scalar b, Scalar c) {
 
 Scalar dist(Line line, Point p) {
   return cross(p - line.first, line.second - line.first) /
-    abs(line.second - line.first);
+         abs(line.second - line.first);
 }
 
 Scalar dist(Segment segment, Point p) {
   if(sign(dot(segment.first - segment.second, p - segment.second)) *
-      sign(dot(segment.second - segment.first, p - segment.first)) >= 0)
+         sign(dot(segment.second - segment.first, p - segment.first)) >=
+     0)
     return dist(Line(segment.first, segment.second), p);
-  else return min(norm(p - segment.first), norm(p - segment.second));
+  else
+    return min(norm(p - segment.first), norm(p - segment.second));
 }
 
 Scalar dist(Segment a, Segment b) {
@@ -85,22 +88,21 @@ Scalar dist(Segment a, Segment b) {
       dist(a, b.second),
       dist(b, a.first),
       dist(b, a.second),
-      });
+  });
 }
 
 // NOTE : It depends.
 bool isCrossing(Segment a, Segment b) {
-  return
-    ccw(a.first, a.second, b.first) *
-    ccw(a.first, a.second, b.second) <= 0 &&
-    ccw(b.first, b.second, a.first) *
-    ccw(b.first, b.second, a.second) <= 0;
+  return ccw(a.first, a.second, b.first) * ccw(a.first, a.second, b.second) <=
+             0 &&
+         ccw(b.first, b.second, a.first) * ccw(b.first, b.second, a.second) <=
+             0;
 }
 
 Point intersection(Line a, Line b) {
   return a.first + (a.second - a.first) *
-    cross(a.first - b.first, b.second - b.first) /
-    cross(a.first - a.second, b.second - b.first);
+                       cross(a.first - b.first, b.second - b.first) /
+                       cross(a.first - a.second, b.second - b.first);
 }
 
 /// ---}}} ///
@@ -111,7 +113,7 @@ Point intersection(Line a, Line b) {
 // @name Geometory Circle Library
 /// --- Geometory Circle Library {{{ ///
 // center, radius
-using Circle = pair<Point, Scalar>;
+using Circle = pair< Point, Scalar >;
 
 // -1 : 0 share (outside)
 //  1 : 0 share (B in A)
@@ -131,8 +133,8 @@ int cpr(Circle a, Circle b) {
   return 0;
 }
 
-vector<Point> intersections(Circle a, Circle b) {
-  vector<Point> res;
+vector< Point > intersections(Circle a, Circle b) {
+  vector< Point > res;
   // normalize(b-a) * R_A
   Point x = a.second * normalize(b.first - a.first);
   if(abs(cpr(a, b)) >= 3) {
@@ -145,8 +147,8 @@ vector<Point> intersections(Circle a, Circle b) {
   return res;
 }
 
-vector<Point> intersections(Circle a, Line line) {
-  vector<Point> res;
+vector< Point > intersections(Circle a, Line line) {
+  vector< Point > res;
   Point n = normal(line.first - line.second);
   Point p = intersection(line, Line(a.first, a.first + n));
   Scalar d = norm(a.first - p);
@@ -161,9 +163,7 @@ vector<Point> intersections(Circle a, Line line) {
   return res;
 }
 
-inline Scalar area(Circle a) {
-  return PI * a.second * a.second;
-}
+inline Scalar area(Circle a) { return PI * a.second * a.second; }
 
 Scalar shareArea(Circle a, Circle b) {
   Scalar d = norm(a.first - b.first);
@@ -171,8 +171,9 @@ Scalar shareArea(Circle a, Circle b) {
   if(a.second < b.second) swap(a, b);
   if(b.second + d < a.second + EPS) return area(b);
   Scalar s1 = arg(b.second, a.second, d), s2 = arg(a.second, b.second, d);
-  Scalar tri2 = (a.second * a.second * sin(s1 * 2) +
-      b.second * b.second * sin(s2 * 2)) / 2;
+  Scalar tri2 =
+      (a.second * a.second * sin(s1 * 2) + b.second * b.second * sin(s2 * 2)) /
+      2;
   return a.second * a.second * s1 + b.second * b.second * s2 - tri2;
 }
 
@@ -181,14 +182,15 @@ inline Line ajacentLine(Circle c, Point p) {
 }
 
 // the tangentLine of c passing p
-vector<Line> tangentLine(Circle c, Point p) {
-  vector<Line> res;
+vector< Line > tangentLine(Circle c, Point p) {
+  vector< Line > res;
   Scalar d = norm(p - c.first);
-  if(abs(d - c.second) < EPS) res.emplace_back(ajacentLine(c, p));
+  if(abs(d - c.second) < EPS)
+    res.emplace_back(ajacentLine(c, p));
   else if(c.second < d) {
     Point a = c.first + c.second * normalize(p - c.first);
-    vector<Point> b = intersections(Circle(c.first, norm(c.first - p)),
-        Line(a, a + normal(c.first - p)));
+    vector< Point > b = intersections(Circle(c.first, norm(c.first - p)),
+                                      Line(a, a + normal(c.first - p)));
     for(size_t i = 0; i < b.size(); i++) {
       res.emplace_back(p, c.first + c.second * normalize(b[i] - c.first));
     }
@@ -196,8 +198,8 @@ vector<Line> tangentLine(Circle c, Point p) {
   return res;
 }
 
-vector<Line> commonTangengLine(Circle a, Circle b) {
-  vector<Line> res;
+vector< Line > commonTangengLine(Circle a, Circle b) {
+  vector< Line > res;
   if(a.second + EPS < b.second) swap(a, b);
   if(norm(a.first - b.first) < EPS) return res;
 
@@ -210,7 +212,7 @@ vector<Line> commonTangengLine(Circle a, Circle b) {
   } else {
     Point q = a.first + (b.first - a.first) * a.second / (a.second - b.second);
     if(abs(a.first - q) + EPS > a.second) {
-      vector<Line> tmp = tangentLine(a, q);
+      vector< Line > tmp = tangentLine(a, q);
       res.insert(begin(res), begin(tmp), end(tmp));
     }
   }
@@ -249,7 +251,8 @@ int inside(Polygon poly, Point p) {
         if(poly[ii].X > poly[jj].X) swap(ii, jj);
         if(poly[ii].X - EPS < p.X && p.X < poly[jj].X + EPS) return -2;
       } else {
-        Point q = intersection(Line(poly[ii], poly[jj]), Line(p, p + Point(1, 0)));
+        Point q =
+            intersection(Line(poly[ii], poly[jj]), Line(p, p + Point(1, 0)));
         if(p.X < q.X && p.Y > poly[ii].Y + EPS) cnt++; // count only upside
       }
     }
@@ -271,11 +274,11 @@ Scalar caliper(Polygon ccwConvex) {
   size_t si = i, sj = j;
   while(i != si || j != sj) {
     res = max(res, norm(ccwConvex[i] - ccwConvex[j]));
-    if(cross(
-      ccwConvex[(i + 1) % ccwConvex.size()] - ccwConvex[i],
-      ccwConvex[(j + 1) % ccwConvex.size()] - ccwConvex[j]
-      ) < 0) i = (i + 1) % ccwConvex.size();
-    else j = (j + 1) % ccwConvex.size();
+    if(cross(ccwConvex[(i + 1) % ccwConvex.size()] - ccwConvex[i],
+             ccwConvex[(j + 1) % ccwConvex.size()] - ccwConvex[j]) < 0)
+      i = (i + 1) % ccwConvex.size();
+    else
+      j = (j + 1) % ccwConvex.size();
   }
   return res;
 }

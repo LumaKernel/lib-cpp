@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name LazySegmentTree Library
 // @snippet     lazysegmenttree
@@ -22,14 +26,14 @@
 //   { return _m_act_n_of_x_; }
 // };
 
-template<class Monoid, class M_act>
+template < class Monoid, class M_act >
 struct LazySegTree {
 private:
   using X = typename Monoid::T;
   using M = typename M_act::M;
   int n, h;
-  std::vector<X> data;
-  std::vector<M> lazy;
+  std::vector< X > data;
+  std::vector< M > lazy;
   // call before use data[i]
   void eval(int i, int sz) {
     if(lazy[i] == M_act::identity()) return;
@@ -49,8 +53,9 @@ private:
   void propUp(int i) {
     i += n;
     int sz = 1;
-    while(i >>= 1) eval(i * 2, sz), eval(i * 2 + 1, sz),
-      data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]), sz <<= 1;
+    while(i >>= 1)
+      eval(i * 2, sz), eval(i * 2 + 1, sz),
+          data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]), sz <<= 1;
   }
   int logbin(int x) {
     int h = 0;
@@ -61,20 +66,22 @@ private:
     x = x & 0xAAAAAAAA ? (h += 1, x) & 0xAAAAAAAA : x;
     return h;
   }
+
 public:
-  LazySegTree(): n(0) {}
-  LazySegTree(int n): n(n) {
+  LazySegTree() : n(0) {}
+  LazySegTree(int n) : n(n) {
     h = logbin(n) + 1;
     data.resize(2 * n, Monoid::identity());
     lazy.resize(2 * n, M_act::identity());
   }
-  template <class InputIter, class = typename std::iterator_traits<InputIter>::value_type>
-    LazySegTree(InputIter first, InputIter last)
-    : LazySegTree(std::distance(first, last)) {
-      copy(first, last, std::begin(data) + n);
-      for(int i = n - 1; i > 0; i--) // fill from deep
-        data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
-    }
+  template < class InputIter,
+             class = typename std::iterator_traits< InputIter >::value_type >
+  LazySegTree(InputIter first, InputIter last)
+      : LazySegTree(std::distance(first, last)) {
+    copy(first, last, std::begin(data) + n);
+    for(int i = n - 1; i > 0; i--) // fill from deep
+      data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
+  }
   void act(int l, int r, const M &m) {
     evalDown(l);
     evalDown(r - 1);
@@ -109,13 +116,13 @@ public:
   }
   inline void dum(int r = -1) {
 #ifdef DEBUG
-    std::ostream & o =
+    std::ostream &o =
 #ifdef USE_COUT
-      std::cout
+        std::cout
 #else
-      std::cerr
+        std::cerr
 #endif
-      ;
+        ;
     if(r < 0) r = n;
     o << "{";
     for(int i = 0; i < std::min(r, n); i++) o << (i ? ", " : "") << get(i);
@@ -130,19 +137,19 @@ public:
 
 struct RangeMin {
   using T = long long;
-  static T op(const T& a, const T& b) { return std::min(a, b); }
-  static constexpr T identity() { return std::numeric_limits<T>::max(); }
+  static T op(const T &a, const T &b) { return std::min(a, b); }
+  static constexpr T identity() { return std::numeric_limits< T >::max(); }
 };
 
 struct RangeMax {
   using T = long long;
-  static T op(const T& a, const T& b) { return std::max(a, b); }
-  static constexpr T identity() { return std::numeric_limits<T>::min(); }
+  static T op(const T &a, const T &b) { return std::max(a, b); }
+  static constexpr T identity() { return std::numeric_limits< T >::min(); }
 };
 
 struct RangeSum {
   using T = long long;
-  static T op(const T& a, const T& b) { return a + b; }
+  static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
 
@@ -154,48 +161,35 @@ struct RangeSum {
 struct RangeMinAdd {
   using M = long long;
   using X = RangeMin::T;
-  static M op(const M &a, const M &b)
-  { return a + b; }
-  static constexpr M identity()
-  { return 0; }
-  static X actInto(const M & m, long long, const X & x)
-  { return m + x; }
+  static M op(const M &a, const M &b) { return a + b; }
+  static constexpr M identity() { return 0; }
+  static X actInto(const M &m, long long, const X &x) { return m + x; }
 };
 
 struct RangeMinSet {
   using M = long long;
   using X = RangeMin::T;
-  static M op(const M &a, const M &)
-  { return a; }
-  static constexpr M identity()
-  { return std::numeric_limits<M>::min(); }
-  static X actInto(const M & m, long long, const X &)
-  { return m; }
+  static M op(const M &a, const M &) { return a; }
+  static constexpr M identity() { return std::numeric_limits< M >::min(); }
+  static X actInto(const M &m, long long, const X &) { return m; }
 };
 
 struct RangeSumAdd {
   using M = long long;
   using X = RangeSum::T;
-  static M op(const M &a, const M &b)
-  { return a + b; }
-  static constexpr M identity()
-  { return 0; }
-  static X actInto(const M & m, long long n, const X & x)
-  { return m * n + x; }
+  static M op(const M &a, const M &b) { return a + b; }
+  static constexpr M identity() { return 0; }
+  static X actInto(const M &m, long long n, const X &x) { return m * n + x; }
 };
 
 struct RangeSumSet {
   using M = long long;
   using X = RangeSum::T;
-  static M op(const M &a, const M &)
-  { return a; }
-  static constexpr M identity()
-  { return std::numeric_limits<M>::min(); }
-  static X actInto(const M & m, long long n, const X &)
-  { return m * n; }
+  static M op(const M &a, const M &) { return a; }
+  static constexpr M identity() { return std::numeric_limits< M >::min(); }
+  static X actInto(const M &m, long long n, const X &) { return m * n; }
 };
 
 // }}}
 
 // LazySegTree<RangeSum, RangeSumAdd> seg(N);
-

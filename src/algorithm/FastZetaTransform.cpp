@@ -30,4 +30,3 @@ void moebius(vector< T > &a,
     for(int b = 0; b < (1 << n); b++)
       if(b & (1 << i)) a[b] = op(a[b], a[b | (1 << i)]);
 }
-

@@ -1,13 +1,17 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name split
 // @snippet     split
-vector<string> split(const string& s, char delim) {
-  std::vector<string> elms;
+vector< string > split(const string& s, char delim) {
+  std::vector< string > elms;
   size_t offset = 0;
-  while (true) {
+  while(true) {
     size_t next = s.find_first_of(delim, offset);
-    if (next == string::npos) {
+    if(next == string::npos) {
       elms.emplace_back(s.substr(offset));
       return elms;
     }
@@ -15,4 +19,3 @@ vector<string> split(const string& s, char delim) {
     offset = next + 1;
   }
 }
-

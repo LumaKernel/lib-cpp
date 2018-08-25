@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name LinkCutTree Library
 // @snippet     linkcuttree
@@ -93,7 +97,7 @@ struct LinkCutTree {
   // }}}
 
   vector< Splay * > data;
-  LinkCutTree(int n): data(n) {}
+  LinkCutTree(int n) : data(n) {}
   Splay *operator[](int i) { return data[i]; }
   Splay *make(int i, const X &x = Monoid::identity()) {
     return data[i] = new Splay(x);
@@ -120,7 +124,8 @@ struct LinkCutTree {
   void cut(Splay *c) {
     expose(c);
 #ifdef DEBUG
-    static const struct CannotCutRoot { } ex;
+    static const struct CannotCutRoot {
+    } ex;
     if(!c->ch[0]) throw ex;
 #endif
     Splay *s = c->ch[0];
@@ -130,7 +135,8 @@ struct LinkCutTree {
   }
   void link(Splay *parent, Splay *child) {
 #ifdef DEBUG
-    static const struct CannotLinkSameNode { } ex;
+    static const struct CannotLinkSameNode {
+    } ex;
     if(same(parent, child)) throw ex;
 #endif
     expose(parent), expose(child);
@@ -149,7 +155,8 @@ struct LinkCutTree {
   }
   Splay *lca(Splay *a, Splay *b) {
 #ifdef DEBUG
-    static const struct CannotLCAAnotherNode { } ex;
+    static const struct CannotLCAAnotherNode {
+    } ex;
     if(!same(a, b)) throw ex;
 #endif
     expose(a), a = expose(b);
@@ -235,4 +242,3 @@ struct RangeSumSet {
 // }}}
 
 // LinkCutTree< RangeSum, RangeSumSet > lc(N);
-

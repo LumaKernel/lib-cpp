@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @snippet     dynamicsegtree
 // @alias       segdynamic
@@ -7,13 +11,13 @@
 // .entity : number of materialized leaves
 /// --- DynamicSegTree {{{ ///
 
-template<class Monoid>
+template < class Monoid >
 struct DynamicSegTree {
   using T = typename Monoid::T;
   struct Node {
     T value;
     Node *l = nullptr, *r = nullptr;
-    Node(T value = Monoid::identity()): value(value) {}
+    Node(T value = Monoid::identity()) : value(value) {}
   };
   Node *top = new Node;
   int n;
@@ -22,14 +26,13 @@ struct DynamicSegTree {
     n = 1;
     while(t > n) n <<= 1;
   }
-  void set(int i, T const &val) {
-    set(i, val, 0, n, top);
-  }
+  void set(int i, T const &val) { set(i, val, 0, n, top); }
+
 private:
   void set(int i, T const &val, int l, int r, Node *&node) {
-    if(i+1 <= l || r <= i) return;
+    if(i + 1 <= l || r <= i) return;
     if(node == nullptr) node = new Node();
-    if(i <= l && r <= i+1) {
+    if(i <= l && r <= i + 1) {
       node->value = val;
       return;
     }
@@ -40,23 +43,21 @@ private:
   inline T calc(Node *node) {
     return node == nullptr ? Monoid::identity() : node->value;
   }
+
 public:
   T query(int a, int b) {
     if(a < 0 || b > n || b <= a) return Monoid::identity();
     return query(a, b, 0, n, top);
   }
-  T get(int i) {
-    return query(i, i + 1);
-  }
+  T get(int i) { return query(i, i + 1); }
+
 private:
   T query(int a, int b, int l, int r, Node *node) {
     if(node == nullptr) return Monoid::identity();
     if(b <= l || r <= a) return Monoid::identity();
     if(a <= l && r <= b) return node->value;
-    return Monoid::op(
-        query(a, b, l, (l + r) / 2, node->l),
-        query(a, b, (l + r) / 2, r, node->r)
-        );
+    return Monoid::op(query(a, b, l, (l + r) / 2, node->l),
+                      query(a, b, (l + r) / 2, r, node->r));
   }
 };
 
@@ -66,23 +67,22 @@ private:
 
 struct RMQMonoid {
   using T = long long;
-  static T op(const T& a, const T& b) { return std::min(a, b); }
-  static constexpr T identity() { return numeric_limits<T>::max(); }
+  static T op(const T &a, const T &b) { return std::min(a, b); }
+  static constexpr T identity() { return numeric_limits< T >::max(); }
 };
 struct RSQMonoid {
   using T = Int;
-  static T op(const T& a, const T& b) { return a + b; }
+  static T op(const T &a, const T &b) { return a + b; }
   static T identity() { return T(); }
 };
 struct RMaxQMonoid {
   using T = long long;
-  static T op(const T& a, const T& b) { return std::max(a, b); }
-  static constexpr T identity() { return numeric_limits<T>::min(); }
+  static T op(const T &a, const T &b) { return std::max(a, b); }
+  static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 
 // using RMQ = DynamicSegTree<RMQMonoid>;
-using RSQ = DynamicSegTree<RSQMonoid>;
+using RSQ = DynamicSegTree< RSQMonoid >;
 // using RMaxQ = DynamicSegTree<RMaxQMonoid>;
 
 // }}}
-

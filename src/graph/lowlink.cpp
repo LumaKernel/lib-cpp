@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name Lowlink Library
 // @title LowLink
@@ -9,23 +13,26 @@
 /// --- Lowlink Library {{{ ///
 
 struct Lowlink {
-  struct Edge { int to, idx; };
+  struct Edge {
+    int to, idx;
+  };
   int n;
   int edgeSize = 0;
   vector< vector< Edge > > g;
-  vector<int> ord, low;
+  vector< int > ord, low;
 
-  vector<int> used;
-  vector<int> isBridge, isArticulation;
-  Lowlink(int n): n(n), g(n), ord(n), low(n) {}
-  Lowlink(UnWeightedGraph ig): n(ig.size()), g(n), ord(n), low(n) {
+  vector< int > used;
+  vector< int > isBridge, isArticulation;
+  Lowlink(int n) : n(n), g(n), ord(n), low(n) {}
+  Lowlink(UnWeightedGraph ig) : n(ig.size()), g(n), ord(n), low(n) {
     for(int from = 0; from < n; from++)
-      for(int to : ig[from]) if(from < to) addEdge(from, to);
+      for(int to : ig[from])
+        if(from < to) addEdge(from, to);
   }
 
   void addEdge(int a, int b) {
-    g[a].emplace_back((Edge) {b, edgeSize});
-    g[b].emplace_back((Edge) {a, edgeSize});
+    g[a].emplace_back((Edge){b, edgeSize});
+    g[b].emplace_back((Edge){a, edgeSize});
     edgeSize++;
   }
 
@@ -38,7 +45,7 @@ struct Lowlink {
     dfs(0, -1, k);
   }
 
-private :
+private:
   void dfs(int i, int p, int &k) {
     used[i] = 1;
     ord[i] = low[i] = k++;

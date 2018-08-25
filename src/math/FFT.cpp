@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @snippet     fftlongdouble
 // @alias       fftld
@@ -6,8 +10,8 @@
 // @name FFT with long double Library
 /// --- FFT with long double Library {{{ ///
 
-using C = complex<ld>;
-using VC = vector<C>;
+using C = complex< ld >;
+using VC = vector< C >;
 
 // using FFT
 VC dft(VC a, bool inverse = false) {
@@ -37,8 +41,8 @@ VC conv(VC a, VC b) {
   int m = a.size();
   int n = 1;
   while(n < m) n <<= 1;
-  a.resize(n, C(0,0));
-  b.resize(n, C(0,0));
+  a.resize(n, C(0, 0));
+  b.resize(n, C(0, 0));
   a = dft(a);
   b = dft(b);
   VC c(n);
@@ -47,4 +51,3 @@ VC conv(VC a, VC b) {
 }
 
 /// }}}--- ///
-

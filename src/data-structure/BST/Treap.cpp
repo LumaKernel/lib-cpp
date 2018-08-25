@@ -1,4 +1,8 @@
 // @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
 // @@
 // @name Treap Sequence Library
 // @snippet treap_seq
@@ -6,7 +10,7 @@
 
 /// --- Treap Sequence Library {{{ ///
 
-template<class Monoid, class M_act>
+template < class Monoid, class M_act >
 struct TreapSeq {
 private:
   using u32 = uint32_t;
@@ -23,7 +27,8 @@ private:
   // a is not nullptr and is evaled, its child is proped
   friend TreapSeq* prop(TreapSeq* a) {
     a->sz = size(a->l) + 1 + size(a->r);
-    a->accum = Monoid::op(Monoid::op(Accumulated(a->l), a->val), Accumulated(a->r));
+    a->accum =
+        Monoid::op(Monoid::op(Accumulated(a->l), a->val), Accumulated(a->r));
     return a;
   }
   // call before use val, accum
@@ -42,16 +47,20 @@ private:
       a->rev = false;
     }
   }
-  friend X Accumulated(TreapSeq* a) { return a == nullptr ? Monoid::identity() : (eval(a), a->accum); }
+  friend X Accumulated(TreapSeq* a) {
+    return a == nullptr ? Monoid::identity() : (eval(a), a->accum);
+  }
   // XorShift128 [0, 2^32) {{{
   struct XorShift128 {
     using u32 = uint32_t;
     u32 x = 123456789, y = 362436069, z = 521288629, w = 88675123;
-    XorShift128 (u32 seed = 0) { z ^= seed; }
+    XorShift128(u32 seed = 0) { z ^= seed; }
     u32 operator()() {
       u32 t = x ^ (x << 11);
-      x = y; y = z; z = w;
-      return w = (w ^ ( w >> 19)) ^ (t ^ (t >> 8));
+      x = y;
+      y = z;
+      z = w;
+      return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
     }
   };
   // }}}
@@ -60,13 +69,15 @@ private:
     static XorShift128 xs(rnd());
     return xs();
   }
+
 public:
-  TreapSeq (X val, u32 pri): val(val), pri(pri) { }
-  TreapSeq (X val = Monoid::identity()): TreapSeq(val, nextPriority()) { }
+  TreapSeq(X val, u32 pri) : val(val), pri(pri) {}
+  TreapSeq(X val = Monoid::identity()) : TreapSeq(val, nextPriority()) {}
   friend TreapSeq* merge(TreapSeq* a, TreapSeq* b) {
     if(a == nullptr) return b;
     if(b == nullptr) return a;
-    eval(a); eval(b);
+    eval(a);
+    eval(b);
     if(a->pri > b->pri) {
       a->r = merge(a->r, b);
       return prop(a);
@@ -76,7 +87,7 @@ public:
     }
   }
   friend int size(TreapSeq* a) { return a == nullptr ? 0 : a->sz; }
-  using PNN = std::pair<TreapSeq*, TreapSeq*>;
+  using PNN = std::pair< TreapSeq*, TreapSeq* >;
   // [0, k), [k, n)
   // 左のグループにk個いれる
   friend PNN split(TreapSeq* a, int k) {
@@ -93,7 +104,7 @@ public:
       return PNN(prop(a), sr);
     }
   }
-  friend void insert(TreapSeq*& a, int k, const X & x) {
+  friend void insert(TreapSeq*& a, int k, const X& x) {
     TreapSeq *sl, *sr;
     std::tie(sl, sr) = split(a, k);
     a = merge(sl, merge(new TreapSeq(x), sr));
@@ -111,7 +122,7 @@ public:
     std::tie(tl, tr) = split(sl, l);
     a = merge(tl, sr);
   }
-  friend void set1(TreapSeq* a, int k, X const & x) {
+  friend void set1(TreapSeq* a, int k, X const& x) {
     TreapSeq *sl, *sr, *tl, *tr;
     std::tie(sl, sr) = split(a, k + 1);
     std::tie(tl, tr) = split(sl, k);
@@ -126,7 +137,7 @@ public:
     merge(merge(tl, tr), sr);
     return res;
   }
-  friend void act(TreapSeq* a, int l, int r, M const & m) {
+  friend void act(TreapSeq* a, int l, int r, M const& m) {
     TreapSeq *sl, *sr, *tl, *tr;
     std::tie(sl, sr) = split(a, r);
     std::tie(tl, tr) = split(sl, l);
@@ -157,13 +168,13 @@ public:
 struct RangeMin {
   using T = long long;
   static T op(const T& a, const T& b) { return std::min(a, b); }
-  static constexpr T identity() { return std::numeric_limits<T>::max(); }
+  static constexpr T identity() { return std::numeric_limits< T >::max(); }
 };
 
 struct RangeMax {
   using T = long long;
   static T op(const T& a, const T& b) { return std::max(a, b); }
-  static constexpr T identity() { return std::numeric_limits<T>::min(); }
+  static constexpr T identity() { return std::numeric_limits< T >::min(); }
 };
 
 struct RangeSum {
@@ -180,50 +191,38 @@ struct RangeSum {
 struct RangeMinAdd {
   using M = long long;
   using X = RangeMin::T;
-  static M op(const M &a, const M &b)
-  { return a + b; }
-  static constexpr M identity()
-  { return 0; }
-  static X actInto(const M & m, long long, const X & x)
-  { return m + x; }
+  static M op(const M& a, const M& b) { return a + b; }
+  static constexpr M identity() { return 0; }
+  static X actInto(const M& m, long long, const X& x) { return m + x; }
 };
 
 struct RangeMinSet {
   using M = long long;
   using X = RangeMin::T;
-  static M op(const M &a, const M &)
-  { return a; }
-  static constexpr M identity()
-  { return std::numeric_limits<M>::min(); }
-  static X actInto(const M & m, long long, const X &)
-  { return m; }
+  static M op(const M& a, const M&) { return a; }
+  static constexpr M identity() { return std::numeric_limits< M >::min(); }
+  static X actInto(const M& m, long long, const X&) { return m; }
 };
 
 struct RangeSumAdd {
   using M = long long;
   using X = RangeSum::T;
-  static M op(const M &a, const M &b)
-  { return a + b; }
-  static constexpr M identity()
-  { return 0; }
-  static X actInto(const M & m, long long n, const X & x)
-  { return m * n + x; }
+  static M op(const M& a, const M& b) { return a + b; }
+  static constexpr M identity() { return 0; }
+  static X actInto(const M& m, long long n, const X& x) { return m * n + x; }
 };
 
 struct RangeSumSet {
   using M = long long;
   using X = RangeSum::T;
-  static M op(const M &a, const M &)
-  { return a; }
-  static constexpr M identity()
-  { return std::numeric_limits<M>::min(); }
-  static X actInto(const M & m, long long n, const X &)
-  { return m * n; }
+  static M op(const M& a, const M&) { return a; }
+  static constexpr M identity() { return std::numeric_limits< M >::min(); }
+  static X actInto(const M& m, long long n, const X&) { return m * n; }
 };
 
 // }}}
 
-TreapSeq<RangeMin, RangeMinSet>* seq = nullptr;
+TreapSeq< RangeMin, RangeMinSet >* seq = nullptr;
 
 // @new
 // @name Treap Multiset Library
@@ -232,13 +231,14 @@ TreapSeq<RangeMin, RangeMinSet>* seq = nullptr;
 
 /// --- Treap Multiset Library {{{ ///
 
-template<class Key>
+template < class Key >
 struct TreapMultiset {
 public:
   const Key key;
+
 private:
   using u32 = uint32_t;
-  using PNN = std::pair<TreapMultiset*, TreapMultiset*>;
+  using PNN = std::pair< TreapMultiset*, TreapMultiset* >;
   u32 pri;
   TreapMultiset *l = nullptr, *r = nullptr;
   int sz = 1;
@@ -251,11 +251,13 @@ private:
   struct XorShift128 {
     using u32 = uint32_t;
     u32 x = 123456789, y = 362436069, z = 521288629, w = 88675123;
-    XorShift128 (u32 seed = 0) { z ^= seed; }
+    XorShift128(u32 seed = 0) { z ^= seed; }
     u32 operator()() {
       u32 t = x ^ (x << 11);
-      x = y; y = z; z = w;
-      return w = (w ^ ( w >> 19)) ^ (t ^ (t >> 8));
+      x = y;
+      y = z;
+      z = w;
+      return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
     }
   };
   // }}}
@@ -264,9 +266,10 @@ private:
     static XorShift128 xs(rnd());
     return xs();
   }
+
 public:
-  TreapMultiset (Key key, u32 pri): key(key), pri(pri) { }
-  TreapMultiset (Key key): TreapMultiset(key, nextPriority()) { }
+  TreapMultiset(Key key, u32 pri) : key(key), pri(pri) {}
+  TreapMultiset(Key key) : TreapMultiset(key, nextPriority()) {}
   friend TreapMultiset* merge(TreapMultiset* a, TreapMultiset* b) {
     if(a == nullptr) return b;
     if(b == nullptr) return a;
@@ -283,7 +286,7 @@ public:
   friend PNN split(TreapMultiset* a, Key key, bool upper) {
     if(a == nullptr) return PNN(nullptr, nullptr);
     TreapMultiset *sl, *sr;
-    if(upper ? key < a->key: !(a->key < key)) {
+    if(upper ? key < a->key : !(a->key < key)) {
       std::tie(sl, sr) = split(a->l, key, upper);
       a->l = sr;
       return PNN(sl, prop(a));
@@ -293,8 +296,12 @@ public:
       return PNN(prop(a), sr);
     }
   }
-  friend PNN lower_split(TreapMultiset* a, const Key & key) { return split(a, key, false); }
-  friend PNN upper_split(TreapMultiset* a, const Key & key) { return split(a, key, true); }
+  friend PNN lower_split(TreapMultiset* a, const Key& key) {
+    return split(a, key, false);
+  }
+  friend PNN upper_split(TreapMultiset* a, const Key& key) {
+    return split(a, key, true);
+  }
   friend int size(TreapMultiset* a) { return a == nullptr ? 0 : a->sz; }
   friend void insert(TreapMultiset*& a, Key key) {
     TreapMultiset *sl, *sr;
@@ -307,7 +314,8 @@ public:
     std::tie(tl, tr) = lower_split(sl, key);
     a = merge(tl, sr);
   }
-  friend void erase(TreapMultiset*& a, Key keyL, Key keyR, bool inclusive = false) {
+  friend void erase(TreapMultiset*& a, Key keyL, Key keyR,
+                    bool inclusive = false) {
     TreapMultiset *sl, *sr, *tl, *tr;
     std::tie(sl, sr) = split(a, keyR, inclusive);
     std::tie(tl, tr) = lower_split(sl, keyL);
@@ -327,7 +335,8 @@ public:
     prop(a);
   }
   friend Key getKth(TreapMultiset*& a, int k) {
-    static const struct CannotGetKthOfNullptr {} ex;
+    static const struct CannotGetKthOfNullptr {
+    } ex;
     if(a == nullptr) throw ex;
     if(k <= size(a->l)) {
       if(k == size(a->l)) return a->key;
@@ -344,7 +353,8 @@ public:
     merge(merge(tl, tr), sr);
     return cnt;
   }
-  friend int count(TreapMultiset* a, Key keyL, Key keyR, bool inclusive = false) {
+  friend int count(TreapMultiset* a, Key keyL, Key keyR,
+                   bool inclusive = false) {
     TreapMultiset *sl, *sr, *tl, *tr;
     std::tie(sl, sr) = split(a, keyR, inclusive);
     std::tie(tl, tr) = lower_split(sl, keyL);
@@ -356,4 +366,4 @@ public:
 
 /// }}}--- ///
 
-TreapMultiset<ll>* ms = nullptr;
+TreapMultiset< ll >* ms = nullptr;
