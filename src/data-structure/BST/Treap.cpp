@@ -335,8 +335,7 @@ public:
     prop(a);
   }
   friend Key getKth(TreapMultiset*& a, int k) {
-    static const struct CannotGetKthOfNullptr {
-    } ex;
+    static const struct CannotGetKthOfNullptr {} ex;
     if(a == nullptr) throw ex;
     if(k <= size(a->l)) {
       if(k == size(a->l)) return a->key;
