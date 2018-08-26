@@ -6,7 +6,6 @@ using ll = long long;
 // @@
 // @snippet     seg2d
 // @name 2D SegmentTree Library
-// @title 二次元セグメントツリー
 // @alias        static_seg_2d 2d_seg
 // constructor(int sizex, int sizey, T identity, func merge)
 // WARN : query in range by yourself!

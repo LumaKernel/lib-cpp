@@ -5,7 +5,6 @@ using ll = long long;
 
 // @@
 // @name SegmentTree Library
-// @title 普通のセグメントツリー
 // @snippet     segmenttree
 // @ SegmentTree Library
 // @alias       seg

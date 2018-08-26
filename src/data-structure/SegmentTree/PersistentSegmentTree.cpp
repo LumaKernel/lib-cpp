@@ -5,7 +5,6 @@ using ll = long long;
 
 // @@
 // @name PersistentSegmentTree Library
-// @title 永続セグメントツリー
 // @snippet     persistent_seg
 // @alias       seg_persistent
 // @ PersistentSegmentTree Library

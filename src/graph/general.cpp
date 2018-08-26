@@ -5,7 +5,6 @@ using ll = long long;
 
 // @@
 // @snippet     graph
-// @title 基本
 // @name Graph Template
 /// --- Graph Template {{{ ///
 

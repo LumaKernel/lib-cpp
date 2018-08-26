@@ -7,7 +7,6 @@ using ll = long long;
 // @snippet     fractionalcascadingsegtree
 // @alias       segfractionalcascading fcseg
 // @name Fractional Cascading SegmentTree Library
-// @title フラクショナルカスケーディング
 // データ構造を乗せるためのセグ木の高速版
 // オフラインなら予めxごとに求めるyを与える
 // クエリはトップダウン
