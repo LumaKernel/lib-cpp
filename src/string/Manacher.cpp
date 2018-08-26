@@ -1,3 +1,9 @@
+// @import header
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+// @@
 // @name manacher
 // @title Manacher
 // @snippet     manacher
