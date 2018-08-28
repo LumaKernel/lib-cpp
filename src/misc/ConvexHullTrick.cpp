@@ -4,32 +4,32 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @type one
 // @name Convex Hull Trick Library
 // @snippet     cht
 // @alias       convexhulltrick
 // CHT(bool increasing, Compare comp);
 // increasing : is query monotonic-increasing ?
 // comp : rhs is better
-// add(tuple<T, T> line) : add deacrinsgly!!
+// add(pair<T, T> line) : add deacrinsgly!!
 /// --- Convex Hull Trick Library {{{ ///
 
 struct CHT {
-  vector< tuple< ll, ll > > lines;
+  using Line = pair< ll, ll >;
+  vector< Line > lines;
   bool increasing;
   function< bool(ll, ll) > comp;
   CHT(bool increasing = false, function< bool(ll, ll) > comp =
                                    [&](ll lhs, ll rhs) { return lhs >= rhs; })
       : increasing(increasing), comp(comp) {}
   // is l2 unnecessary ?
-  bool check(tuple< ll, ll > l1, tuple< ll, ll > l2, tuple< ll, ll > l3) {
-    return comp((se(l1) - se(l2)) * (fi(l3) - fi(l2)),
-                (se(l3) - se(l2)) * (fi(l1) - fi(l2)));
+  bool check(Line l1, Line l2, Line l3) {
+    return comp((l1.second - l2.second) * (l3.first - l2.first),
+                (l3.second - l2.second) * (l1.first - l2.first));
   }
-  ll f(int i, ll x) { return fi(lines[i]) * x + se(lines[i]); }
-  // add decrasingly
-  void add(ll a, ll b) { add(P(a, b)); }
-  void add(tuple< ll, ll > line) {
+  ll f(int i, ll x) { return lines[i].first * x + lines[i].second; }
+  // add decreasingly
+  void add(ll a, ll b) { add(Line(a, b)); }
+  void add(Line line) {
     while((int) lines.size() >= 2 &&
           check(lines[lines.size() - 2], lines.back(), line))
       lines.pop_back();
@@ -61,6 +61,7 @@ struct CHT {
 /// --- Dynamic Convex Hull Trick Library {{{ ///
 
 struct DynamicCHT {
+  static const ll INF = numeric_limits< ll >::max();
   DynamicCHT() {
     // sentinel
     S.insert({L(INF, 0), L(-INF, 0)});

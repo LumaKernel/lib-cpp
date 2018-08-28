@@ -1,5 +1,13 @@
-// @name Strongly Connected Component
+---
+title: 強連結成分分解(Kosaraju's algorithm)
+---
+
+蟻本に乗ってるほう．
+
+Tarjan'sも有名，そのうち書きたい．
+
+// @ Strongly Connected Component
 
 #検証
 
-http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=2708176#1
+[AOJの](http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=2708176#1){:target="_blank"}

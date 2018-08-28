@@ -22,7 +22,7 @@ using ll = long long;
 //   { return _a_op_b_; }
 //   static constexpr X identity()
 //   { return _identity_element_; }
-//   static X actInto(const M &m, long long n, const X &x)
+//   static X actInto(const M &m, ll n, const X &x)
 //   { return _m_act_n_of_x_; }
 // };
 
@@ -32,8 +32,8 @@ private:
   using X = typename Monoid::T;
   using M = typename M_act::M;
   int n, h;
-  std::vector< X > data;
-  std::vector< M > lazy;
+  vector< X > data;
+  vector< M > lazy;
   // call before use data[i]
   void eval(int i, int sz) {
     if(lazy[i] == M_act::identity()) return;
@@ -75,10 +75,10 @@ public:
     lazy.resize(2 * n, M_act::identity());
   }
   template < class InputIter,
-             class = typename std::iterator_traits< InputIter >::value_type >
+             class = typename iterator_traits< InputIter >::value_type >
   LazySegTree(InputIter first, InputIter last)
-      : LazySegTree(std::distance(first, last)) {
-    copy(first, last, std::begin(data) + n);
+      : LazySegTree(distance(first, last)) {
+    copy(first, last, begin(data) + n);
     for(int i = n - 1; i > 0; i--) // fill from deep
       data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
   }
@@ -116,17 +116,17 @@ public:
   }
   inline void dum(int r = -1) {
 #ifdef DEBUG
-    std::ostream &o =
+    ostream &o =
 #ifdef USE_COUT
-        std::cout
+        cout
 #else
-        std::cerr
+        cerr
 #endif
         ;
     if(r < 0) r = n;
     o << "{";
-    for(int i = 0; i < std::min(r, n); i++) o << (i ? ", " : "") << get(i);
-    o << "}" << std::endl;
+    for(int i = 0; i < min(r, n); i++) o << (i ? ", " : "") << get(i);
+    o << "}" << endl;
 #endif
   }
 };
@@ -136,19 +136,19 @@ public:
 // Monoid, M_act expamles {{{
 
 struct RangeMin {
-  using T = long long;
-  static T op(const T &a, const T &b) { return std::min(a, b); }
-  static constexpr T identity() { return std::numeric_limits< T >::max(); }
+  using T = ll;
+  static T op(const T &a, const T &b) { return min(a, b); }
+  static constexpr T identity() { return numeric_limits< T >::max(); }
 };
 
 struct RangeMax {
-  using T = long long;
-  static T op(const T &a, const T &b) { return std::max(a, b); }
-  static constexpr T identity() { return std::numeric_limits< T >::min(); }
+  using T = ll;
+  static T op(const T &a, const T &b) { return max(a, b); }
+  static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 
 struct RangeSum {
-  using T = long long;
+  using T = ll;
   static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
@@ -159,35 +159,35 @@ struct RangeSum {
 // SumSet m * n
 
 struct RangeMinAdd {
-  using M = long long;
+  using M = ll;
   using X = RangeMin::T;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, long long, const X &x) { return m + x; }
+  static X actInto(const M &m, ll, const X &x) { return m + x; }
 };
 
 struct RangeMinSet {
-  using M = long long;
+  using M = ll;
   using X = RangeMin::T;
   static M op(const M &a, const M &) { return a; }
-  static constexpr M identity() { return std::numeric_limits< M >::min(); }
-  static X actInto(const M &m, long long, const X &) { return m; }
+  static constexpr M identity() { return numeric_limits< M >::min(); }
+  static X actInto(const M &m, ll, const X &) { return m; }
 };
 
 struct RangeSumAdd {
-  using M = long long;
+  using M = ll;
   using X = RangeSum::T;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, long long n, const X &x) { return m * n + x; }
+  static X actInto(const M &m, ll n, const X &x) { return m * n + x; }
 };
 
 struct RangeSumSet {
-  using M = long long;
+  using M = ll;
   using X = RangeSum::T;
   static M op(const M &a, const M &) { return a; }
-  static constexpr M identity() { return std::numeric_limits< M >::min(); }
-  static X actInto(const M &m, long long n, const X &) { return m * n; }
+  static constexpr M identity() { return numeric_limits< M >::min(); }
+  static X actInto(const M &m, ll n, const X &) { return m * n; }
 };
 
 // }}}

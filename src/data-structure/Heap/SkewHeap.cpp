@@ -15,7 +15,7 @@ struct SkewHeap {
   SkewHeap(T val = T()) : val(val) {}
 };
 
-template < class T, class Compare = std::less< T > >
+template < class T, class Compare = less< T > >
 SkewHeap< T > *meld(SkewHeap< T > *a, SkewHeap< T > *b,
                     const Compare &comp = Compare()) {
   if(a == nullptr) return b;
@@ -26,7 +26,7 @@ SkewHeap< T > *meld(SkewHeap< T > *a, SkewHeap< T > *b,
   return a;
 }
 
-template < class T, class Compare = std::less< T > >
+template < class T, class Compare = less< T > >
 inline SkewHeap< T > *push(SkewHeap< T > *&a, T const &e,
                            const Compare &comp = Compare()) {
   SkewHeap< T > *b = new SkewHeap< T >(e);
@@ -34,11 +34,11 @@ inline SkewHeap< T > *push(SkewHeap< T > *&a, T const &e,
   return b;
 }
 
-template < class T, class Compare = std::less< T > >
+template < class T, class Compare = less< T > >
 inline void pop(SkewHeap< T > *&a, const Compare &comp = Compare()) {
   a = meld(a->l, a->r, comp);
 }
-template < class T, class Compare = std::less< T > >
+template < class T, class Compare = less< T > >
 SkewHeap< T > *second(SkewHeap< T > *a, Compare comp = Compare()) {
   return a->r == nullptr ? a->l : comp(a->l->val, a->r->val) ? a->l : a->r;
 }

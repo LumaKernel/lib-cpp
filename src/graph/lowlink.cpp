@@ -24,7 +24,7 @@ struct Lowlink {
   vector< int > used;
   vector< int > isBridge, isArticulation;
   Lowlink(int n) : n(n), g(n), ord(n), low(n) {}
-  Lowlink(UnWeightedGraph ig) : n(ig.size()), g(n), ord(n), low(n) {
+  Lowlink(vector< vector< int > > ig) : n(ig.size()), g(n), ord(n), low(n) {
     for(int from = 0; from < n; from++)
       for(int to : ig[from])
         if(from < to) addEdge(from, to);

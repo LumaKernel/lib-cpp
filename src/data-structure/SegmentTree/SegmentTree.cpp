@@ -22,7 +22,7 @@ struct SegTree {
 private:
   using T = typename Monoid::T;
   int n;
-  std::vector< T > data;
+  vector< T > data;
   // call after touch data[i]
   void prop(int i) { data[i] = Monoid::op(data[2 * i], data[2 * i + 1]); }
 
@@ -30,10 +30,9 @@ public:
   SegTree() : n(0) {}
   SegTree(int n) : n(n) { data.resize(n * 2, Monoid::identity()); }
   template < class InputIter,
-             class = typename std::iterator_traits< InputIter >::value_type >
-  SegTree(InputIter first, InputIter last)
-      : SegTree(std::distance(first, last)) {
-    copy(first, last, std::begin(data) + n);
+             class = typename iterator_traits< InputIter >::value_type >
+  SegTree(InputIter first, InputIter last) : SegTree(distance(first, last)) {
+    copy(first, last, begin(data) + n);
     // fill from deep
     for(int i = n - 1; i > 0; i--) prop(i);
   }
@@ -52,17 +51,17 @@ public:
   }
   inline void dum(int r = -1) {
 #ifdef DEBUG
-    std::ostream& o =
+    ostream& o =
 #ifdef USE_COUT
-        std::cout
+        cout
 #else
-        std::cerr
+        cerr
 #endif
         ;
     if(r < 0) r = n;
     o << "{";
-    for(int i = 0; i < std::min(r, n); i++) o << (i ? ", " : "") << get(i);
-    o << "}" << std::endl;
+    for(int i = 0; i < min(r, n); i++) o << (i ? ", " : "") << get(i);
+    o << "}" << endl;
 #endif
   }
 };
@@ -71,22 +70,22 @@ public:
 
 // Monoid examples {{{
 
-constexpr long long inf = std::numeric_limits< long long >::max();
+constexpr ll inf = numeric_limits< ll >::max();
 // using P = pair<ll, ll>
 
 struct MonoidMin {
-  using T = long long;
-  static T op(const T& a, const T& b) { return std::min(a, b); }
+  using T = ll;
+  static T op(const T& a, const T& b) { return min(a, b); }
   static constexpr T identity() { return inf; }
 };
 struct MonoidSum {
-  using T = long long;
+  using T = ll;
   static T op(const T& a, const T& b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
 struct MonoidMax {
-  using T = long long;
-  static T op(const T& a, const T& b) { return std::max(a, b); }
+  using T = ll;
+  static T op(const T& a, const T& b) { return max(a, b); }
   static constexpr T identity() { return -inf; }
 };
 

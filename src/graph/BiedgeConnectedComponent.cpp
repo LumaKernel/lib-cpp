@@ -21,7 +21,7 @@ struct Biedge {
   vector< vector< int > > tree;
 
   Biedge(Lowlink lowlink) : lowlink(lowlink) { decomposite(); }
-  Biedge(UnWeightedGraph g) : lowlink(g) {
+  Biedge(vector< vector< int > > g) : lowlink(g) {
     lowlink.build();
     decomposite();
   }

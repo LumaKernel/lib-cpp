@@ -5,7 +5,6 @@ using ll = long long;
 
 // @@
 // @name manacher
-// @title Manacher
 // @snippet     manacher
 // [i] = max radius as a palindrome when [i] is center
 // NOTE : 偶数長ほしいなら'$'とか挿入してね

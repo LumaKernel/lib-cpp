@@ -4,7 +4,7 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @name geometory
+// @ Geometory Library
 // @snippet     geometory
 // @alias       geo
 using Scalar = long double;
@@ -105,7 +105,7 @@ Point intersection(Line a, Line b) {
                        cross(a.first - a.second, b.second - b.first);
 }
 
-/// ---}}} ///
+/// }}}--- ///
 
 // @new
 // @snippet     circle

@@ -9,14 +9,14 @@ using ll = long long;
 // @snippet     radixheap
 /// --- RadixHeap Library {{{ ///
 
-template < class T = long long, class U = uint64_t >
+template < class T = ll, class U = uint64_t >
 struct RadixHeap {
 private:
-  std::vector< pair< U, T > > v[sizeof(U) * 8 + 1];
-  std::size_t sz = 0;
+  vector< pair< U, T > > v[sizeof(U) * 8 + 1];
+  size_t sz = 0;
   U last = 0;
-  std::size_t logbinll(U x) {
-    std::size_t h = 0;
+  size_t logbinll(U x) {
+    size_t h = 0;
     x = x & 0xFFFFFFFF00000000 ? (h += 32, x) & 0xFFFFFFFF00000000 : x;
     x = x & 0xFFFF0000FFFF0000 ? (h += 16, x) & 0xFFFF0000FFFF0000 : x;
     x = x & 0xFF00FF00FF00FF00 ? (h += 8, x) & 0xFF00FF00FF00FF00 : x;
@@ -35,7 +35,7 @@ public:
   pair< U, T > pop() {
     assert(sz);
     if(!v[0].size()) {
-      std::size_t i = 1;
+      size_t i = 1;
       while(!v[i].size()) i++;
       last = min_element(begin(v[i]), end(v[i]))->first;
       for(const pair< U, T >& e : v[i])
@@ -47,7 +47,7 @@ public:
     v[0].pop_back();
     return res;
   }
-  std::size_t size() { return sz; }
+  size_t size() { return sz; }
 };
 
 /// }}}--- ///

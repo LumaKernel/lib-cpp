@@ -6,7 +6,6 @@ using ll = long long;
 // @@
 // @snippet     bigint
 // @name bigint
-// @title BigInt
 // thanks to https://gist.github.com/ar-pa/957297fb3f88996ead11
 /// {{{
 /*
@@ -50,7 +49,7 @@ struct bigint {
   /*</arpa>*/
   bigint() : sign(1) {}
 
-  bigint(long long v) { *this = v; }
+  bigint(ll v) { *this = v; }
 
   bigint(const string &s) { read(s); }
 
@@ -59,7 +58,7 @@ struct bigint {
     a = v.a;
   }
 
-  void operator=(long long v) {
+  void operator=(ll v) {
     sign = 1;
     a.clear();
     if(v < 0) sign = -1, v = -v;
@@ -103,7 +102,7 @@ struct bigint {
     if(v < 0) sign = -sign, v = -v;
     for(int i = 0, carry = 0; i < (int) a.size() || carry; ++i) {
       if(i == (int) a.size()) a.push_back(0);
-      long long cur = a[i] * (long long) v + carry;
+      ll cur = a[i] * (ll) v + carry;
       carry = (int) (cur / base);
       a[i] = (int) (cur % base);
       // asm("divl %%ecx" : "=a"(carry), "=d"(a[i]) : "A"(cur), "c"(base));
@@ -117,11 +116,11 @@ struct bigint {
     return res;
   }
 
-  void operator*=(long long v) {
+  void operator*=(ll v) {
     if(v < 0) sign = -sign, v = -v;
     for(int i = 0, carry = 0; i < (int) a.size() || carry; ++i) {
       if(i == (int) a.size()) a.push_back(0);
-      long long cur = a[i] * (long long) v + carry;
+      ll cur = a[i] * (ll) v + carry;
       carry = (int) (cur / base);
       a[i] = (int) (cur % base);
       // asm("divl %%ecx" : "=a"(carry), "=d"(a[i]) : "A"(cur), "c"(base));
@@ -129,7 +128,7 @@ struct bigint {
     trim();
   }
 
-  bigint operator*(long long v) const {
+  bigint operator*(ll v) const {
     bigint res = *this;
     res *= v;
     return res;
@@ -147,7 +146,7 @@ struct bigint {
       r += a.a[i];
       int s1 = r.a.size() <= b.a.size() ? 0 : r.a[b.a.size()];
       int s2 = r.a.size() <= b.a.size() - 1 ? 0 : r.a[b.a.size() - 1];
-      int d = ((long long) base * s1 + s2) / b.a.back();
+      int d = ((ll) base * s1 + s2) / b.a.back();
       r -= b * d;
       while(r < 0) r += b, --d;
       q.a[i] = d;
@@ -167,7 +166,7 @@ struct bigint {
   void operator/=(int v) {
     if(v < 0) sign = -sign, v = -v;
     for(int i = (int) a.size() - 1, rem = 0; i >= 0; --i) {
-      long long cur = a[i] + rem * (long long) base;
+      ll cur = a[i] + rem * (ll) base;
       a[i] = (int) (cur / v);
       rem = (int) (cur % v);
     }
@@ -183,8 +182,7 @@ struct bigint {
   int operator%(int v) const {
     if(v < 0) v = -v;
     int m = 0;
-    for(int i = a.size() - 1; i >= 0; --i)
-      m = (a[i] + m * (long long) base) % v;
+    for(int i = a.size() - 1; i >= 0; --i) m = (a[i] + m * (ll) base) % v;
     return m * sign;
   }
 
@@ -228,8 +226,8 @@ struct bigint {
     return res;
   }
 
-  long long longValue() const {
-    long long res = 0;
+  ll longValue() const {
+    ll res = 0;
     for(int i = a.size() - 1; i >= 0; i--) res = res * base + a[i];
     return res * sign;
   }
@@ -275,11 +273,11 @@ struct bigint {
 
   static vector< int > convert_base(const vector< int > &a, int old_digits,
                                     int new_digits) {
-    vector< long long > p(max(old_digits, new_digits) + 1);
+    vector< ll > p(max(old_digits, new_digits) + 1);
     p[0] = 1;
     for(int i = 1; i < (int) p.size(); i++) p[i] = p[i - 1] * 10;
     vector< int > res;
-    long long cur = 0;
+    ll cur = 0;
     int cur_digits = 0;
     for(int i = 0; i < (int) a.size(); i++) {
       cur += a[i] * p[cur_digits];
@@ -295,7 +293,7 @@ struct bigint {
     return res;
   }
 
-  typedef vector< long long > vll;
+  typedef vector< ll > vll;
 
   static vll karatsubaMultiply(const vll &a, const vll &b) {
     int n = a.size();
@@ -340,7 +338,7 @@ struct bigint {
     bigint res;
     res.sign = sign * v.sign;
     for(int i = 0, carry = 0; i < (int) c.size(); i++) {
-      long long cur = c[i] + carry;
+      ll cur = c[i] + carry;
       res.a.push_back((int) (cur % 1000000));
       carry = (int) (cur / 1000000);
     }

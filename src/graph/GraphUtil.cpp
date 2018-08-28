@@ -7,9 +7,9 @@ using ll = long long;
 // @snippet     treediameter
 // @alias       diameteroftree chokkei
 // @name Tree Diametor
-/// Tree Diametor {{{ ///
+/// Tree Diametor {{{
 
-int treeDiameter(UnWeightedGraph tree) {
+int treeDiameter(vector< vector< int > > tree) {
   int far = 0, dep = -1;
   function< void(int, int, int) > dfs = [&](int i, int p, int d) {
     if(dep < d) far = i, dep = d;
@@ -22,7 +22,7 @@ int treeDiameter(UnWeightedGraph tree) {
   return dep;
 }
 
-/// ---}}} ///
+// }}}
 
 // @new
 // @snippet     dijkstragraph

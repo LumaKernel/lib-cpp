@@ -8,3 +8,5 @@ order:
   - moebius
   - FFT
   - Montgomery
+  - Monoid
+  - LagrangianRelaxation

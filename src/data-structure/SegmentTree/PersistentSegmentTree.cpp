@@ -33,7 +33,7 @@ public:
     while(n < t) n <<= 1;
   }
   template < class InputIter,
-             class = typename std::iterator_traits< InputIter >::value_type >
+             class = typename iterator_traits< InputIter >::value_type >
   PersistentSegTree(InputIter first, InputIter last)
       : PersistentSegTree(distance(first, last)) {
     assign(first, last);
@@ -46,7 +46,7 @@ public:
     return k;
   }
   template < class InputIter,
-             class = typename std::iterator_traits< InputIter >::value_type >
+             class = typename iterator_traits< InputIter >::value_type >
   void assign(InputIter first, InputIter last) {
     assert(n >= distance(first, last));
     data.resize(n * 2 - 1, Monoid::identity());
@@ -112,18 +112,18 @@ private:
 // persistent-seg examples {{{
 
 struct RMQMonoid {
-  using T = long long;
-  static T op(const T& a, const T& b) { return std::min(a, b); }
+  using T = ll;
+  static T op(const T& a, const T& b) { return min(a, b); }
   static constexpr T identity() { return numeric_limits< T >::max(); }
 };
 struct RSQMonoid {
-  using T = long long;
+  using T = ll;
   static T op(const T& a, const T& b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
 struct RMaxQMonoid {
-  using T = long long;
-  static T op(const T& a, const T& b) { return std::max(a, b); }
+  using T = ll;
+  static T op(const T& a, const T& b) { return max(a, b); }
   static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 

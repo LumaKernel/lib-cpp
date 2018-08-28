@@ -23,7 +23,7 @@ vector< vector< T > > mult(vector< vector< T > > a, vector< vector< T > > b) {
 }
 
 template < class T >
-vector< vector< T > > pow(vector< vector< T > > a, long long k) {
+vector< vector< T > > pow(vector< vector< T > > a, ll k) {
   vector< vector< T > > r(a.size(), vector< T >(a.size(), 0));
   for(size_t i = 0; i < a.size(); i++) r[i][i] = T(1);
   while(k) {
@@ -36,5 +36,5 @@ vector< vector< T > > pow(vector< vector< T > > a, long long k) {
 
 /// }}}--- ///
 
-using Vec = vector< long long >;
+using Vec = vector< ll >;
 using Mat = vector< Vec >;

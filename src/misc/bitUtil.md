@@ -1,10 +1,12 @@
 ---
 title: ビット操作ユーティリティ
+id: bit-utility
 ---
-コレクションライブラリ
+コレクションライブラリ  
 わりとつかってる
 
-reference : https://www.slideshare.net/KMC_JP/slide-www
+命名は適当
+
 // @ topbit
 
 // @ topbitll
@@ -20,3 +22,8 @@ reference : https://www.slideshare.net/KMC_JP/slide-www
 // @ bitreverse
 
 // @ bitreversell
+
+# 参考
+
+* [https://www.slideshare.net/KMC_JP/slide-www](https://www.slideshare.net/KMC_JP/slide-www){:target="_blank"}
+

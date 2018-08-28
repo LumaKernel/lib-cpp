@@ -66,8 +66,8 @@ private:
 // examples {{{
 
 struct RMQMonoid {
-  using T = long long;
-  static T op(const T &a, const T &b) { return std::min(a, b); }
+  using T = ll;
+  static T op(const T &a, const T &b) { return min(a, b); }
   static constexpr T identity() { return numeric_limits< T >::max(); }
 };
 struct RSQMonoid {
@@ -76,8 +76,8 @@ struct RSQMonoid {
   static T identity() { return T(); }
 };
 struct RMaxQMonoid {
-  using T = long long;
-  static T op(const T &a, const T &b) { return std::max(a, b); }
+  using T = ll;
+  static T op(const T &a, const T &b) { return max(a, b); }
   static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 

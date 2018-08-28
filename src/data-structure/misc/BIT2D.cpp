@@ -10,7 +10,7 @@ using ll = long long;
 // NOTE : query in range and x1 <= x2, y is same
 /// --- 2D BIT Library {{{ ///
 
-template < class T = long long, class V = function< T(T, T) > >
+template < class T = ll, class V = function< T(T, T) > >
 struct BIT2D {
   int h, w;
   T identity;

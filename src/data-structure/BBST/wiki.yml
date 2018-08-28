@@ -1,0 +1,5 @@
+type: dir
+title: 平衡二部探索木(Balanced Binary Search Tree; BBST)
+order:
+  - RBST
+  - Treap

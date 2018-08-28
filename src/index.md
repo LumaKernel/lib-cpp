@@ -11,5 +11,5 @@ last_update : ###last_update###
 
 # リンク集
 
-* [ei1333's page (うしさんのすごいやつ)](https://ei1333.github.io)
+* [ei1333's page (うしさんのすごいやつ)](https://ei1333.github.io){:target="_blank"}
   * アルゴリズムのリンク集が便利だよ

@@ -7,16 +7,15 @@ using ll = long long;
 // @name Hu-Tucker Algorithm Library
 // @snippet     hutucker
 // @alias       bst
-// @title Hu-Tuckerのアルゴリズム
 
 // calculate value of optimal alphabetic binary search tree
 // if you want to construct? you can do it!
 /// --- Hu-Tucker Algorithm Library {{{ ///
-template < class Heap, class T = long long >
+template < class Heap, class T = ll >
 T HuTucker(const vector< T > &w) {
   using P = pair< T, int >; // value, index
   int n = w.size();
-  function< T(Heap * &a) > calc = [](Heap *&a) { ////
+  function< T(Heap * &a) > calc = [](Heap *&a) { : target = "_blank" } { ////
     return a->val.first + second(a)->val.first;
   };
   vector< int > rig(n), lef(n);
@@ -92,4 +91,4 @@ T HuTucker(const vector< T > &w) {
 /// }}}--- ///
 
 // usage :
-// HuTucker< SkewHeap< pair<long long, int> > >(w)
+// HuTucker< SkewHeap< pair<ll, int> > >(w)

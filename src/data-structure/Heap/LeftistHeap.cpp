@@ -16,7 +16,7 @@ struct LeftistHeap {
   LeftistHeap(T val = T()) : val(val) {}
 };
 
-template < class T, class Compare = std::less< T > >
+template < class T, class Compare = less< T > >
 LeftistHeap< T > *meld(LeftistHeap< T > *a, LeftistHeap< T > *b,
                        const Compare &comp = Compare()) {
   if(a == nullptr) return b;
@@ -28,7 +28,7 @@ LeftistHeap< T > *meld(LeftistHeap< T > *a, LeftistHeap< T > *b,
   return a;
 }
 
-template < class T, class Compare = std::less< T > >
+template < class T, class Compare = less< T > >
 inline LeftistHeap< T > *push(LeftistHeap< T > *&a, T const &e,
                               const Compare &comp = Compare()) {
   LeftistHeap< T > *b = new LeftistHeap< T >(e);
@@ -36,11 +36,11 @@ inline LeftistHeap< T > *push(LeftistHeap< T > *&a, T const &e,
   return b;
 }
 
-template < class T, class Compare = std::less< T > >
+template < class T, class Compare = less< T > >
 inline void pop(LeftistHeap< T > *&a, const Compare &comp = Compare()) {
   a = meld(a->l, a->r, comp);
 }
-template < class T, class Compare = std::less< T > >
+template < class T, class Compare = less< T > >
 LeftistHeap< T > *second(LeftistHeap< T > *a, const Compare &comp = Compare()) {
   return a->r == nullptr ? a->l : comp(a->l->val, a->r->val) ? a->l : a->r;
 }

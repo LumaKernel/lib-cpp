@@ -8,3 +8,6 @@ order:
   - BiconnectedComponent
   - BiedgeConnectedComponent
   - GraphUtil
+  - isSameTree
+  - MST
+  - flow

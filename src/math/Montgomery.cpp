@@ -13,9 +13,9 @@ using ll = long long;
 template < int mod = (int) 1e9 + 7 >
 struct Montgomery {
   int modlen = 64 - __builtin_clzll(mod);
-  long long r2 = (1ll << (modlen * 2)) % mod;
-  long long mask = (1 << modlen) - 1;
-  long long nr;
+  ll r2 = (1ll << (modlen * 2)) % mod;
+  ll mask = (1 << modlen) - 1;
+  ll nr;
   Montgomery() {
     nr = 0;
     int t = 0;
@@ -29,8 +29,8 @@ struct Montgomery {
       vi <<= 1;
     }
   }
-  long long reduction(long long t) {
-    long long c = t * nr;
+  ll reduction(ll t) {
+    ll c = t * nr;
     c &= mask;
     c *= mod;
     c += t;
@@ -39,12 +39,10 @@ struct Montgomery {
     return c;
   }
   // maybe, a * b must not be overflow
-  inline long long mul(long long a, long long b) {
-    return reduction(reduction(a * b) * r2);
-  }
-  long long pow(long long a, long long b) {
-    long long p = reduction(a * r2);
-    long long x = reduction(r2);
+  inline ll mul(ll a, ll b) { return reduction(reduction(a * b) * r2); }
+  ll pow(ll a, ll b) {
+    ll p = reduction(a * r2);
+    ll x = reduction(r2);
     while(b) {
       if(b & 1) x = reduction(x * p);
       p = reduction(p * p);

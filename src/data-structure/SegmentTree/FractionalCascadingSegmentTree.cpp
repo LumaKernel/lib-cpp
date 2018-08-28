@@ -13,7 +13,7 @@ using ll = long long;
 // オンラインならDrivableSegTreeにBITとか乗せるしかない?
 /// --- Fractional Cascading SegmentTree Library {{{ ///
 
-template < class T, class U, class Index = long long >
+template < class T, class U, class Index = ll >
 struct FractionalCascadingSegTree {
   int n;
   vector< T > dat;

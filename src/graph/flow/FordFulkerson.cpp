@@ -6,7 +6,7 @@ using ll = long long;
 // @@
 // @snippet     maxflow
 // @alias       ford
-// @name Max Flow with FordFulkerson Library {{{ ///
+// @name Max Flow with FordFulkerson Library
 /// --- Max Flow with FordFulkerson Library {{{ ///
 
 // Ford-Fulkerson
@@ -62,7 +62,7 @@ private:
   }
 };
 
-/// ---}}} ///
+/// }}}--- ///
 
 // const int N = 2e6;
 // Ford flow(N, 1e18);

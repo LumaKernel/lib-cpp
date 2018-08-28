@@ -11,7 +11,7 @@ using ll = long long;
 // NOTE : access i < n only
 /// --- BIT Library {{{ ///
 
-template < class T = long long >
+template < class T = ll >
 struct BIT {
   vector< T > data;
   size_t n;

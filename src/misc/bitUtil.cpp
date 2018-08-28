@@ -18,7 +18,7 @@ int topbit(int x) {
 
 // @new topbitll
 // @snippet     topbitll
-int topbitll(long long x) {
+int topbitll(ll x) {
   x = x & 0xFFFFFFFF00000000 ? x & 0xFFFFFFFF00000000 : x;
   x = x & 0xFFFF0000FFFF0000 ? x & 0xFFFF0000FFFF0000 : x;
   x = x & 0xFF00FF00FF00FF00 ? x & 0xFF00FF00FF00FF00 : x;
@@ -42,7 +42,7 @@ int logbin(int x) {
 
 // @new logbinll
 // @snippet     logbinll
-int logbinll(long long x) {
+int logbinll(ll x) {
   int h = 0;
   x = x & 0xFFFFFFFF00000000 ? (h += 32, x) & 0xFFFFFFFF00000000 : x;
   x = x & 0xFFFF0000FFFF0000 ? (h += 16, x) & 0xFFFF0000FFFF0000 : x;
@@ -66,7 +66,7 @@ int popcount(int x) {
 
 // @new popcountll
 // @snippet     popcountll
-int popcountll(long long x) {
+int popcountll(ll x) {
   x = (x & 0x5555555555555555) + ((x & 0xAAAAAAAAAAAAAAAA) >> 1);
   x = (x & 0x3333333333333333) + ((x & 0xCCCCCCCCCCCCCCCC) >> 2);
   x = (x & 0x0F0F0F0F0F0F0F0F) + ((x & 0xF0F0F0F0F0F0F0F0) >> 4);
@@ -89,7 +89,7 @@ int bitreverse(int x) {
 
 // @new bitreversell
 // @snippet     bitreversell
-int bitreversell(long long x) {
+int bitreversell(ll x) {
   x = ((x & 0x5555555555555555) << 1) | ((x & 0xAAAAAAAAAAAAAAAA) >> 1);
   x = ((x & 0x3333333333333333) << 2) | ((x & 0xCCCCCCCCCCCCCCCC) >> 2);
   x = ((x & 0x0F0F0F0F0F0F0F0F) << 4) | ((x & 0xF0F0F0F0F0F0F0F0) >> 4);

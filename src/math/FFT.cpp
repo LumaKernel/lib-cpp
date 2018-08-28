@@ -25,7 +25,7 @@ VC dft(VC a, bool inverse = false) {
   C zeta = C(cos(2 * PI / n), sin(2 * PI / n));
   if(inverse) zeta = C(1, 0) / zeta;
   C powZeta = C(1, 0);
-  REP(_i, n) {
+  for(int _i = 0; _i < n; _i++) {
     int i = _i;
     if(inverse) i = (n - i) % n;
     // powZeta = pow(zeta, i)

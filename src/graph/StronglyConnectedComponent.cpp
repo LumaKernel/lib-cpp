@@ -18,7 +18,7 @@ struct SCC {
   vector< int > used;
   vector< int > comp;
   SCC(int n) : n(n), g(n), rev(n) {}
-  SCC(UnWeightedGraph ig) : n(ig.size()), g(n), rev(n) {
+  SCC(vector< vector< int > > ig) : n(ig.size()), g(n), rev(n) {
     for(int from = 0; from < n; from++)
       for(int to : ig[from]) addEdge(from, to);
   }
@@ -64,4 +64,4 @@ private:
   }
 };
 
-/// ---}}} ///
+/// }}}--- ///

@@ -37,4 +37,4 @@ Vec gaussJordan(Mat mat, Vec v, double eps = 1e-9) {
   for(int i = 0; i < n; i++) v[i] = mat[i][n];
   return v;
 }
-/// }}} --- ///
+/// }}}--- ///

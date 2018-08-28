@@ -176,25 +176,25 @@ struct Nothing {
   static constexpr T op(const T &, const T &) { return 0; }
   static constexpr T identity() { return 0; }
   template < class X >
-  static constexpr X actInto(const M &, long long, const X &x) {
+  static constexpr X actInto(const M &, ll, const X &x) {
     return x;
   }
 };
 
 struct RangeMin {
-  using T = long long;
-  static T op(const T &a, const T &b) { return std::min(a, b); }
-  static constexpr T identity() { return std::numeric_limits< T >::max(); }
+  using T = ll;
+  static T op(const T &a, const T &b) { return min(a, b); }
+  static constexpr T identity() { return numeric_limits< T >::max(); }
 };
 
 struct RangeMax {
-  using T = long long;
-  static T op(const T &a, const T &b) { return std::max(a, b); }
-  static constexpr T identity() { return std::numeric_limits< T >::min(); }
+  using T = ll;
+  static T op(const T &a, const T &b) { return max(a, b); }
+  static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 
 struct RangeSum {
-  using T = long long;
+  using T = ll;
   static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
@@ -205,35 +205,35 @@ struct RangeSum {
 // SumSet m * n
 
 struct RangeMinAdd {
-  using M = long long;
+  using M = ll;
   using X = RangeMin::T;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, long long, const X &x) { return m + x; }
+  static X actInto(const M &m, ll, const X &x) { return m + x; }
 };
 
 struct RangeMinSet {
-  using M = long long;
+  using M = ll;
   using X = RangeMin::T;
   static M op(const M &a, const M &) { return a; }
-  static constexpr M identity() { return std::numeric_limits< M >::min(); }
-  static X actInto(const M &m, long long, const X &) { return m; }
+  static constexpr M identity() { return numeric_limits< M >::min(); }
+  static X actInto(const M &m, ll, const X &) { return m; }
 };
 
 struct RangeSumAdd {
-  using M = long long;
+  using M = ll;
   using X = RangeSum::T;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, long long n, const X &x) { return m * n + x; }
+  static X actInto(const M &m, ll n, const X &x) { return m * n + x; }
 };
 
 struct RangeSumSet {
-  using M = long long;
+  using M = ll;
   using X = RangeSum::T;
   static M op(const M &a, const M &) { return a; }
-  static constexpr M identity() { return std::numeric_limits< M >::min(); }
-  static X actInto(const M &m, long long n, const X &) { return m * n; }
+  static constexpr M identity() { return numeric_limits< M >::min(); }
+  static X actInto(const M &m, ll n, const X &) { return m * n; }
 };
 
 // }}}

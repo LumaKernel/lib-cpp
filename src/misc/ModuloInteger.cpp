@@ -9,13 +9,13 @@ using ll = long long;
 // @snippet     modint
 // require math library
 /// --- ModInt Library {{{ ///
-template < long long mod = (long long) 1e9 + 7 >
+template < ll mod = (ll) 1e9 + 7 >
 struct ModInt {
-  long long val;
+  ll val;
   ModInt() : val(0) {}
-  ModInt(long long val) : val((val % mod + mod) % mod) {}
+  ModInt(ll val) : val((val % mod + mod) % mod) {}
   operator int() const { return val; }
-  operator long long() const { return val; }
+  operator ll() const { return val; }
   ModInt operator+(ModInt const &rhs) const { return ModInt(val + rhs.val); }
   ModInt operator-(ModInt const &rhs) const { return ModInt(val - rhs.val); }
   ModInt operator*(ModInt const &rhs) const { return ModInt(val * rhs.val); }
@@ -99,19 +99,19 @@ struct ModInt {
     os << mv.val;
     return os;
   }
-  friend constexpr ModInt operator+(long long a, ModInt const &mv) {
+  friend constexpr ModInt operator+(ll a, ModInt const &mv) {
     return ModInt(a % mod + mv.val);
   }
-  friend constexpr ModInt operator-(long long a, ModInt const &mv) {
+  friend constexpr ModInt operator-(ll a, ModInt const &mv) {
     return ModInt(a % mod - mv.val);
   }
-  friend constexpr ModInt operator*(long long a, ModInt const &mv) {
+  friend constexpr ModInt operator*(ll a, ModInt const &mv) {
     return ModInt(a % mod * mv.val);
   }
-  friend constexpr ModInt operator/(long long a, ModInt const &mv) {
+  friend constexpr ModInt operator/(ll a, ModInt const &mv) {
     return ModInt(a % mod * mv.inv().val);
   }
 };
-/// }}}-- ///
+/// }}}--- ///
 
 using Int = ModInt<>;

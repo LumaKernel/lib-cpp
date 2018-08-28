@@ -86,7 +86,7 @@ vector< int > phi2(int n) {
   }
   return euler;
 }
-/// }}}-- ///
+/// }}}--- ///
 
 // @new
 // @name primes
