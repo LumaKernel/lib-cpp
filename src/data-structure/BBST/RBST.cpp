@@ -22,14 +22,14 @@ private:
   int sz = 1;
   // call after touch its child
   // a is not nullptr and is evaled, its child is proped
-  friend RBSTSeq* prop(RBSTSeq* a) {
+  friend RBSTSeq *prop(RBSTSeq *a) {
     a->sz = size(a->l) + 1 + size(a->r);
     a->accum =
         Monoid::op(Monoid::op(Accumulated(a->l), a->val), Accumulated(a->r));
     return a;
   }
   // call before use val, accum
-  friend void eval(RBSTSeq* a) {
+  friend void eval(RBSTSeq *a) {
     if(a->lazy != M_act::identity()) {
       a->val = M_act::actInto(a->lazy, 1, a->val);
       a->accum = M_act::actInto(a->lazy, a->sz, a->accum);
@@ -44,7 +44,7 @@ private:
       a->rev = false;
     }
   }
-  friend X Accumulated(RBSTSeq* a) {
+  friend X Accumulated(RBSTSeq *a) {
     return a == nullptr ? Monoid::identity() : (eval(a), a->accum);
   }
   /// --- XorShift128 {{{ ///
@@ -61,9 +61,8 @@ private:
   /// }}}--- ///
 public:
   RBSTSeq(X val = Monoid::identity()) : val(val) {}
-  friend RBSTSeq* merge(RBSTSeq* a, RBSTSeq* b) {
-    static random_device rnd;
-    static XorShift128 xs(rnd());
+  friend RBSTSeq *merge(RBSTSeq *a, RBSTSeq *b) {
+    static XorShift128 xs(__LINE__ * 3 + 5);
     if(a == nullptr) return b;
     if(b == nullptr) return a;
     eval(a);
@@ -76,11 +75,11 @@ public:
       return prop(b);
     }
   }
-  friend int size(RBSTSeq* a) { return a == nullptr ? 0 : a->sz; }
-  using PNN = pair< RBSTSeq*, RBSTSeq* >;
+  friend int size(RBSTSeq *a) { return a == nullptr ? 0 : a->sz; }
+  using PNN = pair< RBSTSeq *, RBSTSeq * >;
   // [0, k), [k, n)
   // 左のグループにk個いれる
-  friend PNN split(RBSTSeq* a, int k) {
+  friend PNN split(RBSTSeq *a, int k) {
     if(a == nullptr) return PNN(nullptr, nullptr);
     eval(a);
     RBSTSeq *sl, *sr;
@@ -94,32 +93,32 @@ public:
       return PNN(prop(a), sr);
     }
   }
-  friend void insert(RBSTSeq*& a, int k, const X& x) {
+  friend void insert(RBSTSeq *&a, int k, const X &x) {
     RBSTSeq *sl, *sr;
     tie(sl, sr) = split(a, k);
     a = merge(sl, merge(new RBSTSeq(x), sr));
   }
-  friend X erase(RBSTSeq*& a, int k) {
+  friend X erase(RBSTSeq *&a, int k) {
     RBSTSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, k + 1);
     tie(tl, tr) = split(sl, k);
     a = merge(tl, sr);
     return tr->val;
   }
-  friend void erase(RBSTSeq*& a, int l, int r) {
+  friend void erase(RBSTSeq *&a, int l, int r) {
     RBSTSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);
     a = merge(tl, sr);
   }
-  friend void set1(RBSTSeq*& a, int k, X const& x) {
+  friend void set1(RBSTSeq *&a, int k, X const &x) {
     RBSTSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, k + 1);
     tie(tl, tr) = split(sl, k);
     if(tr != nullptr) tr->val = tr->accum = x;
     a = merge(merge(tl, tr), sr);
   }
-  friend X get(RBSTSeq*& a, int k) {
+  friend X get(RBSTSeq *&a, int k) {
     RBSTSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, k + 1);
     tie(tl, tr) = split(sl, k);
@@ -127,14 +126,14 @@ public:
     a = merge(merge(tl, tr), sr);
     return res;
   }
-  friend void act(RBSTSeq*& a, int l, int r, M const& m) {
+  friend void act(RBSTSeq *&a, int l, int r, M const &m) {
     RBSTSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);
     if(tr != nullptr) tr->lazy = M_act::op(m, tr->lazy);
     a = merge(merge(tl, tr), sr);
   }
-  friend X query(RBSTSeq*& a, int l, int r) {
+  friend X query(RBSTSeq *&a, int l, int r) {
     RBSTSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);
@@ -142,7 +141,7 @@ public:
     a = merge(merge(tl, tr), sr);
     return res;
   }
-  friend void reverse(RBSTSeq*& a, int l, int r) {
+  friend void reverse(RBSTSeq *&a, int l, int r) {
     RBSTSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);
@@ -153,25 +152,40 @@ public:
 
 /// }}}--- ///
 
-// Monoid, M_act expamles {{{
+/// --- Monoid, M_act examples {{{ ///
+
+/// --- Monoid examples {{{ ///
+
+struct Nothing {
+  using T = char;
+  using M = char;
+  static constexpr T op(const T &, const T &) { return 0; }
+  static constexpr T identity() { return 0; }
+  template < class X >
+  static constexpr X actInto(const M &, ll, const X &x) {
+    return x;
+  }
+};
 
 struct RangeMin {
   using T = ll;
-  static T op(const T& a, const T& b) { return min(a, b); }
+  static T op(const T &a, const T &b) { return min(a, b); }
   static constexpr T identity() { return numeric_limits< T >::max(); }
 };
 
 struct RangeMax {
   using T = ll;
-  static T op(const T& a, const T& b) { return max(a, b); }
+  static T op(const T &a, const T &b) { return max(a, b); }
   static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 
 struct RangeSum {
   using T = ll;
-  static T op(const T& a, const T& b) { return a + b; }
+  static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
+
+/// }}}--- ///
 
 // MinAdd m + x
 // MinSet m
@@ -181,38 +195,38 @@ struct RangeSum {
 struct RangeMinAdd {
   using M = ll;
   using X = RangeMin::T;
-  static M op(const M& a, const M& b) { return a + b; }
+  static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M& m, ll, const X& x) { return m + x; }
+  static X actInto(const M &m, ll, const X &x) { return m + x; }
 };
 
 struct RangeMinSet {
   using M = ll;
   using X = RangeMin::T;
-  static M op(const M& a, const M&) { return a; }
+  static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return numeric_limits< M >::min(); }
-  static X actInto(const M& m, ll, const X&) { return m; }
+  static X actInto(const M &m, ll, const X &) { return m; }
 };
 
 struct RangeSumAdd {
   using M = ll;
   using X = RangeSum::T;
-  static M op(const M& a, const M& b) { return a + b; }
+  static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M& m, ll n, const X& x) { return m * n + x; }
+  static X actInto(const M &m, ll n, const X &x) { return m * n + x; }
 };
 
 struct RangeSumSet {
   using M = ll;
   using X = RangeSum::T;
-  static M op(const M& a, const M&) { return a; }
+  static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return numeric_limits< M >::min(); }
-  static X actInto(const M& m, ll n, const X&) { return m * n; }
+  static X actInto(const M &m, ll n, const X &) { return m * n; }
 };
 
-// }}}
+/// }}}--- ///
 
-// RBSTSeq<RangeMin, RangeMinAdd>* seq = nullptr;
+RBSTSeq< RangeMin, RangeMinAdd > *seq = nullptr;
 
 // @new
 // @name RBST Multiset Library
@@ -248,8 +262,7 @@ private:
 public:
   RBSTMultiset(Key key) : key(key) {}
   friend RBSTMultiset* merge(RBSTMultiset* a, RBSTMultiset* b) {
-    static random_device rnd;
-    static XorShift128 xs(rnd());
+    static XorShift128 xs(__LINE__ * 3 + 5);
     if(a == nullptr) return b;
     if(b == nullptr) return a;
     if(xs() % (size(a) + size(b)) < (u32) size(a)) {

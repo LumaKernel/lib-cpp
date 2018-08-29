@@ -4,14 +4,14 @@ title: Treap
 
 [iwiさんの最強解説](https://www.slideshare.net/iwiwi/2-12188757){:target="_blank"}
 
+以下はすべてmerge-splitベース
+
 # Sequenceタイプ
 
 まずlazy-segにできることができる．  
 条件付きで範囲の要素をreverseできる．
 
-条件とは，モノイド $(M, \bullet)$ が，  
-$a_l , \codts , a_r \in M$ とおいたとき，
-$a_l \bullet \codts \bullet a_r$ と $l$, $r$ から $a_r \bullet \codts \bullet a_l$ が高速に求められること．
+条件は[モノイド，モノイド作用]({{ "math/Monoid" | absolute_url }})
 
 minやmax, sumなどは恒等写像でいい．  
 この性質を使う問題が出たらわかるだろうということで，  

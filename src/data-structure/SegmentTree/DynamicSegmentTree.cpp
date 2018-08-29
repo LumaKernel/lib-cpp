@@ -63,26 +63,39 @@ private:
 
 /// }}}--- ///
 
-// examples {{{
+/// --- Monoid examples {{{ ///
 
-struct RMQMonoid {
+struct Nothing {
+  using T = char;
+  using M = char;
+  static constexpr T op(const T &, const T &) { return 0; }
+  static constexpr T identity() { return 0; }
+  template < class X >
+  static constexpr X actInto(const M &, ll, const X &x) {
+    return x;
+  }
+};
+
+struct RangeMin {
   using T = ll;
   static T op(const T &a, const T &b) { return min(a, b); }
   static constexpr T identity() { return numeric_limits< T >::max(); }
 };
-struct RSQMonoid {
-  using T = Int;
-  static T op(const T &a, const T &b) { return a + b; }
-  static T identity() { return T(); }
-};
-struct RMaxQMonoid {
+
+struct RangeMax {
   using T = ll;
   static T op(const T &a, const T &b) { return max(a, b); }
   static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 
-// using RMQ = DynamicSegTree<RMQMonoid>;
-using RSQ = DynamicSegTree< RSQMonoid >;
-// using RMaxQ = DynamicSegTree<RMaxQMonoid>;
+struct RangeSum {
+  using T = ll;
+  static T op(const T &a, const T &b) { return a + b; }
+  static constexpr T identity() { return 0; }
+};
 
-// }}}
+/// }}}--- ///
+
+using RMQ = DynamicSegTree< RMQMonoid >;
+using RSQ = DynamicSegTree< RSQMonoid >;
+using RMaxQ = DynamicSegTree< RMaxQMonoid >;

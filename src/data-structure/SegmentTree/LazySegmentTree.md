@@ -1,7 +1,7 @@
 ---
 title: 遅延セグメントツリー
 ---
-reference : https://tomcatowl.github.io/post/ds-and-alg-2/
 
 // @ LazySegmentTree Library
 
+* [データ構造と代数(後編)](https://tomcatowl.github.io/post/ds-and-alg-2/){:target="_blank"}

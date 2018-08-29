@@ -1,7 +1,7 @@
 ---
 title: 普通のセグメントツリー
 ---
-reference : https://tomcatowl.github.io/post/ds-and-alg-1/
 
 // @ SegmentTree Library
 
+* [データ構造と代数(前編)](https://tomcatowl.github.io/post/ds-and-alg-1/){:target="_blank"}

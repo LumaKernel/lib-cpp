@@ -25,14 +25,14 @@ private:
   u32 pri;
   // call after touch its child
   // a is not nullptr and is evaled, its child is proped
-  friend TreapSeq* prop(TreapSeq* a) {
+  friend TreapSeq *prop(TreapSeq *a) {
     a->sz = size(a->l) + 1 + size(a->r);
     a->accum =
         Monoid::op(Monoid::op(Accumulated(a->l), a->val), Accumulated(a->r));
     return a;
   }
   // call before use val, accum
-  friend void eval(TreapSeq* a) {
+  friend void eval(TreapSeq *a) {
     if(a->lazy != M_act::identity()) {
       a->val = M_act::actInto(a->lazy, 1, a->val);
       a->accum = M_act::actInto(a->lazy, a->sz, a->accum);
@@ -47,7 +47,7 @@ private:
       a->rev = false;
     }
   }
-  friend X Accumulated(TreapSeq* a) {
+  friend X Accumulated(TreapSeq *a) {
     return a == nullptr ? Monoid::identity() : (eval(a), a->accum);
   }
   /// --- XorShift128 {{{ ///
@@ -63,15 +63,14 @@ private:
   };
   /// }}}--- ///
   u32 nextPriority() {
-    static random_device rnd;
-    static XorShift128 xs(rnd());
+    static XorShift128 xs(__LINE__ * 3 + 5);
     return xs();
   }
 
 public:
   TreapSeq(X val, u32 pri) : val(val), pri(pri) {}
   TreapSeq(X val = Monoid::identity()) : TreapSeq(val, nextPriority()) {}
-  friend TreapSeq* merge(TreapSeq* a, TreapSeq* b) {
+  friend TreapSeq *merge(TreapSeq *a, TreapSeq *b) {
     if(a == nullptr) return b;
     if(b == nullptr) return a;
     eval(a);
@@ -84,11 +83,11 @@ public:
       return prop(b);
     }
   }
-  friend int size(TreapSeq* a) { return a == nullptr ? 0 : a->sz; }
-  using PNN = pair< TreapSeq*, TreapSeq* >;
+  friend int size(TreapSeq *a) { return a == nullptr ? 0 : a->sz; }
+  using PNN = pair< TreapSeq *, TreapSeq * >;
   // [0, k), [k, n)
   // 左のグループにk個いれる
-  friend PNN split(TreapSeq* a, int k) {
+  friend PNN split(TreapSeq *a, int k) {
     if(a == nullptr) return PNN(nullptr, nullptr);
     eval(a);
     TreapSeq *sl, *sr;
@@ -102,32 +101,32 @@ public:
       return PNN(prop(a), sr);
     }
   }
-  friend void insert(TreapSeq*& a, int k, const X& x) {
+  friend void insert(TreapSeq *&a, int k, const X &x) {
     TreapSeq *sl, *sr;
     tie(sl, sr) = split(a, k);
     a = merge(sl, merge(new TreapSeq(x), sr));
   }
-  friend X erase(TreapSeq*& a, int k) {
+  friend X erase(TreapSeq *&a, int k) {
     TreapSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, k + 1);
     tie(tl, tr) = split(sl, k);
     a = merge(tl, sr);
     return tr->val;
   }
-  friend void erase(TreapSeq*& a, int l, int r) {
+  friend void erase(TreapSeq *&a, int l, int r) {
     TreapSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);
     a = merge(tl, sr);
   }
-  friend void set1(TreapSeq* a, int k, X const& x) {
+  friend void set1(TreapSeq *a, int k, X const &x) {
     TreapSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, k + 1);
     tie(tl, tr) = split(sl, k);
     if(tr != nullptr) tr->val = tr->accum = x;
     merge(merge(tl, tr), sr);
   }
-  friend X get(TreapSeq* a, int k) {
+  friend X get(TreapSeq *a, int k) {
     TreapSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, k + 1);
     tie(tl, tr) = split(sl, k);
@@ -135,14 +134,14 @@ public:
     merge(merge(tl, tr), sr);
     return res;
   }
-  friend void act(TreapSeq* a, int l, int r, M const& m) {
+  friend void act(TreapSeq *a, int l, int r, M const &m) {
     TreapSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);
     if(tr != nullptr) tr->lazy = M_act::op(m, tr->lazy);
     merge(merge(tl, tr), sr);
   }
-  friend X query(TreapSeq* a, int l, int r) {
+  friend X query(TreapSeq *a, int l, int r) {
     TreapSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);
@@ -150,7 +149,7 @@ public:
     merge(merge(tl, tr), sr);
     return res;
   }
-  friend void reverse(TreapSeq* a, int l, int r) {
+  friend void reverse(TreapSeq *a, int l, int r) {
     TreapSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);
@@ -161,25 +160,40 @@ public:
 
 /// }}}--- ///
 
-// Monoid, M_act expamles {{{
+/// --- Monoid, M_act examples {{{ ///
+
+/// --- Monoid examples {{{ ///
+
+struct Nothing {
+  using T = char;
+  using M = char;
+  static constexpr T op(const T &, const T &) { return 0; }
+  static constexpr T identity() { return 0; }
+  template < class X >
+  static constexpr X actInto(const M &, ll, const X &x) {
+    return x;
+  }
+};
 
 struct RangeMin {
   using T = ll;
-  static T op(const T& a, const T& b) { return min(a, b); }
+  static T op(const T &a, const T &b) { return min(a, b); }
   static constexpr T identity() { return numeric_limits< T >::max(); }
 };
 
 struct RangeMax {
   using T = ll;
-  static T op(const T& a, const T& b) { return max(a, b); }
+  static T op(const T &a, const T &b) { return max(a, b); }
   static constexpr T identity() { return numeric_limits< T >::min(); }
 };
 
 struct RangeSum {
   using T = ll;
-  static T op(const T& a, const T& b) { return a + b; }
+  static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
+
+/// }}}--- ///
 
 // MinAdd m + x
 // MinSet m
@@ -189,38 +203,38 @@ struct RangeSum {
 struct RangeMinAdd {
   using M = ll;
   using X = RangeMin::T;
-  static M op(const M& a, const M& b) { return a + b; }
+  static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M& m, ll, const X& x) { return m + x; }
+  static X actInto(const M &m, ll, const X &x) { return m + x; }
 };
 
 struct RangeMinSet {
   using M = ll;
   using X = RangeMin::T;
-  static M op(const M& a, const M&) { return a; }
+  static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return numeric_limits< M >::min(); }
-  static X actInto(const M& m, ll, const X&) { return m; }
+  static X actInto(const M &m, ll, const X &) { return m; }
 };
 
 struct RangeSumAdd {
   using M = ll;
   using X = RangeSum::T;
-  static M op(const M& a, const M& b) { return a + b; }
+  static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M& m, ll n, const X& x) { return m * n + x; }
+  static X actInto(const M &m, ll n, const X &x) { return m * n + x; }
 };
 
 struct RangeSumSet {
   using M = ll;
   using X = RangeSum::T;
-  static M op(const M& a, const M&) { return a; }
+  static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return numeric_limits< M >::min(); }
-  static X actInto(const M& m, ll n, const X&) { return m * n; }
+  static X actInto(const M &m, ll n, const X &) { return m * n; }
 };
 
-// }}}
+/// }}}--- ///
 
-TreapSeq< RangeMin, RangeMinSet >* seq = nullptr;
+TreapSeq< RangeMin, RangeMinSet > *seq = nullptr;
 
 // @new
 // @name Treap Multiset Library
@@ -258,8 +272,7 @@ private:
   };
   /// }}}--- ///
   u32 nextPriority() {
-    static random_device rnd;
-    static XorShift128 xs(rnd());
+    static XorShift128 xs(__LINE__ * 3 + 5);
     return xs();
   }
 

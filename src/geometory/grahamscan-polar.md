@@ -11,7 +11,7 @@ title: 凸法(Graham Scan, Andrew Scan)
 
 なぜかキャリパー法が基本に入っててよくわかりません．（んぇ
 
-蟻本には，座標値の幅が $M$ であるおうな凸多角形の頂点数は $O(\sqrt{M})$ 個しかない，とあるので押さえておいて損はないでしょう．（証明探さなきゃな…
+蟻本には，座標値の幅が $M$ であるおうな凸多角形の頂点数は $O(\sqrt{M})$ 個しかない，とあるので押さえておいて損はないでしょう．（TODO : なにかしらの証明のリンク
 
 あと，Graham ScanとAndrew Scanの違いはというと，角度ソートかx座標ソートかの違いのようです． [Graham scan \| Wikipedia(en)](https://en.wikipedia.org/wiki/Graham_scan){:target="_blank"}
 

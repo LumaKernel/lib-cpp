@@ -5,7 +5,6 @@ using ll = long long;
 
 // @@
 // @name zalgorithm
-// @title Zアルゴリズム
 // @snippet     zalgorithm
 // size of longest common prefix between s and s[i...]
 vector< int > Zalgorithm(string s) {

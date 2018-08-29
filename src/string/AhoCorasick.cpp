@@ -5,7 +5,6 @@ using ll = long long;
 
 // @@
 // @name AhoCorasick Library
-// @title AhoCorasick
 // @snippet     ahocorasick
 // @alias       aho
 // never fail to call build() !!

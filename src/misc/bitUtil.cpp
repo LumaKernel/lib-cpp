@@ -4,7 +4,6 @@ using namespace std;
 using ll = long long;
 
 // @@
-#reference : https: // www.slideshare.net/KMC_JP/slide-www
 // @name topbit
 // @snippet     topbit
 int topbit(int x) {

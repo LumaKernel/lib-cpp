@@ -11,12 +11,6 @@ using ll = long long;
 // NOTE : query in range!
 /// --- PersistentSegmentTree Library {{{ ///
 
-// struct Monoid {
-//   using T = _underlying_set_;
-//   static T op(const T& a, const T& b) { return _a_op_b_; }
-//   static constexpr T identity() { return _identity_element_; }
-// };
-
 template < class Monoid >
 struct PersistentSegTree {
 private:
@@ -38,7 +32,7 @@ public:
       : PersistentSegTree(distance(first, last)) {
     assign(first, last);
   }
-  int set(int i, const T& v, int root = 0) {
+  int set(int i, const T &v, int root = 0) {
     if(root == 0) root = lastRoot;
     int k = make();
     set(i, v, 0, n, k, root);
@@ -63,7 +57,7 @@ public:
     lch.reserve(n * 2 - 1 + qsize * h);
     rch.reserve(n * 2 - 1 + qsize * h);
   }
-  void set(int i, const T& v, int l, int r, int k, int prevK) {
+  void set(int i, const T &v, int l, int r, int k, int prevK) {
     if(r - l == 1) {
       data[k] = v;
       return;
@@ -109,26 +103,39 @@ private:
 
 /// }}}--- ///
 
-// persistent-seg examples {{{
+/// --- Monoid examples {{{ ///
 
-struct RMQMonoid {
+struct Nothing {
+  using T = char;
+  using M = char;
+  static constexpr T op(const T &, const T &) { return 0; }
+  static constexpr T identity() { return 0; }
+  template < class X >
+  static constexpr X actInto(const M &, ll, const X &x) {
+    return x;
+  }
+};
+
+struct RangeMin {
   using T = ll;
-  static T op(const T& a, const T& b) { return min(a, b); }
+  static T op(const T &a, const T &b) { return min(a, b); }
   static constexpr T identity() { return numeric_limits< T >::max(); }
 };
-struct RSQMonoid {
+
+struct RangeMax {
   using T = ll;
-  static T op(const T& a, const T& b) { return a + b; }
-  static constexpr T identity() { return 0; }
-};
-struct RMaxQMonoid {
-  using T = ll;
-  static T op(const T& a, const T& b) { return max(a, b); }
+  static T op(const T &a, const T &b) { return max(a, b); }
   static constexpr T identity() { return numeric_limits< T >::min(); }
 };
+
+struct RangeSum {
+  using T = ll;
+  static T op(const T &a, const T &b) { return a + b; }
+  static constexpr T identity() { return 0; }
+};
+
+/// }}}--- ///
 
 using RMQ = PersistentSegTree< RMQMonoid >;
 using RSQ = PersistentSegTree< RSQMonoid >;
 using RMaxQ = PersistentSegTree< RMaxQMonoid >;
-
-// }}}

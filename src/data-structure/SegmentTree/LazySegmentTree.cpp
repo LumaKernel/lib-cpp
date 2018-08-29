@@ -10,22 +10,6 @@ using ll = long long;
 // NOTE : query in range!
 /// --- LazySegmentTree Library {{{ ///
 
-// struct Monoid {
-//   using T = _underlying_set_;
-//   static T op(const T& a, const T& b) { return _a_op_b_; }
-//   static constexpr T identity() { return _identity_element_; }
-// };
-// struct M_act {
-//   using M = _underlying_set_;
-//   using X = _data_monoid_::T;
-//   static X op(const M &a, const M &b)
-//   { return _a_op_b_; }
-//   static constexpr X identity()
-//   { return _identity_element_; }
-//   static X actInto(const M &m, ll n, const X &x)
-//   { return _m_act_n_of_x_; }
-// };
-
 template < class Monoid, class M_act >
 struct LazySegTree {
 private:
@@ -133,7 +117,20 @@ public:
 
 /// }}}--- ///
 
-// Monoid, M_act expamles {{{
+/// --- Monoid, M_act examples {{{ ///
+
+/// --- Monoid examples {{{ ///
+
+struct Nothing {
+  using T = char;
+  using M = char;
+  static constexpr T op(const T &, const T &) { return 0; }
+  static constexpr T identity() { return 0; }
+  template < class X >
+  static constexpr X actInto(const M &, ll, const X &x) {
+    return x;
+  }
+};
 
 struct RangeMin {
   using T = ll;
@@ -152,6 +149,8 @@ struct RangeSum {
   static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
+
+/// }}}--- ///
 
 // MinAdd m + x
 // MinSet m
@@ -190,6 +189,6 @@ struct RangeSumSet {
   static X actInto(const M &m, ll n, const X &) { return m * n; }
 };
 
-// }}}
+/// }}}--- ///
 
 // LazySegTree<RangeSum, RangeSumAdd> seg(N);

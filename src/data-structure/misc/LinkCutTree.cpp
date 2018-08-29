@@ -168,7 +168,9 @@ struct LinkCutTree {
 
 /// }}}--- ///
 
-// Monoid, M_act expamles {{{
+/// --- Monoid, M_act examples {{{ ///
+
+/// --- Monoid examples {{{ ///
 
 struct Nothing {
   using T = char;
@@ -198,6 +200,8 @@ struct RangeSum {
   static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
+
+/// }}}--- ///
 
 // MinAdd m + x
 // MinSet m
@@ -236,6 +240,6 @@ struct RangeSumSet {
   static X actInto(const M &m, ll n, const X &) { return m * n; }
 };
 
-// }}}
+/// }}}--- ///
 
 // LinkCutTree< RangeSum, RangeSumSet > lc(N);
