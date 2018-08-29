@@ -34,8 +34,8 @@ private:
   // call before use val, accum
   friend void eval(TreapSeq *a) {
     if(a->lazy != M_act::identity()) {
-      a->val = M_act::actInto(a->lazy, 1, a->val);
-      a->accum = M_act::actInto(a->lazy, a->sz, a->accum);
+      a->val = M_act::actInto(a->lazy, -1, 1, a->val);
+      a->accum = M_act::actInto(a->lazy, -1, a->sz, a->accum);
       if(a->l != nullptr) a->l->lazy = M_act::op(a->lazy, a->l->lazy);
       if(a->r != nullptr) a->r->lazy = M_act::op(a->lazy, a->r->lazy);
       a->lazy = M_act::identity();
@@ -170,7 +170,7 @@ struct Nothing {
   static constexpr T op(const T &, const T &) { return 0; }
   static constexpr T identity() { return 0; }
   template < class X >
-  static constexpr X actInto(const M &, ll, const X &x) {
+  static constexpr X actInto(const M &, ll, ll, const X &x) {
     return x;
   }
 };
@@ -205,7 +205,7 @@ struct RangeMinAdd {
   using X = RangeMin::T;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll, const X &x) { return m + x; }
+  static X actInto(const M &m, ll, ll, const X &x) { return m + x; }
 };
 
 struct RangeMinSet {
@@ -213,7 +213,7 @@ struct RangeMinSet {
   using X = RangeMin::T;
   static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return numeric_limits< M >::min(); }
-  static X actInto(const M &m, ll, const X &) { return m; }
+  static X actInto(const M &m, ll, ll, const X &) { return m; }
 };
 
 struct RangeSumAdd {
@@ -221,7 +221,7 @@ struct RangeSumAdd {
   using X = RangeSum::T;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll n, const X &x) { return m * n + x; }
+  static X actInto(const M &m, ll, ll n, const X &x) { return m * n + x; }
 };
 
 struct RangeSumSet {
@@ -229,7 +229,7 @@ struct RangeSumSet {
   using X = RangeSum::T;
   static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return numeric_limits< M >::min(); }
-  static X actInto(const M &m, ll n, const X &) { return m * n; }
+  static X actInto(const M &m, ll, ll n, const X &) { return m * n; }
 };
 
 /// }}}--- ///

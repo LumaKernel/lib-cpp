@@ -71,7 +71,7 @@ struct Nothing {
   static constexpr T op(const T &, const T &) { return 0; }
   static constexpr T identity() { return 0; }
   template < class X >
-  static constexpr X actInto(const M &, ll, const X &x) {
+  static constexpr X actInto(const M &, ll, ll, const X &x) {
     return x;
   }
 };

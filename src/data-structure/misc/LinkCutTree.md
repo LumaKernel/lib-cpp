@@ -8,13 +8,16 @@ IOIで常勝できることはあまりにも有名．
 
 参考になるものを準備しています…
 
+TODO : 区間に対する更新に対し，leftを求めるの，ちょっとどうすればいいかわからないけど，  
+やっている人がいるのでそのうち見てみようと思います．
+
 // @ LinkCutTree Library
 
 # 検証
 
-* RMQとRUQ - [AOJの]( https://onlinejudge.u-aizu.ac.jp/status/users/luma/submissions/1/DSL_2_F/judge/3092002/C++14)
+* RMQとRUQ - [AOJのなんか](https://onlinejudge.u-aizu.ac.jp/status/users/luma/submissions/1/DSL_2_F/judge/3092002/C++14){:target="_blank"}
   * 遅延セグ木でできることがevert付きでできる
-* LCA - [AOJの](https://onlinejudge.u-aizu.ac.jp/status/users/luma/submissions/1/GRL_5_C/judge/3092319/C++14){:target="_blank"}
+* LCA - [AOJのなんか](https://onlinejudge.u-aizu.ac.jp/status/users/luma/submissions/1/GRL_5_C/judge/3092319/C++14){:target="_blank"}
 * HL-Decomp(TLE) [E. The Number Games \| CF](https://codeforces.com/contest/980/submission/41594330){:target="_blank"}
 * HL-Decomp [PCKの問題 \| AOJ]( https://onlinejudge.u-aizu.ac.jp/status/users/luma/submissions/1/0367/judge/3093506/C++14)
 

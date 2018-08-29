@@ -7,9 +7,12 @@ Randomized BST
 
 [Treap](data-structure/BBST/Treap)のほうがはやかった
 
+
 # Sequenceタイプ
 
-// @ RBSTMultiset Sequence Library
+TODO : actIntoにleftをわたしていない
+
+// @ RBST Sequence Library
 
 ## 検証
 
