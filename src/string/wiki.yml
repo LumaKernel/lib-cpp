@@ -5,5 +5,8 @@ order:
   - KMP
   - z-algorithm
   - AhoCorasick
+  - SA-with-Manber-Myers
+  - SA-IS
+  - LCP-Array
   - Tree2String
   - StringUtil

@@ -1,5 +1,5 @@
 ---
-title: 凸法(Graham Scan, Andrew Scan)
+title: 凸包(Graham Scan, Andrew Scan)
 ---
 
 蟻本は左右に行って帰って，と走査しますが，  
