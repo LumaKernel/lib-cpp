@@ -20,7 +20,7 @@ void zeta(vector< T > &a,
 // @new
 // @name FastMoebiusTransform
 // @snippet fmt
-// @alias mebius moebius fastmoebiustransform
+// @alias mebius_fmt moebius_fmt fast_moebius_transform
 // zetaの逆操作
 template < class T >
 void moebius(vector< T > &a,

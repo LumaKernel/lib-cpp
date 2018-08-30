@@ -1,10 +1,12 @@
 ---
-title: sとs[i;-1]の最長共通接頭辞(z-algorithm)
+title: sとs[i, -1]の最長共通接頭辞 (z-algorithm)
 ---
 
 Longest Common Prefix; LCP
 
-SA使うやつはSAでのとなりあう２つのLCPなのでちょっと違う．
+$s[i, -1]$ とは $s[i, N-1]$ のことです．
+
+SA使うやつ([LCP配列]({{ "string/LCP-array" | absolute_url }}))はSAでのとなりあう２つのLCPなのでちょっと違う．
 
 // @ zalgorithm
 

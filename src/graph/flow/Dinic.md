@@ -1,5 +1,5 @@
 ---
-title: 最大フロー(Dinic)
+title: 最大フロー (Dinic)
 ---
 
 [FordFulkerson]({{ "graph/flow/FordFulkerson" | absolute_url }})と基本的なところは同じ．

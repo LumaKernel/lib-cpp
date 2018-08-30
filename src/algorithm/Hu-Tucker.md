@@ -1,5 +1,5 @@
 ---
-title: 最適二分探索木(Hu-Tucker)
+title: 最適二分探索木 (Hu-Tucker)
 ---
 Meldable Heapが必要．([SkewHeap](data-structure/Heap/SkewHeap)や[LeftistHeap](data-structure/Heap/LeftistHeap)など)
 

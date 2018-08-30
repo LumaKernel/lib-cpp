@@ -5,8 +5,8 @@ using ll = long long;
 
 // @@
 // @name mp
-// @snippet     mp
-// [i] = size of longest common suffix and prefix in s[0;i-1]
+// @snippet mp
+// [i] = size of longest common suffix and prefix in s[0,i-1]
 // 瞬間最悪計算量 O(N)
 // 均し計算量 O(N)
 vector< int > MP(string s) {
@@ -23,7 +23,7 @@ vector< int > MP(string s) {
 
 // @new kmp
 // @snippet     kmp
-// [i] = size of longest common suffix and prefix in s[0;i-1]
+// [i] = size of longest common suffix and prefix in s[0,i-1]
 // 瞬間最悪計算量 O(log N)
 // 均し計算量 O(N)
 vector< int > KMP(string s) {
@@ -41,7 +41,7 @@ vector< int > KMP(string s) {
 
 // @new cycle
 // @snippet     cycle
-// [i] = min cycle length in [0;i]
+// [i] = min cycle length in [0,i]
 // 最小周期長
 // NOTE : justである必要なし
 vector< int > cycle(string s) {

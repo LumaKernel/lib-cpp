@@ -1,5 +1,5 @@
 ---
-title: 文字列検索(Aho-Corasick法)
+title: 文字列検索 (Aho-Corasick法)
 ---
 
 複数パターンを事前に用意するタイプの検索．

@@ -6,7 +6,8 @@ using ll = long long;
 // @@
 // @name moebius
 // @title メビウス関数
-// @snippet     moebius
+// @snippet     moebius_func
+// @alias mebius_func
 // O(N^.5)
 unordered_map< ll, int > moebius(ll n) {
   unordered_map< ll, int > res;

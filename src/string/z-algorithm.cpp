@@ -6,7 +6,7 @@ using ll = long long;
 // @@
 // @name zalgorithm
 // @snippet     zalgorithm
-// size of longest common prefix between s and s[i...]
+// size of longest common prefix between s and s[i, -1]
 vector< int > Zalgorithm(string s) {
   int n = s.size();
   vector< int > Z(n);

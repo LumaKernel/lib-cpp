@@ -1,5 +1,5 @@
 ---
-title: 高速フーリエ変換(FFT)，数論変換(NTT)
+title: 高速フーリエ変換 (FFT)，数論変換 (NTT)
 ---
 
 Fast Fourier Transform; FFT  
