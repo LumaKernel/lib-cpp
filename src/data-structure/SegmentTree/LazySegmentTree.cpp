@@ -97,17 +97,11 @@ public:
   }
   inline void dum(int r = -1) {
 #ifdef DEBUG
-    std::ostream &o =
-#ifdef USE_COUT
-        std::cout
-#else
-        std::cerr
-#endif
-        ;
     if(r < 0) r = n;
-    o << "{";
-    for(int i = 0; i < std::min(r, n); i++) o << (i ? ", " : "") << get(i);
-    o << "}" << std::endl;
+    DEBUG_OUT << "{";
+    for(int i = 0; i < std::min(r, n); i++)
+      DEBUG_OUT << (i ? ", " : "") << get(i);
+    DEBUG_OUT << "}" << std::endl;
 #endif
   }
 };

@@ -11,11 +11,6 @@ using ll = long long;
 // NOTE : query in range!
 /// --- Sparse Table Library {{{ ///
 
-// struct SemiLattice {
-//   using T = _underlying_set_;
-//   static T op(T const &a, T const &b) { return _a_op_b_; }
-// };
-
 template < class SemiLattice >
 struct SparseTable {
   using T = typename SemiLattice::T;
@@ -55,13 +50,13 @@ struct SparseTable {
 
 /// }}}--- ///
 
-// sparse table expample {{{
+// SemiLattice examples {{{
 
-// struct RMQSL {
-//   using T = int;
-//   static T op(T const &a, T const &b) { return a < b ? a : b; }
-// };
+struct RMQSL {
+  using T = int;
+  static T op(T const &a, T const &b) { return a < b ? a : b; }
+};
 
 // }}}
 
-// SparseTable<RMQSL> rmq(N, inf);
+SparseTable< RMQSL > rmq(N, inf);

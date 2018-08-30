@@ -45,17 +45,10 @@ public:
   }
   inline void dum(int r = -1) {
 #ifdef DEBUG
-    ostream &o =
-#ifdef USE_COUT
-        cout
-#else
-        cerr
-#endif
-        ;
     if(r < 0) r = n;
-    o << "{";
-    for(int i = 0; i < min(r, n); i++) o << (i ? ", " : "") << get(i);
-    o << "}" << endl;
+    DEBUG_OUT << "{";
+    for(int i = 0; i < min(r, n); i++) DEBUG_OUT << (i ? ", " : "") << get(i);
+    DEBUG_OUT << "}" << endl;
 #endif
   }
 };
