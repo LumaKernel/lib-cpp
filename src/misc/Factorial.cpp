@@ -8,6 +8,7 @@ using ll = long long;
 // @title 階乗の事前計算
 // @snippet     fact
 // @alias       comb
+// WARN : use H with larger N
 /// --- Modulo Factorial {{{ ///
 template < int N, int mod = (int) 1e9 + 7 >
 struct Factorial {
@@ -31,5 +32,5 @@ struct Factorial {
 };
 /// }}}--- ///
 
-// constexpr int N = 1e5 + 10;
-// constexpr Factorial<N, mod> fact;
+const int N = 1e5 + 10;
+constexpr Factorial < N * 2 ?, mod > fact;

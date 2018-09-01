@@ -5,4 +5,6 @@
 
 あとローカルで余計に時間がかかるので僕は`constexpr`を外して使う．
 
+<span style="color:red">重複組み合わせ H を使う場合はNを大きめ(2倍とか)にとる必要がある（1敗）</span>
+
 // @ Modulo Factorial
