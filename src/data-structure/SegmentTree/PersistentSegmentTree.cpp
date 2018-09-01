@@ -81,8 +81,8 @@ public:
     if(k == 0) return Monoid::identity();
     if(b <= l || r <= a) return Monoid::identity();
     if(a <= l && r <= b) return data[k];
-    return Monoid::op(query(a, b, l, (l + r) >> 1, lch[k]),
-                      query(a, b, (l + r) >> 1, r, rch[k]));
+    return Monoid::op(
+        query(a, b, l, (l + r) >> 1, lch[k]), query(a, b, (l + r) >> 1, r, rch[k]));
   }
 
 private:

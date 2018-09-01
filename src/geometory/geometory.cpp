@@ -182,8 +182,8 @@ vector< Line > tangentLine(Circle c, Point p) {
     res.emplace_back(ajacentLine(c, p));
   else if(c.second < d) {
     Point a = c.first + c.second * normalize(p - c.first);
-    vector< Point > b = intersections(Circle(c.first, norm(c.first - p)),
-                                      Line(a, a + normal(c.first - p)));
+    vector< Point > b = intersections(
+        Circle(c.first, norm(c.first - p)), Line(a, a + normal(c.first - p)));
     for(size_t i = 0; i < b.size(); i++) {
       res.emplace_back(p, c.first + c.second * normalize(b[i] - c.first));
     }

@@ -6,5 +6,5 @@ SpacesBeforeTrailingComments : 1
 SpacesInAngles : true
 SpaceBeforeParens : Never
 ColumnLimit: 90
-# PenaltyBreakBeforeFirstCallParameter: 100000
+PenaltyBreakBeforeFirstCallParameter: 0
 
