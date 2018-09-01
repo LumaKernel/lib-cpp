@@ -23,7 +23,8 @@ private:
 public:
   SegTree() : n(0) {}
   SegTree(int n) : n(n) { data.resize(n * 2, Monoid::identity()); }
-  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter,
+             class = typename iterator_traits< InputIter >::value_type >
   SegTree(InputIter first, InputIter last) : SegTree(distance(first, last)) {
     copy(first, last, begin(data) + n);
     // fill from deep

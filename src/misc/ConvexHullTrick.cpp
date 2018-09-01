@@ -18,8 +18,8 @@ struct CHT {
   vector< Line > lines;
   bool increasing;
   function< bool(ll, ll) > comp;
-  CHT(bool increasing = false,
-      function< bool(ll, ll) > comp = [&](ll lhs, ll rhs) { return lhs >= rhs; })
+  CHT(bool increasing = false, function< bool(ll, ll) > comp =
+                                   [&](ll lhs, ll rhs) { return lhs >= rhs; })
       : increasing(increasing), comp(comp) {}
   // is l2 unnecessary ?
   bool check(Line l1, Line l2, Line l3) {
@@ -30,14 +30,16 @@ struct CHT {
   // add decreasingly
   void add(ll a, ll b) { add(Line(a, b)); }
   void add(Line line) {
-    while((int) lines.size() >= 2 && check(lines[lines.size() - 2], lines.back(), line))
+    while((int) lines.size() >= 2 &&
+          check(lines[lines.size() - 2], lines.back(), line))
       lines.pop_back();
     lines.emplace_back(line);
   }
   ll query(ll x) {
     if(increasing) {
       static int head = 0;
-      while((int) lines.size() - 1 > head && comp(f(head, x), f(head + 1, x))) head++;
+      while((int) lines.size() - 1 > head && comp(f(head, x), f(head + 1, x)))
+        head++;
       return f(head, x);
     } else {
       int low = -1, high = lines.size() - 1;
@@ -120,7 +122,9 @@ private:
   struct L {
     ll a, b;
     L(ll a, ll b) : a(a), b(b) {}
-    bool operator<(const L &rhs) const { return a != rhs.a ? a > rhs.a : b < rhs.b; }
+    bool operator<(const L &rhs) const {
+      return a != rhs.a ? a > rhs.a : b < rhs.b;
+    }
   };
   struct CP {
     ll n, d;

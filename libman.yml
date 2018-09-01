@@ -3,7 +3,7 @@ SrcDir: ./src
 DistDir: ./dist
 BackUpDir: ./backup
 TempDir: ./tmp
-ClangFormatOptionPath: ./.clang-format
+ClangFormatOptionPath: ../vimfiles/.clang-format
 FormatOption:
   AllowStructOneLine: true
 wikiYAML:

@@ -69,7 +69,8 @@ struct bigint {
     if(sign == v.sign) {
       bigint res = v;
 
-      for(int i = 0, carry = 0; i < (int) max(a.size(), v.a.size()) || carry; ++i) {
+      for(int i = 0, carry = 0; i < (int) max(a.size(), v.a.size()) || carry;
+          ++i) {
         if(i == (int) res.a.size()) res.a.push_back(0);
         res.a[i] += carry + (i < (int) a.size() ? a[i] : 0);
         carry = res.a[i] >= base;
@@ -201,7 +202,9 @@ struct bigint {
   bool operator>(const bigint &v) const { return v < *this; }
   bool operator<=(const bigint &v) const { return !(v < *this); }
   bool operator>=(const bigint &v) const { return !(*this < v); }
-  bool operator==(const bigint &v) const { return !(*this < v) && !(v < *this); }
+  bool operator==(const bigint &v) const {
+    return !(*this < v) && !(v < *this);
+  }
   bool operator!=(const bigint &v) const { return *this < v || v < *this; }
 
   void trim() {
@@ -232,7 +235,9 @@ struct bigint {
   friend bigint gcd(const bigint &a, const bigint &b) {
     return b.isZero() ? a : gcd(b, a % b);
   }
-  friend bigint lcm(const bigint &a, const bigint &b) { return a / gcd(a, b) * b; }
+  friend bigint lcm(const bigint &a, const bigint &b) {
+    return a / gcd(a, b) * b;
+  }
 
   void read(const string &s) {
     sign = 1;
@@ -244,7 +249,8 @@ struct bigint {
     }
     for(int i = s.size() - 1; i >= pos; i -= base_digits) {
       int x = 0;
-      for(int j = max(pos, i - base_digits + 1); j <= i; j++) x = x * 10 + s[j] - '0';
+      for(int j = max(pos, i - base_digits + 1); j <= i; j++)
+        x = x * 10 + s[j] - '0';
       a.push_back(x);
     }
     trim();

@@ -69,7 +69,8 @@ Scalar area3(Scalar a, Scalar b, Scalar c) {
 }
 
 Scalar dist(Line line, Point p) {
-  return cross(p - line.first, line.second - line.first) / abs(line.second - line.first);
+  return cross(p - line.first, line.second - line.first) /
+         abs(line.second - line.first);
 }
 
 Scalar dist(Segment segment, Point p) {
@@ -92,12 +93,15 @@ Scalar dist(Segment a, Segment b) {
 
 // NOTE : It depends.
 bool isCrossing(Segment a, Segment b) {
-  return ccw(a.first, a.second, b.first) * ccw(a.first, a.second, b.second) <= 0 &&
-         ccw(b.first, b.second, a.first) * ccw(b.first, b.second, a.second) <= 0;
+  return ccw(a.first, a.second, b.first) * ccw(a.first, a.second, b.second) <=
+             0 &&
+         ccw(b.first, b.second, a.first) * ccw(b.first, b.second, a.second) <=
+             0;
 }
 
 Point intersection(Line a, Line b) {
-  return a.first + (a.second - a.first) * cross(a.first - b.first, b.second - b.first) /
+  return a.first + (a.second - a.first) *
+                       cross(a.first - b.first, b.second - b.first) /
                        cross(a.first - a.second, b.second - b.first);
 }
 
@@ -168,11 +172,14 @@ Scalar shareArea(Circle a, Circle b) {
   if(b.second + d < a.second + EPS) return area(b);
   Scalar s1 = arg(b.second, a.second, d), s2 = arg(a.second, b.second, d);
   Scalar tri2 =
-      (a.second * a.second * sin(s1 * 2) + b.second * b.second * sin(s2 * 2)) / 2;
+      (a.second * a.second * sin(s1 * 2) + b.second * b.second * sin(s2 * 2)) /
+      2;
   return a.second * a.second * s1 + b.second * b.second * s2 - tri2;
 }
 
-inline Line ajacentLine(Circle c, Point p) { return Line(p, p + normal(p - c.first)); }
+inline Line ajacentLine(Circle c, Point p) {
+  return Line(p, p + normal(p - c.first));
+}
 
 // the tangentLine of c passing p
 vector< Line > tangentLine(Circle c, Point p) {
@@ -244,7 +251,8 @@ int inside(Polygon poly, Point p) {
         if(poly[ii].X > poly[jj].X) swap(ii, jj);
         if(poly[ii].X - EPS < p.X && p.X < poly[jj].X + EPS) return -2;
       } else {
-        Point q = intersection(Line(poly[ii], poly[jj]), Line(p, p + Point(1, 0)));
+        Point q =
+            intersection(Line(poly[ii], poly[jj]), Line(p, p + Point(1, 0)));
         if(p.X < q.X && p.Y > poly[ii].Y + EPS) cnt++; // count only upside
       }
     }

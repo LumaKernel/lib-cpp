@@ -26,7 +26,8 @@ public:
     n = 1;
     while(n < t) n <<= 1;
   }
-  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter,
+             class = typename iterator_traits< InputIter >::value_type >
   PersistentSegTree(InputIter first, InputIter last)
       : PersistentSegTree(distance(first, last)) {
     assign(first, last);
@@ -38,7 +39,8 @@ public:
     lastRoot = k;
     return k;
   }
-  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter,
+             class = typename iterator_traits< InputIter >::value_type >
   void assign(InputIter first, InputIter last) {
     assert(n >= distance(first, last));
     data.resize(n * 2 - 1, Monoid::identity());
@@ -81,8 +83,8 @@ public:
     if(k == 0) return Monoid::identity();
     if(b <= l || r <= a) return Monoid::identity();
     if(a <= l && r <= b) return data[k];
-    return Monoid::op(
-        query(a, b, l, (l + r) >> 1, lch[k]), query(a, b, (l + r) >> 1, r, rch[k]));
+    return Monoid::op(query(a, b, l, (l + r) >> 1, lch[k]),
+                      query(a, b, (l + r) >> 1, r, rch[k]));
   }
 
 private:

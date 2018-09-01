@@ -30,7 +30,8 @@ struct SA {
       sort(begin(sa), end(sa), comp);
       auto tmp = rnk;
       tmp[sa[0]] = 0;
-      for(int j = 1; j < n; j++) tmp[sa[j]] = tmp[sa[j - 1]] + comp(sa[j - 1], sa[j]); ///
+      for(int j = 1; j < n; j++)
+        tmp[sa[j]] = tmp[sa[j - 1]] + comp(sa[j - 1], sa[j]); ///
       rnk = tmp;
     }
   }

@@ -18,10 +18,12 @@ struct MinCostFlow {
   vector< ll > dist;
   vector< int > prevv, previ;
   ll inf;
-  MinCostFlow(int n, ll inf) : n(n), graph(n), dist(n), prevv(n), previ(n), inf(inf) {}
+  MinCostFlow(int n, ll inf)
+      : n(n), graph(n), dist(n), prevv(n), previ(n), inf(inf) {}
   void addEdge(int a, int b, ll cap, ll cost, int undirected = 0) {
     graph[a].emplace_back((Edge){b, cap, cost, graph[b].size()});
-    graph[b].emplace_back((Edge){a, undirected ? cap : 0, -cost, graph[a].size() - 1});
+    graph[b].emplace_back(
+        (Edge){a, undirected ? cap : 0, -cost, graph[a].size() - 1});
   }
   ll solve(int s, int t, ll f) {
     ll res = 0;

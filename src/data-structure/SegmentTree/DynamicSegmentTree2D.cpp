@@ -38,7 +38,8 @@ public:
   void act(int x, int y, T const &val) { setx(x, y, val, 0, sizex, top, 0); }
 
 private:
-  void setx(int x, int y, T const &val, int sxl, int sxr, Node *&node, int set) {
+  void setx(int x, int y, T const &val, int sxl, int sxr, Node *&node,
+            int set) {
     if(x + 1 <= sxl || sxr <= x) return;
     if(node == nullptr) node = new Node(identity);
     if(x <= sxl && sxr <= x + 1) {

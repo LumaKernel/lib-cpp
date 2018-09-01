@@ -11,7 +11,8 @@ using ll = long long;
 // int MSTArborescence(WeightedDirectedGraph, int root)
 /// --- MSTArborescence Library {{{ ///
 
-ll MSTArborescence(vector< vector< pair< int, int > > > &graph, int start, ll sum = 0) {
+ll MSTArborescence(vector< vector< pair< int, int > > > &graph, int start,
+                   ll sum = 0) {
   int n = graph.size();
 
   vector< int > rev(n, -1);

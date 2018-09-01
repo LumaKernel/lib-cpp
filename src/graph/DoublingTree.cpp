@@ -30,15 +30,19 @@ struct DoublingTree {
   }
   DoublingTree(int n, const T &initial = Monoid::identity())
       : n(n), logn(log(n)), tree(n), dat(logn, vector< T >(n, initial)) {}
-  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
-  DoublingTree(InputIter first, InputIter last, const T &initial = Monoid::identity())
+  template < class InputIter,
+             class = typename iterator_traits< InputIter >::value_type >
+  DoublingTree(InputIter first, InputIter last,
+               const T &initial = Monoid::identity())
       : DoublingTree(distance(first, last), initial) {
     copy(first, last, begin(tree));
   }
-  DoublingTree(const vector< vector< int > > &tree, const T &initial = Monoid::identity())
+  DoublingTree(const vector< vector< int > > &tree,
+               const T &initial = Monoid::identity())
       : DoublingTree(begin(tree), end(tree), initial) {}
   void set(int i, const T &val) { dat[0][i] = val; }
-  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter,
+             class = typename iterator_traits< InputIter >::value_type >
   void assign(InputIter first, InputIter last) {
     assert(distance(first, last) <= n);
     copy(first, last, begin(dat[0]));

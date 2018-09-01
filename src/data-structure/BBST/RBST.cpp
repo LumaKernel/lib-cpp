@@ -24,7 +24,8 @@ private:
   // a is not nullptr and is evaled, its child is proped
   friend RBSTSeq *prop(RBSTSeq *a) {
     a->sz = size(a->l) + 1 + size(a->r);
-    a->accum = Monoid::op(Monoid::op(Accumulated(a->l), a->val), Accumulated(a->r));
+    a->accum =
+        Monoid::op(Monoid::op(Accumulated(a->l), a->val), Accumulated(a->r));
     return a;
   }
   // call before use val, accum
@@ -287,8 +288,12 @@ public:
       return PNN(prop(a), sr);
     }
   }
-  friend PNN lower_split(RBSTMultiset* a, const Key& key) { return split(a, key, false); }
-  friend PNN upper_split(RBSTMultiset* a, const Key& key) { return split(a, key, true); }
+  friend PNN lower_split(RBSTMultiset* a, const Key& key) {
+    return split(a, key, false);
+  }
+  friend PNN upper_split(RBSTMultiset* a, const Key& key) {
+    return split(a, key, true);
+  }
   friend int size(RBSTMultiset* a) { return a == nullptr ? 0 : a->sz; }
   friend void insert(RBSTMultiset*& a, Key key) {
     RBSTMultiset *sl, *sr;
@@ -301,7 +306,8 @@ public:
     tie(tl, tr) = lower_split(sl, key);
     a = merge(tl, sr);
   }
-  friend void erase(RBSTMultiset*& a, Key keyL, Key keyR, bool inclusive = false) {
+  friend void erase(RBSTMultiset*& a, Key keyL, Key keyR,
+                    bool inclusive = false) {
     RBSTMultiset *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, keyR, inclusive);
     tie(tl, tr) = lower_split(sl, keyL);
@@ -338,7 +344,8 @@ public:
     a = merge(merge(tl, tr), sr);
     return cnt;
   }
-  friend int count(RBSTMultiset*& a, Key keyL, Key keyR, bool inclusive = false) {
+  friend int count(RBSTMultiset*& a, Key keyL, Key keyR,
+                   bool inclusive = false) {
     RBSTMultiset *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, keyR, inclusive);
     tie(tl, tr) = lower_split(sl, keyL);
