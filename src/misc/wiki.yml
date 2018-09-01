@@ -6,5 +6,4 @@ order:
   - bitUtil
   - Factorial
   - XorShift
-  - DoublingParent
   - bigint

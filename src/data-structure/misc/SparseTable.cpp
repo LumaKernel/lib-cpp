@@ -19,13 +19,11 @@ struct SparseTable {
   vector< vector< T > > t;
   T identity;
   SparseTable() : n(0) {}
-  SparseTable(size_t n, T identity = T())
-      : n(n), log2(n + 1), identity(identity) {
+  SparseTable(size_t n, T identity = T()) : n(n), log2(n + 1), identity(identity) {
     for(size_t i = 2; i <= n; i++) log2[i] = log2[i >> 1] + 1;
     t.resize(log2[n] + 1, vector< T >(n, identity));
   }
-  template < class InputIter,
-             class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
   SparseTable(InputIter first, InputIter last, T identity = T())
       : SparseTable(distance(first, last), identity) {
     copy(first, last, begin(t[0]));

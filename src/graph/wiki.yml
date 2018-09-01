@@ -3,6 +3,7 @@ title: グラフ
 order:
   - general
   - StronglyConnectedComponent
+  - DoublingTree
   - HL-Decomposition
   - lowlink
   - BiconnectedComponent

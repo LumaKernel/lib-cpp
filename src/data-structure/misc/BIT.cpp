@@ -19,8 +19,8 @@ struct BIT {
   function< T(const T &, const T &) > merge;
   BIT() : n(0) {}
   BIT(size_t n, T identity = T(),
-      function< T(const T &, const T &) > merge =
-          [](T const &a, T const &b) { return a + b; })
+      function< T(const T &, const T &) > merge = [](T const &a,
+                                                     T const &b) { return a + b; })
       : n(n), identity(identity), merge(merge) {
     data.resize(n, identity);
   }
@@ -41,15 +41,11 @@ struct BIT {
     }
     return s;
   }
-  T get(int i, function< T(const T &) > const &inverse = [](T const &a) {
-    return -a;
-  }) {
+  T get(int i, function< T(const T &) > const &inverse = [](T const &a) { return -a; }) {
     return merge(sum(i), inv(sum(i - 1)));
   }
   T range(int a, int b,
-          function< T(const T &) > const &inverse = [](T const &a) {
-            return -a;
-          }) {
+          function< T(const T &) > const &inverse = [](T const &a) { return -a; }) {
     return merge(sum(b), inv(sum(a - 1)));
   }
 };

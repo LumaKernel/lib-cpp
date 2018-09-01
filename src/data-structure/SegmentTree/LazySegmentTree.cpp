@@ -39,8 +39,7 @@ private:
   void propUp(int i) {
     i += n;
     while(i >>= 1)
-      eval(i * 2), eval(i * 2 + 1),
-          data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
+      eval(i * 2), eval(i * 2 + 1), data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
   }
 
 public:
@@ -59,8 +58,7 @@ public:
   }
   template < class InputIter,
              class = typename std::iterator_traits< InputIter >::value_type >
-  LazySegTree(InputIter first, InputIter last)
-      : LazySegTree(std::distance(first, last)) {
+  LazySegTree(InputIter first, InputIter last) : LazySegTree(std::distance(first, last)) {
     copy(first, last, std::begin(data) + n);
     for(int i = n - 1; i > 0; i--) // fill from deep
       data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
@@ -99,8 +97,7 @@ public:
 #ifdef DEBUG
     if(r < 0) r = n;
     DEBUG_OUT << "{";
-    for(int i = 0; i < std::min(r, n); i++)
-      DEBUG_OUT << (i ? ", " : "") << get(i);
+    for(int i = 0; i < std::min(r, n); i++) DEBUG_OUT << (i ? ", " : "") << get(i);
     DEBUG_OUT << "}" << std::endl;
 #endif
   }

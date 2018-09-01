@@ -38,8 +38,7 @@ public:
       size_t i = 1;
       while(!v[i].size()) i++;
       last = min_element(begin(v[i]), end(v[i]))->first;
-      for(const pair< U, T >& e : v[i])
-        v[logbinll(e.first ^ last)].emplace_back(e);
+      for(const pair< U, T >& e : v[i]) v[logbinll(e.first ^ last)].emplace_back(e);
       v[i].clear();
     }
     sz--;

@@ -27,8 +27,7 @@ private:
   // a is not nullptr and is evaled, its child is proped
   friend TreapSeq *prop(TreapSeq *a) {
     a->sz = size(a->l) + 1 + size(a->r);
-    a->accum =
-        Monoid::op(Monoid::op(Accumulated(a->l), a->val), Accumulated(a->r));
+    a->accum = Monoid::op(Monoid::op(Accumulated(a->l), a->val), Accumulated(a->r));
     return a;
   }
   // call before use val, accum
@@ -308,9 +307,7 @@ public:
   friend PNN lower_split(TreapMultiset* a, const Key& key) {
     return split(a, key, false);
   }
-  friend PNN upper_split(TreapMultiset* a, const Key& key) {
-    return split(a, key, true);
-  }
+  friend PNN upper_split(TreapMultiset* a, const Key& key) { return split(a, key, true); }
   friend int size(TreapMultiset* a) { return a == nullptr ? 0 : a->sz; }
   friend void insert(TreapMultiset*& a, Key key) {
     TreapMultiset *sl, *sr;
@@ -323,8 +320,7 @@ public:
     tie(tl, tr) = lower_split(sl, key);
     a = merge(tl, sr);
   }
-  friend void erase(TreapMultiset*& a, Key keyL, Key keyR,
-                    bool inclusive = false) {
+  friend void erase(TreapMultiset*& a, Key keyL, Key keyR, bool inclusive = false) {
     TreapMultiset *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, keyR, inclusive);
     tie(tl, tr) = lower_split(sl, keyL);
@@ -361,8 +357,7 @@ public:
     merge(merge(tl, tr), sr);
     return cnt;
   }
-  friend int count(TreapMultiset* a, Key keyL, Key keyR,
-                   bool inclusive = false) {
+  friend int count(TreapMultiset* a, Key keyL, Key keyR, bool inclusive = false) {
     TreapMultiset *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, keyR, inclusive);
     tie(tl, tr) = lower_split(sl, keyL);

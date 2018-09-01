@@ -25,12 +25,11 @@ struct FractionalCascadingSegTree {
   function< U(T &, int, int) > f;
   function< U(const U &, const U &) > m;
   FractionalCascadingSegTree() {}
-  FractionalCascadingSegTree(
-      int t, function< void(T &, int, int, const U &) > const &upd,
-      function< void(T &, vector< Index > &) > const &ini,
-      function< U(T &, int, int) > const &f,
-      function< U(const U &, const U &) > const &m, U identity = U(),
-      T initial = T())
+  FractionalCascadingSegTree(int t, function< void(T &, int, int, const U &) > const &upd,
+                             function< void(T &, vector< Index > &) > const &ini,
+                             function< U(T &, int, int) > const &f,
+                             function< U(const U &, const U &) > const &m,
+                             U identity = U(), T initial = T())
       : identity(identity), upd(upd), ini(ini), f(f), m(m) {
     n = 1;
     while(n < t) n <<= 1;
@@ -44,8 +43,7 @@ struct FractionalCascadingSegTree {
       if(i >= n - 1) {
         sort(begin(indices[i]), end(indices[i]));
         if(doUnique)
-          indices[i].erase(unique(begin(indices[i]), end(indices[i])),
-                           end(indices[i]));
+          indices[i].erase(unique(begin(indices[i]), end(indices[i])), end(indices[i]));
         ini(dat[i], indices[i]);
         continue;
       }
@@ -59,8 +57,7 @@ struct FractionalCascadingSegTree {
       while(p1 < lsz || p2 < rsz) {
         L[i][p1 + p2] = p1;
         R[i][p1 + p2] = p2;
-        if(p1 < lsz &&
-           (p2 == rsz || indices[i * 2 + 1][p1] <= indices[i * 2 + 2][p2])) {
+        if(p1 < lsz && (p2 == rsz || indices[i * 2 + 1][p1] <= indices[i * 2 + 2][p2])) {
           indices[i][p1 + p2] = indices[i * 2 + 1][p1];
           p1++;
         } else {
@@ -72,8 +69,7 @@ struct FractionalCascadingSegTree {
     }
   }
   void update(int i, int j, U const &val) {
-    int lower =
-        lower_bound(begin(indices[0]), end(indices[0]), j) - begin(indices[0]);
+    int lower = lower_bound(begin(indices[0]), end(indices[0]), j) - begin(indices[0]);
     update(i, lower, val, 0, n, 0);
   }
   void update(int i, int lower, U const &val, int l, int r, int k) {
@@ -84,10 +80,8 @@ struct FractionalCascadingSegTree {
     update(i, R[k][lower], val, (l + r) >> 1, r, k * 2 + 2);
   }
   U query(int a, int b, int l, int r) {
-    int lower =
-        lower_bound(begin(indices[0]), end(indices[0]), l) - begin(indices[0]);
-    int upper =
-        lower_bound(begin(indices[0]), end(indices[0]), r) - begin(indices[0]);
+    int lower = lower_bound(begin(indices[0]), end(indices[0]), l) - begin(indices[0]);
+    int upper = lower_bound(begin(indices[0]), end(indices[0]), r) - begin(indices[0]);
     return query(a, b, lower, upper, 0, n, 0);
   }
   U query(int a, int b, int lower, int upper, int l, int r, int k) {

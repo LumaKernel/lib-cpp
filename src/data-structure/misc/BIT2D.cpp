@@ -16,8 +16,7 @@ struct BIT2D {
   T identity;
   vector< T > dat;
   V merge;
-  BIT2D(int h, int w, T identity = T(),
-        V merge = [](T a, T b) { return a + b; })
+  BIT2D(int h, int w, T identity = T(), V merge = [](T a, T b) { return a + b; })
       : h(h), w(w), identity(identity), dat(h * w, identity), merge(merge) {}
   void add(int y, int x, T const &val) {
     y++;
@@ -33,8 +32,7 @@ struct BIT2D {
   }
   T get(int y, int x) { return range(y, x, y, x); }
   T range(int y1, int x1, int y2, int x2) {
-    return sum(y2, x2) - sum(y1 - 1, x2) - sum(y2, x1 - 1) +
-           sum(y1 - 1, x1 - 1);
+    return sum(y2, x2) - sum(y1 - 1, x2) - sum(y2, x1 - 1) + sum(y1 - 1, x1 - 1);
   }
 
 private:

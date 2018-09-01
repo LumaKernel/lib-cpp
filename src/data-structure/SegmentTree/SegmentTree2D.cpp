@@ -31,8 +31,8 @@ struct SegTree2D {
     while(kx > 0) {
       kx = (kx - 1) / 2;
       ky = y + sizey - 1;
-      dat[kx * sizey * 2 + ky] = merge(dat[(kx * 2 + 1) * sizey * 2 + ky],
-                                       dat[(kx * 2 + 2) * sizey * 2 + ky]);
+      dat[kx * sizey * 2 + ky] =
+          merge(dat[(kx * 2 + 1) * sizey * 2 + ky], dat[(kx * 2 + 2) * sizey * 2 + ky]);
       sety(kx, y);
     }
   }
@@ -46,15 +46,13 @@ private:
     int ky = y + sizey - 1;
     while(ky > 0) {
       ky = (ky - 1) / 2;
-      dat[kx * sizey * 2 + ky] = merge(dat[kx * sizey * 2 + ky * 2 + 1],
-                                       dat[kx * sizey * 2 + ky * 2 + 2]);
+      dat[kx * sizey * 2 + ky] =
+          merge(dat[kx * sizey * 2 + ky * 2 + 1], dat[kx * sizey * 2 + ky * 2 + 2]);
     }
   }
 
 public:
-  T query(int xl, int xr, int yl, int yr) {
-    return queryx(xl, xr, yl, yr, 0, sizex, 0);
-  }
+  T query(int xl, int xr, int yl, int yr) { return queryx(xl, xr, yl, yr, 0, sizex, 0); }
 
 private:
   T queryx(int xl, int xr, int yl, int yr, int sxl, int sxr, int k) {

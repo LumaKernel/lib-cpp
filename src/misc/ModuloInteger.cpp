@@ -19,9 +19,7 @@ struct ModInt {
   ModInt operator+(ModInt const &rhs) const { return ModInt(val + rhs.val); }
   ModInt operator-(ModInt const &rhs) const { return ModInt(val - rhs.val); }
   ModInt operator*(ModInt const &rhs) const { return ModInt(val * rhs.val); }
-  ModInt operator/(ModInt const &rhs) const {
-    return ModInt(val * rhs.inv().val);
-  }
+  ModInt operator/(ModInt const &rhs) const { return ModInt(val * rhs.inv().val); }
   ModInt &operator+=(ModInt const &rhs) {
     val = ((val + rhs.val) % mod + mod) % mod;
     return *this;

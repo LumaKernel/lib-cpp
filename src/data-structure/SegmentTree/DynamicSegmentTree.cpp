@@ -40,9 +40,7 @@ private:
     set(i, val, (l + r) / 2, r, node->r);
     node->value = Monoid::op(calc(node->l), calc(node->r));
   }
-  inline T calc(Node *node) {
-    return node == nullptr ? Monoid::identity() : node->value;
-  }
+  inline T calc(Node *node) { return node == nullptr ? Monoid::identity() : node->value; }
 
 public:
   T query(int a, int b) {
