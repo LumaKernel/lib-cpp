@@ -105,7 +105,7 @@ SA([Manber & Myers]({{ "string/SA-with-Manber-Myers" | absolute_url }}), [SA-IS]
 
 # 検証
 
-* [No.515 典型LCP \| yukicoder](https://yukicoder.me/submissions/281621)
+* [No.515 典型LCP \| yukicoder](https://yukicoder.me/submissions/281621){:target="_blank"}
   * 実はSAによるLCP配列はいらない
   * 直接，LCPの配列がつくれる
 

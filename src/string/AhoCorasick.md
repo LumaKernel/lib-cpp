@@ -22,7 +22,7 @@ title: 文字列検索 (Aho-Corasick法)
   * 修正し，いじる必要がないようにしました．いじってもいいです．
 * [G： 検閲により置換 (Censored String) - AOJ](https://onlinejudge.u-aizu.ac.jp/status/users/luma/submissions/1/2873/judge/3116720/C++14){:target="_blank"}<!--_-->
   * 問題に合わせて少し変える必要があります．
-* [H - Separate String - AC](https://beta.atcoder.jp/contests/jag2017autumn/submissions/3107157)
+* [H - Separate String - AC](https://beta.atcoder.jp/contests/jag2017autumn/submissions/3107157){:target="_blank"}
   * この問題でいろいろもとの実装を見直しました．いい感じです．
 
 # 参考

@@ -15,7 +15,7 @@ template < class Heap, class T = ll >
 T HuTucker(const vector< T > &w) {
   using P = pair< T, int >; // value, index
   int n = w.size();
-  function< T(Heap * &a) > calc = [](Heap *&a) { : target = "_blank" } { ////
+  function< T(Heap * &a) > calc = [](Heap *&a) { ////
     return a->val.first + second(a)->val.first;
   };
   vector< int > rig(n), lef(n);
