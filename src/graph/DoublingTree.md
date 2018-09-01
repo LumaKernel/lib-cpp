@@ -1,5 +1,5 @@
 ---
-title: 木でのダブリング
+title: 木のダブリング
 ---
 
 ダブリング自体は木でなくともできます．(数列とか?)
@@ -9,7 +9,7 @@ $ O(logN) $ で1クエリを処理でき，[HL分解]({{ "graph/HL-Decomposition
 [HL分解]({{ "graph/HL-Decomposition" | absolute_url }})とちがって，  
 遅延させたりもできず，通常のセグ木でできることができます．
 
-// @ Doubilng Parent Library
+// @ Doubilng Tree Library
 
 # 検証
 
