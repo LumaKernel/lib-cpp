@@ -12,6 +12,16 @@ using ll = long long;
 /// --- Modulo Factorial {{{ ///
 template < int N, int mod = (int) 1e9 + 7 >
 struct Factorial {
+  ll extgcd(ll a, ll b, ll &x, ll &y) {
+    ll d;
+    return b == 0 ? (x = 1, y = 0, a)
+                  : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
+  }
+  ll modinv(ll a) {
+    ll x = 0, y = 0;
+    extgcd(a, mod, x, y);
+    return (x + mod) % mod;
+  }
   int arr[N + 1], inv[N + 1];
   ll operator[](int i) const { return arr[i]; }
   constexpr Factorial() : arr(), inv() {
@@ -19,7 +29,7 @@ struct Factorial {
     for(int i = 1; i <= N; i++) {
       arr[i] = (ll) i * arr[i - 1] % mod;
     }
-    inv[N] = modinv(arr[N], mod);
+    inv[N] = modinv(arr[N]);
     for(int i = N - 1; i >= 0; i--) {
       inv[i] = (ll)(i + 1) * inv[i + 1] % mod;
     }

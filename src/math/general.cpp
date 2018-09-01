@@ -109,6 +109,7 @@ vector< ll > primes(ll n) {
 // @new
 // @name math
 // @snippet     math
+/// --- math {{{ ///
 ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
 ll extgcd(ll a, ll b, ll &x, ll &y) {
@@ -131,3 +132,4 @@ ll modpow(ll a, ll b, ll mod = 1e9 + 7) {
   }
   return r;
 }
+/// }}}--- ///
