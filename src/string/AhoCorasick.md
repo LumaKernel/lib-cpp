@@ -17,7 +17,7 @@ title: 文字列検索 (Aho-Corasick法)
 
 # 検証
 
-* [No.430 文字列検索 - yukicoder](https://yukicoder.me/submissions/281765){:target="blank"}<!--_-->
+* [No.430 文字列検索 - yukicoder](https://yukicoder.me/submissions/281765){:target="_blank"}<!--_-->
   * 貼(って少しいじ)るだけ
   * 修正し，いじる必要がないようにしました．いじってもいいです．
 * [G： 検閲により置換 (Censored String) - AOJ](https://onlinejudge.u-aizu.ac.jp/status/users/luma/submissions/1/2873/judge/3116720/C++14){:target="_blank"}<!--_-->

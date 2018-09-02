@@ -45,15 +45,16 @@ private:
 
 public:
   LazySegTree() : n(0) {}
-  LazySegTree(int n) : n(n) {
+  LazySegTree(int n, X initial = Monoid::identity()) : n(n) {
     h = 1;
     while(1 << h < n) h++;
-    data.resize(2 * n, Monoid::identity());
+    data.resize(2 * n, initial);
     lazy.resize(2 * n, M_act::identity());
     nodeLeft.resize(2 * n);
     nodeLength.resize(2 * n, 1);
     for(int i = 0; i < n; i++) nodeLeft[i + n] = i;
     for(int i = n - 1; i > 0; i--) // fill from deep
+      data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]),
       nodeLeft[i] = min(nodeLeft[i * 2], nodeLeft[i * 2 + 1]),
       nodeLength[i] = nodeLength[i * 2] + nodeLength[i * 2 + 1];
   }

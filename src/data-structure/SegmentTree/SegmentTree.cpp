@@ -22,7 +22,11 @@ private:
 
 public:
   SegTree() : n(0) {}
-  SegTree(int n) : n(n) { data.resize(n * 2, Monoid::identity()); }
+  SegTree(int n, T initial = Monoid::identity()) : n(n) {
+    data.resize(n * 2, initial);
+    for(int i = n - 1; i > 0; i--)
+      data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
+  }
   template < class InputIter,
              class = typename iterator_traits< InputIter >::value_type >
   SegTree(InputIter first, InputIter last) : SegTree(distance(first, last)) {

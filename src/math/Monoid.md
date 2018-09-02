@@ -50,7 +50,7 @@ SparseTableは少しかわっていて，なんかよくわからない名前の
 あんま書きたいこととは関係なのでざっくりいうと，  
 フィボナッチ数列の行列二分累乗のときの行列とか，  
 さっき書いた $x$ を $ax + b$ に変えちゃうやつ（演算子 $\bullet$の話)とか，  
-(参考: [DEGwerさんの記事](http://d.hatena.ne.jp/DEGwer/20131211/1386757368){:target="_blank"}, [kirikaさんの整数論集](https://github.com/kirika-comp/articles){:target="_blank"}){:target="_blank"}  
+(参考: [DEGwerさんの記事](http://d.hatena.ne.jp/DEGwer/20131211/1386757368){:target="_blank"}, [kirikaさんの整数論集](https://github.com/kirika-comp/articles){:target="_blank"})
 まーそのうち足すかもね．
 
 # モノイド作用
