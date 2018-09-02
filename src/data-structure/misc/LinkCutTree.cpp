@@ -8,7 +8,9 @@ using ll = long long;
 // @snippet     linkcuttree
 // @title Link/Cut Tree
 // @alias       hl_decomp_with_lct
+
 // when link(p, c) , c is root.
+// cut(c), c is not root
 // use make(int index, Monoid::T x)
 // lc[index] to access nodes
 /// --- LinkCutTree Library {{{ ///
@@ -23,7 +25,7 @@ struct LinkCutTree {
     Splay *ch[2] = {nullptr, nullptr}, *p = nullptr;
     X val, accum;
     M lazy = M_act::identity(); ///////
-    // BSTの大きさ // 実際の部分木の大きさ，ではない
+    // size of BST // not of real subtree
     int sz = 1;
     bool isRoot() { return !p || (p->ch[0] != this && p->ch[1] != this); }
     bool rev = false;
@@ -163,6 +165,14 @@ struct LinkCutTree {
   X query(Splay *a) {
     expose(a);
     return a->accum;
+  }
+  // root of subtree
+  Splay *getRoot(Splay *a) {
+    expose(a);
+    Splay *t = a;
+    while(t->ch[0]) t = t->ch[0];
+    t->splay();
+    return t;
   }
 };
 
