@@ -7,46 +7,51 @@ using ll = long long;
 // @snippet     fractionalcascadingsegtree
 // @alias       segfractionalcascading fcseg
 // @name Fractional Cascading SegmentTree Library
-// データ構造を乗せるためのセグ木の高速版
-// オフラインなら予めxごとに求めるyを与える
-// クエリはトップダウン
-// オンラインならDrivableSegTreeにBITとか乗せるしかない?
+
+// (y, x)
+// query(yl, yr, xl, xr)
+// only offline
+// only one update
 /// --- Fractional Cascading SegmentTree Library {{{ ///
 
 template < class T, class U, class Index = ll >
 struct FractionalCascadingSegTree {
-  int n;
+  int h;
   vector< T > dat;
   vector< vector< Index > > indices;
   vector< vector< int > > L, R;
   U identity;
-  function< void(T &, int, int, const U &) > upd;
-  function< void(T &, vector< Index > &) > ini;
-  function< U(T &, int, int) > f;
-  function< U(const U &, const U &) > m;
+  function< void(T &, int x, const U &) > setX;
+  function< void(T &, vector< Index > &) > initX;
+  function< U(T &, int x1, int x2) > queryX;
+  function< U(const U &, const U &) > mergeX;
   FractionalCascadingSegTree() {}
   FractionalCascadingSegTree(
-      int t, function< void(T &, int, int, const U &) > const &upd,
-      function< void(T &, vector< Index > &) > const &ini,
-      function< U(T &, int, int) > const &f,
-      function< U(const U &, const U &) > const &m, U identity = U(),
+      int tempH, function< void(T &, int, const U &) > const &setX,
+      function< void(T &, vector< Index > &) > const &initX,
+      function< U(T &, int, int) > const &queryX,
+      function< U(const U &, const U &) > const &mergeX, U identity = U(),
       T initial = T())
-      : identity(identity), upd(upd), ini(ini), f(f), m(m) {
-    n = 1;
-    while(n < t) n <<= 1;
-    dat = vector< T >(2 * n, initial);
-    indices = vector< vector< Index > >(2 * n);
-    L = R = vector< vector< int > >(2 * n);
+      : identity(identity),
+        setX(setX),
+        initX(initX),
+        queryX(queryX),
+        mergeX(mergeX) {
+    h = 1;
+    while(h < tempH) h <<= 1;
+    dat = vector< T >(2 * h, initial);
+    indices = vector< vector< Index > >(2 * h);
+    L = R = vector< vector< int > >(2 * h);
   }
-  void index(int i, Index j) { indices[i + n - 1].emplace_back(j); }
+  void index(int i, Index j) { indices[i + h - 1].emplace_back(j); }
   void init(bool doUnique) {
-    for(int i = n * 2 - 2; i >= 0; i--) {
-      if(i >= n - 1) {
+    for(int i = h * 2 - 2; i >= 0; i--) {
+      if(i >= h - 1) {
         sort(begin(indices[i]), end(indices[i]));
         if(doUnique)
           indices[i].erase(
               unique(begin(indices[i]), end(indices[i])), end(indices[i]));
-        ini(dat[i], indices[i]);
+        initX(dat[i], indices[i]);
         continue;
       }
       size_t lsz = indices[i * 2 + 1].size();
@@ -68,33 +73,34 @@ struct FractionalCascadingSegTree {
           p2++;
         }
       }
-      ini(dat[i], indices[i]);
+      initX(dat[i], indices[i]);
     }
   }
-  void update(int i, int j, U const &val) {
+  void set(int i, int j, U const &val) {
     int lower =
         lower_bound(begin(indices[0]), end(indices[0]), j) - begin(indices[0]);
-    update(i, lower, val, 0, n, 0);
+    set(i, lower, val, 0, h, 0);
   }
-  void update(int i, int lower, U const &val, int l, int r, int k) {
+  void set(int i, int lower, U const &val, int l, int r, int k) {
     if(i + 1 <= l || r <= i) return;
     upd(dat[k], i, lower, val);
     if(i <= l && r <= i + 1) return;
-    update(i, L[k][lower], val, l, (l + r) >> 1, k * 2 + 1);
-    update(i, R[k][lower], val, (l + r) >> 1, r, k * 2 + 2);
+    set(i, L[k][lower], val, l, (l + r) >> 1, k * 2 + 1);
+    set(i, R[k][lower], val, (l + r) >> 1, r, k * 2 + 2);
   }
   U query(int a, int b, int l, int r) {
     int lower =
         lower_bound(begin(indices[0]), end(indices[0]), l) - begin(indices[0]);
     int upper =
         lower_bound(begin(indices[0]), end(indices[0]), r) - begin(indices[0]);
-    return query(a, b, lower, upper, 0, n, 0);
+    return query(a, b, lower, upper, 0, h, 0);
   }
   U query(int a, int b, int lower, int upper, int l, int r, int k) {
     if(b <= l || r <= a) return identity;
-    if(a <= l && r <= b) return f(dat[k], lower, upper);
-    return m(query(a, b, L[k][lower], L[k][upper], l, (l + r) >> 1, k * 2 + 1),
-             query(a, b, R[k][lower], R[k][upper], (l + r) >> 1, r, k * 2 + 2));
+    if(a <= l && r <= b) return queryX(dat[k], lower, upper);
+    return mergeX(
+        query(a, b, L[k][lower], L[k][upper], l, (l + r) >> 1, k * 2 + 1),
+        query(a, b, R[k][lower], R[k][upper], (l + r) >> 1, r, k * 2 + 2));
   }
 };
 
@@ -105,25 +111,23 @@ struct FractionalCascadingSegTree {
 // using Under = BIT<>;
 // using Data = ll;
 
-// using Under = SparseTable<RMQSL>;
-// using Data = ll;
+using Under = SparseTable< RMQSL >;
+using Data = RMQSL::T;
 
-// FractionalCascadingSegTree<Under, Data> ecas(N + 1,
-//     // update
-//     [](Under &dat, int x, int y, Data const &v) -> void {
-//     dat.set(y, RMQSL::op(dat.get(y), v));
-//     },
-//     // init
-//     [](Under &dat, vector<ll> indices) -> void {
-//     dat = Under(indices.size()); // serve initial?
-//     },
-//     // [l, r) // WARN : l <= r
-//     [](Under &dat, int l, int r) -> Data {
-//       return dat.query(l, r);
-//     },
-//     // merge
-//     [](Data a, Data b) -> Data {
-//       return a + b;
-//     });
+const int N = 1;
+FractionalCascadingSegTree< Under, Data > ecas(
+    N + 1,
+    // set y
+    [](Under &dat, int y, Data const &v) -> void {
+      dat.set(y, RMQSL::op(dat.get(y), v));
+    },
+    // init y
+    [](Under &dat, vector< ll > indices) -> void {
+      dat = Under(indices.size()); // serve initial?
+    },
+    // [l, r) // WARN : l <= r
+    [](Under &dat, int l, int r) -> Data { return dat.query(l, r); },
+    // merge y-direction
+    [](Data a, Data b) -> Data { return a + b; });
 
 // }}}
