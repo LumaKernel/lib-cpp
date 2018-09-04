@@ -1,5 +1,5 @@
 ---
-title: LCP配列
+title: LCP配列 (Kasai's algorithm)
 ---
 
 # LCP
@@ -112,4 +112,11 @@ SA([Manber & Myers]({{ "string/SA-with-Manber-Myers" | absolute_url }}), [SA-IS]
 # 参考
 
 * 蟻本
+* [Linear-Time Longest-Common-Prefix
+Computation in Suffix Arrays and Its
+Applications](http://web.cs.iastate.edu/~cs548/references/linear_lcp.pdf){:target="_blank"}<!--_-->
 
+---
+
+Kasaiって日本人っぽい名前だなと思って調べたら，
+[日本人っぽい名前](https://dblp.org/pers/hd/k/Kasai:Toru){:target="_blank"}<!--_-->でした．
