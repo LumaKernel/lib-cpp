@@ -27,7 +27,8 @@ struct FractionalCascadingSegTree {
   function< U(const U &, const U &) > mergeX;
   FractionalCascadingSegTree() {}
   FractionalCascadingSegTree(
-      int tempH, function< void(T &, int, const U &) > const &setX,
+      int tempH, //
+      function< void(T &, int, const U &) > const &setX,
       function< void(T &, vector< Index > &) > const &initX,
       function< U(T &, int, int) > const &queryX,
       function< U(const U &, const U &) > const &mergeX, U identity = U(),
@@ -112,14 +113,14 @@ struct FractionalCascadingSegTree {
 // using Data = ll;
 
 using Under = SparseTable< RMQSL >;
-using Data = RMQSL::T;
+using Value = RMQSL;
+using Data = Value::T;
 
-const int N = 1;
 FractionalCascadingSegTree< Under, Data > ecas(
     N + 1,
     // set y
     [](Under &dat, int y, Data const &v) -> void {
-      dat.set(y, RMQSL::op(dat.get(y), v));
+      dat.set(y, Value::op(dat.get(y), v));
     },
     // init y
     [](Under &dat, vector< ll > indices) -> void {
