@@ -12,12 +12,12 @@ using ll = long long;
 /// --- Modulo Factorial {{{ ///
 template < int N, int mod = (int) 1e9 + 7 >
 struct Factorial {
-  ll extgcd(ll a, ll b, ll &x, ll &y) {
-    ll d;
+  constexpr ll extgcd(ll a, ll b, ll &x, ll &y) {
+    ll d = 0;
     return b == 0 ? (x = 1, y = 0, a)
                   : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
   }
-  ll modinv(ll a) {
+  constexpr ll modinv(ll a) {
     ll x = 0, y = 0;
     extgcd(a, mod, x, y);
     return (x + mod) % mod;
