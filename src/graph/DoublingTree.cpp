@@ -9,7 +9,8 @@ using ll = long long;
 
 // DoublingTree ( <graph> , initial? )
 // set (i, val) or assign ( <data> )
-// WARN : build() !!!
+// WARN : build(root = 0) !!!
+//     or dfs(roots) & init() !!
 // lca (a, b)
 // query(hi, a, hi_inclusive?)
 /// --- Doubilng Tree Library {{{ ///
@@ -29,7 +30,12 @@ struct DoublingTree {
     return h;
   }
   DoublingTree(int n, const T &initial = Monoid::identity())
-      : n(n), logn(log(n)), tree(n), dat(logn, vector< T >(n, initial)) {}
+      : n(n),
+        logn(log(n)),
+        tree(n),
+        depth(n),
+        par(logn, vector< int >(n)),
+        dat(logn, vector< T >(n, initial)) {}
   template < class InputIter,
              class = typename iterator_traits< InputIter >::value_type >
   DoublingTree(InputIter first, InputIter last,
@@ -47,10 +53,15 @@ struct DoublingTree {
     assert(distance(first, last) <= n);
     copy(first, last, begin(dat[0]));
   }
-  void build() {
-    depth.resize(n);
-    par.resize(logn, vector< int >(n));
-    dfs(0);
+  void build(const vector< int > &roots) {
+    for(int root : roots) dfs(root);
+    init();
+  }
+  void build(int root = 0) {
+    dfs(root);
+    init();
+  }
+  void init() {
     for(int k = 1; k < logn; k++) {
       for(int i = 0; i < n; i++) {
         int p = par[k - 1][i];
@@ -63,8 +74,6 @@ struct DoublingTree {
       }
     }
   }
-
-private:
   void dfs(int i, int p = -1, int d = 0) {
     depth[i] = d;
     par[0][i] = p;

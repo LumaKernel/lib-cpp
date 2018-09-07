@@ -9,19 +9,19 @@ using ll = long long;
 /// --- ModInt Library {{{ ///
 template < ll mod = (ll) 1e9 + 7 >
 struct ModInt {
-  ll extgcd(ll a, ll b, ll &x, ll &y) {
+  static ll extgcd(ll a, ll b, ll &x, ll &y) {
     ll d;
     return b == 0 ? (x = 1, y = 0, a)
                   : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
   }
-  ll modinv(ll a) {
+  static ll modinv(ll a) {
     ll x = 0, y = 0;
     extgcd(a, mod, x, y);
     return (x + mod) % mod;
   }
   ll val;
-  ModInt() : val(0) {}
-  ModInt(ll val) : val((val % mod + mod) % mod) {}
+  constexpr ModInt() : val(0) {}
+  constexpr ModInt(ll val) : val((val % mod + mod) % mod) {}
   ModInt operator+(ModInt const &rhs) const { return ModInt(val + rhs.val); }
   ModInt operator-(ModInt const &rhs) const { return ModInt(val - rhs.val); }
   ModInt operator*(ModInt const &rhs) const { return ModInt(val * rhs.val); }
@@ -64,6 +64,7 @@ struct ModInt {
     val = val == 0 ? mod - 1 : val - 1;
     return *this;
   }
+  ModInt operator-() const { return ModInt(-val); }
   template < typename T >
   ModInt operator+(T const &rhs) const {
     return ModInt(val + rhs % mod);
@@ -100,7 +101,7 @@ struct ModInt {
     val = (val * modinv(rhs, mod) % mod + mod) % mod;
     return *this;
   }
-  ModInt inv() const { return ModInt(modinv(val, mod)); }
+  ModInt inv() const { return ModInt(modinv(val)); }
   friend ostream &operator<<(ostream &os, ModInt const &mv) {
     os << mv.val;
     return os;
