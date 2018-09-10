@@ -7,26 +7,24 @@ using ll = long long;
 // @name BIT Library
 // @snippet bit
 // @title Binary Indexed Tree (Fenwick Tree)
+
 // NOTE : there's get and sum method.
 /// --- BIT Library {{{ ///
 
 template < class T = ll >
 struct BIT {
-  vector< T > data;
-  int n;
+  int n, m;
   T identity;
-  function< T(const T &, const T &) > merge;
+  vector< T > data;
   BIT() : n(0) {}
-  BIT(int n, T identity = T(),
-      function< T(const T &, const T &) > merge =
-          [](T const &a, T const &b) { return a + b; })
-      : n(n), identity(identity), merge(merge) {
-    data.resize(n, identity);
+  BIT(int n, T identity = T()) : n(n), identity(identity), data(n, identity) {
+    m = 1;
+    while(m < n) m <<= 1;
   }
   void add(int i, T x) {
     i++;
     while(i <= n) {
-      data[i - 1] = merge(data[i - 1], x);
+      data[i - 1] = data[i - 1] + x;
       i += i & -i;
     }
   }
@@ -36,21 +34,19 @@ struct BIT {
     i++;
     T s = identity;
     while(i > 0) {
-      s = merge(s, data[i - 1]);
+      s = s + data[i - 1];
       i -= i & -i;
     }
     return s;
   }
-  T get(int i, function< T(const T &) > const &inverse = [](T const &a) {
-    return -a;
-  }) {
-    return merge(sum(i), inverse(sum(i - 1)));
-  }
-  T range(int a, int b,
-          function< T(const T &) > const &inverse = [](T const &a) {
-            return -a;
-          }) {
-    return merge(sum(b), inverse(sum(a - 1)));
+  T get(int i) { return sum(i) - inverse(sum(i - 1)); }
+  T range(int a, int b) { return sum(b) - inverse(sum(a - 1)); }
+  int lower_bound(T w) {
+    int i = 0;
+    for(int k = m; k > 0; k >>= 1) {
+      if(i + k <= n && data[i + k - 1] < w) w -= data[(i += k) - 1];
+    }
+    return i;
   }
 };
 
