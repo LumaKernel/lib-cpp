@@ -1,5 +1,7 @@
 type: dir
 title: アルゴリズム
 order:
+  - Mo
+  - MoEx
   - FastZetaTransform
   - Hu-Tucker
