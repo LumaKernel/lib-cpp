@@ -8,7 +8,7 @@ using ll = long long;
 // @snippet mo_ex
 // @alias moex mo2
 
-// Mo(N, JUST Q, double k)
+// MoEx(N, JUST Q, double k)
 // 1: insert
 // 2: build
 /// --- Mo with Persistent Data Structure Library {{{ ///

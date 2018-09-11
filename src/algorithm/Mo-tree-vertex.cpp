@@ -7,18 +7,17 @@ using ll = long long;
 // @ MoTreeVertex Library
 // @snippet mo_tree_vertex
 
-// Mo(N, JUST Q, double k)
-// WARN : write "int id = mo.next();"
+// MoTreeVertex(N, JUST Q, double k)
 // 1: addEdge
 // 2: prebuild
 // 3: insert
 // 4: build
-// 5: next...
 /// --- MoTreeVertex Library {{{ ///
 
 struct MoTreeVertex {
   const int n, logn, m;
   const int width;
+  int q;
   vector< vector< int > > par;
   vector< int > dep;
   vector< int > in, vs;
@@ -36,6 +35,7 @@ struct MoTreeVertex {
         logn(log(n)),
         m(2 * n - 1),
         width(int(k* m / sqrt(q) + 1.0)),
+        q(q),
         par(logn, vector< int >(n, -1)),
         dep(n),
         in(n),
@@ -94,24 +94,20 @@ struct MoTreeVertex {
     i++;
   }
   inline void build() {
-    sort(begin(order), end(order), [&](int a, int b) {
+    sort(begin(order), begin(order) + q, [&](int a, int b) {
       const int ab = le[a] / width, bb = le[b] / width;
       return ab != bb ? ab < bb : ab & 1 ? ri[a] < ri[b] : ri[b] < ri[a];
     });
-  }
-  inline int next() {
-    static int i = 0;
-#ifdef DEBUG
-    assert(i < (int) order.size());
-#endif
-    if(i > 0) rem(lcas[order[i - 1]]);
-    const int id = order[i++];
-    while(nl > le[id]) flip(vs[--nl]);
-    while(nr < ri[id]) flip(vs[nr++]);
-    while(nl < le[id]) flip(vs[nl++]);
-    while(nr > ri[id]) flip(vs[--nr]);
-    add(lcas[id]);
-    return id;
+    for(int i = 0; i < q; i++) {
+      if(i > 0) rem(lcas[order[i - 1]]);
+      const int id = order[i++];
+      while(nl > le[id]) flip(vs[--nl]);
+      while(nr < ri[id]) flip(vs[nr++]);
+      while(nl < le[id]) flip(vs[nl++]);
+      while(nr > ri[id]) flip(vs[--nr]);
+      add(lcas[id]);
+      next(id);
+    }
   }
   inline void flip(int i) {
     if(flag[i] ^= 1)
@@ -119,12 +115,13 @@ struct MoTreeVertex {
     else
       rem(i);
   }
+  inline void next(int id);
   inline void add(int i);
   inline void rem(int i);
 };
 
 /// }}}--- ///
 
+inline void MoTreeVertex::next(int id) {}
 inline void MoTreeVertex::add(int i) {}
-
 inline void MoTreeVertex::rem(int i) {}

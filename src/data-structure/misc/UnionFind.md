@@ -5,7 +5,7 @@ title: Union Find (DSU)
 Union Find; UF  
 Disjoint Set Union; DSU
 
-kruskal法や矛盾検知，他いろいろつかえる便利ですごい．
+kruskal法や矛盾検知(これを利用して二部グラフ判定)，他いろいろつかえる便利ですごい．
 
 アッカーマン関数の逆関数はこの宇宙に書き下せるどのような数字(おそらく十進数を想定)をぶち込んでも4以下を返す関数なので，クエリの係数は4程度．(参考は英語wiki)
 
@@ -13,6 +13,14 @@ UFのunite(merge)中に森を構築したりできる（練習問題にありま
 unite時に新しい頂点xを用意して，unite(a, x), unite(x, b)とかましてやると，  
 二分木になる．  
 2つの頂点のLCAが初めて2つが連結になった瞬間．
+
+# 永続化について
+
+部分永続については[紙ぺーぱーさんのこれ](https://camypaper.bitbucket.io/2016/12/18/adc2016/){:target="_blank"}<!--_-->とか[noshiさんのこれ](http://noshi91.hatenablog.com/entry/2018/02/18/161529){:target="_blank"}<!--_-->とかですね．
+
+完全永続については[noshiさんのこれ](http://noshi91.hatenablog.com/entry/2018/05/30/191943){:target="_blank"}<!--_-->で触れられていますね（何もわからない
+
+# 実装
 
 // @ Union Find Library
 
