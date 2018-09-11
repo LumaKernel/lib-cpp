@@ -8,6 +8,7 @@ using ll = long long;
 // @snippet mo_tree_vertex
 
 // MoTreeVertex(N, JUST Q, double k)
+// favored : k = 2
 // 1: addEdge
 // 2: prebuild
 // 3: insert
@@ -17,7 +18,7 @@ using ll = long long;
 struct MoTreeVertex {
   const int n, logn, m;
   const int width;
-  int q;
+  int q = 0;
   vector< vector< int > > par;
   vector< int > dep;
   vector< int > in, vs;
@@ -86,21 +87,21 @@ struct MoTreeVertex {
   }
   inline void insert(int u, int v) {
     if(in[u] > in[v]) swap(u, v);
-    static int i = 0;
-    le[i] = in[u] + 1;
-    ri[i] = in[v] + 1;
-    lcas[i] = lca(u, v);
-    order[i] = i;
-    i++;
+    le[q] = in[u] + 1;
+    ri[q] = in[v] + 1;
+    lcas[q] = lca(u, v);
+    order[q] = q;
+    q++;
   }
   inline void build() {
     sort(begin(order), begin(order) + q, [&](int a, int b) {
       const int ab = le[a] / width, bb = le[b] / width;
       return ab != bb ? ab < bb : ab & 1 ? ri[a] < ri[b] : ri[b] < ri[a];
     });
+    nl = nr = le[order[0]];
     for(int i = 0; i < q; i++) {
       if(i > 0) rem(lcas[order[i - 1]]);
-      const int id = order[i++];
+      const int id = order[i];
       while(nl > le[id]) flip(vs[--nl]);
       while(nr < ri[id]) flip(vs[nr++]);
       while(nl < le[id]) flip(vs[nl++]);

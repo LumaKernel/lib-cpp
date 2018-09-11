@@ -12,16 +12,15 @@ using ll = long long;
 
 struct MoEx {
   const int width;
-  int q;
+  int q = 0;
   vector< int > le, ri, order;
   MoEx(int n, int q, double k = 1)
-      : width(int(k* n / sqrt(q) + 1.0)), q(q), le(q), ri(q), order(q) {}
+      : width(int(k* n / sqrt(q) + 1.0)), le(q), ri(q), order(q) {}
   inline void insert(int l, int r) {
-    static int i = 0;
-    le[i] = l;
-    ri[i] = r;
-    order[i] = i;
-    i++;
+    le[q] = l;
+    ri[q] = r;
+    order[q] = q;
+    q++;
   }
   inline void build() {
     for(int i = 0; i < q; i++)

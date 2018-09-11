@@ -26,6 +26,7 @@ $[l + 1, r), [l - 1, r), [l, r + 1), [l, r - 1)$ を答える(伸縮する，と
   * 計算量の証明はここを参照
   * このライブラリは別のところ( [Rollback可能なデータ構造とMo]({{ "algorithm/MoEx" | absolute_url }}) )においてあります
 
+更新ができるMoは [時空間Mo]({{ "algorithm/Mo3D" | absolute_url }})
 
 # Moの高速化
 
@@ -75,26 +76,7 @@ $[l + 1, r), [l - 1, r), [l, r + 1), [l, r - 1)$ を答える(伸縮する，と
 
 # 注意点
 
-代入演算子の評価順序に注意してください．
-
-C++において，以下のような書き方は結構危険です．
-
-```
-// bad
-ans[mo.next()] = sum;
-```
-
-左辺の評価値は一意ですが，右辺はどちらを先に評価するかによってかわってきます．
-
-mo.next()は変数に入れてから，としておきましょう．
-
-```
-// good
-int id = mo.next();
-ans[id] = sum;
-```
-
-また，比較関数が `operator<` 相当ではなく `operator<=` 相当にならないように気をつけてください．(実装を参照) ([詳細]({{ "trap/improper-comparison" | absolute_url }}))
+比較関数が `operator<` 相当ではなく `operator<=` 相当にならないように気をつけてください．(実装を参照) ([詳細]({{ "trap/improper-comparison" | absolute_url }}))
 
 # 検証
 

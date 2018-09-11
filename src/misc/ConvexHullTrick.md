@@ -53,6 +53,12 @@ https://beta.atcoder.jp/contests/colopl2018-final-open/submissions/2171456
 
 したけどどっかいった
 
+# 削除付きConvexHullTrick
+
+TODO : 理解
+
+* [よすぽさんの記事](http://yosupo.hatenablog.com/entry/2015/12/02/235855){:target="_blank"}<!--_-->
+
 # 参考
 
 * [Convex-Hull Trick \| SATANIC++](http://satanic0258.hatenablog.com/entry/2016/08/16/181331){:target="_blank"}
