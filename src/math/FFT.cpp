@@ -8,13 +8,15 @@ using ll = long long;
 // @alias       fftld
 // @options     head
 // @name FFT with long double Library
+
 /// --- FFT with long double Library {{{ ///
 
-using C = complex< ld >;
+using C = complex< long double >;
 using VC = vector< C >;
 
 // using FFT
 VC dft(VC a, bool inverse = false) {
+  constexpr long double PI = 3.14159265358979323;
   int n = a.size();
   if(n == 1) return a;
   VC odd(n / 2), even(n / 2);
@@ -46,7 +48,7 @@ VC conv(VC a, VC b) {
   a = dft(a);
   b = dft(b);
   VC c(n);
-  REP(i, n) c[i] = a[i] * b[i];
+  for(int i = 0; i < n; i++) c[i] = a[i] * b[i];
   return dft(c, true);
 }
 

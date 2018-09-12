@@ -8,7 +8,7 @@ C++の演算子は評価の順が不定の演算子が結構ある．
 
 以下のコードは代入演算子の左辺と右辺の評価順序が不定なため，危険なコードになっている．
 
-```
+```cpp
 // bad
 vector<int> v(1);
 v[0] = (v.push_back(3), 5);
@@ -24,7 +24,7 @@ v[0] = (v.push_back(3), 5);
 
 ## 1
 
-```
+```cpp
 // bad
 vector<int> v(1);
 int make() {
@@ -39,7 +39,7 @@ int main() {
 
 これはmake()でとった内容を一旦変数に入れればいい．
 
-```
+```cpp
 // good
 void main() {
   int index = make();
@@ -49,7 +49,7 @@ void main() {
 
 ## 2
 
-```
+```cpp
 // bad
 int sum = 0;
 vector<int> ans(100);
@@ -66,7 +66,7 @@ int main() {
 ansの内容が異なってくる可能性があり，結果が不定である．  
 これも一時変数に一旦いれることで避けれる．
 
-```
+```cpp
 // good
 int sum = 0;
 vector<int> ans(100);

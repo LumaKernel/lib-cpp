@@ -10,7 +10,7 @@ title: 不適切な評価関数をsortなどに使っている
 
 そのため以下のような常に `1` を返す比較関数でも危険です．
 
-```
+```cpp
 // bad
 int a[] = {1, 3, 2};
 sort(a, a + n, [&](int a, int b) {
@@ -22,7 +22,7 @@ sort(a, a + n, [&](int a, int b) {
 
 逆に常に `0` を返す場合は大丈夫です．
 
-```
+```cpp
 // no problem
 int a[] = {1, 3, 2};
 sort(a, a + n, [&](int a, int b) {
@@ -36,7 +36,7 @@ sort(a, a + n, [&](int a, int b) {
 
 以下に，[Moのアルゴリズムの高速化]({{ "algorithm/Mo#Moの高速化" | absolute_url }}) として，評価関数を変更するときの危うい例を示します．
 
-```
+```cpp
 // bad
 bool comp(int a, int b) {
   int aBlock = a / width, bBlock = b / width;
@@ -48,7 +48,7 @@ bool comp(int a, int b) {
 上に示した行は， `aBlock` が奇数のときに否定になるようにしたものですが，  
 上記したように， `operator<` の否定は `operator>=` になるため，危険です．
 
-```
+```cpp
 // good
 bool comp(int a, int b) {
   int aBlock = a / width, bBlock = b / width;

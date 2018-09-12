@@ -6,6 +6,7 @@ using ll = long long;
 // @@
 // @snippet     ntt
 // @name NTT Library
+
 // require math library
 /// --- NTT Library {{{ ///
 struct NTT {
@@ -70,10 +71,29 @@ vector< NTT > ntts{
     NTT((1 << 21) * 3 * 3 * 7 * 7 + 1, 5),
 };
 
-// require garner library when use more than 2 ntt
-/// --- Garner {{{ ///
-ll garner(vector< ll > n, vector< ll > mods, ll mod);
-template < typename T >
+/// --- Garner Library {{{ ///
+ll garner(vector< int > n, vector< int > mods, ll mod) {
+  n.emplace_back(0);
+  mods.emplace_back(mod);
+  vector< ll > coeffs(n.size(), 1); // v_i の係数
+  // v_i の項より後ろの項の和,答え mod mods[i]
+  vector< ll > constants(n.size(), 0);
+  for(size_t i = 0; i < n.size(); i++) {
+    // coeffs[i] * v_i + constants[i] == n[i] (mod mods[i]) を解く
+    ll v = ll(n[i] - constants[i]) * modinv(coeffs[i], mods[i]) % mods[i];
+    if(v < 0) v += mods[i];
+    for(size_t j = i + 1; j < n.size(); j++) {
+      // coeffs[j] is (mod j)
+      (constants[j] += coeffs[j] * v) %= mods[j];
+      (coeffs[j] *= mods[i]) %= mods[j];
+    }
+  }
+  return constants.back();
+}
+/// }}}--- ///
+
+template < class T >
+// convolution with NTT {{{
 vector< ll > conv(vector< T > a, vector< T > b, int use = 1, ll mod = 1e9 + 7) {
   vector< vector< ll > > cs;
   auto nlist = ntts;
@@ -94,4 +114,4 @@ vector< ll > conv(vector< T > a, vector< T > b, int use = 1, ll mod = 1e9 + 7) {
   }
   return c;
 }
-/// }}}--- ///
+// }}}
