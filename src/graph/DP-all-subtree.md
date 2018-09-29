@@ -18,9 +18,13 @@ title: 全方位木DP (るま式)
 * DPテーブル最低限（最低1個）
 * 場合分けがいらない（N = 1, 2の場合分けがいらない）
 * 実装時の思考がスッキリ
-* 森にも対応できる
+* 森にも対応でき
 
 # 基本
+
+$K$ は $dp$ のステート数
+
+$O(KN \log N)$
 
 // @ all tree dp - type luma
 
@@ -30,14 +34,22 @@ title: 全方位木DP (るま式)
 
 `map` を `vector` に変えるだけです
 
-# 検証
+$O(KN)$ になります
+
+# 検証 (使用例)
 
 * [D - Driving on a Tree (800) - AC](https://beta.atcoder.jp/contests/s8pc-4/submissions/3232753){:target="_blank"}<!--_-->
   * 簡単です．全方位木DPの基本だと思います
-* [F - Monochrome Cat () - AC](https://beta.atcoder.jp/contests/arc097/submissions/3233286){:target="_blank"}<!--_-->
+* [F - Monochrome Cat (800) - AC](https://beta.atcoder.jp/contests/arc097/submissions/3233286){:target="_blank"}<!--_-->
   * 僕が思う，「ずっしりした問題」です
   * 使わない部分木があったり，計算途中を引き継いだりといったことが，  
 るま式ではスッキリ書けます
   * 全方位木DP使わなくても解けるためなんか短いコードが結構ありますね
 * [F - Distance Sums (900) - AC](https://beta.atcoder.jp/contests/arc103/submissions/3305207){:target="_blank"}<!--_-->
+
+# 練習問題
+
+* [D - Driving on a Tree (800) - AC](https://beta.atcoder.jp/contests/s8pc-4/tasks/s8pc_4_d){:target="_blank"}<!--_-->
+* [F - Monochrome Cat (800) - AC](https://beta.atcoder.jp/contests/arc097/tasks/arc097_d){:target="_blank"}<!--_-->
+* [F - Distance Sums (900) - AC](https://beta.atcoder.jp/contests/arc103/tasks/arc103_d){:target="_blank"}<!--_-->
 
