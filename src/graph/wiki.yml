@@ -8,6 +8,7 @@ order:
   - lowlink
   - BiconnectedComponent
   - BiedgeConnectedComponent
+  - DP-all-subtree
   - GraphUtil
   - isSameTree
   - MST
