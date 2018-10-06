@@ -1,10 +1,10 @@
 ---
-title: 完全導入
+title: FFT導入
 ---
 
-FFTとは，Fast Fourier Transform（高速フーリエ変換）のことです
+FFTは，Fast Fourier Transform（高速フーリエ変換）の略です
 
-一般に波形などに適応するようですがそちらはよくわからないため，競プロでの用途限定で書いていきます
+一般に波形などに適用するようですがそちらはよくわからないため，競プロでの用途限定で書いていきます
 
 もし，ここでFFTを1から学ぶという方は，ノートなどを用意すると良いと思います
 
@@ -55,9 +55,9 @@ $-1 + x + x^2$の順序で書くことにします
 
 多項式は，関数みたいに $f(x) = -1 + x + x^2$と書くようにします
 
-$f(x) = -1 + x + x^2$の次数は$2$です
+$f(x) = -1 + x + x^2$ の次数は $2$ です
 
-$\log x$や$2^x + 3\sqrt x$は多項式ではありません
+$\log x$や$2^x + 3\sqrt x$ は多項式ではありません
 
 ---
 
@@ -79,11 +79,15 @@ $$f(x) = a_0x^0 + a_1x^1 + \cdots a_kx^k = \sum_{i=0}^k a_ix^i$$
 
 それは，$i \gt k$にたいして$a_i = 0$であればよい，程度の意味だと捉えてください
 
+また，サイズ $N$ の多項式を，次数が $N-1$ 以下の多項式とします
+
+$-1$ は $x^0$ の分です
+
 # 畳み込み
 
-ここでは，畳み込みとは 数列 $a = (a_i)_{i=0}^{N-1}$と$b = (b_i)_{i=0}^{N-1}$から新たな数列 $c = (c_i)_{i=0}^{N-1}$ を求めることです
+ここでは，畳み込みとは 数列 $$a = (a_i)_{i=0}^{N-1}$$ と $$b = (b_i)_{i=0}^{M-1}$$ から新たな数列 $$c = (c_i)_{i=0}^{N + M - 2}$$ を求めることです
 
-$c$は $0 \leq k \leq 2N - 2$ について以下を満たします
+$c$ は $0 \leq k \leq N + M - 2$ について以下を満たします
 
 $$c_k = \sum_{i=0}^{k}a_ib_{k - i}$$
 
@@ -94,13 +98,17 @@ $a,b,c$を係数とする多項式をそれぞれ$f,g,h$としましょう
 
 すなわち，
 
-$f(x) = a_0 + a_1x + a_2x^2 + \cdots a_{N-1}x^{N-1}$
-$g(x) = b_0 + b_1x + b_2x^2 + \cdots b_{N-1}x^{N-1}$
-$h(x) = c_0 + c_1x + c_2x^2 + \cdots c_{2N-2}x^{2N-2}$
+$$
+\begin{aligned}
+&f(x) = a_0 + a_1x + a_2x^2 + \cdots a_{N-1}x^{N-1} \\
+&g(x) = b_0 + b_1x + b_2x^2 + \cdots b_{M-1}x^{M-1} \\
+&h(x) = c_0 + c_1x + c_2x^2 + \cdots c_{N + M -2}x^{N + M - 2}
+\end{aligned}
+$$
 
 です
 
-$f(x) \times g(x) = h(x)$となるのがわかりますか？
+$f(x) \times g(x) = h(x)$ となるのがわかりますか?
 
 簡単な例を示します
 
@@ -119,7 +127,7 @@ $$
 これが多項式同士の掛け算です
 
 
-もう一つ，$f(x) = a_0 + a_1x + a_2x^2$と$f(x) = b_0 + b_1x + b_2x^2$を考えます
+もう一つ， $f(x) = a_0 + a_1x + a_2x^2$ と $f(x) = b_0 + b_1x + b_2x^2$ を考えます
 
 $$
 \begin{aligned}
@@ -139,20 +147,25 @@ $i + j = k$となります
 
 一般的にかくと，
 
-$f(x) = \sum_{i=0}^{N-1}a_ix^i$
-
-$g(x) = \sum_{j=0}^{N-1}b_jx^j$
-
-$f(x)\times g(x) = h(x) = \sum_{i=0}^{2N-2}c_ix^i$
-
-$h(x) = \sum_{i=0}^{N-1}\sum_{j=0}^{N-1}a_ib_jx^{i+j}$
+$$
+\begin{aligned}
+&f(x) = \sum_{i=0}^{N-1}a_ix^i \\
+&g(x) = \sum_{j=0}^{M-1}b_jx^j \\
+&f(x)\times g(x) = h(x) = \sum_{i=0}^{N+M-2}c_ix^i \\
+&h(x) = \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}a_ib_jx^{i+j}
+\end{aligned}
+$$
 
 というところまでいきます  
 なぜそうなるか，という点については，素直に掛け合わせてシグマを入れ替えるとそうなるからです
 
+上記の式により，$h$ のサイズが $N+M-1$ であることにも納得がいくかと思います
+
 また次のように言い換えることができます
 
-$h(x) = \sum_{k=0}^{2N-2}\sum_{i=0}^{k}a_ib_{k-i}x^k$
+$$h(x) = \sum_{k=0}^{N+M-2}\sum_{i=0}^{k}a_ib_{k-i}x^k$$
+
+ただし，範囲外については0とします
 
 ---
 
@@ -162,7 +175,7 @@ $h(x) = f(x) \times g(x) = (f \ast g) (x)$ と書きます
 
 # 愚直に求める
 
-簡単のため$|a| = |b| = N$とする
+簡単のため $\|a\| = \|b\| = N$ とする
 
 ```cpp
 vector<int> conv(vector<int> a, vector<int> b) {
@@ -181,9 +194,9 @@ vector<int> conv(vector<int> a, vector<int> b) {
 
 # 1の原始N乗根
 
-離散フーリエ変換に行く前に，$\zeta_N$について説明する
+離散フーリエ変換に行く前に， $\zeta_N$ について説明する
 
-$x^N = 1$の解が$\zeta_N$である
+$x^N = 1$ の解が $\zeta_N$ である
 
 $\zeta_3 = \omega$ だ
 
@@ -192,7 +205,7 @@ $\zeta_3 = \omega$ だ
 
 位数なんて難しい話は抜きにして，
 
-$\zeta_N = \cos(\frac{2\pi}{N}) +\sqrt {-1}\sin(\frac{2\pi}{N})$
+$$\zeta_N = \cos(\frac{2\pi}{N}) +\sqrt {-1}\sin(\frac{2\pi}{N})$$
 
 と定めれば条件を満たす
 
@@ -232,13 +245,15 @@ $\omega$(オメガ)などで代用しても大丈夫ですし，書いている�
 
 # 離散フーリエ変換
 
-
-$\hat{f}(x) = f(\zeta_N^0)x^0 + f(\zeta_N^i)x^1 +\cdots + f(\zeta_N^{N-1})x^{N-1}$
-$\hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$
+$$
+\hat{f}(x)
+= f(\zeta_N^0)x^0 + f(\zeta_N^i)x^1 +\cdots + f(\zeta_N^{N-1})x^{N-1}
+= \sum_{i=0}^{N-1} f(\zeta_N^i)x^i
+$$
 
 と定義します
 
-$\hat{f}$が$f$の離散フーリエ変換です
+$\hat{f}$ が $f$ の離散フーリエ変換です
 
 関数的に書くと，$\mathrm{DFT}(f) = \hat{f}$です
 
@@ -254,17 +269,17 @@ FFTはこのDFTを高速に行うためのアルゴリズムです
 
 まず，
 
-$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$
+$$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$$
 
 を示します
 
-式の中にある，$\hat{f}(\zeta_N^{\textcolor{red}{-i}})$について考えます
+式の中にある， $\hat{f}(\zeta_N^{\textcolor{red}{-i}})$ について考えます
 
-$\hat{f}(x) = \sum_{j=0}^{N-1} f(\zeta_N^j)x^j$
+$$\hat{f}(x) = \sum_{j=0}^{N-1} f(\zeta_N^j)x^j$$
 
 に $x=\zeta_N^{\textcolor{red}{-i}}$ を代入すると，
 
-$\hat{f}(\zeta_N^{\textcolor{red}{-i}}) = \sum_{j=0}^{N-1} f(\zeta_N^j)\zeta_N^{-ij}$
+$$\hat{f}(\zeta_N^{\textcolor{red}{-i}}) = \sum_{j=0}^{N-1} f(\zeta_N^j)\zeta_N^{-ij}$$
 
 さらに，$f(x) = \sum_{k=0}^{N-1}a_kx^k$を代入してやります
 
@@ -286,7 +301,7 @@ $$
 $(k - i) \not\equiv 0 \mod N$ならば  
 全体で$a_k$倍されるものの，$0$なので，消えます
 
-$|k-i|\leq N$に注意して丁寧に書くと，
+$\|k-i\|\leq N$ に注意して丁寧に書くと，
 
 $$
 \begin{aligned}
@@ -322,17 +337,19 @@ $$
 
 再掲
 
-$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$
+$$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$$
 
-ところでこれはDFTの定義に似ていませんか？
+ところでこれはDFTの定義に似ていませんか?
 
-DFT: $\hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$
+DFT:
+
+$$\hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$$
 
 上のものを，逆離散フーリエ変換（IDFT; Inversed Discrete Fourier Transform）といいます
 
 関数的に書くと，
 
-$\mathrm{DFT}^{-1}(\mathrm{DFT}(f))=f$
+$$\mathrm{DFT}^{-1}(\mathrm{DFT}(f))=f$$
 
 です
 
@@ -345,13 +362,13 @@ $\mathrm{DFT}^{-1}(\mathrm{DFT}(f))=f$
 
 DFTを使って畳み込みを計算することをかんがえます
 
-$\widehat{(f*g)}$ が計算できれば，IDFTすることで目的の $(f*g)$ が得られます
+$\widehat{(f\*g)}$ が計算できれば，IDFTすることで目的の $(f\*g)$ が得られます
 
-$\widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} (f*g)(\zeta_N^i)x^i$
+$$\widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} (f*g)(\zeta_N^i)x^i$$
 
 ここで，定義である $(f*g)(x)=f(x)\cdot g(x)$ を代入すると，
 
-$\widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} f(\zeta_N^i)g(\zeta_N^i)x^i$
+$$\widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} f(\zeta_N^i)g(\zeta_N^i)x^i$$
 
 ところで，$f(\zeta_N^i)$と$g(\zeta_N^i)$は，$\hat f$と$\hat g$という多項式の係数です
 
@@ -363,7 +380,7 @@ $\widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} f(\zeta_N^i)g(\zeta_N^i)x^i$
 
 よって，まとめると，
 
-$(f*g) = DFT^{-1}(DFT(f) \cdot DFT(g))$
+$$(f*g) = DFT^{-1}(DFT(f) \cdot DFT(g))$$
 
 ということになります
 
@@ -404,10 +421,12 @@ vector<Complex> conv(vector<Complex> a, vector<Complex> b) {
 
 再掲
 
-DFT: $\hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$
+DFT:
+
+$$\hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$$
 
 DFTを求めることは，  
-$f(\zeta_N^0), f(\zeta_N^1),\cdots ,f(\zeta_N^{N-1})$を求めることです 
+$f(\zeta_N^0), f(\zeta_N^1),\cdots ,f(\zeta_N^{N-1})$を求めることです  
 
 FFTによってこいつを高速に求めます
 
@@ -415,23 +434,26 @@ FFTのアイデアは分割統治です
 
 ---
 
-$f$の係数を添字のパリティ（偶奇）で分けます
+$f$ の係数を添字のパリティ（偶奇）で分けます
 
-$f_0(x)  = a_0x^0 + a_2x^1 + a_4x^2 + \cdots = \sum_{i=0}^{N/2-1}a_{2i}x^i$
+$$
+\begin{aligned}
+&f_0(x) &= a_0 + a_2x + a_4x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i}x^i \\
+&f_1(x) &= a_1 + a_3x + a_5x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i+1}x^i
+\end{aligned}
+$$
 
-$f_1(x) = a_1x^0 + a_3x^1 + a_5x^2 + \cdots = \sum_{i=0}^{N/2-1}a_{2i+1}x^i$ 
+$N$ は後々のために2べきとします
 
-$N$は後々のために2べきとします
+$f(x) = f_0(x^2) + xf_1(x^2)$ になることが分かるかと思います
 
-$f(x) = f_0(x^2) + xf_1(x^2)$になることが分かるかと思います
+$f(\zeta_N^i)$ に上記を代入します
 
-$f(\zeta_N^i)$に上記を代入します
+$$f(\zeta_N^i) = f_0(\zeta_N^2i) + \zeta_N^i\cdot f_1(\zeta_N^2i)$$
 
-$f(\zeta_N^i) = f_0(\zeta_N^2i) + \zeta_N^i\cdot f_1(\zeta_N^2i)$
+ここで， $\zeta_{nk}^{ik}=\zeta_n^i$ を思い出してください（約分みたいなもの）
 
-ここで，$\zeta_{nk}^{ik}=\zeta_n^i$を思い出してください（約分みたいなもの）
-
-$f(\zeta_N^i) = f_0(\zeta_{N/2}^i) + \zeta_N^i\cdot f_1(\zeta_{N/2}^i)$
+$$f(\zeta_N^i) = f_0(\zeta_{N/2}^i) + \zeta_N^i\cdot f_1(\zeta_{N/2}^i)$$
 
 よって，
 
@@ -455,15 +477,23 @@ $f_0(\zeta_{N/2}^0),f_0(\zeta_{N/2}^1),\cdots,f_0(\zeta_{N/2}^{N/2-1})$と
 $f_1(\zeta_{N/2}^0),f_1(\zeta_{N/2}^1),\cdots,f_1(\zeta_{N/2}^{N/2-1})$  
 さえわかれば良いです
 
+---
+
 これらは $f_0,f_1$ のDFTそのものです
 
 よって，サイズが $1/2$ のDFTを2つ求めて，$O(N)$ で求めたい多項式のDFTが求まります
 
-これがFFTです
+---
 
 サイズが$1$であるときについて考えます
 
-$f(\zeta_1^0) = f(0) = a_0$なので係数は変わりません
+$f(x) = a_0$ です
+
+$f(\zeta_1^0) = f(1) = a_0$ なので係数は変わりません
+
+$\hat f (x) = a_0$ となります
+
+---
 
 計算量を考えてみます
 
@@ -474,6 +504,8 @@ $T(N) = 2T(N/2) + O(N)$
 この形は，分割統治と同じです
 
 なので，$T(N) = O(N \log N)$ がわかります
+
+---
 
 FFTを用いてDFTを求める疑似コードです
 
@@ -507,38 +539,47 @@ $N$ は2べきです (convで適当に調整します)
 
 `zeta_n_i` は $\zeta_N^i$ です
 
-これを上記コードのようにその場で求めず，掛け算によって $\zeta_N$ から求めようとすると誤差が大きくなるので注意してください
+$\zeta_N^i$ を上記コードのようにその場で求めることをせずに，  
+掛け算によって $\zeta_N$ から求めようとすると誤差が大きくなるので注意してください
 
 # 逆離散フーリエ変換
 
 再掲
 
-$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$
+IDFT:
+
+$$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$$
 
 関数的に書いたほうが，入力・出力がはっきりとわかりやすいと思うので，書き換えます
 
-$DFT^{-1}(f)(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} f(\zeta_N^{\textcolor{red}{-i}})x^i$
+$$DFT^{-1}(f)(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} f(\zeta_N^{\textcolor{red}{-i}})x^i$$
 
 DFTと同様に，何を求めればいいかを考えます
 
-$f(\zeta_N^{-0}), f(\zeta_N^{-1}), \cdots, f(\zeta_N^{-(N-1)})$
+$\frac{1}{N}$ は後から掛ければどうにでもなるので一旦無視します
+
+$$f(\zeta_N^{-0}), f(\zeta_N^{-1}), \cdots, f(\zeta_N^{-(N-1)})$$
 
 $\mathrm{mod}\ N$ で$\zeta_N^i$ は同値なので，
 
-$f(\zeta_N^{N-0}), f(\zeta_N^{N-1}), \cdots, f(\zeta_N^{-(N - (N - 1))})$
+$$f(\zeta_N^{N-0}), f(\zeta_N^{N-1}), \cdots, f(\zeta_N^{-(N - (N - 1))})$$
 
 すなわち，
 
-$f(\zeta_N^0), f(\zeta_N^{N-1}), \cdots, f(\zeta_N^1)$
+$$f(\zeta_N^0), f(\zeta_N^{N-1}), \cdots, f(\zeta_N^1)$$
 
 よって，DFTと同様に求めて，入れ替えをしてやれば良いです
+
+---
 
 他にも，DFTにおいて $\zeta_N^i$ を用いている部分を $\zeta_N^{-i}$ に差し替える，という方法もあります  
 (好きな方法を用いてください，以下では入れ替えで説明します)
 
+---
+
 最後に各係数を $N$ で割ってやります
 
-$O(N \log N)$ のDFTに加えて，反転と$N$で割ることに$O(N)$かかるので，  
+$O(N \log N)$ のDFTに加えて，反転と $N$ で割ることに $O(N)$ かかるので，  
 $O(N \log N)$ でIDFTは実行できます
 
 IDFTの疑似コードです

@@ -3,6 +3,8 @@ layout: home
 last_update : ###last_update###
 ---
 
+$\equiv$
+
 えかライブラリだよ
 
 (工事中，完成はだいぶ先になりそう)
@@ -17,7 +19,8 @@ last_update : ###last_update###
 * [kirikaさんの整数論集](https://github.com/kirika-comp/articles){:target="_blank"}<!--_-->
   * seisuuron.tex
 * [E-Maxx Algorithms in English](https://cp-algorithms.com){:target="_blank"}<!--_-->
-  * もともとロシア語のものを英語に翻訳したものらしい
   * いろいろある
 * [競技プログラミング練習問題集 - はまやんはまやんはまやん](https://www.hamayanhamayan.com/entry/2100/01/01/000000){:target="_blank"}<!--_-->
+* [COMPILER EXPLORER](https://godbolt.org/){:target="_blank"}<!--_-->
+  * 最適化されているか，などを確認できる
 

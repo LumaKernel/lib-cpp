@@ -26,7 +26,7 @@ findやuniteの1クエリあたりの計算量は，
 ||経路圧縮する|しない|
 |--|--|--|
 |Quick Unionする|**ならし**$O(\alpha (N))$|$O(\log N)$|
-|しない|$O(\log N)$ぐらい^*1^|$O(N)$|
+|しない|$O(\log N)$ぐらい<sup>*1</sup>|$O(N)$|
 
 *1: このパターンについては計算量が複雑でよくわかりません
 
@@ -48,7 +48,7 @@ Union by sizeとPath compressionを用いています
 
 # 検証
 
-* [B - Union Find - AC](https://beta.atcoder.jp/contests/atc001/submissions/2147616){:target="_blank"}<!--_-->
+* [B - Union Find - AC](https://beta.atcoder.jp/contests/atc001/submissions/3336219){:target="_blank"}<!--_-->
 
 # 練習
 

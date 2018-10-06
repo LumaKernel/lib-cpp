@@ -72,20 +72,18 @@ vector< NTT > ntts{
 };
 
 /// --- Garner Library {{{ ///
-ll garner(vector< int > n, vector< int > mods, ll mod) {
-  n.emplace_back(0);
+ll garner(const vector< ll > &x, vector< ll > mods, ll mod) {
   mods.emplace_back(mod);
-  vector< ll > coeffs(n.size(), 1); // v_i の係数
-  // v_i の項より後ろの項の和,答え mod mods[i]
-  vector< ll > constants(n.size(), 0);
-  for(size_t i = 0; i < n.size(); i++) {
-    // coeffs[i] * v_i + constants[i] == n[i] (mod mods[i]) を解く
-    ll v = ll(n[i] - constants[i]) * modinv(coeffs[i], mods[i]) % mods[i];
+  vector< ll > coeffs(x.size() + 1, 1); // coeffs[i]v_i
+  vector< ll > constants(x.size() + 1, 0);
+  for(size_t i = 0; i < x.size(); i++) {
+    // x[i] - constants[i] == coeffs[i] * v_i (mod mods[i])
+    ll v = (x[i] - constants[i]) * modinv(coeffs[i], mods[i]) % mods[i];
     if(v < 0) v += mods[i];
-    for(size_t j = i + 1; j < n.size(); j++) {
-      // coeffs[j] is (mod j)
-      (constants[j] += coeffs[j] * v) %= mods[j];
-      (coeffs[j] *= mods[i]) %= mods[j];
+    for(size_t j = i + 1; j < x.size() + 1; j++) {
+      // coeffs[j] is (mod mods[j])
+      constants[j] = (constants[j] + coeffs[j] * v) % mods[j];
+      coeffs[j] = (coeffs[j] * mods[i]) % mods[j];
     }
   }
   return constants.back();

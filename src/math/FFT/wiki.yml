@@ -2,4 +2,4 @@ type: dir
 title: FFT
 order:
   - introduction
-  - NTT
+  # - NTT
