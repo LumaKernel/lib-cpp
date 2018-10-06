@@ -6,7 +6,7 @@ using ll = long long;
 // @@
 // @ Mo with UF
 // @snippet mo_ex_unionfind
-// @alias mo_unionfind
+// @alias unionfind_mo_ex uf_mo_ex
 
 /// --- Mo with Persistent Data Structure Library {{{ ///
 

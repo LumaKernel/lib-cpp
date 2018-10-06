@@ -1,9 +1,9 @@
 type: dir
 title: いろいろ
 order:
-  - BIT
-  - BIT2D
-  - SparseTable
-  - LinkCutTree
+  # - BIT
+  # - BIT2D
+  # - SparseTable
+  # - LinkCutTree
   - UnionFind
 

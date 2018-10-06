@@ -100,7 +100,7 @@ vector< ll > primes(ll n) {
       if(p * p > i) break;
       if(i % p == 0) isp = 0;
     }
-    if(isp) res.emplace_back(p);
+    if(isp) res.emplace_back(i);
   }
   return res;
 }
@@ -117,12 +117,13 @@ ll extgcd(ll a, ll b, ll &x, ll &y) {
   return b == 0 ? (x = 1, y = 0, a)
                 : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
 }
-ll modinv(ll a, ll mod = 1e9 + 7) {
-  ll x = 0, y = 0;
+ll modinv(ll a, ll mod = (ll) 1e9 + 7) {
+  ll x, y;
   extgcd(a, mod, x, y);
-  return (x + mod) % mod;
+  if(x < 0) x += mod;
+  return x;
 }
-ll modpow(ll a, ll b, ll mod = 1e9 + 7) {
+ll modpow(ll a, ll b, ll mod = (ll) 1e9 + 7) {
   ll r = 1;
   a %= mod;
   while(b) {

@@ -1,9 +1,9 @@
 order:
   - data-structure
-  - graph
+  # - graph
   - math
-  - geometory
+  # - geometory
   - algorithm
-  - string
-  - misc
-  - trap
+  # - string
+  # - misc
+  # - trap
