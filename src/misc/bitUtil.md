@@ -7,13 +7,13 @@ id: bit-utility
 
 命名は適当
 
-// @ topbit
+// @ msb
 
-// @ topbitll
+// @ msbll
 
-// @ logbin
+// @ logmsb
 
-// @ logbinll
+// @ logmsbll
 
 // @ popcount
 

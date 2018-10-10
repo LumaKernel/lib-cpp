@@ -2,12 +2,14 @@ type: dir
 title: 数学
 order:
   - general
-  # - GaussJordan
-  # - Givens
-  # - matrix
-  # - moebius
+  - GaussJordan
+  - Givens
+  - matrix
+  - moebius
+  - EulerTotient
+  - PIE
+  - CRT
+  - Montgomery
+  - Monoid
+  - LagrangianRelaxation
   - FFT
-  # - EulerTotient
-  # - Montgomery
-  # - Monoid
-  # - LagrangianRelaxation

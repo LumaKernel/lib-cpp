@@ -3,8 +3,6 @@ layout: home
 last_update : ###last_update###
 ---
 
-$\equiv$
-
 えかライブラリだよ
 
 (工事中，完成はだいぶ先になりそう)

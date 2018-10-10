@@ -1,5 +1,5 @@
 ---
-title: s[0,i-1]の接頭辞と接尾辞が一致する最大の長さ (Prefix Function, KMP法), 最小周期
+title: s[0,i-1]の接頭辞と接尾辞が一致する最大の長さ (KMP法), 最小周期
 ---
 
 Knuth-Morris-Pratt法

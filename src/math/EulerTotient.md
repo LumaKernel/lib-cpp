@@ -110,6 +110,10 @@ $$
 ポリアの数え上げ定理（蟻本にあるやつ）を証明するのにも使えます  
 （証明についてはそのうち記事にするかもしれない）
 
+# 原始根の数
+
+奇素数 $p$ について $\mathrm{mod}\ p$ における原始根の数は $\phi(\phi(p)) = \phi(p-1)$ 個 参考: [原始根の数のかぞえかた](http://tsujimotter.hatenablog.com/entry/primitive-root){:target="_blank"}<!--_-->
+
 # 実装
 
 $O(\sqrt N)$ です

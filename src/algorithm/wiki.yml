@@ -1,10 +1,10 @@
 type: dir
 title: アルゴリズム
 order:
-  # - Mo
-  # - MoEx
-  # - Mo3D
-  # - Kitamasa
+  - Mo
+  - MoEx
+  - Mo3D
+  - Kitamasa
   - Garner
-  # - FastZetaTransform
-  # - Hu-Tucker
+  - FastZetaTransform
+  - Hu-Tucker

@@ -4,9 +4,10 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @name topbit
-// @snippet     topbit
-int topbit(int x) {
+// @name msb
+// @snippet     msb
+// @alias       topbit
+int msb(int x) {
   x = x & 0xFFFF0000 ? x & 0xFFFF0000 : x;
   x = x & 0xFF00FF00 ? x & 0xFF00FF00 : x;
   x = x & 0xF0F0F0F0 ? x & 0xF0F0F0F0 : x;
@@ -15,9 +16,10 @@ int topbit(int x) {
   return x;
 }
 
-// @new topbitll
-// @snippet     topbitll
-int topbitll(ll x) {
+// @new msbll
+// @snippet     msbll
+// @alias     topbitll
+int msbll(ll x) {
   x = x & 0xFFFFFFFF00000000 ? x & 0xFFFFFFFF00000000 : x;
   x = x & 0xFFFF0000FFFF0000 ? x & 0xFFFF0000FFFF0000 : x;
   x = x & 0xFF00FF00FF00FF00 ? x & 0xFF00FF00FF00FF00 : x;
@@ -27,9 +29,10 @@ int topbitll(ll x) {
   return x;
 }
 
-// @new logbin
-// @snippet     logbin
-int logbin(int x) {
+// @new logmsb
+// @snippet     logmsb
+// @alias       log2_int
+int logmsb(int x) {
   int h = 0;
   x = x & 0xFFFF0000 ? (h += 16, x) & 0xFFFF0000 : x;
   x = x & 0xFF00FF00 ? (h += 8, x) & 0xFF00FF00 : x;
@@ -39,9 +42,10 @@ int logbin(int x) {
   return h;
 }
 
-// @new logbinll
-// @snippet     logbinll
-int logbinll(ll x) {
+// @new logmsbll
+// @snippet     logmsbll
+// @alias       log2_ll
+int logmsbll(ll x) {
   int h = 0;
   x = x & 0xFFFFFFFF00000000 ? (h += 32, x) & 0xFFFFFFFF00000000 : x;
   x = x & 0xFFFF0000FFFF0000 ? (h += 16, x) & 0xFFFF0000FFFF0000 : x;

@@ -32,3 +32,8 @@ TODO : 区間に対する更新に対し，leftを求めるの，ちょっとど
 * [E - Black Cats Deployment - AC](https://beta.atcoder.jp/contests/cf17-tournament-round3-open/tasks/asaporo2_e){:target="_blank"}<!--_-->
   * ぜひやってみてください
 
+# 参照
+
+* [Spaceships 解説 - SlideShare](https://www.slideshare.net/qnighy/2013-spaceships2){:target="_blank"}<!--_-->
+  * SplayやLCTのポテンシャルを用いた計算量の評価と証明が書かれています
+

@@ -94,11 +94,14 @@ vector< int > phi2(int n) {
 /// --- primes {{{ ///
 vector< ll > primes(ll n) {
   vector< ll > res;
-  for(ll i = 2; i * i <= n; i++) {
+  for(ll i = 2; i <= n; ++i) {
     int isp = 1;
     for(ll p : res) {
       if(p * p > i) break;
-      if(i % p == 0) isp = 0;
+      if(i % p == 0) {
+        isp = 0;
+        break;
+      }
     }
     if(isp) res.emplace_back(i);
   }
@@ -132,5 +135,34 @@ ll modpow(ll a, ll b, ll mod = (ll) 1e9 + 7) {
     b >>= 1;
   }
   return r;
+}
+/// }}}--- ///
+
+// @new isPrimitive
+// @snippet     is_primitive
+/// --- isPrimitive {{{ ///
+bool isPrimitive(int x, int mod) {
+  auto ds = divisor(mod - 1);
+  for(ll d : ds)
+    if(d != mod - 1) {
+      if(modpow(x, d, mod) == 1) return false;
+    }
+  return true;
+}
+/// }}}--- ///
+
+// @new modmul
+// @snippet     modmul
+// @alias       mulmod
+/// --- modmul {{{ ///
+ll modmul(ll a, ll b, ll mod) {
+  if(b < 0) a *= -1, b *= -1;
+  ll res = 0;
+  while(b) {
+    if(b & 1) res = (res + a) % mod;
+    a = (a + a) % mod;
+    b >>= 1;
+  }
+  return res;
 }
 /// }}}--- ///
