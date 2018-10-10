@@ -25,7 +25,7 @@ rankは必要ないのだが，SAを考える上でrankを考えたほうが僕�
   * SAいらなかった．ふえぇん．
   * SA使う場合， $O(N log^2 N)$ だと間に合わなかった．
   * 合計800'000文字 26種
-* [C - アメージングな文字列は、きみが作る！ - AC](https://beta.atcoder.jp/contests/discovery2016-qual/submissions/3123557){:target="_blank"}<!--_-->
+* [C - アメージングな文字列は、きみが作る！ - AtCoder](https://beta.atcoder.jp/contests/discovery2016-qual/submissions/3123557){:target="_blank"}<!--_-->
 
 # 参考
 

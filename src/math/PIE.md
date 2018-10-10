@@ -19,8 +19,8 @@ $\|A_1\cup A_2 \cup\cdots\| = \sum \|A_{i_0}\| - \sum \|A_{i_0} \cap A_{i_1}\| +
 
 # 練習問題
 
-* [E - Couple (うくこん) - AC](https://beta.atcoder.jp/contests/ukuku09/tasks/ukuku09_e){:target="_blank"}<!--_-->
-* [F - Squirrel Migration (800) - AC](https://beta.atcoder.jp/contests/arc087/tasks/arc087_d){:target="_blank"}<!--_-->
+* [E - Couple (うくこん) - AtCoder](https://beta.atcoder.jp/contests/ukuku09/tasks/ukuku09_e){:target="_blank"}<!--_-->
+* [F - Squirrel Migration (800) - AtCoder](https://beta.atcoder.jp/contests/arc087/tasks/arc087_d){:target="_blank"}<!--_-->
   * 難しいです，解説は (僕が解いたときは) 少し間違いがあったため注意してください
 
 # 参考

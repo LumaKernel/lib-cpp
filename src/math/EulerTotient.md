@@ -87,7 +87,7 @@ $x \geq \log_2 N$ であれば大丈夫です
 
 練習問題
 
-* [F - ModularPowerEquation!! (1400) - AC](https://beta.atcoder.jp/contests/tenka1-2017/tasks/tenka1_2017_f){:target="_blank"}
+* [F - ModularPowerEquation!! (1400) - AtCoder](https://beta.atcoder.jp/contests/tenka1-2017/tasks/tenka1_2017_f){:target="_blank"}
 
 ---
 

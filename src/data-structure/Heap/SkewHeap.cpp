@@ -6,7 +6,7 @@ using ll = long long;
 // @@
 // @name SkewHeap Library
 // @snippet     skewheap
-// @title SkewHeap
+// @alias       meldable_heap_skewheap
 /// --- SkewHeap Library {{{ ///
 template < class T >
 struct SkewHeap {

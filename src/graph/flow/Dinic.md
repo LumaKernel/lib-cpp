@@ -25,7 +25,7 @@ TODO : LCTで高速化できるらしく，やってみたく思っている．
 
 # 検証
 
-* [F - Lotus Leaves \| AC](https://beta.atcoder.jp/contests/arc074/submissions/2141547){:target="_blank"}<!--_-->
+* [F - Lotus Leaves - AtCoder](https://beta.atcoder.jp/contests/arc074/submissions/2141547){:target="_blank"}<!--_-->
 
 
 # 参考

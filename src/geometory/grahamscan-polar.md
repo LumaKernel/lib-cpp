@@ -21,7 +21,7 @@ title: 凸包 (Graham Scan, Andrew Scan)
 
 * [村の道路計画 \| PCK \| AOJ](https://onlinejudge.u-aizu.ac.jp/status/users/luma/submissions/12/0342/judge/2473617/C++){:target="_blank"}
   * まるで検証しているようで，その場で書いたコードなので検証になっていない
-* [B - Holes \| AC](https://beta.atcoder.jp/contests/agc021/submissions/2145093){:target="_blank"}
+* [B - Holes - AtCoder](https://beta.atcoder.jp/contests/agc021/submissions/2145093){:target="_blank"}
   * この問題はもっと低速な方法でいい
 
 

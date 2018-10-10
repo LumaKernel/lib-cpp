@@ -6,7 +6,7 @@ using ll = long long;
 // @@
 // @name LeftistHeap Library
 // @snippet     leftistheap
-// @title LeftistHeap
+// @alias       meldable_heap_leftistheap
 /// --- LeftistHeap Library {{{ ///
 template < class T >
 struct LeftistHeap {
