@@ -28,7 +28,7 @@ vector< Complex > dft(vector< Complex > a, bool inverse) {
     Real theta = 2 * PI * i * (inverse ? -1 : 1) / n;
     Complex zeta(cos(theta), sin(theta));
     Complex powZeta = 1;
-    for(size_t j = 0, jh = 0; j < n; j += i, ++jh) {
+    for(size_t j = 0; j < n; j += i) {
       for(size_t k = 0; k < i; ++k) {
         tmp[j + k] =
             a[((j << 1) & mask) + k] + powZeta * a[(((j << 1) + i) & mask) + k];
