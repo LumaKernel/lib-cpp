@@ -2,8 +2,8 @@ type: dir
 title: データ構造
 id: data-structure
 order:
-  # - SegmentTree
+  - SegmentTree
   - misc
-  # - Heap
-  # - BBST
+  - Heap
+  - BBST
 
