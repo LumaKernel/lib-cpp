@@ -1,5 +1,5 @@
 ---
-title: 併合可能heap (LeftistHeap)
+title: 併合可能Heap (LeftistHeap)
 ---
 
 併合可能なヒープのことをMeldable Heapといいます
