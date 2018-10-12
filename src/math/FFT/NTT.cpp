@@ -124,9 +124,7 @@ void conv_for(int n, int h, const vector< ll > &a, const vector< ll > &b,
   static const Core< NTT_PRIMES[I][0], NTT_PRIMES[I][1], MAX_H > ntt;
   auto c = ntt._convStrict(a, b, n, h);
   mods[I] = NTT_PRIMES[I][0];
-  if(I >= 1) {
-    conv_for< I - 1 >(n, h, a, b, mods, coeffs, constants);
-  }
+  conv_for< I - 1 >(n, h, a, b, mods, coeffs, constants);
   // garner
   for(size_t i = 0; i < c.size(); ++i) {
     ll v = (c[i] - constants[I][i]) * modinv(coeffs[I], mods[I]) % mods[I];
