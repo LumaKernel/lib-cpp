@@ -161,5 +161,5 @@ vector< ll > conv(vector< ll > a, vector< ll > b, ll mod) {
 /// }}}--- ///
 
 NTT::Core< NTT::NTT_PRIMES[0][0], NTT::NTT_PRIMES[0][1], MAX_H > nttBig;
-NTT::Core< 998244353, 3, MAX_H > ntt;
+NTT::Core< 924844033, 5, MAX_H > ntt;
 // NTT::conv< USE >(a, b, mod)
