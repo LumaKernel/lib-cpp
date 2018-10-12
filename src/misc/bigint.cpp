@@ -6,18 +6,26 @@ using ll = long long;
 // @@
 // @snippet     bigint
 // @name bigint
-// thanks to https://gist.github.com/ar-pa/957297fb3f88996ead11
-/// {{{
-/*
-  ######################################################################
-  #######################   THE   BIG   INT   ##########################
-*/
-const int base = 1000000000;
-const int base_digits = 9;
-struct bigint {
+
+/// big int {{{
+#include <cassert>
+#include <string>
+#include <vector>
+// forked https://gist.github.com/ar-pa/957297fb3f88996ead11
+struct BigInteger {
+private:
+  typedef long long ll;
+  typedef vector< ll > vll;
+  static const int base = 1000000000;
+  static const int base_digits = 9;
+
+public:
   vector< int > a;
   int sign;
-  /*<arpa>*/
+  BigInteger() : sign(1) {}
+  BigInteger(ll v) { *this = v; }
+  BigInteger(const string &s) { read(s); }
+
   int size() {
     if(a.empty()) return 0;
     int ans = (a.size() - 1) * base_digits;
@@ -25,11 +33,12 @@ struct bigint {
     while(ca) ans++, ca /= 10;
     return ans;
   }
-  bigint operator^(const bigint &v) {
-    bigint ans = 1, a = *this, b = v;
+  BigInteger operator^(const BigInteger &v) {
+    BigInteger ans = 1, a = *this, b = v;
     while(!b.isZero()) {
       if(b % 2) ans *= a;
-      a *= a, b /= 2;
+      a *= a;
+      b /= 2;
     }
     return ans;
   }
@@ -40,34 +49,31 @@ struct bigint {
     ss >> s;
     return s;
   }
-  int sumof() {
+  int digitsum() {
+    assert(sign == 1);
     string s = to_string();
     int ans = 0;
     for(auto c : s) ans += c - '0';
     return ans;
   }
-  /*</arpa>*/
-  bigint() : sign(1) {}
 
-  bigint(ll v) { *this = v; }
-
-  bigint(const string &s) { read(s); }
-
-  void operator=(const bigint &v) {
+  BigInteger &operator=(const BigInteger &v) {
     sign = v.sign;
     a = v.a;
+    return *this;
   }
 
-  void operator=(ll v) {
+  BigInteger &operator=(ll v) {
     sign = 1;
     a.clear();
     if(v < 0) sign = -1, v = -v;
     for(; v > 0; v = v / base) a.push_back(v % base);
+    return *this;
   }
 
-  bigint operator+(const bigint &v) const {
+  BigInteger operator+(const BigInteger &v) const {
     if(sign == v.sign) {
-      bigint res = v;
+      BigInteger res = v;
 
       for(int i = 0, carry = 0; i < (int) max(a.size(), v.a.size()) || carry;
           ++i) {
@@ -81,10 +87,10 @@ struct bigint {
     return *this - (-v);
   }
 
-  bigint operator-(const bigint &v) const {
+  BigInteger operator-(const BigInteger &v) const {
     if(sign == v.sign) {
       if(abs() >= v.abs()) {
-        bigint res = *this;
+        BigInteger res = *this;
         for(int i = 0, carry = 0; i < (int) v.a.size() || carry; ++i) {
           res.a[i] -= carry + (i < (int) v.a.size() ? v.a[i] : 0);
           carry = res.a[i] < 0;
@@ -98,7 +104,7 @@ struct bigint {
     return *this + (-v);
   }
 
-  void operator*=(int v) {
+  BigInteger &operator*=(int v) {
     if(v < 0) sign = -sign, v = -v;
     for(int i = 0, carry = 0; i < (int) a.size() || carry; ++i) {
       if(i == (int) a.size()) a.push_back(0);
@@ -108,15 +114,16 @@ struct bigint {
       // asm("divl %%ecx" : "=a"(carry), "=d"(a[i]) : "A"(cur), "c"(base));
     }
     trim();
+    return *this;
   }
 
-  bigint operator*(int v) const {
-    bigint res = *this;
+  BigInteger operator*(int v) const {
+    BigInteger res = *this;
     res *= v;
     return res;
   }
 
-  void operator*=(ll v) {
+  BigInteger &operator*=(ll v) {
     if(v < 0) sign = -sign, v = -v;
     for(int i = 0, carry = 0; i < (int) a.size() || carry; ++i) {
       if(i == (int) a.size()) a.push_back(0);
@@ -126,19 +133,21 @@ struct bigint {
       // asm("divl %%ecx" : "=a"(carry), "=d"(a[i]) : "A"(cur), "c"(base));
     }
     trim();
+    return *this;
   }
 
-  bigint operator*(ll v) const {
-    bigint res = *this;
+  BigInteger operator*(ll v) const {
+    BigInteger res = *this;
     res *= v;
     return res;
   }
 
-  friend pair< bigint, bigint > divmod(const bigint &a1, const bigint &b1) {
+  friend pair< BigInteger, BigInteger > divmod(const BigInteger &a1,
+                                               const BigInteger &b1) {
     int norm = base / (b1.a.back() + 1);
-    bigint a = a1.abs() * norm;
-    bigint b = b1.abs() * norm;
-    bigint q, r;
+    BigInteger a = a1.abs() * norm;
+    BigInteger b = b1.abs() * norm;
+    BigInteger q, r;
     q.a.resize(a.a.size());
 
     for(int i = a.a.size() - 1; i >= 0; i--) {
@@ -159,9 +168,13 @@ struct bigint {
     return make_pair(q, r / norm);
   }
 
-  bigint operator/(const bigint &v) const { return divmod(*this, v).first; }
+  BigInteger operator/(const BigInteger &v) const {
+    return divmod(*this, v).first;
+  }
 
-  bigint operator%(const bigint &v) const { return divmod(*this, v).second; }
+  BigInteger operator%(const BigInteger &v) const {
+    return divmod(*this, v).second;
+  }
 
   void operator/=(int v) {
     if(v < 0) sign = -sign, v = -v;
@@ -173,8 +186,8 @@ struct bigint {
     trim();
   }
 
-  bigint operator/(int v) const {
-    bigint res = *this;
+  BigInteger operator/(int v) const {
+    BigInteger res = *this;
     res /= v;
     return res;
   }
@@ -186,12 +199,43 @@ struct bigint {
     return m * sign;
   }
 
-  void operator+=(const bigint &v) { *this = *this + v; }
-  void operator-=(const bigint &v) { *this = *this - v; }
-  void operator*=(const bigint &v) { *this = *this * v; }
-  void operator/=(const bigint &v) { *this = *this / v; }
+  BigInteger &operator++() {
+    *this = *this + 1;
+    return *this;
+  }
+  BigInteger &operator--() {
+    *this = *this - 1;
+    return *this;
+  }
+  BigInteger operator++(int) {
+    BigInteger tmp = *this;
+    *this = *this + 1;
+    return tmp;
+  }
+  BigInteger operator--(int) {
+    BigInteger tmp = *this;
+    *this = *this - 1;
+    return tmp;
+  }
 
-  bool operator<(const bigint &v) const {
+  BigInteger &operator+=(const BigInteger &v) {
+    *this = *this + v;
+    return *this;
+  }
+  BigInteger &operator-=(const BigInteger &v) {
+    *this = *this - v;
+    return *this;
+  }
+  BigInteger &operator*=(const BigInteger &v) {
+    *this = *this * v;
+    return *this;
+  }
+  BigInteger &operator/=(const BigInteger &v) {
+    *this = *this / v;
+    return *this;
+  }
+
+  bool operator<(const BigInteger &v) const {
     if(sign != v.sign) return sign < v.sign;
     if(a.size() != v.a.size()) return a.size() * sign < v.a.size() * v.sign;
     for(int i = a.size() - 1; i >= 0; i--)
@@ -199,13 +243,13 @@ struct bigint {
     return false;
   }
 
-  bool operator>(const bigint &v) const { return v < *this; }
-  bool operator<=(const bigint &v) const { return !(v < *this); }
-  bool operator>=(const bigint &v) const { return !(*this < v); }
-  bool operator==(const bigint &v) const {
+  bool operator>(const BigInteger &v) const { return v < *this; }
+  bool operator<=(const BigInteger &v) const { return !(v < *this); }
+  bool operator>=(const BigInteger &v) const { return !(*this < v); }
+  bool operator==(const BigInteger &v) const {
     return !(*this < v) && !(v < *this);
   }
-  bool operator!=(const bigint &v) const { return *this < v || v < *this; }
+  bool operator!=(const BigInteger &v) const { return *this < v || v < *this; }
 
   void trim() {
     while(!a.empty() && !a.back()) a.pop_back();
@@ -214,28 +258,30 @@ struct bigint {
 
   bool isZero() const { return a.empty() || (a.size() == 1 && !a[0]); }
 
-  bigint operator-() const {
-    bigint res = *this;
+  BigInteger operator-() const {
+    BigInteger res = *this;
     res.sign = -sign;
     return res;
   }
 
-  bigint abs() const {
-    bigint res = *this;
+  BigInteger operator+() const { return *this; }
+
+  BigInteger abs() const {
+    BigInteger res = *this;
     res.sign *= res.sign;
     return res;
   }
 
-  ll longValue() const {
+  ll toLong() const {
     ll res = 0;
     for(int i = a.size() - 1; i >= 0; i--) res = res * base + a[i];
     return res * sign;
   }
 
-  friend bigint gcd(const bigint &a, const bigint &b) {
+  friend BigInteger gcd(const BigInteger &a, const BigInteger &b) {
     return b.isZero() ? a : gcd(b, a % b);
   }
-  friend bigint lcm(const bigint &a, const bigint &b) {
+  friend BigInteger lcm(const BigInteger &a, const BigInteger &b) {
     return a / gcd(a, b) * b;
   }
 
@@ -256,14 +302,14 @@ struct bigint {
     trim();
   }
 
-  friend istream &operator>>(istream &stream, bigint &v) {
+  friend istream &operator>>(istream &stream, BigInteger &v) {
     string s;
     stream >> s;
     v.read(s);
     return stream;
   }
 
-  friend ostream &operator<<(ostream &stream, const bigint &v) {
+  friend ostream &operator<<(ostream &stream, const BigInteger &v) {
     if(v.sign == -1) stream << '-';
     stream << (v.a.empty() ? 0 : v.a.back());
     for(int i = (int) v.a.size() - 2; i >= 0; --i)
@@ -292,8 +338,6 @@ struct bigint {
     while(!res.empty() && !res.back()) res.pop_back();
     return res;
   }
-
-  typedef vector< ll > vll;
 
   static vll karatsubaMultiply(const vll &a, const vll &b) {
     int n = a.size();
@@ -326,7 +370,7 @@ struct bigint {
     return res;
   }
 
-  bigint operator*(const bigint &v) const {
+  BigInteger operator*(const BigInteger &v) const {
     vector< int > a6 = convert_base(this->a, base_digits, 6);
     vector< int > b6 = convert_base(v.a, base_digits, 6);
     vll a(a6.begin(), a6.end());
@@ -335,7 +379,7 @@ struct bigint {
     while(b.size() < a.size()) b.push_back(0);
     while(a.size() & (a.size() - 1)) a.push_back(0), b.push_back(0);
     vll c = karatsubaMultiply(a, b);
-    bigint res;
+    BigInteger res;
     res.sign = sign * v.sign;
     for(int i = 0, carry = 0; i < (int) c.size(); i++) {
       ll cur = c[i] + carry;
@@ -347,8 +391,5 @@ struct bigint {
     return res;
   }
 };
-/*
-  #######################   THE   BIG   INT   ##########################
-  ######################################################################
-*/
+typedef BigInteger bigint;
 /// }}}

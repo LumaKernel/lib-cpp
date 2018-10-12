@@ -38,6 +38,7 @@ vector< ll > divisor(ll n) {
 // @new
 // @name primeFactors
 // @snippet     primefactors
+// @alias       insuubunkai soinsuubunkai
 // O(N^.5)
 /// --- primeFactors {{{ ///
 map< ll, int > primeFactors(ll n) {
@@ -112,6 +113,7 @@ vector< ll > primes(ll n) {
 // @new
 // @name math
 // @snippet     math
+// @alias       gcd lcm extgcd modinv modpow
 /// --- math {{{ ///
 ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
@@ -155,14 +157,8 @@ bool isPrimitive(int x, int mod) {
 // @snippet     modmul
 // @alias       mulmod
 /// --- modmul {{{ ///
-ll modmul(ll a, ll b, ll mod) {
-  if(b < 0) a *= -1, b *= -1;
-  ll res = 0;
-  while(b) {
-    if(b & 1) res = (res + a) % mod;
-    a = (a + a) % mod;
-    b >>= 1;
-  }
-  return res;
+ll modmul(ll x, ll y, ll mod) {
+  ll res = (x * y - (ll)((long double) x * y / mod) * mod) % mod;
+  return res < 0 ? res + mod : res;
 }
 /// }}}--- ///

@@ -46,11 +46,29 @@ $gcd(a, m) = 1$ であれば $m$ が素数でなくとも逆元を返せるよ�
 
 // @ math
 
-# 二分累乗で掛け算
+# 大きなmodでの掛け算
 
-二倍しても大丈夫なmodでの掛け算をしたいときに，二分累乗や繰り返し二乗法を使うことでoverflowを防ぐことができます．ちょっと時間がかかります．多倍長整数を使うのもひとつです
+二倍しても大丈夫なmodでの掛け算をしたいときに，二分累乗や繰り返し二乗法を使うことでoverflowを防ぐことができますが．ちょっと時間がかかります．多倍長整数を使うのもひとつです
+以下では $O(1)$ でやるために `long double` を使った方法を載せます (参考 : [巨大modでの掛け算の高速化 (Codeforces Round #259 D Little Pony and Elements of Harmony) - kazuma8128’s blog](http://kazuma8128.hatenablog.com/entry/2018/06/04/144254){:target="_blank"}<!--_-->)
 
 // @ modmul
+
+overflowを打ち消しています
+
+繰り返し二乗法で書くと以下のようになります
+
+```cpp
+ll m(ll a, ll b, ll mod) {
+  if(b < 0) a *= -1, b *= -1;
+  ll res = 0;
+  while(b) {
+    if(b & 1) res = (res + a) % mod;
+    a = (a + a) % mod;
+    b >>= 1;
+  }
+  return res;
+}
+```
 
 # 参考
 
