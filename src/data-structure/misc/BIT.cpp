@@ -39,8 +39,8 @@ struct BIT {
     }
     return s;
   }
-  T get(int i) { return sum(i) - inverse(sum(i - 1)); }
-  T range(int a, int b) { return sum(b) - inverse(sum(a - 1)); }
+  T get(int i) { return sum(i) - sum(i - 1); }
+  T range(int a, int b) { return sum(b) - sum(a - 1); }
   int lower_bound(T w) {
     int i = 0;
     for(int k = m; k > 0; k >>= 1) {

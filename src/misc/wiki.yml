@@ -3,7 +3,8 @@ title: いろいろ
 order:
   - ConvexHullTrick
   - ModuloInteger
+  - Rational
+  - BigInteger
   - bitUtil
   - Factorial
   - XorShift
-  - bigint

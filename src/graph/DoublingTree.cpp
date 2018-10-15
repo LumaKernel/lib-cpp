@@ -82,6 +82,12 @@ struct DoublingTree {
         dfs(j, i, d + 1);
       }
   }
+  int climb(int a, ll k) {
+    for(int i = logn - 1; i >= 0 && a != -1; i--)
+      if(k >= (1 << i)) a = par[i][a], k -= 1 << i;
+    assert(a == -1 || k == 0);
+    return a;
+  }
 
 public:
   int lca(int a, int b) {
