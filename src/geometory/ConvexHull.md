@@ -10,7 +10,7 @@ title: 凸包 (Graham Scan, Andrew Scan)
 
 キャリパー法は上記リンク先にあります
 
-格子点にのみ点がある時，座標の幅を $M$ とすると凸包の頂点数は $O(\sqrt{M})$ 個 (TODO : なにかしらの証明のリンク (少し考えてみたんですが，なんとなくわかります
+格子点にのみ点がある時，座標の幅を $M$ とすると凸包の頂点数は $O(\sqrt{M})$ 個 (TODO : なにかしらの証明のリンク
 
 あと，Graham ScanとAndrew Scanの違いはというと，角度ソートか座標ソートかの違いのようです [Graham scan - Wikipedia(en)](https://en.wikipedia.org/wiki/Graham_scan){:target="_blank"}<!--_-->
 
