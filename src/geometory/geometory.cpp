@@ -1,5 +1,5 @@
 // @import header
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
@@ -27,7 +27,9 @@ struct Segment : public pair< Point, Point > {
   Segment(const Point &a, const Point &b) : pair< Point, Point >(a, b) {}
 };
 inline Scalar dot(const Point &a, const Point &b) { return real(conj(a) * b); };
-inline Scalar cross(const Point &a, const Point &b) { return imag(conj(a) * b); };
+inline Scalar cross(const Point &a, const Point &b) {
+  return imag(conj(a) * b);
+};
 // L2 norm
 template < class T >
 inline Float norm(const Point &a) {
@@ -59,13 +61,17 @@ inline complex< Float > to_float(const Point &v) {
   return complex< Float >(v.real(), v.imag());
 }
 
-inline complex< Float > normalize(const complex< Float > &v) { return v / norm(v); }
+inline complex< Float > normalize(const complex< Float > &v) {
+  return v / norm(v);
+}
 
 inline complex< Float > normal(const complex< Float > &v) {
   return v * complex< Float >(cos(PI / 2), sin(PI / 2));
 }
 
-inline Float mclamp(Float x, Float low, Float high) { return max(min(x, high), low); }
+inline Float mclamp(Float x, Float low, Float high) {
+  return max(min(x, high), low);
+}
 
 // [0, pi]
 Float arg(const Point &a, const Point &b) {
@@ -115,8 +121,10 @@ Float dist(const Segment &a, const Segment &b) {
 }
 
 bool isCrossing(const Segment &a, const Segment &b) {
-  return ccw(a.first, a.second, b.first) * ccw(a.first, a.second, b.second) <= 0 &&
-         ccw(b.first, b.second, a.first) * ccw(b.first, b.second, a.second) <= 0;
+  return ccw(a.first, a.second, b.first) * ccw(a.first, a.second, b.second) <=
+             0 &&
+         ccw(b.first, b.second, a.first) * ccw(b.first, b.second, a.second) <=
+             0;
 }
 
 Point intersection(const Line &a, const Line &b) {
@@ -195,7 +203,8 @@ Scalar shareArea(Circle a, Circle b) {
   if(b.second + d < a.second + EPS) return area(b);
   Scalar s1 = arg(b.second, a.second, d), s2 = arg(a.second, b.second, d);
   Scalar tri2 =
-      (a.second * a.second * sin(s1 * 2) + b.second * b.second * sin(s2 * 2)) / 2;
+      (a.second * a.second * sin(s1 * 2) + b.second * b.second * sin(s2 * 2)) /
+      2;
   return a.second * a.second * s1 + b.second * b.second * s2 - tri2;
 }
 
@@ -275,7 +284,8 @@ int inside(const Polygon &poly, const Point &p) {
         if(poly[ii].real() - EPS < p.real() && p.real() < poly[jj].real() + EPS)
           return -2;
       } else {
-        Point q = intersection(Line(poly[ii], poly[jj]), Line(p, p + Point(1, 0)));
+        Point q =
+            intersection(Line(poly[ii], poly[jj]), Line(p, p + Point(1, 0)));
         if(p.real() < q.real() && p.imag() > poly[ii].imag() + EPS)
           cnt++; // count only upside
       }

@@ -1,10 +1,10 @@
 ---
-title: 三次元凸包
+title: 3次元凸包
 ---
 
 # 使い方
 
-[幾何基本ライブラリ]({{ "geometory/geometory" | absolute_url }}) と [三次元幾何ライブラリ]({{ "geometory/geometory3D" | absolute_url }}) が必要
+[幾何基本ライブラリ]({{ "geometory/geometory" | absolute_url }}) と [3次元幾何ライブラリ]({{ "geometory/geometory3D" | absolute_url }}) が必要
 
 与えられた点に対して，凸包をなす頂点集合を求める．ついでに副産物を色々求める
 
@@ -16,17 +16,29 @@ title: 三次元凸包
 
 同じ点については自分で，`unique` すること
 
-`insert(a, b, c)` で点を追加  
-`build(a, b, c)` で凸包を構築  
+`insert(a, b, c)` : 点を追加  
+`build()` : 凸包を構築  
 
-`vertexSize(), edgeSize(), faceSize()` で各種サイズ取得  
-`vector< int > getVertexIds()` で凸包の頂点のid集合を取得．もとの頂点番号と対応していることを保証しません  
-`valarray< Scalar > getVertex(int id) const` でidに対応する頂点取得  
-`vector< array< int, 3 > > getPolygons() const` で凸包を構成する，頂点のid3つからなるポリゴン全取得  
-`array< int, 3 > getPolygon(int id) const` ポリゴンIDからポリゴンを取得  
-`array< valarray< Scalar >, 3 > getPolygonPoints(int id) const` ポリゴンIDから頂点をそのまま取得  
-`valarray< Scalar > getPolygonOuterNormalVector(int id) const` ポリゴンIDから，そのポリゴン面と垂直で，サイズがその面の面積の二倍の外側向きのベクトルを取得
+`vertexSize(), edgeSize(), faceSize()`  
+各種サイズ取得
 
+`vector< int > getVertexIds()`  
+凸包の頂点のid集合を取得．もとの頂点番号と対応していることを保証しません  
+
+`valarray< Scalar > getVertex(int id) const`  
+idに対応する頂点取得
+
+`vector< array< int, 3 > > getPolygons() const`  
+凸包を構成する，頂点のid3つからなるポリゴン全取得
+
+`array< int, 3 > getPolygon(int id) const`  
+ポリゴンIDからポリゴンを取得
+
+`array< valarray< Scalar >, 3 > getPolygonPoints(int id) const`  
+ポリゴンIDから頂点をそのまま取得
+
+`valarray< Scalar > getPolygonOuterNormalVector(int id) const`  
+ポリゴンIDから，そのポリゴン面と垂直で，サイズがその面の面積の二倍の外側向きのベクトルを取得
 
 入力が整数であれば，すべて整数の範囲で計算可能
 
@@ -42,7 +54,8 @@ title: 三次元凸包
 
 # 応用
 
-* もとの頂点の番号が知りたい : swapは2回しか無いのでそれを保持しとく
+* もとの頂点の番号が知りたい
+  * swapは2回しか無いのでそれを保持しとく
 
 # 検証
 

@@ -1,5 +1,5 @@
 // @import header
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
@@ -8,9 +8,9 @@ using ll = long long;
 // @snippet geo3d
 
 // require Geomeotry Library
-/// --- Geometory 3D Library {{{
-#include <valarray>
+/// --- Geometory 3D Library {{{ ///
 #include <algorithm>
+#include <valarray>
 
 inline Scalar dot(const valarray< Scalar > &a, const valarray< Scalar > &b) {
   return (a * b).sum();

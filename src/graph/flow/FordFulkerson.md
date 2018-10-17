@@ -11,4 +11,10 @@ title: 最大フロー (Ford-Fulkerson)
 
 # 検証
 
-* [F - Lotus Leaves - AtCoder](https://beta.atcoder.jp/contests/arc074/submissions/2450524){:target="_blank"}
+* [F - Lotus Leaves (800) - AtCoder](https://beta.atcoder.jp/contests/arc074/submissions/2450524){:target="_blank"}<!--_-->
+
+# 練習問題
+
+* [F - Lotus Leaves (800) - AtCoder](https://beta.atcoder.jp/contests/arc074/tasks/arc074_d){:target="_blank"}<!--_-->
+* [K - 光と闇の調和 (KUPC2018) - AtCoder](https://beta.atcoder.jp/contests/kupc2018/tasks/kupc2018_k){:target="_blank"}<!--_-->
+
