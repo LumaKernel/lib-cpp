@@ -30,7 +30,7 @@ $O(N \log N)$
 
 同一直線上にある場合は結構適当になっているので，そのような場合はAndrewScanのほうがいいかもしれない
 
-// @ Graham Scan Libary
+// @ Graham Scan Library
 
 ## $O(N^2)$で構築する方法
 

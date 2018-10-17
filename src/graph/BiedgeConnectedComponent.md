@@ -2,7 +2,7 @@ lowlinkを使う．
 
 lowlinkで橋だとわかったところを使わずにグラフを走査するだけ．
 
-// @ Biedge Component Decomposition Libary
+// @ Biedge Component Decomposition Library
 
 # 検証
 

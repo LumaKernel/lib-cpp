@@ -6,8 +6,8 @@ using ll = long long;
 // @@
 // @snippet     dinic
 // @abbr        Dinic(int size, ll flow = 1e18)
-// @name Dinic Libary
-/// --- Dinic Libary {{{ ///
+// @ Dinic Library
+/// --- Dinic Library {{{ ///
 // solve max flow
 
 struct Dinic {

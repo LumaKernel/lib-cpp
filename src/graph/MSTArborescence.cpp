@@ -7,7 +7,7 @@ using ll = long long;
 // @snippet     mstarborescence
 // @name MSTArborescence Library
 // @title 最小全域有向部分木
-// require SCC Libary!
+// require SCC Library!
 // int MSTArborescence(WeightedDirectedGraph, int root)
 /// --- MSTArborescence Library {{{ ///
 

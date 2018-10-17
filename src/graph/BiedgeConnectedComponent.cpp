@@ -4,7 +4,7 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @name Biedge Component Decomposition Libary
+// @name Biedge Component Decomposition Library
 // @title 二辺連結成分分解
 // @snippet     biedge
 // @alias       bridge twoedge nihen
@@ -13,7 +13,7 @@ using ll = long long;
 // Biedge(built-lowlink)
 // Biedge(graph)
 // NOTE : Biedge.tree, .comp
-/// --- Biedge Component Decomposition Libary {{{ ///
+/// --- Biedge Component Decomposition Library {{{ ///
 
 struct Biedge {
   Lowlink lowlink;
