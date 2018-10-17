@@ -105,11 +105,11 @@ public:
         }
         for(int v : canBeSeenFrom[polygon])
           if(changeFlag[v] != i && v > i) changeFlag[v] = i, vs.emplace_back(v);
-        canBeSeenFrom[polygon].clear(); // because of removal
+        canBeSeenFrom[polygon].clear();
       }
       canSee[i].clear();
-      if(!ok) continue; // inside convex (or on surface)
-      // maybe O(KF)
+      if(!ok) continue; // inside convex
+      // maybe O(KF) ?
       for(tuple< int, int, int, int > edge : edges) {
         int x, y, z, poly;
         tie(x, y, z, poly) = edge;
