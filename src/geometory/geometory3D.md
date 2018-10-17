@@ -2,6 +2,8 @@
 title: 3次元幾何基本ライブラリ
 ---
 
+[幾何基本ライブラリ]({{ "geometory/geometory" | absolute_url }}) が必要
+
 `valarray`で三次元ベクトルを表現
 
 // @ Geometory 3D Library
