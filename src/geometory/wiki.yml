@@ -3,3 +3,5 @@ title: 幾何
 order:
   - geometory
   - grahamscan-polar
+  - geometory3D
+  - ConvexHull3D

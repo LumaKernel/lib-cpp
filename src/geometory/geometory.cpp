@@ -1,5 +1,5 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
@@ -7,24 +7,32 @@ using ll = long long;
 // @ Geometory Library
 // @snippet     geometory
 // @alias       geo
+
 using Scalar = long double;
+using Float = long double;
 // EPS
-constexpr Scalar EPS = 1e-11;
-constexpr Scalar PI = 3.14159265358979323;
+const Scalar EPS = 1e-11;
+constexpr Float PI = 3.14159265358979323;
 /// --- Geometory Library {{{ ///
+#include <algorithm>
+#include <cmath>
+#include <complex>
+#include <vector>
 using Point = complex< Scalar >;
 using Polygon = vector< Point >;
 struct Line : public pair< Point, Point > {
-  Line(Point a, Point b) : pair< Point, Point >(a, b) {}
+  Line(const Point &a, const Point &b) : pair< Point, Point >(a, b) {}
 };
 struct Segment : public pair< Point, Point > {
-  Segment(Point a, Point b) : pair< Point, Point >(a, b) {}
+  Segment(const Point &a, const Point &b) : pair< Point, Point >(a, b) {}
 };
-#define X real()
-#define Y imag()
-#define dot(a, b) real(conj(a) * (b))
-#define cross(a, b) imag(conj(a) * (b))
-#define norm abs
+inline Scalar dot(const Point &a, const Point &b) { return real(conj(a) * b); };
+inline Scalar cross(const Point &a, const Point &b) { return imag(conj(a) * b); };
+// L2 norm
+template < class T >
+inline Float norm(const Point &a) {
+  return abs(a);
+}
 
 int sign(Scalar x) {
   if(x < -EPS) return -1;
@@ -47,39 +55,48 @@ int ccw(const Point &a, Point b, Point c) {
   return -2;
 }
 
-inline Point normalize(const Point &v) { return v / norm(v); }
-
-inline Point normal(const Point &v) {
-  return v * Point(cos(PI / 2), sin(PI / 2));
+inline complex< Float > to_float(const Point &v) {
+  return complex< Float >(v.real(), v.imag());
 }
 
+inline complex< Float > normalize(const complex< Float > &v) { return v / norm(v); }
+
+inline complex< Float > normal(const complex< Float > &v) {
+  return v * complex< Float >(cos(PI / 2), sin(PI / 2));
+}
+
+inline Float mclamp(Float x, Float low, Float high) { return max(min(x, high), low); }
+
 // [0, pi]
-Scalar arg(const Point &a, const Point &b) {
-  return acos(dot(a, b) / norm(a) / norm(b));
+Float arg(const Point &a, const Point &b) {
+  return acos(mclamp((Float) dot(a, b) / norm(a) / norm(b), -1, 1));
 }
 
 // triangle, arg a
-Scalar arg(Scalar a, Scalar b, Scalar c) {
-  return acos((b * b + c * c - a * a) / (2 * b * c));
+template < class T >
+Float arg(T a, T b, T c) {
+  return mclamp(Float(b * b + c * c - a * a) / (2 * b * c), -1, 1);
 }
 
 // Sarrus
-Scalar area3(const Point &a, const Point &b) {
-  return abs(a.X * b.Y - a.Y * b.X) / 2;
+template < class T >
+Float area3(const complex< T > &a, const complex< T > &b) {
+  return (Float) abs(a.real() * b.imag() - a.imag() * b.real()) / 2;
 }
 
 // Heron's formula
-Scalar area3(Scalar a, Scalar b, Scalar c) {
-  Scalar s = (a + b + c) / 2;
+template < class T >
+Float area3(T a, T b, T c) {
+  Float s = Float(a + b + c) / 2;
   return sqrt(s * (s - a) * (s - b) * (s - c));
 }
 
-Scalar dist(const Line &line, const Point &p) {
-  return cross(p - line.first, line.second - line.first) /
+Float dist(const Line &line, const Point &p) {
+  return (Float) cross(p - line.first, line.second - line.first) /
          abs(line.second - line.first);
 }
 
-Scalar dist(const Segment &segment, const Point &p) {
+Float dist(const Segment &segment, const Point &p) {
   if(sign(dot(segment.first - segment.second, p - segment.second)) *
          sign(dot(segment.second - segment.first, p - segment.first)) >=
      0)
@@ -88,7 +105,7 @@ Scalar dist(const Segment &segment, const Point &p) {
     return min(norm(p - segment.first), norm(p - segment.second));
 }
 
-Scalar dist(const Segment &a, const Segment &b) {
+Float dist(const Segment &a, const Segment &b) {
   return min({
       dist(a, b.first),
       dist(a, b.second),
@@ -98,10 +115,8 @@ Scalar dist(const Segment &a, const Segment &b) {
 }
 
 bool isCrossing(const Segment &a, const Segment &b) {
-  return ccw(a.first, a.second, b.first) * ccw(a.first, a.second, b.second) <=
-             0 &&
-         ccw(b.first, b.second, a.first) * ccw(b.first, b.second, a.second) <=
-             0;
+  return ccw(a.first, a.second, b.first) * ccw(a.first, a.second, b.second) <= 0 &&
+         ccw(b.first, b.second, a.first) * ccw(b.first, b.second, a.second) <= 0;
 }
 
 Point intersection(const Line &a, const Line &b) {
@@ -117,6 +132,8 @@ Point intersection(const Line &a, const Line &b) {
 // @snippet     circle
 // @alias       geo_circle
 // @name Geometory Circle Library
+
+// Scalar must be Float
 /// --- Geometory Circle Library {{{ ///
 // center, radius
 using Circle = pair< Point, Scalar >;
@@ -178,8 +195,7 @@ Scalar shareArea(Circle a, Circle b) {
   if(b.second + d < a.second + EPS) return area(b);
   Scalar s1 = arg(b.second, a.second, d), s2 = arg(a.second, b.second, d);
   Scalar tri2 =
-      (a.second * a.second * sin(s1 * 2) + b.second * b.second * sin(s2 * 2)) /
-      2;
+      (a.second * a.second * sin(s1 * 2) + b.second * b.second * sin(s2 * 2)) / 2;
   return a.second * a.second * s1 + b.second * b.second * s2 - tri2;
 }
 
@@ -231,6 +247,7 @@ vector< Line > commonTangentLines(Circle a, Circle b) {
 // @snippet     polygon
 // @alias       geo_polygon caliper
 // @name Geometory Polygon Library
+
 /// --- Geometory Polygon Library {{{ ///
 // ok for either ccw or cw
 Scalar area(const Polygon &poly) {
@@ -251,15 +268,16 @@ int inside(const Polygon &poly, const Point &p) {
   for(size_t i = 0; i < poly.size(); i++) {
     size_t ii = i, jj = (i + 1) % poly.size();
     if(norm(poly[i] - p) < EPS) return -1;
-    if(poly[ii].Y > poly[jj].Y) swap(ii, jj);
-    if(poly[ii].Y - EPS < p.Y && p.Y < poly[jj].Y + EPS) {
-      if(abs(poly[ii].Y - poly[jj].Y) < EPS) { // parallel
-        if(poly[ii].X > poly[jj].X) swap(ii, jj);
-        if(poly[ii].X - EPS < p.X && p.X < poly[jj].X + EPS) return -2;
+    if(poly[ii].imag() > poly[jj].imag()) swap(ii, jj);
+    if(poly[ii].imag() - EPS < p.imag() && p.imag() < poly[jj].imag() + EPS) {
+      if(abs(poly[ii].imag() - poly[jj].imag()) < EPS) { // parallel
+        if(poly[ii].real() > poly[jj].real()) swap(ii, jj);
+        if(poly[ii].real() - EPS < p.real() && p.real() < poly[jj].real() + EPS)
+          return -2;
       } else {
-        Point q =
-            intersection(Line(poly[ii], poly[jj]), Line(p, p + Point(1, 0)));
-        if(p.X < q.X && p.Y > poly[ii].Y + EPS) cnt++; // count only upside
+        Point q = intersection(Line(poly[ii], poly[jj]), Line(p, p + Point(1, 0)));
+        if(p.real() < q.real() && p.imag() > poly[ii].imag() + EPS)
+          cnt++; // count only upside
       }
     }
   }
@@ -269,7 +287,7 @@ int inside(const Polygon &poly, const Point &p) {
 // param ccwConvex must be ccw and convex
 Scalar caliper(const Polygon &ccwConvex) {
   constexpr auto comp = [](Point a, Point b) {
-    return a.X == b.X ? a.Y < b.Y : a.X < b.X;
+    return a.real() == b.real() ? a.imag() < b.imag() : a.real() < b.real();
   };
   size_t i, j;
   for(size_t k = 0; k < ccwConvex.size(); k++) {
@@ -291,6 +309,8 @@ Scalar caliper(const Polygon &ccwConvex) {
 /// }}}--- ///
 
 // @new TEST-GEOMETORY
+#include <cassert>
+#include <iostream>
 // TODO : いずれremoveに変える
 int main() {
   assert(cross(Point(0, 1) + Point(2, 3), Point(1, 1) + Point(2, 3)) == -4);
