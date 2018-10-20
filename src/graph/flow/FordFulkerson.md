@@ -7,7 +7,7 @@ title: 最大フロー (Ford-Fulkerson)
 
 動的なものを考慮した実装．
 
-// @ Max Flow with FordFulkerson Library
+// @ Max Flow with Ford-Fulkerson Library
 
 # 検証
 

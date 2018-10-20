@@ -1,7 +1,7 @@
 type: dir
 title: フロー
 order:
-  - bipartiteMatching
+  - BipartiteMatching
   - Dinic
   - FordFulkerson
   - MinCostFlow
