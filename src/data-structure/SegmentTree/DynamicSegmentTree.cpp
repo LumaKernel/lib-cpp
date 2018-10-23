@@ -96,6 +96,4 @@ struct RangeSum {
 
 /// }}}--- ///
 
-using RMQ = DynamicSegTree< RMQMonoid >;
-using RSQ = DynamicSegTree< RSQMonoid >;
-using RMaxQ = DynamicSegTree< RMaxQMonoid >;
+using Seg = DynamicSegTree< RangeMin >;

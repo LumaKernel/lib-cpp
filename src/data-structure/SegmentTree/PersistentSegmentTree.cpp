@@ -8,7 +8,12 @@ using ll = long long;
 // @snippet     persistent_seg
 // @alias       seg_persistent
 // @ PersistentSegmentTree Library
+
 // NOTE : query in range!
+// initial time : 0
+// set( i , time? ) returns newTime ( when after updating )
+// query( [l, r) , time? = .lastRoot )
+// get( i , time? = .lastRoot )
 /// --- PersistentSegmentTree Library {{{ ///
 
 template < class Monoid >
@@ -18,9 +23,9 @@ private:
   int n;
   vector< T > data;
   vector< int > lch, rch;
-  int lastRoot = 0;
 
 public:
+  int lastRoot = 0;
   PersistentSegTree() : n(0) {}
   PersistentSegTree(int t) : data(1, Monoid::identity()), lch(1, 0), rch(1, 0) {
     n = 1;
@@ -32,8 +37,8 @@ public:
       : PersistentSegTree(distance(first, last)) {
     assign(first, last);
   }
-  int set(int i, const T &v, int root = 0) {
-    if(root == 0) root = lastRoot;
+  int set(int i, const T &v, int root = -1) {
+    if(root == -1) root = lastRoot;
     int k = make();
     set(i, v, 0, n, k, root);
     lastRoot = k;
@@ -74,9 +79,9 @@ public:
     }
     data[k] = Monoid::op(data[lch[k]], data[rch[k]]);
   }
-  T get(int i, int root = 0) { return query(i, i + 1, root); }
-  T query(int a, int b, int root = 0) {
-    if(root == 0) root = lastRoot;
+  T get(int i, int root = -1) { return query(i, i + 1, root); }
+  T query(int a, int b, int root = -1) {
+    if(root == -1) root = lastRoot;
     return query(a, b, 0, n, root);
   }
   T query(int a, int b, int l, int r, int k) {
@@ -136,6 +141,4 @@ struct RangeSum {
 
 /// }}}--- ///
 
-using RMQ = PersistentSegTree< RMQMonoid >;
-using RSQ = PersistentSegTree< RSQMonoid >;
-using RMaxQ = PersistentSegTree< RMaxQMonoid >;
+using Seg = PersistentSegTree< RangeMin >;
