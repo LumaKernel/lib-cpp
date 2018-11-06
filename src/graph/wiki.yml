@@ -12,4 +12,6 @@ order:
   - GraphUtil
   - isSameTree
   - MST
+  - A-star
+  - IDA-star
   - flow
