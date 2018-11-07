@@ -4,7 +4,7 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @name Convex Hull Trick Library
+// @ Convex Hull Trick Library
 // @snippet     cht
 // @alias       convexhulltrick
 // CHT(bool increasing, Compare comp);
@@ -55,110 +55,139 @@ struct CHT {
 /// }}}--- ///
 
 // @new
-// @name Dynamic Convex Hull Trick Library
+// @ Dynamic Convex Hull Trick Library
 // @snippet     dynamic_cht
 // @alias       cht2
+
+// DynamicCHT<T, Comp>() : if maximize, use greater<T> for Comp
+// === --- ===
+// N = no. of f(x)
+// .add(a, b) : f(x) = ax + b : amortized O(log N)
+// .query(x) : returns f(x), when f minimize f(x) : O(log N)
+// .get(x) : returns f that minimize f(x) as (a, b) : O(log N)
+// === --- ===
+// f can duplicate
 /// --- Dynamic Convex Hull Trick Library {{{ ///
 
+#include <functional>
+#include <limits>
+#include <set>
+#include <tuple>
+
+// |ab| < LLONG_MAX/4 ???
+template < class T = long long, class Comp = less< T > >
 struct DynamicCHT {
-  static const ll INF = numeric_limits< ll >::max();
-  DynamicCHT() {
-    // sentinel
-    S.insert({L(INF, 0), L(-INF, 0)});
-    C.insert(cp(L(INF, 0), L(-INF, 0)));
-  }
-  // for debug
-  void print() {
-#ifdef DEBUG
-    cerr << "S : ";
-    for(auto it : S) cerr << "(" << it.a << "," << it.b << ")" << endl;
-    cerr << "C : ";
-    for(auto it : C) cerr << "(" << it.n << "," << it.d << ")" << endl;
-#endif
-  }
-  // |ab| < LLONG_MAX/4 ???
-  void add(ll a, ll b) {
-    const L p(a, b);
-    It pos = S.insert(p).first;
-    if(check(*it_m1(pos), p, *it_p1(pos))) {
-      // 直線(a,b)が不要
-      S.erase(pos);
-      return;
-    }
-    C.erase(cp(*it_m1(pos), *it_p1(pos)));
-    {
-      // 右方向の削除
-      It it = it_m1(pos);
-      while(it != S.begin() && check(*it_m1(it), *it, p)) --it;
-      C_erase(it, it_m1(pos));
-      S.erase(++it, pos);
-      pos = S.find(p);
-    }
-    {
-      // 左方向の削除
-      It it = it_p1(pos);
-      while(it_p1(it) != S.end() && check(p, *it, *it_p1(it))) ++it;
-      C_erase(++pos, it);
-      S.erase(pos, it);
-      pos = S.find(p);
-    }
-    C.insert(cp(*it_m1(pos), *pos));
-    C.insert(cp(*pos, *it_p1(pos)));
-  }
-  ll query(ll x) {
-    const L &p = (--C.lower_bound(CP(x, 1, L(0, 0))))->p;
-    return p.a * x + p.b;
-  }
+  static T inf;
+  static Comp comp;
 
 private:
-  template < class T >
-  T it_p1(T a) {
-    return ++a;
-  }
-  template < class T >
-  T it_m1(T a) {
-    return --a;
-  }
-  struct L {
-    ll a, b;
-    L(ll a, ll b) : a(a), b(b) {}
-    bool operator<(const L &rhs) const {
-      return a != rhs.a ? a > rhs.a : b < rhs.b;
+  struct Line { // ax + b
+    T a, b;
+    Line(const T &a, const T &b) : a(a), b(b) {}
+    bool operator<(const Line &rhs) const { // (-a, b)
+      return a != rhs.a ? comp(rhs.a, a) : comp(b, rhs.b);
     }
   };
   struct CP {
-    ll n, d;
-    L p;
-    CP(ll _n, ll _d, const L &p) : n(_n), d(_d), p(p) {
-      if(d < 0) {
-        n *= -1;
-        d *= -1;
-      }
-    };
+    T numer, denom; // x-coordinate
+    const Line &p;
+    CP(const T &n, const T &d, const Line &p) : numer(n), denom(d), p(p) {}
+    CP(const Line &p1, const Line &p2) : p(p2) {
+      if(p1.a == inf)
+        numer = -inf, denom = 1;
+      else if(p2.a == -inf)
+        numer = inf, denom = 1;
+      else
+        numer = p1.b - p2.b, denom = p2.a - p1.a;
+    }
     bool operator<(const CP &rhs) const {
-      if(n == INF || rhs.n == -INF) return 0;
-      if(n == -INF || rhs.n == INF) return 1;
-      return n * rhs.d < rhs.n * d;
+      if(numer == inf || rhs.numer == -inf) return 0;
+      if(numer == -inf || rhs.numer == inf) return 1;
+      return numer * rhs.denom < rhs.numer * denom;
     }
   };
-  set< L > S;
-  set< CP > C;
+  set< Line > lines;
+  set< CP > cps;
+  typedef typename set< Line >::iterator It;
 
-  typedef set< L >::iterator It;
+public:
+  DynamicCHT() {
+    // sentinel
+    lines.insert({Line(inf, 0), Line(-inf, 0)});
+    cps.insert(CP(Line(inf, 0), Line(-inf, 0)));
+  }
+  void add(const T &a, const T &b) {
+    const Line p(a, b);
+    It pos = lines.insert(p).first;
+    if(check(*prev(pos), p, *next(pos))) {
+      // ax + b is unnecessary
+      lines.erase(pos);
+      return;
+    }
+    cps.erase(CP(*prev(pos), *next(pos)));
+    {
+      It it = prev(pos);
+      while(it != lines.begin() && check(*prev(it), *it, p)) --it;
+      // lines (it, pos) is unnecessary
+      // [it, pos - 1] : [pos - 1, pos] is still not added
+      eraseRange(it, prev(pos));
+      // [it + 1, pos - 1]
+      lines.erase(++it, pos);
+      pos = lines.find(p);
+    }
+    {
+      It it = next(pos);
+      while(next(it) != lines.end() && check(p, *it, *next(it))) ++it;
+      // lines (pos, it) is unnecessary
+      // [pos + 1, it] : [pos, pos + 1] is still not added
+      eraseRange(++pos, it);
+      // [pos + 1, it - 1]
+      lines.erase(pos, it);
+      pos = lines.find(p);
+    }
+    cps.insert(CP(*prev(pos), *pos));
+    cps.insert(CP(*pos, *next(pos)));
+  }
+  T query(const T &x) {
+    const Line &p = (--cps.lower_bound(CP(x, 1, Line(0, 0))))->p;
+    return p.a * x + p.b;
+  }
+  tuple< T, T > get(const T &x) {
+    const Line &p = (--cps.lower_bound(CP(x, 1, Line(0, 0))))->p;
+    return make_tuple(p.a, p.b);
+  }
+  void dum() {
+#ifdef DEBUG
+    DEBUG_OUT << "lines : " << lines.size() << "\n";
+    for(auto p : lines)
+      DEBUG_OUT << "(" << p.a << ", " << p.b << ")"
+                << "\n";
+    DEBUG_OUT << "cross points : " << cps.size() << "\n";
+    for(auto p : cps)
+      DEBUG_OUT << "(x = " << p.numer << "/" << p.denom << ")"
+                << "\n";
+    DEBUG_OUT << flush;
+#endif
+  }
 
-  void C_erase(It a, It b) {
-    for(It it = a; it != b; ++it) C.erase(cp(*it, *it_p1(it)));
+private:
+  // erase cp which can be made from lines [a, b]
+  void eraseRange(It a, It b) {
+    for(It it = a; it != b; ++it) cps.erase(CP(*it, *next(it)));
   }
-  CP cp(const L &p1, const L &p2) {
-    if(p1.a == INF) return CP(-INF, 1, p2);
-    if(p2.a == -INF) return CP(INF, 1, p2);
-    return CP(p1.b - p2.b, p2.a - p1.a, p2);
-  }
-  bool check(const L &p1, const L &p2, const L &p3) {
-    if(p1.a == p2.a && p1.b <= p2.b) return 1;
-    if(p1.a == INF || p3.a == -INF) return 0;
+  // p1 <= p2 <= p3 , p1 < p3
+  // p2 is unnecessary?
+  bool check(const Line &p1, const Line &p2, const Line &p3) {
+    if(p1.a == p2.a) return 1;
+    if(p1.a == inf || p3.a == -inf) return 0;
     return (p2.a - p1.a) * (p3.b - p2.b) >= (p2.b - p1.b) * (p3.a - p2.a);
   }
 };
+template < class T, class Comp >
+T DynamicCHT< T, Comp >::inf = numeric_limits< T >::has_infinity
+                                   ? numeric_limits< T >::infinity()
+                                   : numeric_limits< T >::max();
+template < class T, class Comp >
+Comp DynamicCHT< T, Comp >::comp = Comp(); // only for less and greater
 
 /// }}}--- ///

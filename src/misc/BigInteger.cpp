@@ -4,10 +4,10 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @snippet     bigint
-// @name bigint
+// @snippet bigint
+// @ bigint
 
-/// big int {{{
+/// bigint {{{
 #include <cassert>
 #include <string>
 #include <vector>
@@ -25,6 +25,12 @@ public:
   BigInteger() : sign(1) {}
   BigInteger(ll v) { *this = v; }
   BigInteger(const string &s) { read(s); }
+
+private:
+  BigInteger(int, int sign) : sign(sign) {}
+
+public:
+  static const BigInteger infinity;
 
   int size() {
     if(a.empty()) return 0;
@@ -72,6 +78,8 @@ public:
   }
 
   BigInteger operator+(const BigInteger &v) const {
+    if(isInfinity()) return *this;
+    if(v.isInfinity()) return v;
     if(sign == v.sign) {
       BigInteger res = v;
 
@@ -106,6 +114,7 @@ public:
 
   BigInteger &operator*=(int v) {
     if(v < 0) sign = -sign, v = -v;
+    if(isInfinity()) return *this;
     for(int i = 0, carry = 0; i < (int) a.size() || carry; ++i) {
       if(i == (int) a.size()) a.push_back(0);
       ll cur = a[i] * (ll) v + carry;
@@ -125,6 +134,7 @@ public:
 
   BigInteger &operator*=(ll v) {
     if(v < 0) sign = -sign, v = -v;
+    if(isInfinity()) return *this;
     for(int i = 0, carry = 0; i < (int) a.size() || carry; ++i) {
       if(i == (int) a.size()) a.push_back(0);
       ll cur = a[i] * (ll) v + carry;
@@ -169,6 +179,13 @@ public:
   }
 
   BigInteger operator/(const BigInteger &v) const {
+    if(isInfinity()) {
+      BigInteger res = *this;
+      if(v.sign < 0) res.sign = -sign;
+      return res;
+    }
+    if(v.isInfinity()) return BigInteger();
+    if(v.isZero()) return infinity * sign;
     return divmod(*this, v).first;
   }
 
@@ -178,6 +195,8 @@ public:
 
   void operator/=(int v) {
     if(v < 0) sign = -sign, v = -v;
+    if(isInfinity()) return;
+    if(v == 0) *this = infinity * sign;
     for(int i = (int) a.size() - 1, rem = 0; i >= 0; --i) {
       ll cur = a[i] + rem * (ll) base;
       a[i] = (int) (cur / v);
@@ -256,7 +275,11 @@ public:
     if(a.empty()) sign = 1;
   }
 
-  bool isZero() const { return a.empty() || (a.size() == 1 && !a[0]); }
+  inline bool isZero() const { return a.empty() || (a.size() == 1 && !a[0]); }
+
+  inline bool isInfinity() const { return sign == 2 || sign == -2; }
+  inline bool isPositiveInfinity() const { return sign == 2; }
+  inline bool isNegativeInfinity() const { return sign == -2; }
 
   BigInteger operator-() const {
     BigInteger res = *this;
@@ -268,7 +291,7 @@ public:
 
   BigInteger abs() const {
     BigInteger res = *this;
-    res.sign *= res.sign;
+    if(res.sign < 0) res.sign = -res.sign;
     return res;
   }
 
@@ -310,10 +333,16 @@ public:
   }
 
   friend ostream &operator<<(ostream &stream, const BigInteger &v) {
-    if(v.sign == -1) stream << '-';
-    stream << (v.a.empty() ? 0 : v.a.back());
-    for(int i = (int) v.a.size() - 2; i >= 0; --i)
-      stream << setw(base_digits) << setfill('0') << v.a[i];
+    if(v.isPositiveInfinity()) {
+      stream << "inf";
+    } else if(v.isNegativeInfinity()) {
+      stream << "-inf";
+    } else {
+      if(v.sign == -1) stream << '-';
+      stream << (v.a.empty() ? 0 : v.a.back());
+      for(int i = (int) v.a.size() - 2; i >= 0; --i)
+        stream << setw(base_digits) << setfill('0') << v.a[i];
+    }
     return stream;
   }
 
@@ -371,6 +400,7 @@ public:
   }
 
   BigInteger operator*(const BigInteger &v) const {
+    if(isInfinity() || v.isInfinity()) return infinity * sign * v.sign;
     vector< int > a6 = convert_base(this->a, base_digits, 6);
     vector< int > b6 = convert_base(v.a, base_digits, 6);
     vll a(a6.begin(), a6.end());
@@ -391,5 +421,20 @@ public:
     return res;
   }
 };
+const BigInteger BigInteger::infinity(0, 2);
+#include <limits>
+template <>
+class std::numeric_limits< BigInteger > {
+public:
+  static constexpr bool has_infinity = true;
+  static constexpr bool is_signed = true;
+  static constexpr bool is_integer = true;
+  static constexpr bool is_bounded = false;
+  static BigInteger infinity() { return BigInteger::infinity; }
+  static BigInteger max() { return BigInteger(); }
+  static BigInteger min() { return BigInteger(); }
+  static BigInteger round_error() { return BigInteger(); }
+};
 typedef BigInteger bigint;
+
 /// }}}
