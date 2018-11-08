@@ -207,7 +207,6 @@ private:
   void eraseRange(It a, It b) {
     for(It it = a; it != b; ++it) cps.erase(CP(*it, *next(it)));
   }
-  // p1 <= p2 <= p3 , p1 < p3
   // p2 is unnecessary?
   bool check(const Line &p1, const Line &p2, const Line &p3) {
     if(p1.a == p2.a) return 1;

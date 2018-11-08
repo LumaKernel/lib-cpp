@@ -1,11 +1,11 @@
 order:
-  # - data-structure
-  # - graph
+  - data-structure
+  - graph
   - math
-  # - geometory
-  # - algorithm
-  # - string
+  - geometory
+  - algorithm
+  - string
   - misc
-  # - trick
-  # - trap
-  # - topic
+  - trick
+  - trap
+  - topic
