@@ -88,6 +88,6 @@ $(b_3-b_2)(a_2-a_1) \geq (b_2-b_1)(a_3-a_2)$ へ一意に変形できる
 
 # 参考
 
-* [Convex-Hull Trick - SATANIC++](http://satanic0258.hatenablog.com/entry/2016/08/16/181331){:target="_blank"<!--_-->
+* [Convex-Hull Trick - SATANIC++](http://satanic0258.hatenablog.com/entry/2016/08/16/181331){:target="_blank"}<!--_-->
 * [Dynamic Programming Optimizations - Codeforcesの記事](https://codeforces.com/blog/entry/8219){:target="_blank"}<!--_-->
 
