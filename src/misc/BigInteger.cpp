@@ -1,5 +1,5 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
@@ -8,9 +8,14 @@ using ll = long long;
 // @ bigint
 
 /// bigint {{{
+
 #include <cassert>
+#include <cmath>
+#include <iomanip>
 #include <string>
 #include <vector>
+#include <sstream>
+
 // forked https://gist.github.com/ar-pa/957297fb3f88996ead11
 struct BigInteger {
 private:
@@ -24,6 +29,7 @@ public:
   int sign;
   BigInteger() : sign(1) {}
   BigInteger(ll v) { *this = v; }
+  explicit BigInteger(double v) { *this = v; }
   BigInteger(const string &s) { read(s); }
 
 private:
@@ -34,19 +40,19 @@ public:
 
   int size() {
     if(a.empty()) return 0;
-    int ans = (a.size() - 1) * base_digits;
+    int res = (a.size() - 1) * base_digits;
     int ca = a.back();
-    while(ca) ans++, ca /= 10;
-    return ans;
+    while(ca) res++, ca /= 10;
+    return res;
   }
   BigInteger operator^(const BigInteger &v) {
-    BigInteger ans = 1, a = *this, b = v;
+    BigInteger res = 1, a = *this, b = v;
     while(!b.isZero()) {
-      if(b % 2) ans *= a;
+      if(b % 2) res *= a;
       a *= a;
       b /= 2;
     }
-    return ans;
+    return res;
   }
   string to_string() {
     stringstream ss;
@@ -74,6 +80,18 @@ public:
     a.clear();
     if(v < 0) sign = -1, v = -v;
     for(; v > 0; v = v / base) a.push_back(v % base);
+    return *this;
+  }
+
+  BigInteger &operator=(double v) {
+    sign = 1;
+    a.clear();
+    if(v < 0) sign = -1, v = -v;
+    v = floor(v);
+    while(v >= 1) {
+      a.push_back((int) fmod(v, base));
+      v = floor(v / base);
+    }
     return *this;
   }
 
@@ -266,9 +284,13 @@ public:
   bool operator<=(const BigInteger &v) const { return !(v < *this); }
   bool operator>=(const BigInteger &v) const { return !(*this < v); }
   bool operator==(const BigInteger &v) const {
-    return !(*this < v) && !(v < *this);
+    if(sign != v.sign) return false;
+    if(a.size() != v.a.size()) return false;
+    for(size_t i = 0; i < a.size(); i++)
+      if(a[i] != v.a[i]) return false;
+    return true;
   }
-  bool operator!=(const BigInteger &v) const { return *this < v || v < *this; }
+  bool operator!=(const BigInteger &v) const { return !(*this == v); }
 
   void trim() {
     while(!a.empty() && !a.back()) a.pop_back();
@@ -421,8 +443,11 @@ public:
     return res;
   }
 };
+
 const BigInteger BigInteger::infinity(0, 2);
+
 #include <limits>
+
 template <>
 class std::numeric_limits< BigInteger > {
 public:
@@ -435,6 +460,7 @@ public:
   static BigInteger min() { return BigInteger(); }
   static BigInteger round_error() { return BigInteger(); }
 };
+
 typedef BigInteger bigint;
 
 /// }}}
