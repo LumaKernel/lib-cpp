@@ -15,10 +15,10 @@ using ll = long long;
 // - maximize : (a) asc
 /// --- Convex Hull Trick Library {{{ ///
 
-#include <vector>
-#include <functional>
 #include <cassert>
+#include <functional>
 #include <utility>
+#include <vector>
 
 template < class T = long long, bool xIncreasing = false,
            class Comp = less< T > >
