@@ -1,9 +1,9 @@
 ---
-title: 木の同型判定
+title: 木の同型判定 (TODO)
 id: is-same-tree
 ---
 
-根付きの木は[木を文字列に変換する]({{ "string/tree-to-string" | absolute_url }})ことによって $O(N log N)$で判定ができる．
+根付きの木は[木を文字列に変換する]({{ "string/tree-to-string" | absolute_url }})ことによって $O(N \log N)$で判定ができる．
 
 ところで，木は中心をたかだか2個しか持たないため，組み合わせを2個試せば２つの木が同型かわかる．
 

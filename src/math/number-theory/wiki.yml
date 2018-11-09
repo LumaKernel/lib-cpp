@@ -1,5 +1,9 @@
 type: dir
 title: 整数論
 order:
+  - CRT
+  - Garner
+  - EulerTotient
+  - moebius
   - Tonelli-Shanks
 

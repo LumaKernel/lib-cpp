@@ -1,5 +1,8 @@
 type: dir
 title: 線形代数
 order:
+  - matrix
+  - GaussJordan
+  - Givens
   - rank-and-forest-maximum-matching
 

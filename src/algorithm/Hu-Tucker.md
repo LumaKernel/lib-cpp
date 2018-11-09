@@ -3,7 +3,7 @@ title: 最適二分探索木 (Hu-Tucker)
 ---
 Meldable Heapが必要．([SkewHeap](data-structure/Heap/SkewHeap)や[LeftistHeap](data-structure/Heap/LeftistHeap)など)
 
-最適二分探索木問題が $O(N log N)$ で解ける．
+最適二分探索木問題が $O(N \log N)$ で解ける
 
 // @ Hu-Tucker Algorithm Library
 

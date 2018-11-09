@@ -5,7 +5,6 @@ using ll = long long;
 
 // @@
 // @name GaussJordan
-// @title 連立一次方程式 (Gauss-Jordan)
 // @snippet     gaussjordan
 // @alias       gauss
 using Vec = vector< double >;

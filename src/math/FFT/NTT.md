@@ -26,9 +26,9 @@ $k, n$ を正整数とし，$m = 2^nk + 1$ と表せるもので， $ 2^n \geq N
 
 上記の条件を満たすようなmodの場合はそのままNTTを使えばいい (以下の実装では `NTT::Core<mod, primitive, MAX_H> ntt` を宣言し `ntt::conv(vector<ll> a, vecror<ll> b)`)
 
-mod 1e9+7 といったような任意modについては [中国剰余定理 (CRT)]({{ "math/CRT" | absolute_url }}) などで復元する必要がある
+mod 1e9+7 といったような任意modについては [中国剰余定理 (CRT)]({{ "math/number-theory/CRT" | absolute_url }}) などで復元する必要がある
 
-以下の実装では `NTT::conv< USE > (vector<ll> a, vector<ll> b, ll m)` を使うと `USE` 個のmod上で値を出して [Garnerのアルゴリズム]({{ "algorithm/Garner" | absolute_url }}) を用いて mod m に復元を行う
+以下の実装では `NTT::conv< USE > (vector<ll> a, vector<ll> b, ll m)` を使うと `USE` 個のmod上で値を出して [Garnerのアルゴリズム]({{ "math/number-theory/Garner" | absolute_url }}) を用いて mod m に復元を行う
 
 NTTを行うmodを $m_1, m_2, \cdots, m_{USE}$ とすると，厳密値 (予めmodを取った場合はそれを厳密値とする) の最大値 (mod $m$に復元したいとした時，$m^2\min(N, M)$ ぐらい) を $m_1m_2\cdots m_{USE}$ が超えるように取らなければならない
 

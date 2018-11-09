@@ -4,8 +4,7 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @name moebius
-// @title メビウス関数
+// @ moebius
 // @snippet     moebius_func
 // @alias mebius_func
 // O(N^.5)

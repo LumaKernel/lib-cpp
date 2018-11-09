@@ -67,7 +67,7 @@ $f(x) = -1 + x + x^2$の係数数列は $$a =\{-1, 1, 1\}$$ です
 
 $k$次の多項式は一般に
 
-$$f(x) = a_0x^0 + a_1x^1 + \cdots a_kx^k = \sum_{i=0}^k a_ix^i$$
+$\displaystyle f(x) = a_0x^0 + a\_1x^1 + \cdots a\_kx^k = \sum_{i=0}^k a_ix^i$
 
 とかけます
 
@@ -85,7 +85,7 @@ $-1$ は $x^0$ の分です
 
 $c$ は $0 \leq k \leq N + M - 2$ について以下を満たします
 
-$$c_k = \sum_{i=0}^{k}a_ib_{k - i}$$
+$\displaystyle c_k = \sum_{i=0}^{k}a_ib_{k - i}$
 
 ただし，範囲外については$a,b$どちらも$0$を返すとします ($a_{-1}=0$など)
 
@@ -93,13 +93,7 @@ $a,b,c$を係数とする多項式をそれぞれ$f,g,h$としましょう
 
 すなわち，
 
-$$
-\begin{aligned}
-&f(x) = a_0 + a_1x + a_2x^2 + \cdots a_{N-1}x^{N-1} \\
-&g(x) = b_0 + b_1x + b_2x^2 + \cdots b_{M-1}x^{M-1} \\
-&h(x) = c_0 + c_1x + c_2x^2 + \cdots c_{N + M -2}x^{N + M - 2}
-\end{aligned}
-$$
+$\displaystyle \begin{aligned} &f(x) = a_0 + a_1x + a_2x^2 + \cdots a_{N-1}x^{N-1} \\ &g(x) = b_0 + b_1x + b_2x^2 + \cdots b_{M-1}x^{M-1} \\ &h(x) = c_0 + c_1x + c_2x^2 + \cdots c_{N + M -2}x^{N + M - 2} \end{aligned}$
 
 です
 
@@ -109,31 +103,14 @@ $f(x) \times g(x) = h(x)$ となるのがわかりますか?
 
 $f(x) = 1 + 3x + 2x^2$と$g(x) = 2 -  x^2$を考えます
 
-$$
-\begin{aligned}
-f(x) \times g(x) &=&&(1 + 3x + 2x^2)(2 -  x^2) \\
-&=&& (1\cdot 2) + (1\cdot (-1) + 3 \cdot 2)x \\
-&&&+ (1 \cdot (-1) + 3 \cdot 0 + 2 \cdot 2)x^2 \\
-&&&+ (3 \cdot (-1) + 2 \cdot 0)x^3  \\
-&&&+ (2 \cdot (-1) )x^4  \\
-\end{aligned}
-$$
+$\displaystyle \begin{aligned} f(x) \times g(x) &=&&(1 + 3x + 2x^2)(2 -  x^2) \\ &=&& (1\cdot 2) + (1\cdot (-1) + 3 \cdot 2)x \\ &&&+ (1 \cdot (-1) + 3 \cdot 0 + 2 \cdot 2)x^2 \\ &&&+ (3 \cdot (-1) + 2 \cdot 0)x^3  \\ &&&+ (2 \cdot (-1) )x^4  \\ \end{aligned}$
 
 これが多項式同士の掛け算です
 
 
 もう一つ， $f(x) = a_0 + a_1x + a_2x^2$ と $f(x) = b_0 + b_1x + b_2x^2$ を考えます
 
-$$
-\begin{aligned}
-f(x) \times g(x) &=&&(a_0 + a_1x + a_2x^2)(b_0 + b_1x + b_2x^2) \\
-&=&& (a_0b_0)x^0 \\
-&&& + (a_0b_1 + a_1b_0)x^1 \\
-&&&+ (a_0b_2 + a_1b_1+a_2b_0)x^2 \\
-&&&+ (a_1b_2 + a_2b_1)x^3  \\
-&&&+ (a_2b_2)x^4  \\
-\end{aligned}
-$$
+$\begin{aligned} f(x) \times g(x) &=&&(a_0 + a_1x + a_2x^2)(b_0 + b_1x + b_2x^2) \\ &=&& (a_0b_0)x^0 \\ &&& + (a_0b_1 + a_1b_0)x^1 \\ &&&+ (a_0b_2 + a_1b_1+a_2b_0)x^2 \\ &&&+ (a_1b_2 + a_2b_1)x^3  \\ &&&+ (a_2b_2)x^4  \\ \end{aligned}$
 
 わかりましたか？
 
@@ -141,14 +118,7 @@ $x^k$の係数は$a_ib_j$を足したものになっていますが，$i + j = k
 
 一般的にかくと，
 
-$$
-\begin{aligned}
-&f(x) = \sum_{i=0}^{N-1}a_ix^i \\
-&g(x) = \sum_{j=0}^{M-1}b_jx^j \\
-&f(x)\times g(x) = h(x) = \sum_{i=0}^{N+M-2}c_ix^i \\
-&h(x) = \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}a_ib_jx^{i+j}
-\end{aligned}
-$$
+$\displaystyle \begin{aligned} &f(x) = \sum_{i=0}^{N-1}a_ix^i \\ &g(x) = \sum_{j=0}^{M-1}b_jx^j \\ &f(x)\times g(x) = h(x) = \sum_{i=0}^{N+M-2}c_ix^i \\ &h(x) = \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}a_ib_jx^{i+j} \end{aligned}$
 
 というところまでいきます．なぜそうなるか，という点については，素直に掛け合わせてシグマを入れ替えるとそうなるからです
 
@@ -156,7 +126,7 @@ $$
 
 また次のように言い換えることができます
 
-$$h(x) = \sum_{k=0}^{N+M-2}\sum_{i=0}^{k}a_ib_{k-i}x^k$$
+$\displaystyle h(x) = \sum_{k=0}^{N+M-2}\sum_{i=0}^{k}a_ib_{k-i}x^k$
 
 ただし，範囲外については0とします
 
@@ -197,7 +167,7 @@ $\zeta_3 = \omega$ だ
 
 位数なんて難しい話は抜きにして，
 
-$$\zeta_N = \cos(\frac{2\pi}{N}) +\sqrt {-1}\sin(\frac{2\pi}{N})$$
+$\displaystyle \zeta_N = \cos(\frac{2\pi}{N}) +\sqrt {-1}\sin(\frac{2\pi}{N})$
 
 と定めれば条件を満たす
 
@@ -210,20 +180,11 @@ $$\zeta_N = \cos(\frac{2\pi}{N}) +\sqrt {-1}\sin(\frac{2\pi}{N})$$
 
 また，以下が成り立つ
 
-$$
-\sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod N) \\ 0 & (otherwise) \end{cases}
-$$
+$\displaystyle \sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod N) \\ 0 & (otherwise) \end{cases}$
 
 $k\equiv 0$は簡単なので，$otherwise$について示す
 
-$$
-\begin{aligned}
-\sum_{i=0}^{N-1}\zeta_N^{ki} &= \frac{\zeta_N^N - 1}{\zeta_N - 1}& \text{等比級数より} \\
-&= \frac{\zeta_N^0 - 1}{\zeta_N - 1}& \mathrm{mod}\ Nにより\\
-&= \frac{1 - 1}{\zeta_N - 1}
-= 0
-\end{aligned}
-$$
+$\displaystyle \begin{aligned} \sum_{i=0}^{N-1}\zeta_N^{ki} &= \frac{\zeta_N^N - 1}{\zeta_N - 1}& \text{等比級数より} \\ &= \frac{\zeta_N^0 - 1}{\zeta_N - 1}& \mathrm{mod}\ Nにより\\ &= \frac{1 - 1}{\zeta_N - 1} = 0 \end{aligned}$
 
 等比級数の公式が複素数に適用できるかというのは，自分で複素数考慮で求めなおしたりすれば自明
 
@@ -235,11 +196,7 @@ $\omega$(オメガ)などで代用しても大丈夫ですし，書いている�
 
 # 離散フーリエ変換
 
-$$
-\hat{f}(x)
-= f(\zeta_N^0)x^0 + f(\zeta_N^i)x^1 +\cdots + f(\zeta_N^{N-1})x^{N-1}
-= \sum_{i=0}^{N-1} f(\zeta_N^i)x^i
-$$
+$\displaystyle \hat{f}(x) = f(\zeta_N^0)x^0 + f(\zeta_N^i)x^1 +\cdots + f(\zeta_N^{N-1})x^{N-1} = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$
 
 と定義します
 
@@ -255,30 +212,23 @@ $\hat{f}$も多項式になっているので，数列と対応させること�
 
 まず，
 
-$$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$$
+$\displaystyle f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$
 
 を示します．式の中にある， $\hat{f}(\zeta_N^{\textcolor{red}{-i}})$ について考えます
 
-$$\text{DFTの定義 : }\hat{f}(x) = \sum_{j=0}^{N-1} f(\zeta_N^j)x^j$$
+$\displaystyle \text{DFTの定義 : }\hat{f}(x) = \sum_{j=0}^{N-1} f(\zeta_N^j)x^j$
 
 に $x=\zeta_N^{\textcolor{red}{-i}}$ を代入すると，
 
-$$\hat{f}(\zeta_N^{\textcolor{red}{-i}}) = \sum_{j=0}^{N-1} f(\zeta_N^j)\zeta_N^{-ij}$$
+$\displaystyle \hat{f}(\zeta\_N^{\textcolor{red}{-i}}) = \sum_{j=0}^{N-1} f(\zeta_N^j)\zeta\_N^{-ij}$
 
 さらに，$f(x) = \sum_{k=0}^{N-1}a_kx^k$を代入してやります
 
-$$
-\begin{aligned}
-\hat{f}(\zeta_N^{\textcolor{red}{-i}}) &= \sum_{j=0}^{N-1} \sum_{k=0}^{N-1}a_k\zeta_N^{jk}\zeta_N^{-ij}\\
-&= \sum_{k=0}^{N-1}a_k\sum_{j=0}^{N-1} \zeta_N^{(k-i)j}\\
-\end{aligned}
-$$
+$\displaystyle \begin{aligned} \hat{f}(\zeta_N^{\textcolor{red}{-i}}) &= \sum_{j=0}^{N-1} \sum_{k=0}^{N-1}a_k\zeta_N^{jk}\zeta_N^{-ij}\\ &= \sum_{k=0}^{N-1}a_k\sum_{j=0}^{N-1} \zeta_N^{(k-i)j}\\ \end{aligned}$
 
 一番内側について，
 
-$$
-\sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod N) \\ 0 & (otherwise) \end{cases}
-$$
+$\displaystyle \sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod N) \\ 0 & (otherwise) \end{cases}$
 
 を使います
 
@@ -286,33 +236,13 @@ $(k - i) \not\equiv 0 \mod N$ならば，全体で$a_k$倍されるものの，$
 
 $\|k-i\|\leq N$ に注意して丁寧に書くと，
 
-$$
-\begin{aligned}
-\hat{f}(\zeta_N^{\textcolor{red}{-i}})
-&= \sum_{k=0}^{N-1}a_k
-\left(
-\begin{cases}
-N & (k=i) \\
-0 & (otherwise)
-\end{cases}
-\right)
-\\
-& = Na_i
-\end{aligned}
-$$
+$\displaystyle \begin{aligned} \hat{f}(\zeta_N^{\textcolor{red}{-i}}) &= \sum_{k=0}^{N-1}a_k \left( \begin{cases} N & (k=i) \\ 0 & (otherwise) \end{cases} \right) \\ & = Na_i \end{aligned}$
 
 が導かれます
 
 これを右辺に代入すると，
 
-$$
-\begin{aligned}
-\textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i
-&=\frac{1}{N}\sum_{i=0}^{N-1} Na_ix^i\\
-&=\sum_{i=0}^{N-1}a_ix^i\\
-&=f(x) = \text{(左辺)}\\
-\end{aligned}
-$$
+$\displaystyle \begin{aligned} \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i &=\frac{1}{N}\sum_{i=0}^{N-1} Na_ix^i\\ &=\sum_{i=0}^{N-1}a_ix^i\\ &=f(x) = \text{(左辺)}\\ \end{aligned}$
 
 が言えました
 
@@ -320,19 +250,19 @@ $$
 
 再掲
 
-$$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$$
+$\displaystyle f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$
 
 ところでこれはDFTの定義に似ていませんか?
 
 DFT:
 
-$$\hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$$
+$\displaystyle \hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$
 
 上のものを，逆離散フーリエ変換（IDFT; Inversed Discrete Fourier Transform）といいます
 
 関数的に書くと，
 
-$$\mathrm{DFT}_N^{-1}(\mathrm{DFT}_N(f))=f$$
+$\displaystyle \mathrm{DFT}_N^{-1}(\mathrm{DFT}_N(f))=f$
 
 です
 
@@ -346,11 +276,11 @@ DFTを使って畳み込みを計算することをかんがえます
 
 $\widehat{(f\*g)}$ が計算できれば，IDFTすることで目的の $(f\*g)$ が得られます
 
-$$\widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} (f*g)(\zeta_N^i)x^i$$
+$\displaystyle \widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} (f*g)(\zeta_N^i)x^i$
 
 ここで，定義である $(f*g)(x)=f(x)\cdot g(x)$ を代入すると，
 
-$$\widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} f(\zeta_N^i)g(\zeta_N^i)x^i$$
+$\displaystyle \widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} f(\zeta_N^i)g(\zeta_N^i)x^i$
 
 ところで，$f(\zeta_N^i)$と$g(\zeta_N^i)$は，$\hat f$と$\hat g$という多項式の係数です
 
@@ -362,7 +292,7 @@ $$\widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} f(\zeta_N^i)g(\zeta_N^i)x^i$$
 
 よって，まとめると，
 
-$$(f*g) = \mathrm{DFT}_N^{-1}(\mathrm{DFT}_N(f) \cdot \mathrm{DFT}_N(g))$$
+$\displaystyle (f*g) = \mathrm{DFT}_N^{-1}(\mathrm{DFT}_N(f) \cdot \mathrm{DFT}_N(g))$
 
 ということになります
 
@@ -402,7 +332,7 @@ vector<Complex> conv(vector<Complex> a, vector<Complex> b) {
 
 DFT:
 
-$$\hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$$
+$\displaystyle \hat{f}(x) = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$
 
 DFTを求めることというのは，$f(\zeta_N^0), f(\zeta_N^1),\cdots ,f(\zeta_N^{N-1})$を求めることです．FFTによってこいつを高速に求めます．FFTのアイデアは分割統治です
 
@@ -410,22 +340,17 @@ DFTを求めることというのは，$f(\zeta_N^0), f(\zeta_N^1),\cdots ,f(\ze
 
 $f$ の係数を添字のパリティ（偶奇）で分けます
 
-$$
-\begin{aligned}
-&f_0(x) &= a_0 + a_2x + a_4x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i}x^i \\
-&f_1(x) &= a_1 + a_3x + a_5x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i+1}x^i
-\end{aligned}
-$$
+$\displaystyle \begin{aligned} &f_0(x) &= a_0 + a_2x + a_4x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i}x^i \\ &f_1(x) &= a_1 + a_3x + a_5x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i+1}x^i \end{aligned}$
 
 $N$ は後々のために2べきとします
 
 $f(x) = f_0(x^2) + xf_1(x^2)$ になることが分かるかと思います．$f(\zeta_N^i)$ に代入します
 
-$$f(\zeta_N^i) = f_0(\zeta_N^2i) + \zeta_N^i\cdot f_1(\zeta_N^2i)$$
+$\displaystyle f(\zeta_N^i) = f_0(\zeta_N^2i) + \zeta_N^i\cdot f_1(\zeta_N^2i)$
 
 ここで， $\zeta_{nk}^{ik}=\zeta_n^i$ を思い出してください（約分みたいなもの）
 
-$$f(\zeta_N^i) = f_0(\zeta_{N/2}^i) + \zeta_N^i\cdot f_1(\zeta_{N/2}^i)$$
+$\displaystyle f(\zeta_N^i) = f_0(\zeta_{N/2}^i) + \zeta_N^i\cdot f_1(\zeta_{N/2}^i)$
 
 よって，
 
@@ -508,25 +433,25 @@ $\zeta_N^i$ を上記コードのようにその場で求めることをせず�
 
 IDFT:
 
-$$f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$$
+$\displaystyle f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta_N^{\textcolor{red}{-i}})x^i$
 
 関数的に書いたほうが，入力・出力がはっきりとわかりやすいと思うので，書き換えます
 
-$$DFT^{-1}(f)(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} f(\zeta_N^{\textcolor{red}{-i}})x^i$$
+$\displaystyle DFT^{-1}(f)(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} f(\zeta_N^{\textcolor{red}{-i}})x^i$
 
 DFTと同様に，何を求めればいいかを考えます
 
 $\frac{1}{N}$ は後から掛ければどうにでもなるので一旦無視します
 
-$$f(\zeta_N^{-0}), f(\zeta_N^{-1}), \cdots, f(\zeta_N^{-(N-1)})$$
+$\displaystyle f(\zeta_N^{-0}), f(\zeta_N^{-1}), \cdots, f(\zeta_N^{-(N-1)})$
 
 $\mathrm{mod}\ N$ で$\zeta_N^i$ は同値なので，
 
-$$f(\zeta_N^{N-0}), f(\zeta_N^{N-1}), \cdots, f(\zeta_N^{-(N - (N - 1))})$$
+$\displaystyle f(\zeta_N^{N-0}), f(\zeta_N^{N-1}), \cdots, f(\zeta_N^{-(N - (N - 1))})$
 
 すなわち，
 
-$$f(\zeta_N^0), f(\zeta_N^{N-1}), \cdots, f(\zeta_N^1)$$
+$\displaystyle f(\zeta_N^0), f(\zeta_N^{N-1}), \cdots, f(\zeta_N^1)$
 
 よって，DFTと同様に求めて，入れ替えをしてやれば良いです
 

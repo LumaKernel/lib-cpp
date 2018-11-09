@@ -10,7 +10,7 @@ title: 基本
 
 # オイラーのトーシェント関数
 
-[オイラーのトーシェント関数の性質]({{ "math/EulerTotient" | absolute_url }}) に色々書きました
+[オイラーのトーシェント関数の性質]({{ "math/number-theory/EulerTotient" | absolute_url }}) に色々書きました
 
 // @ phi
 

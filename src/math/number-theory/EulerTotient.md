@@ -83,11 +83,11 @@ $x \geq \log_2 N$ であれば大丈夫です
 つまり，$A^x \mod N$ の値は $x \mod \phi(N)$ によってわかるということです
 
 証明・さらなる議論についてはこちらも同様に  
-[F: ModularPowerEquation!!の謎を紐解く - るまブログ](https://tomorinao.blogspot.com/2018/09/f-modularpowerequation.html){:target="_blank"}に書きました
+[F: ModularPowerEquation!!の謎を紐解く - るまブログ](https://tomorinao.blogspot.com/2018/09/f-modularpowerequation.html){:target="_blank"}<!--_-->に書きました
 
 練習問題
 
-* [F - ModularPowerEquation!! (1400) - AtCoder](https://beta.atcoder.jp/contests/tenka1-2017/tasks/tenka1_2017_f){:target="_blank"}
+* [F - ModularPowerEquation!! (1400) - AtCoder](https://beta.atcoder.jp/contests/tenka1-2017/tasks/tenka1_2017_f){:target="_blank"}<!--_-->
 
 ---
 

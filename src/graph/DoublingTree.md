@@ -4,10 +4,10 @@ title: 木のダブリング
 
 ダブリング自体は木でなくともできます．(数列とか?)
 
-$ O(logN) $ で1クエリを処理でき，[HL分解]({{ "graph/HL-Decomposition" | absolute_url }})より時間計算量で有利ですが，  
-空間計算量は $ O(N log N) $ とちょっと増えます．
+$ O(\log N) $ で1クエリを処理でき，[HL分解]({{ "graph/HL-Decomposition" | absolute_url }})より時間計算量で有利ですが，  
+空間計算量は $ O(N \log N) $ とちょっと増えます
 [HL分解]({{ "graph/HL-Decomposition" | absolute_url }})とちがって，  
-遅延させたりもできず，通常のセグ木でできることができます．
+遅延させたりもできず，通常のセグ木でできることができます
 
 // @ Doubilng Tree Library
 

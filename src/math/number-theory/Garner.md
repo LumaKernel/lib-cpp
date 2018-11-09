@@ -20,7 +20,7 @@ $x \leq m_1m_2\cdots m_k-1$
 
 $x \mod M$ を求めたいとする
 
-[中国剰余定理(CRT)]({{ "math/CRT" | absolute_url }})を使う場合は，$m_1m_2\cdots m_k-1$以下の整数を管理できるような多倍長変数などが必要になる ($k=2$の場合とかはCRT使えばいいと思う)
+[中国剰余定理(CRT)]({{ "math/number-theory/CRT" | absolute_url }})を使う場合は，$m_1m_2\cdots m_k-1$以下の整数を管理できるような多倍長変数などが必要になる ($k=2$の場合とかはCRT使えばいいと思う)
 
 Garnerのアルゴリズムでは，各$m_i$に関するmodでの値だけ持つことができればよい
 
