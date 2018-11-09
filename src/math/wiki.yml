@@ -13,4 +13,5 @@ order:
   - Monoid
   - LagrangianRelaxation
   - FFT
+  - number-theory
   - linear-algebra

@@ -8,9 +8,9 @@ using ll = long long;
 // @name isPrime
 /// --- isPrime {{{ ///
 
-bool isPrime(int n) {
+bool isPrime(ll n) {
   if(n < 2) return false;
-  for(int i = 2; i * i <= n; i++) {
+  for(ll i = 2; i * i <= n; i++) {
     if(n % i == 0) return false;
   }
   return true;
@@ -93,12 +93,12 @@ vector< int > phi2(int n) {
 // @name primes
 // @snippet     primes
 /// --- primes {{{ ///
-vector< ll > primes(ll n) {
-  vector< ll > res;
-  for(ll i = 2; i <= n; ++i) {
-    int isp = 1;
-    for(ll p : res) {
-      if(p * p > i) break;
+vector< int > primes(int n) {
+  vector< int > res;
+  for(int i = 2; i <= n; ++i) {
+    bool isp = 1;
+    for(int p : res) {
+      if((ll) p * p > i) break;
       if(i % p == 0) {
         isp = 0;
         break;
@@ -122,13 +122,13 @@ ll extgcd(ll a, ll b, ll &x, ll &y) {
   return b == 0 ? (x = 1, y = 0, a)
                 : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
 }
-ll modinv(ll a, ll mod = (ll) 1e9 + 7) {
+ll modinv(ll a, ll mod) {
   ll x, y;
   extgcd(a, mod, x, y);
   if(x < 0) x += mod;
   return x;
 }
-ll modpow(ll a, ll b, ll mod = (ll) 1e9 + 7) {
+ll modpow(ll a, ll b, ll mod) {
   ll r = 1;
   a %= mod;
   while(b) {
@@ -143,7 +143,7 @@ ll modpow(ll a, ll b, ll mod = (ll) 1e9 + 7) {
 // @new isPrimitive
 // @snippet     is_primitive
 /// --- isPrimitive {{{ ///
-bool isPrimitive(int x, int mod) {
+bool isPrimitive(ll x, ll mod) {
   auto ds = divisor(mod - 1);
   for(ll d : ds)
     if(d != mod - 1) {

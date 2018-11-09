@@ -50,7 +50,7 @@ Dynamic CHT; DCHT と呼ぶことにしておく．こいつが動的CHTなの�
 
 インターフェースは通常と同じ
 
-* `add` : $O(\log N)$
+* `add` : ならし $O(\log N)$
 * `get` : $O(\log N)$
 
 ## 検証
