@@ -93,7 +93,7 @@ $a,b,c$を係数とする多項式をそれぞれ$f,g,h$としましょう
 
 すなわち，
 
-$\displaystyle \begin{aligned} &f(x) = a_0 + a_1x + a_2x^2 + \cdots a_{N-1}x^{N-1} \\ &g(x) = b_0 + b_1x + b_2x^2 + \cdots b_{M-1}x^{M-1} \\ &h(x) = c_0 + c_1x + c_2x^2 + \cdots c_{N + M -2}x^{N + M - 2} \end{aligned}$
+$\displaystyle \begin{aligned} &f(x) = a_0 + a_1x + a_2x^2 + \cdots a_{N-1}x^{N-1} \\\\ &g(x) = b_0 + b_1x + b_2x^2 + \cdots b_{M-1}x^{M-1} \\\\ &h(x) = c_0 + c_1x + c_2x^2 + \cdots c_{N + M -2}x^{N + M - 2} \end{aligned}$
 
 です
 
@@ -103,14 +103,14 @@ $f(x) \times g(x) = h(x)$ となるのがわかりますか?
 
 $f(x) = 1 + 3x + 2x^2$と$g(x) = 2 -  x^2$を考えます
 
-$\displaystyle \begin{aligned} f(x) \times g(x) &=&&(1 + 3x + 2x^2)(2 -  x^2) \\ &=&& (1\cdot 2) + (1\cdot (-1) + 3 \cdot 2)x \\ &&&+ (1 \cdot (-1) + 3 \cdot 0 + 2 \cdot 2)x^2 \\ &&&+ (3 \cdot (-1) + 2 \cdot 0)x^3  \\ &&&+ (2 \cdot (-1) )x^4  \\ \end{aligned}$
+$\displaystyle \begin{aligned} f(x) \times g(x) &=&&(1 + 3x + 2x^2)(2 -  x^2) \\\\ &=&& (1\cdot 2) + (1\cdot (-1) + 3 \cdot 2)x \\\\ &&&+ (1 \cdot (-1) + 3 \cdot 0 + 2 \cdot 2)x^2 \\\\ &&&+ (3 \cdot (-1) + 2 \cdot 0)x^3  \\\\ &&&+ (2 \cdot (-1) )x^4  \\\\ \end{aligned}$
 
 これが多項式同士の掛け算です
 
 
 もう一つ， $f(x) = a_0 + a_1x + a_2x^2$ と $f(x) = b_0 + b_1x + b_2x^2$ を考えます
 
-$\begin{aligned} f(x) \times g(x) &=&&(a_0 + a_1x + a_2x^2)(b_0 + b_1x + b_2x^2) \\ &=&& (a_0b_0)x^0 \\ &&& + (a_0b_1 + a_1b_0)x^1 \\ &&&+ (a_0b_2 + a_1b_1+a_2b_0)x^2 \\ &&&+ (a_1b_2 + a_2b_1)x^3  \\ &&&+ (a_2b_2)x^4  \\ \end{aligned}$
+$\begin{aligned} f(x) \times g(x) &=&&(a_0 + a_1x + a_2x^2)(b_0 + b_1x + b_2x^2) \\\\ &=&& (a_0b_0)x^0 \\\\ &&& + (a_0b_1 + a_1b_0)x^1 \\\\ &&&+ (a_0b_2 + a_1b_1+a_2b_0)x^2 \\\\ &&&+ (a_1b_2 + a_2b_1)x^3  \\\\ &&&+ (a_2b_2)x^4  \\\\ \end{aligned}$
 
 わかりましたか？
 
@@ -118,7 +118,7 @@ $x^k$の係数は$a_ib_j$を足したものになっていますが，$i + j = k
 
 一般的にかくと，
 
-$\displaystyle \begin{aligned} &f(x) = \sum_{i=0}^{N-1}a_ix^i \\ &g(x) = \sum_{j=0}^{M-1}b_jx^j \\ &f(x)\times g(x) = h(x) = \sum_{i=0}^{N+M-2}c_ix^i \\ &h(x) = \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}a_ib_jx^{i+j} \end{aligned}$
+$\displaystyle \begin{aligned} &f(x) = \sum_{i=0}^{N-1}a_ix^i \\\\ &g(x) = \sum_{j=0}^{M-1}b_jx^j \\\\ &f(x)\times g(x) = h(x) = \sum_{i=0}^{N+M-2}c_ix^i \\\\ &h(x) = \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}a_ib_jx^{i+j} \end{aligned}$
 
 というところまでいきます．なぜそうなるか，という点については，素直に掛け合わせてシグマを入れ替えるとそうなるからです
 
@@ -173,18 +173,18 @@ $\displaystyle \zeta_N = \cos(\frac{2\pi}{N}) +\sqrt {-1}\sin(\frac{2\pi}{N})$
 
 こうするといろんな特徴があって，
 
-* $\zeta_N^i = \zeta_N^j$と$i \equiv j \mod N$は同値
-* $\zeta_{nk}^{ik}=\zeta_n^i$ (分数の約分のようなもの)
+* $\displaystyle \zeta_N^i = \zeta_N^j$と$\displaystyle i \equiv j \mod N$は同値
+* $\displaystyle \zeta_{nk}^{ik}=\zeta_n^i$ (分数の約分のようなもの)
 
 これらは複素平面を考えると納得がいく (もしくは$\omega$の特徴が拡張された，と考えることもできる)
 
 また，以下が成り立つ
 
-$\displaystyle \sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod N) \\ 0 & (otherwise) \end{cases}$
+$\displaystyle \sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod N) \\\\ 0 & (otherwise) \end{cases}$
 
 $k\equiv 0$は簡単なので，$otherwise$について示す
 
-$\displaystyle \begin{aligned} \sum_{i=0}^{N-1}\zeta_N^{ki} &= \frac{\zeta_N^N - 1}{\zeta_N - 1}& \text{等比級数より} \\ &= \frac{\zeta_N^0 - 1}{\zeta_N - 1}& \mathrm{mod}\ Nにより\\ &= \frac{1 - 1}{\zeta_N - 1} = 0 \end{aligned}$
+$\displaystyle \begin{aligned} \sum_{i=0}^{N-1}\zeta_N^{ki} &= \frac{\zeta_N^N - 1}{\zeta_N - 1}& \text{等比級数より} \\\\ &= \frac{\zeta_N^0 - 1}{\zeta_N - 1}& \mathrm{mod}\ Nにより\\ &= \frac{1 - 1}{\zeta_N - 1} = 0 \end{aligned}$
 
 等比級数の公式が複素数に適用できるかというのは，自分で複素数考慮で求めなおしたりすれば自明
 
@@ -228,7 +228,7 @@ $\displaystyle \begin{aligned} \hat{f}(\zeta_N^{\textcolor{red}{-i}}) &= \sum_{j
 
 一番内側について，
 
-$\displaystyle \sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod N) \\ 0 & (otherwise) \end{cases}$
+$\displaystyle \sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod N) \\\\ 0 & (otherwise) \end{cases}$
 
 を使います
 
@@ -236,7 +236,7 @@ $(k - i) \not\equiv 0 \mod N$ならば，全体で$a_k$倍されるものの，$
 
 $\|k-i\|\leq N$ に注意して丁寧に書くと，
 
-$\displaystyle \begin{aligned} \hat{f}(\zeta_N^{\textcolor{red}{-i}}) &= \sum_{k=0}^{N-1}a_k \left( \begin{cases} N & (k=i) \\ 0 & (otherwise) \end{cases} \right) \\ & = Na_i \end{aligned}$
+$\displaystyle \begin{aligned} \hat{f}(\zeta_N^{\textcolor{red}{-i}}) &= \sum_{k=0}^{N-1}a_k \left( \begin{cases} N & (k=i) \\\\ 0 & (otherwise) \end{cases} \right) \\\\ & = Na_i \end{aligned}$
 
 が導かれます
 
@@ -340,7 +340,7 @@ DFTを求めることというのは，$f(\zeta_N^0), f(\zeta_N^1),\cdots ,f(\ze
 
 $f$ の係数を添字のパリティ（偶奇）で分けます
 
-$\displaystyle \begin{aligned} &f_0(x) &= a_0 + a_2x + a_4x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i}x^i \\ &f_1(x) &= a_1 + a_3x + a_5x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i+1}x^i \end{aligned}$
+$\displaystyle \begin{aligned} &f_0(x) &= a_0 + a_2x + a_4x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i}x^i \\\\ &f_1(x) &= a_1 + a_3x + a_5x^2 + \cdots &= \sum_{i=0}^{N/2-1}a_{2i+1}x^i \end{aligned}$
 
 $N$ は後々のために2べきとします
 
