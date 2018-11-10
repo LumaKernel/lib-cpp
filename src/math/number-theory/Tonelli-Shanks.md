@@ -105,11 +105,11 @@ $\displaystyle X \equiv x^{p^{y-1}} \times c^{(p^y+1)/2-p^{y-1}} \mod p^k$
 
 # 検証
 
-* [C - Timofey and remoduling - Codeforces](https://codeforces.com/contest/763/submission/45482806){:target="_blank"}<!--_-->
+* [C - Timofey and remoduling - codeforces](https://codeforces.com/contest/763/submission/45482806){:target="_blank"}<!--_-->
 
 # 練習問題
 
-* [C - Timofey and remoduling - Codeforces](https://codeforces.com/contest/763/problem/C){:target="_blank"}<!--_-->
+* [C - Timofey and remoduling - codeforces](https://codeforces.com/contest/763/problem/C){:target="_blank"}<!--_-->
 
 ---
 

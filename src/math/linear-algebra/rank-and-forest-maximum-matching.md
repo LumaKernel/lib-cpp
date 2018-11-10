@@ -51,11 +51,11 @@ $2M \lt n$ である場合を考える．マッチングの端点を用いた誘
 # 参考
 
 * [行列の基本変形 - Wikipedia](https://www.google.co.jp/search?client=opera&q=行列基本変形&sourceid=opera&ie=UTF-8&oe=UTF-8){:target="_blank"}<!--_-->
-* 上記の証明は [Random Forest Rankの解説 (Codeforces)](https://codeforces.com/blog/entry/62688){:target="_blank"}<!--_--> を参考にしました
+* 上記の証明は [Random Forest Rankの解説 (codeforces)](https://codeforces.com/blog/entry/62688){:target="_blank"}<!--_--> を参考にしました
 * [行列のランクの意味（８通りの同値な定義） - 高校数学の美しい物語](https://mathtrain.jp/matrixrank){:target="_blank"}<!--_-->
 * [行列式の３つの定義と意味 - 高校数学の美しい物語](https://mathtrain.jp/determinant){:target="_blank"}<!--_-->
 
 # 練習問題
 
-* [E - Random Forest Rank - Codeforces](https://codeforces.com/contest/1067/problem/E){:target="_blank"}<!--_-->
+* [E - Random Forest Rank - codeforces](https://codeforces.com/contest/1067/problem/E){:target="_blank"}<!--_-->
 

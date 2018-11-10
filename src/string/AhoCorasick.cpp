@@ -8,13 +8,17 @@ using ll = long long;
 // @snippet     ahocorasick
 // @alias       aho
 
-// never fail to call build() !!
-// constructor()
 // add(string)
+// === build() ===
 // match(string, f)           : [left, right], f(int left, int right, int key)
 // next(node, char, f): Trie* : f(int len, int key)
-// in right-asc -> left-desc order
+// - right-inc -> left-dec order
+// === --- ===
+// if ML is tight, comment out "delete"
 /// --- AhoCorasick Library {{{ ///
+
+#include <functional>
+#include <unordered_map>
 
 struct AhoCorasick {
   struct Trie {
@@ -41,8 +45,16 @@ struct AhoCorasick {
         }
       }
     }
+    ~Trie() {
+      for(auto &x : child) {
+        delete x.second;
+      }
+    }
   };
   Trie *top = new Trie;
+  ~AhoCorasick() {
+    // delete top;
+  }
   vector< string > dict;
   void add(string word) {
     Trie *now = top;

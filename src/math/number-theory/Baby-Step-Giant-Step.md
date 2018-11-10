@@ -44,7 +44,7 @@ Baby-Step Giant-Step アルゴリズムは中間一致攻撃のひとつです
 
 $x = 0$ の場合は自明なので $x \geq 1$ とします．$g=\gcd(a, p)$ とすると
 
-まず $g \nmid b$ (<=> $g$ は $b$ の約数でない) なら解はありません
+まず $g \nmid b$ ($g$ は $b$ の約数でない) なら解はありません
 
 
 $g \mid b$ なら
@@ -53,11 +53,11 @@ $\displaystyle a^x \equiv b \mod p$
 
 $\displaystyle a a^{x-1} \equiv b \mod p$
 
-$\displaystyle (\frac{a}{g}) a^{x-1} \equiv \frac{b}{g} \mod \frac{p}{g}$
+$\displaystyle \left(\frac{a}{g}\right) a^{x-1} \equiv \frac{b}{g} \mod \frac{p}{g}$
 
-$\displaystyle \gcd(\frac{a}{g}, \frac{p}{g}) = 1$ なので逆元が存在して，
+$\displaystyle \gcd\left(\frac{a}{g}, \frac{p}{g}\right) = 1$ なので逆元が存在して，
 
-$\displaystyle a^{x-1} \equiv \frac{b}{g}(\frac{a}{g})^{-1} \mod \frac{p}{g}$
+$\displaystyle a^{x-1} \equiv \frac{b}{g}\left(\frac{a}{g}\right)^{-1} \mod \frac{p}{g}$
 
 となりサイズの小さい問題に帰着できました (**このときの割り算と逆元は意味が違うので注意してください**)
 

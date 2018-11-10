@@ -36,7 +36,7 @@ DPにも使える (ページ下部の参考も参照してください)
 
 * [C - スペースエクスプローラー高橋君 - AtCoder](https://beta.atcoder.jp/contests/colopl2018-final-open/submissions/2171456){:target="_blank"}<!--_-->
   * このときの実装は少々バグがあります
-* [D - Computer Game - Codeforces](https://codeforces.com/contest/1067/submission/45446448){:target="_blank"}<!--_-->
+* [D - Computer Game - codeforces](https://codeforces.com/contest/1067/submission/45446448){:target="_blank"}<!--_-->
 
 # 追加順序任意のCHT
 
@@ -55,7 +55,7 @@ Dynamic CHT; DCHT と呼ぶことにしておく．こいつが動的CHTなの�
 
 ## 検証
 
-* [D - Computer Game - Codeforces](https://codeforces.com/contest/1067/submission/45442782){:target="_blank"}<!--_-->
+* [D - Computer Game - codeforces](https://codeforces.com/contest/1067/submission/45442782){:target="_blank"}<!--_-->
 
 # 削除可能なConvexHullTrick
 
@@ -89,5 +89,5 @@ $(b_3-b_2)(a_2-a_1) \geq (b_2-b_1)(a_3-a_2)$ へ一意に変形できる
 # 参考
 
 * [Convex-Hull Trick - SATANIC++](http://satanic0258.hatenablog.com/entry/2016/08/16/181331){:target="_blank"}<!--_-->
-* [Dynamic Programming Optimizations - Codeforcesの記事](https://codeforces.com/blog/entry/8219){:target="_blank"}<!--_-->
+* [Dynamic Programming Optimizations - codeforcesの記事](https://codeforces.com/blog/entry/8219){:target="_blank"}<!--_-->
 

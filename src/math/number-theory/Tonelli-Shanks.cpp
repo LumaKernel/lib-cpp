@@ -6,7 +6,7 @@ using ll = long long;
 // @@
 // @ modsqrt with Tonelli-Shanks algorithm
 // @snippet modsqrt
-// @alias sqrt_mod legendre is_quadratic_residue heihoujouyo
+// @alias sqrt_mod legendre is_quadratic_residue heihoujouyo rujandoru
 
 // require math library
 // modsqrt {{{
