@@ -85,7 +85,7 @@ $p \bmod 8$ が $3, 5, 7$ のときに公式があります
 
 # √a mod p^k
 
-$k$ を正整数とすると $X^2 \equiv a \mod p^k$ も求められるようです．wikipediaにあるものをそのまま書いてみました
+$k$ を正整数とすると $X^2 \equiv a \mod p^k$ となる $X$ も求められるようです．wikipediaにあるものをそのまま書いてみました
 
 ふつうに $x = \sqrt{a} \bmod p$ を求めた後，
 
@@ -99,7 +99,7 @@ $\displaystyle X \equiv x^{p^{y-1}} \times c^{(p^y+1)/2-p^{y-1}} \mod p^k$
 
 // @ modsqrt with Tonelli-Shanks algorithm
 
-3引数の modsqrt(a, p, k) は $\sqrt{a} \mod p^k$ を求めます
+3引数の modsqrt(a, p, k) は $\sqrt{a} \bmod p^k$ を求めます
 
 `mod`が大きい場合，`ll`を多倍長整数に置き換えるとそのまま動きますが，乱択部分は `uint32` の範囲なので，`mt19937_64` に差し替えるか，変わらんやろと妥協するなどの選択があります
 
