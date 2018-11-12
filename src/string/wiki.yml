@@ -8,5 +8,6 @@ order:
   - SA-with-Manber-Myers
   - SA-IS
   - LCP-Array
+  - Rolling-Hash
   - Tree2String
   - StringUtil

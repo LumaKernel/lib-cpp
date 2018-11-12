@@ -8,7 +8,7 @@ using ll = long long;
 // @snippet dsu_on_tree
 // @alias   temp_dsu_on_tree
 
-// HLD type
+// HLD style
 const int N = 1e5;
 
 int dep[N];
