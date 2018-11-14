@@ -1,5 +1,6 @@
 ---
 title: 動的セグメントツリー
 ---
-// @ DynamicSegTree
+
+// @ Dynamic SegmentTree
 

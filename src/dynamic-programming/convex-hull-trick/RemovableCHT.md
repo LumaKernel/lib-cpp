@@ -1,0 +1,16 @@
+---
+title: 削除可能なCHT
+---
+
+[CHT]({{ "dynamic-programming/convex-hull-trick/CHT" | absolute_url }}) に直線削除もできるようにしたもの
+
+直線の数を$N$，クエリの数を$Q$ とする
+
+# 削除可能なConvexHullTrick
+
+* [yosupoさんの記事](http://yosupo.hatenablog.com/entry/2015/12/02/235855){:target="_blank"}<!--_-->
+
+# 参考
+
+* [ちょっと重いSegTree - よすぽの日記](http://yosupo.hatenablog.com/entry/2015/12/02/235855){:target="_blank"}<!--_-->
+

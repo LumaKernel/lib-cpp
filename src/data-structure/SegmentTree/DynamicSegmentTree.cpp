@@ -1,18 +1,18 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
 // @@
-// @snippet     dynamicsegtree
+// @snippet     dynamicsegmenttree
 // @alias       segdynamic
-// @name DynamicSegTree
+// @ Dynamic SegmentTree
+
 // Note : to get faster, use map by yourself
-// .entity : number of materialized leaves
-/// --- DynamicSegTree {{{ ///
+/// --- Dynamic SegmentTree {{{ ///
 
 template < class Monoid >
-struct DynamicSegTree {
+struct DynamicSegmentTree {
   using T = typename Monoid::T;
   struct Node {
     T value;
@@ -21,8 +21,8 @@ struct DynamicSegTree {
   };
   Node *top = new Node;
   int n;
-  DynamicSegTree() {}
-  DynamicSegTree(int t) {
+  DynamicSegmentTree() {}
+  DynamicSegmentTree(int t) {
     n = 1;
     while(t > n) n <<= 1;
   }
@@ -65,6 +65,9 @@ private:
 
 /// --- Monoid examples {{{ ///
 
+#include <algorithm>
+#include <limits>
+
 struct Nothing {
   using T = char;
   using M = char;
@@ -96,4 +99,4 @@ struct RangeSum {
 
 /// }}}--- ///
 
-using Seg = DynamicSegTree< RangeMin >;
+using Seg = DynamicSegmentTree< RangeMin >;

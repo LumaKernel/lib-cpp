@@ -1,5 +1,5 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
@@ -10,6 +10,9 @@ using ll = long long;
 /// --- Monoid, M_act examples {{{ ///
 
 /// --- Monoid examples {{{ ///
+
+#include <algorithm>
+#include <limits>
 
 struct Nothing {
   using T = char;
@@ -46,6 +49,8 @@ struct RangeSum {
 // MinSet m
 // SumAdd m * n + x
 // SumSet m * n
+
+#include <limits>
 
 struct RangeMinAdd {
   using M = ll;

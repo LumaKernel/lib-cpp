@@ -1,18 +1,20 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
 // @@
-// @name SegmentTree Library
+// @ SegmentTree
 // @snippet     segmenttree
-// @ SegmentTree Library
 // @alias       seg
 // NOTE : query in range!
-/// --- SegmentTree Library {{{ ///
+/// --- SegmentTree {{{ ///
+
+#include <iostream>
+#include <vector>
 
 template < class Monoid >
-struct SegTree {
+struct SegmentTree {
 private:
   using T = typename Monoid::T;
   int n;
@@ -21,15 +23,16 @@ private:
   void prop(int i) { data[i] = Monoid::op(data[2 * i], data[2 * i + 1]); }
 
 public:
-  SegTree() : n(0) {}
-  SegTree(int n, T initial = Monoid::identity()) : n(n) {
+  SegmentTree() : n(0) {}
+  SegmentTree(int n, T initial = Monoid::identity()) : n(n) {
     data.resize(n * 2, initial);
     for(int i = n - 1; i > 0; i--)
       data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
   }
   template < class InputIter,
              class = typename iterator_traits< InputIter >::value_type >
-  SegTree(InputIter first, InputIter last) : SegTree(distance(first, last)) {
+  SegmentTree(InputIter first, InputIter last)
+      : SegmentTree(distance(first, last)) {
     copy(first, last, begin(data) + n);
     // fill from deep
     for(int i = n - 1; i > 0; i--) prop(i);
@@ -60,6 +63,9 @@ public:
 /// }}}--- ///
 
 /// --- Monoid examples {{{ ///
+
+#include <algorithm>
+#include <limits>
 
 struct Nothing {
   using T = char;
@@ -92,5 +98,5 @@ struct RangeSum {
 
 /// }}}--- ///
 
-using Seg = SegTree< RangeMin >;
+using Seg = SegmentTree< RangeMin >;
 Seg seg(N);

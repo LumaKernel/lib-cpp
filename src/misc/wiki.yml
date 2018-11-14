@@ -1,7 +1,6 @@
 type: dir
 title: いろいろ
 order:
-  - ConvexHullTrick
   - ModuloInteger
   - Rational
   - BigInteger

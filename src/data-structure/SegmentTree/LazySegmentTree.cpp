@@ -1,14 +1,17 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
 // @@
-// @name LazySegmentTree Library
+// @ LazySegmentTree
 // @snippet     lazysegmenttree
 // @alias       lazy lazyseg
 // NOTE : query in range!
-/// --- LazySegmentTree Library {{{ ///
+/// --- LazySegmentTree {{{ ///
+
+#include <iostream>
+#include <vector>
 
 template < class Monoid, class M_act >
 struct LazySegTree {
@@ -16,10 +19,10 @@ private:
   using X = typename Monoid::T;
   using M = typename M_act::M;
   int n, h;
-  std::vector< X > data;
-  std::vector< M > lazy;
-  std::vector< int > nodeLeft;
-  std::vector< int > nodeLength;
+  vector< X > data;
+  vector< M > lazy;
+  vector< int > nodeLeft;
+  vector< int > nodeLength;
   // call before use data[i]
   void eval(int i) {
     if(lazy[i] == M_act::identity()) return;
@@ -113,6 +116,9 @@ public:
 
 /// --- Monoid examples {{{ ///
 
+#include <algorithm>
+#include <limits>
+
 struct Nothing {
   using T = char;
   using M = char;
@@ -148,6 +154,8 @@ struct RangeSum {
 // MinSet m
 // SumAdd m * n + x
 // SumSet m * n
+
+#include <limits>
 
 struct RangeMinAdd {
   using M = ll;

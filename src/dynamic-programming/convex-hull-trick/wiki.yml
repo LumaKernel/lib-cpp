@@ -1,0 +1,8 @@
+type: dir
+title: ConvexHullTrick; CHT
+order:
+  - CHT
+  - CHT-Ex
+  - LiChaoTree
+  - DynaimicLiChaoTree
+  - DynaimicPersistentLiChaoTree

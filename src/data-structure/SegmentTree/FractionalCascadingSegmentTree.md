@@ -2,7 +2,7 @@
 title: フラクショナルカスケーディング
 ---
 
-// @ Fractional Cascading SegmentTree Library
+// @ Fractional Cascading SegmentTree
 
 # 検証
 

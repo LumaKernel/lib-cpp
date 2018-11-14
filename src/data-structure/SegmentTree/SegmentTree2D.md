@@ -1,7 +1,7 @@
 ---
 title: 二次元セグメントツリー
 ---
-// @ 2D SegmentTree Library
+// @ 2D SegmentTree
 
 # 検証
 

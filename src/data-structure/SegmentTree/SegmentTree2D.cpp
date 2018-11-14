@@ -1,23 +1,26 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
 // @@
 // @snippet     seg2d
-// @name 2D SegmentTree Library
+// @name 2D SegmentTree
 // @alias        static_seg_2d 2d_seg
 // constructor(int sizex, int sizey, T identity, func merge)
 // WARN : query in range by yourself!
-/// --- 2D SegmentTree Library {{{ ///
+/// --- 2D SegmentTree {{{ ///
+
+#include <functional>
+#include <vector>
 
 template < class T >
-struct SegTree2D {
+struct SegmentTree2D {
   vector< T > dat;
   int sizex, sizey;
   T identity;
   function< T(T, T) > merge;
-  SegTree2D(int tx, int ty, T identity, function< T(T, T) > merge)
+  SegmentTree2D(int tx, int ty, T identity, function< T(T, T) > merge)
       : identity(identity), merge(merge) {
     sizex = sizey = 1;
     while(tx > sizex) sizex <<= 1;

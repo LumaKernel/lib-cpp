@@ -1,18 +1,19 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
 // @@
 // @snippet     dynamicseg2d
 // @alias        seg2ddynamin 2dsegdynamic
-// @name Dynamic 2D SegmentTree Library
+// @ Dynamic 2D SegmentTree
+
 // Deprecated
 // これはデータがstaticかつactのみの利用で使える(微妙)
 // 静的かつオフラインならFC-segをつかおう
 // constructor(int sizex, int sizey, T identity, func merge)
 // WARN : query in range by yourself!
-/// --- Dynamic 2D SegmentTree Library {{{ ///
+/// --- Dynamic 2D SegmentTree {{{ ///
 
 template < class T >
 struct DynamicSegTree2D {

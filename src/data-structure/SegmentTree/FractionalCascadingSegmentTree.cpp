@@ -1,12 +1,12 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
 // @@
 // @snippet     fractionalcascadingsegtree
 // @alias       segfractionalcascading fcseg
-// @name Fractional Cascading SegmentTree Library
+// @ Fractional Cascading SegmentTree
 
 // constructor(H)
 // index(y, x)
@@ -15,13 +15,15 @@ using ll = long long;
 // query(yl, yr, xl, xr)
 // === --- ===
 // only offline
-/// --- Fractional Cascading SegmentTree Library {{{ ///
+/// --- Fractional Cascading SegmentTree {{{ ///
 
 #include <algorithm>
+#include <cassert>
 #include <functional>
 #include <vector>
+
 template < class T, class U, class Index = ll >
-struct FractionalCascadingSegTree {
+struct FractionalCascadingSegmentTree {
   int h;
   vector< T > dat;
   vector< vector< Index > > indices;
@@ -31,8 +33,8 @@ struct FractionalCascadingSegTree {
   function< void(T &, vector< Index > &) > initX;
   function< U(T &, int x1, int x2) > queryX;
   function< U(const U &, const U &) > mergeY;
-  FractionalCascadingSegTree() {}
-  FractionalCascadingSegTree(
+  FractionalCascadingSegmentTree() {}
+  FractionalCascadingSegmentTree(
       int tempH, //
       function< void(T &, int, const U &) > const &setX,
       function< void(T &, vector< Index > &) > const &initX,
@@ -125,7 +127,7 @@ using Under = SparseTable< RMQSL >;
 using Value = RMQSL;
 using Data = Value::T;
 
-FractionalCascadingSegTree< Under, Data > ecas(
+FractionalCascadingSegmentTree< Under, Data > ecas(
     N + 1,
     // set x
     [](Under &dat, int x, const Data &val) -> void {
@@ -154,7 +156,7 @@ FractionalCascadingSegTree< Under, Data > ecas(
 using Under = BIT<>;
 using Data = ll;
 
-FractionalCascadingSegTree< Under, Data > qina(
+FractionalCascadingSegmentTree< Under, Data > qina(
     N + 10,
     // set x
     [](Under &dat, int x, const Data &val) -> void { dat.add(x, val); },

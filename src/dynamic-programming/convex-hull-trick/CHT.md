@@ -1,5 +1,5 @@
 ---
-title: Convex Hull Trick; CHT
+title: 通常のCHT
 ---
 
 直線の集合 $L = \\{f_i(x) = a_i x + b_i\\}$ に対し，以下のクエリを高速に行えます
@@ -11,7 +11,7 @@ DPにも使える (ページ下部の参考も参照してください)
 
 直線の数を$N$，クエリの数を$Q$ とする
 
-# 通常
+# 実装
 
 使い方はコードの下．オンラインクエリ可能
 
@@ -32,44 +32,13 @@ DPにも使える (ページ下部の参考も参照してください)
 * `query(x)` : getと同様の計算量
   * `x` での最小 (最大) 値
 
-## 検証
+# 検証
 
 * [C - スペースエクスプローラー高橋君 - AtCoder](https://beta.atcoder.jp/contests/colopl2018-final-open/submissions/2171456){:target="_blank"}<!--_-->
   * このときの実装は少々バグがあります
 * [D - Computer Game - codeforces](https://codeforces.com/contest/1067/submission/45446448){:target="_blank"}<!--_-->
 
-# 追加順序任意のCHT
-
-Dynamic CHT; DCHT と呼ぶことにしておく．こいつが動的CHTなのか削除可能なものがそうなのか，よくわかっていない
-
-オンラインクエリ可能
-
-[http://d.hatena.ne.jp/sune2/20140310/1394440369](http://d.hatena.ne.jp/sune2/20140310/1394440369){:target="_blank"}<!--_--> にあるものに手を加えたもの
-
-// @ Dynamic Convex Hull Trick Library
-
-インターフェースは通常と同じ
-
-* `add` : ならし $O(\log N)$
-* `get` : $O(\log N)$
-
-## 検証
-
-* [D - Computer Game - codeforces](https://codeforces.com/contest/1067/submission/45442782){:target="_blank"}<!--_-->
-
-# 削除可能なConvexHullTrick
-
-TODO : 理解
-
-* [yosupoさんの記事](http://yosupo.hatenablog.com/entry/2015/12/02/235855){:target="_blank"}<!--_-->
-
----
-
-通常のCHTが既に動的なのでね，動的CHTってなんだろうね
-
-sort + CHTよりDCHTのほうが漸近的に速いが，sort + CHTのほうがちょっと速いかなと言う感じ
-
-# 自分用のメモ
+# メモ
 
 直線が不必要な条件
 

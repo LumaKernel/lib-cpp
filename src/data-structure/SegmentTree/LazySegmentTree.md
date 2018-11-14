@@ -2,7 +2,7 @@
 title: 遅延セグメントツリー
 ---
 
-// @ LazySegmentTree Library
+// @ LazySegmentTree
 
 # 参考
 

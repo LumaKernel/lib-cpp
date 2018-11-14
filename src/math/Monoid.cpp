@@ -1,5 +1,5 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
@@ -7,6 +7,9 @@ using ll = long long;
 // @ Monoid examples
 // @snippet monoid_expamples
 /// --- Monoid examples {{{ ///
+
+#include <algorithm>
+#include <limits>
 
 struct Nothing {
   using T = char;

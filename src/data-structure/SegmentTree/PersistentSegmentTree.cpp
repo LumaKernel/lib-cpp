@@ -1,20 +1,21 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
 // @@
-// @name PersistentSegmentTree Library
 // @snippet     persistent_seg
 // @alias       seg_persistent
-// @ PersistentSegmentTree Library
+// @ Persistent SegmentTree
 
 // NOTE : query in range!
 // initial time : 0
-// set( i , time? ) returns newTime ( when after updating )
+// set( i , time? ) returns newTime ( = after updating )
 // query( [l, r) , time? = .lastRoot )
 // get( i , time? = .lastRoot )
-/// --- PersistentSegmentTree Library {{{ ///
+/// --- Persistent SegmentTree {{{ ///
+
+#include <vector>
 
 template < class Monoid >
 struct PersistentSegTree {
@@ -25,42 +26,37 @@ private:
   vector< int > lch, rch;
 
 public:
-  int lastRoot = 0;
+  vector< int > roots;
   PersistentSegTree() : n(0) {}
-  PersistentSegTree(int t) : data(1, Monoid::identity()), lch(1, 0), rch(1, 0) {
-    n = 1;
-    while(n < t) n <<= 1;
+  PersistentSegTree(int n)
+      : n(n), data(1, Monoid::identity()), lch(1, 0), rch(1, 0) {
+    roots.push_back(0);
   }
   template < class InputIter,
              class = typename iterator_traits< InputIter >::value_type >
   PersistentSegTree(InputIter first, InputIter last)
       : PersistentSegTree(distance(first, last)) {
-    assign(first, last);
-  }
-  int set(int i, const T &v, int root = -1) {
-    if(root == -1) root = lastRoot;
-    int k = make();
-    set(i, v, 0, n, k, root);
-    lastRoot = k;
-    return k;
-  }
-  template < class InputIter,
-             class = typename iterator_traits< InputIter >::value_type >
-  void assign(InputIter first, InputIter last) {
-    assert(n >= distance(first, last));
-    data.resize(n * 2 - 1, Monoid::identity());
-    lch.resize(n * 2 - 1, 0);
-    rch.resize(n * 2 - 1, 0);
-    copy(first, last, begin(data) + n - 1);
-    for(int i = n - 2; i >= 0; i--) {
-      data[i] = Monoid::op(data[lch[i] = i * 2 + 1], data[rch[i] = i * 2 + 2]);
+    data.resize(n * 2, Monoid::identity());
+    lch.resize(n * 2, 0);
+    rch.resize(n * 2, 0);
+    copy(first, last, begin(data) + n);
+    for(int i = n - 1; i >= 1; i--) {
+      data[i] = Monoid::op(data[lch[i] = i * 2], data[rch[i] = i * 2 + 1]);
     }
+    roots.push_back(1);
+  }
+  int set(int i, const T &v, int time = -1) {
+    if(time == -1) time = roots.size() - 1;
+    int k = make();
+    set(i, v, 0, n, k, roots[time]);
+    roots.push_back(k);
+    return roots.size() - 1;
   }
   void reserve(int qsize) {
     int h = log(n);
-    data.reserve(n * 2 - 1 + qsize * h);
-    lch.reserve(n * 2 - 1 + qsize * h);
-    rch.reserve(n * 2 - 1 + qsize * h);
+    data.reserve(n * 2 + qsize * h);
+    lch.reserve(n * 2 + qsize * h);
+    rch.reserve(n * 2 + qsize * h);
   }
   void set(int i, const T &v, int l, int r, int k, int prevK) {
     if(r - l == 1) {
@@ -69,7 +65,7 @@ public:
     }
     lch[k] = lch[prevK];
     rch[k] = rch[prevK];
-    int x = make(); //// important where to calc
+    int x = make();
     if(i < ((l + r) >> 1)) {
       lch[k] = x;
       set(i, v, l, (l + r) >> 1, lch[k], lch[prevK]);
@@ -79,10 +75,10 @@ public:
     }
     data[k] = Monoid::op(data[lch[k]], data[rch[k]]);
   }
-  T get(int i, int root = -1) { return query(i, i + 1, root); }
-  T query(int a, int b, int root = -1) {
-    if(root == -1) root = lastRoot;
-    return query(a, b, 0, n, root);
+  T get(int i, int time = -1) { return query(i, i + 1, time); }
+  T query(int a, int b, int time = -1) {
+    if(time == -1) time = roots.size() - 1;
+    return query(a, b, 0, n, roots[time]);
   }
   T query(int a, int b, int l, int r, int k) {
     if(k == 0) return Monoid::identity();
@@ -109,6 +105,9 @@ private:
 /// }}}--- ///
 
 /// --- Monoid examples {{{ ///
+
+#include <algorithm>
+#include <limits>
 
 struct Nothing {
   using T = char;
