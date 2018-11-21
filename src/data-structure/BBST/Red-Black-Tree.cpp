@@ -11,7 +11,7 @@ using ll = long long;
 constexpr int FREE_TYPE = 0; // 0 : nothing, 1 : free, 2 : destroy
 constexpr int POOL_SIZE = 1.1e7;
 
-// <BBST Basic Funcs> (node [, ...] )
+// <BBST Basic Funcs> ( node [, ...] )
 // build ( node, first, last )
 // Node::rebuildCheck ( <nodes>, threshold = 1e4 )
 // mfree( node )
