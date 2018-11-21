@@ -36,7 +36,7 @@ DAGの反鎖でサイズが最大のもののサイズを $X$ とおくと，$X 
 * 蟻本pp.242-244
 * [Divisor - SlideShare](https://www.slideshare.net/oupc/divisor){:target="_blank"}<!--_-->
   * OUPC2012 - Dicisorの解説
-* [pdf: マトリョーシカ人形](https://www.slideshare.net/oupc/divisor){:target="_blank"}<!--_-->
+* [PDF: マトリョーシカ人形](https://www.slideshare.net/oupc/divisor){:target="_blank"}<!--_-->
   * JOI春の解説
 * [Dilworth's theorem - Wikipedia (en)](https://en.wikipedia.org/wiki/Dilworth%27s_theorem){:target="_blank"}<!--_-->
 

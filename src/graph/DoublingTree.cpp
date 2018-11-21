@@ -120,7 +120,6 @@ public:
 /// --- Monoid examples {{{ ///
 
 #include <algorithm>
-#include <limits>
 
 constexpr long long inf = 1e18 + 100;
 
