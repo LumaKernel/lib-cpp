@@ -80,7 +80,7 @@ $A^x \equiv A^{x+\phi(N)} \mod N$ が成り立ちます
 
 $x \geq \log_2 N$ であれば大丈夫です
 
-つまり，$A^x \mod N$ の値は $x \bmod \phi(N)$ によってわかるということです
+つまり，$A^x \bmod N$ の値は $x \bmod \phi(N)$ によってわかるということです
 
 証明・さらなる議論についてはこちらも同様に  
 [F: ModularPowerEquation!!の謎を紐解く - るまブログ](https://tomorinao.blogspot.com/2018/09/f-modularpowerequation.html){:target="_blank"}<!--_-->に書きました
@@ -95,7 +95,7 @@ $\displaystyle \sum_{d\mid n} \phi(d) = n$
 
 これとメビウスの反転公式より
 
-$\displaystyle \sum_{d\midn} \mu(\frac{n}{d})d = \phi(n)$
+$\displaystyle \sum_{d\mid n} \mu(\frac{n}{d})d = \phi(n)$
 
 が導ける
 
