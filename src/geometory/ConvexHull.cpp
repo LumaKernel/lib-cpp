@@ -23,9 +23,7 @@ struct GrahamScan {
 
   void add(Point p) { poly.emplace_back(p); }
 
-  int operator[](int i) {
-    return hull[(i % hull.size() + hull.size()) % hull.size()];
-  }
+  int operator[](int i) { return hull[(i % hull.size() + hull.size()) % hull.size()]; }
 
   void scan() {
     ids.resize(poly.size());
@@ -50,9 +48,8 @@ struct GrahamScan {
     hull.emplace_back(ids[0]);
     for(size_t i = 1; i <= poly.size(); i++) {
       size_t ii = i % poly.size();
-      while(hull.size() >= 2 &&
-            ccw(poly[hull[hull.size() - 2]], poly[hull[hull.size() - 1]],
-                poly[ids[ii]]) == -1)
+      while(hull.size() >= 2 && ccw(poly[hull[hull.size() - 2]],
+                                    poly[hull[hull.size() - 1]], poly[ids[ii]]) == -1)
         hull.pop_back();
       hull.emplace_back(ids[ii]);
     }

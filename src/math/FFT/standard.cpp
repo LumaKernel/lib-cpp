@@ -30,8 +30,7 @@ vector< Complex > dft(vector< Complex > a, bool inverse) {
     Complex powZeta = 1;
     for(size_t j = 0; j < n; j += i) {
       for(size_t k = 0; k < i; ++k) {
-        tmp[j + k] =
-            a[((j << 1) & mask) + k] + powZeta * a[(((j << 1) + i) & mask) + k];
+        tmp[j + k] = a[((j << 1) & mask) + k] + powZeta * a[(((j << 1) + i) & mask) + k];
       }
       powZeta *= zeta;
     }

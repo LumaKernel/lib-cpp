@@ -61,8 +61,7 @@ struct LinkCutTree {
       if(ch[0]) ch[0]->eval(); ////
       if(ch[1]) ch[1]->eval(); ////
       sz = size(ch[0]) + 1 + size(ch[1]);
-      accum =
-          Monoid::op(Monoid::op(accumulated(ch[0]), val), accumulated(ch[1]));
+      accum = Monoid::op(Monoid::op(accumulated(ch[0]), val), accumulated(ch[1]));
     }
     Splay(const X &val) : val(val), accum(val) {}
     Splay *rotate(bool R) {
@@ -101,9 +100,7 @@ struct LinkCutTree {
   vector< Splay * > data;
   LinkCutTree(int n) : data(n) {}
   Splay *operator[](int i) { return data[i]; }
-  Splay *make(int i, const X &x = Monoid::identity()) {
-    return data[i] = new Splay(x);
-  }
+  Splay *make(int i, const X &x = Monoid::identity()) { return data[i] = new Splay(x); }
   const X &get(Splay *x) {
     x->evalDown();
     return x->val;

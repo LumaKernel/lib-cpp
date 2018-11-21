@@ -29,9 +29,7 @@ struct DrivableDynamicSegTree {
   }
 
 public:
-  void update(int i, function< void(T &) > const &f) {
-    update(i, f, 0, n, top);
-  }
+  void update(int i, function< void(T &) > const &f) { update(i, f, 0, n, top); }
   void init(function< void(T &) > const &f) { init(f, top); }
 
 private:
@@ -42,8 +40,7 @@ private:
     init(f, node->l);
     init(f, node->r);
   }
-  void update(int i, function< void(T &) > const &f, int l, int r,
-              Node *&node) {
+  void update(int i, function< void(T &) > const &f, int l, int r, Node *&node) {
     if(i + 1 <= l || r <= i) return;
     if(node == nullptr) node = new Node(identity);
     dump(l, r);

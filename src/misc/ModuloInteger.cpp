@@ -11,8 +11,7 @@ template < ll mod = (ll) 1e9 + 7 >
 struct ModInt {
   static ll extgcd(ll a, ll b, ll &x, ll &y) {
     ll d;
-    return b == 0 ? (x = 1, y = 0, a)
-                  : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
+    return b == 0 ? (x = 1, y = 0, a) : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
   }
   static ll modinv(ll a) {
     ll x = 0, y = 0;
@@ -25,9 +24,7 @@ struct ModInt {
   ModInt operator+(ModInt const &rhs) const { return ModInt(val + rhs.val); }
   ModInt operator-(ModInt const &rhs) const { return ModInt(val - rhs.val); }
   ModInt operator*(ModInt const &rhs) const { return ModInt(val * rhs.val); }
-  ModInt operator/(ModInt const &rhs) const {
-    return ModInt(val * rhs.inv().val);
-  }
+  ModInt operator/(ModInt const &rhs) const { return ModInt(val * rhs.inv().val); }
   ModInt &operator+=(ModInt const &rhs) {
     val = ((val + rhs.val) % mod + mod) % mod;
     return *this;

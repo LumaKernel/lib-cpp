@@ -69,6 +69,8 @@ aとpが互いに素でなくてもよい．解が存在する場合は非負の
 
 計算量は $O(\sqrt p \log p)$ です
 
+[数学基本ライブラリ]({{ "math/general" | absolute_url }}) のmathを必要とします
+
 // @ modlog with Baby-Step Giant-Step algorithm
 
 # 検証

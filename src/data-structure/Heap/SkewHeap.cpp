@@ -16,8 +16,7 @@ struct SkewHeap {
 };
 
 template < class T, class Compare = less< T > >
-SkewHeap< T > *meld(SkewHeap< T > *a, SkewHeap< T > *b,
-                    const Compare &comp = Compare()) {
+SkewHeap< T > *meld(SkewHeap< T > *a, SkewHeap< T > *b, const Compare &comp = Compare()) {
   if(a == nullptr) return b;
   if(b == nullptr) return a;
   if(!comp(a->val, b->val)) swap(a, b);

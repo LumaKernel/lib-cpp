@@ -26,9 +26,7 @@ template < class T = long long, class Comp = less< T > >
 struct LiChaoTree {
   static Comp comp;
   using Line = pair< T, T >;
-  static inline T f(const Line &line, T x) {
-    return line.first * x + line.second;
-  }
+  static inline T f(const Line &line, T x) { return line.first * x + line.second; }
 
   int n;
   vector< Line > dat;

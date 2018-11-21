@@ -44,8 +44,6 @@ inline valarray< Float > to_float(const valarray< T > &a) {
   for(size_t i = 0; i < a.size(); i++) a2[i] = a[i];
   return a2;
 }
-inline valarray< Float > normalize(const valarray< Float > &a) {
-  return a / norm(a);
-}
+inline valarray< Float > normalize(const valarray< Float > &a) { return a / norm(a); }
 
 /// }}}--- ///

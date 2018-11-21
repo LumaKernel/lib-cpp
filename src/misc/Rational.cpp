@@ -14,9 +14,7 @@ using ll = long long;
 #include <utility>
 template < class Integer = long long >
 struct Rational {
-  static Integer gcd(Integer a, Integer b) {
-    return b == 0 ? a : gcd(b, a % b);
-  }
+  static Integer gcd(Integer a, Integer b) { return b == 0 ? a : gcd(b, a % b); }
   Integer numer, denom;
   Rational(Integer numer = 0, Integer denom = 1) : numer(numer), denom(denom) {
     reduce();
@@ -91,21 +89,11 @@ struct Rational {
   bool operator==(const Rational &a) const {
     return numer == a.numer && denom == a.denom;
   }
-  bool operator<(const Rational &a) const {
-    return numer * a.denom < a.numer * denom;
-  }
-  bool operator!=(const Rational &a) const {
-    return rel_ops::operator!=(*this, a);
-  }
-  bool operator>(const Rational &a) const {
-    return rel_ops::operator>(*this, a);
-  }
-  bool operator<=(const Rational &a) const {
-    return rel_ops::operator<=(*this, a);
-  }
-  bool operator>=(const Rational &a) const {
-    return rel_ops::operator>=(*this, a);
-  }
+  bool operator<(const Rational &a) const { return numer * a.denom < a.numer * denom; }
+  bool operator!=(const Rational &a) const { return rel_ops::operator!=(*this, a); }
+  bool operator>(const Rational &a) const { return rel_ops::operator>(*this, a); }
+  bool operator<=(const Rational &a) const { return rel_ops::operator<=(*this, a); }
+  bool operator>=(const Rational &a) const { return rel_ops::operator>=(*this, a); }
   // }}}
   /// Rational <comparison operator> Integer {{{
   bool operator==(Integer a) const { return *this == Rational(a); }

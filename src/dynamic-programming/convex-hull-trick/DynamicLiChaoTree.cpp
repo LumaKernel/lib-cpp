@@ -26,9 +26,7 @@ struct DynamicLiChaoTree {
   static Comp comp;
 
   using Line = pair< T, T >;
-  static inline T f(const Line& line, T x) {
-    return line.first * x + line.second;
-  }
+  static inline T f(const Line& line, T x) { return line.first * x + line.second; }
   struct Node {
     Line line;
     bool used;
@@ -44,8 +42,7 @@ struct DynamicLiChaoTree {
   Node* top = nullptr;
   T L, R;
   T EPS;
-  DynamicLiChaoTree(const T& L, const T& R, const T& EPS = T())
-      : L(L), R(R), EPS(EPS) {
+  DynamicLiChaoTree(const T& L, const T& R, const T& EPS = T()) : L(L), R(R), EPS(EPS) {
     if(this->EPS == T()) this->EPS = T(1);
     this->R += this->EPS;
   }
@@ -57,8 +54,7 @@ struct DynamicLiChaoTree {
   }
 
 private:
-  void add(const T& a, const T& b, Node*& node, const T& l, const T& r,
-           Line line) {
+  void add(const T& a, const T& b, Node*& node, const T& l, const T& r, Line line) {
     if(b - EPS < l || r < a + EPS) return;
     if(a - EPS < l && r < b + EPS) {
       if(!node || !node->used) {
@@ -105,8 +101,7 @@ private:
     } else {
       p = get(x, node->r, (l + r) / 2, r);
     }
-    return node == nullptr ||
-                   (p != nullptr && comp(f(p->line, x), f(node->line, x)))
+    return node == nullptr || (p != nullptr && comp(f(p->line, x), f(node->line, x)))
                ? p
                : node;
   }

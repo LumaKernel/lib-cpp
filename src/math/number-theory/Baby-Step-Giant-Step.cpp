@@ -7,32 +7,6 @@ using ll = long long;
 // @ modlog with Baby-Step Giant-Step algorithm
 // @snippet modlog
 
-/// --- math {{{ ///
-ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
-ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
-ll extgcd(ll a, ll b, ll &x, ll &y) {
-  ll d;
-  return b == 0 ? (x = 1, y = 0, a)
-                : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
-}
-ll modinv(ll a, ll mod) {
-  ll x, y;
-  extgcd(a, mod, x, y);
-  if(x < 0) x += mod;
-  return x;
-}
-ll modpow(ll a, ll b, ll mod) {
-  ll r = 1;
-  a %= mod;
-  while(b) {
-    if(b & 1) r = r * a % mod;
-    a = a * a % mod;
-    b >>= 1;
-  }
-  return r;
-}
-/// }}}--- ///
-
 // require math library
 // modlog(a, b, p) = log_a b
 // gcd(a, p) = 1
@@ -143,8 +117,7 @@ ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
 ll extgcd(ll a, ll b, ll &x, ll &y) {
   ll d;
-  return b == 0 ? (x = 1, y = 0, a)
-                : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
+  return b == 0 ? (x = 1, y = 0, a) : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
 }
 ll modinv(ll a, ll mod) {
   ll x, y;

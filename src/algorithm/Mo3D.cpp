@@ -20,11 +20,7 @@ struct Mo3D {
   vector< int > le, ri, idx, order;
   int nl = 0, nr = 0, time = -1;
   Mo3D(int n, int q, double k = 1)
-      : width(int(k* pow(max(n, q), 2.0 / 3.0) + 1.0)),
-        le(q),
-        ri(q),
-        idx(q),
-        order(q) {}
+      : width(int(k* pow(max(n, q), 2.0 / 3.0) + 1.0)), le(q), ri(q), idx(q), order(q) {}
   inline void insert(int t, int l, int r) {
     idx[q] = t;
     le[q] = l;

@@ -37,8 +37,7 @@ public:
   }
   static int extgcd(int a, int b, int& x, int& y) {
     int d;
-    return b == 0 ? (x = 1, y = 0, a)
-                  : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
+    return b == 0 ? (x = 1, y = 0, a) : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
   }
   static int modinv(int a) {
     int x, y;
@@ -50,14 +49,12 @@ public:
   int hashed[SZ] = {};
 
   HashString() {}
-  HashString(const char* str)
-      : HashString(str, str + char_traits< char >::length(str)) {}
+  HashString(const char* str) : HashString(str, str + char_traits< char >::length(str)) {}
   HashString(const string& str) : HashString(str.begin(), str.end()) {}
   template < class T >
   HashString(const vector< T >& v) : HashString(v.begin(), v.end()) {}
 
-  template < class InputIter,
-             class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
   HashString(const InputIter& first, const InputIter& last) {
     for(int i = 0; i < SZ; i++) {
       ll tmp = 1;
@@ -76,8 +73,7 @@ public:
     template < class T >
     void operator+=(T c) {
       for(ll i = 0; i < SZ; i++) {
-        str.hashed[i] =
-            (str.hashed[i] + (ll) modpow(B[i], x) * ll(c) % mod) % mod;
+        str.hashed[i] = (str.hashed[i] + (ll) modpow(B[i], x) * ll(c) % mod) % mod;
       }
     }
     template < class T >
@@ -112,8 +108,7 @@ public:
   template < class T >
   void changeAt(ll x, T a, T b) {
     for(int i = 0; i < SZ; i++) {
-      hashed[i] =
-          (hashed[i] + (mod + ll(b) - ll(a)) * modpow(B[i], x) % mod) % mod;
+      hashed[i] = (hashed[i] + (mod + ll(b) - ll(a)) * modpow(B[i], x) % mod) % mod;
     }
   }
 
@@ -129,8 +124,7 @@ public:
 };
 
 int _hs_B[] = {114514, 1919, 810};
-using mystring =
-    HashString< 1'000'000'007, _hs_B, sizeof(_hs_B) / sizeof(_hs_B[0]) >;
+using mystring = HashString< 1'000'000'007, _hs_B, sizeof(_hs_B) / sizeof(_hs_B[0]) >;
 
 template < int mod, int* B, int SZ >
 struct std::hash< HashString< mod, B, SZ > > {

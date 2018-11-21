@@ -28,12 +28,10 @@ private:
 public:
   vector< int > roots;
   PersistentSegTree() : n(0) {}
-  PersistentSegTree(int n)
-      : n(n), data(1, Monoid::identity()), lch(1, 0), rch(1, 0) {
+  PersistentSegTree(int n) : n(n), data(1, Monoid::identity()), lch(1, 0), rch(1, 0) {
     roots.push_back(0);
   }
-  template < class InputIter,
-             class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
   PersistentSegTree(InputIter first, InputIter last)
       : PersistentSegTree(distance(first, last)) {
     data.resize(n * 2, Monoid::identity());
@@ -84,8 +82,8 @@ public:
     if(k == 0) return Monoid::identity();
     if(b <= l || r <= a) return Monoid::identity();
     if(a <= l && r <= b) return data[k];
-    return Monoid::op(query(a, b, l, (l + r) >> 1, lch[k]),
-                      query(a, b, (l + r) >> 1, r, rch[k]));
+    return Monoid::op(
+        query(a, b, l, (l + r) >> 1, lch[k]), query(a, b, (l + r) >> 1, r, rch[k]));
   }
 
 private:

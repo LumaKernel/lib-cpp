@@ -78,8 +78,7 @@ struct AhoCorasick {
       }
     }
   }
-  Trie *next(Trie *now, char c,
-             const function< void(int, int) > &f = [](int, int) {}) {
+  Trie *next(Trie *now, char c, const function< void(int, int) > &f = [](int, int) {}) {
     now = now->go(c);
     Trie *tmp = now;
     while(tmp != nullptr && tmp != top) {
@@ -91,8 +90,7 @@ struct AhoCorasick {
     }
     return now;
   }
-  void match(string s,
-             const function< void(int, int, int) > &f = [](int, int, int) {}) {
+  void match(string s, const function< void(int, int, int) > &f = [](int, int, int) {}) {
     Trie *now = top;
     for(size_t i = 0; i < s.size(); i++) {
       now = now->go(s[i]);

@@ -8,8 +8,7 @@ ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
 ll extgcd(ll a, ll b, ll &x, ll &y) {
   ll d;
-  return b == 0 ? (x = 1, y = 0, a)
-                : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
+  return b == 0 ? (x = 1, y = 0, a) : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
 }
 ll modinv(ll a, ll mod = 1e9 + 7) {
   ll x = 0, y = 0;
@@ -140,8 +139,8 @@ ll garner(vector< int > n, vector< int > mods, ll mod) {
   return constants.back();
 }
 
-vector< int > mult(const vector< int > &c, const vector< int > &a,
-                   const vector< int > &b, const NTT &ntt) {
+vector< int > mult(const vector< int > &c, const vector< int > &a, const vector< int > &b,
+                   const NTT &ntt) {
   const int k = c.size();
   const int deg = k * 2 - 1;
   int n = 1;
@@ -183,8 +182,7 @@ ll kitamasa(ll n, const vector< int > &c, const vector< int > &a, int use = 1,
       n >>= 1;
     }
     int res = 0;
-    for(int i = 0; i < k; i++)
-      res = (res + (ll) a[i] * r[i] % ntts[i].mod) % ntts[i].mod;
+    for(int i = 0; i < k; i++) res = (res + (ll) a[i] * r[i] % ntts[i].mod) % ntts[i].mod;
     vals[i] = res;
   }
   return garner(vals, mods, mod);

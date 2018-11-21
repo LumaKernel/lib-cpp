@@ -26,13 +26,10 @@ public:
   SegmentTree() : n(0) {}
   SegmentTree(int n, T initial = Monoid::identity()) : n(n) {
     data.resize(n * 2, initial);
-    for(int i = n - 1; i > 0; i--)
-      data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
+    for(int i = n - 1; i > 0; i--) data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
   }
-  template < class InputIter,
-             class = typename iterator_traits< InputIter >::value_type >
-  SegmentTree(InputIter first, InputIter last)
-      : SegmentTree(distance(first, last)) {
+  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
+  SegmentTree(InputIter first, InputIter last) : SegmentTree(distance(first, last)) {
     copy(first, last, begin(data) + n);
     // fill from deep
     for(int i = n - 1; i > 0; i--) prop(i);

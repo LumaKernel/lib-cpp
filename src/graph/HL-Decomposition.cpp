@@ -43,8 +43,7 @@ struct HLD {
       b = par[head[b]];
     }
   }
-  void query(int hi, int lo, function< void(int, int) > f,
-             bool inclusive = true) {
+  void query(int hi, int lo, function< void(int, int) > f, bool inclusive = true) {
     while(lo != -1 && dep[lo] >= dep[hi]) {
       int nex = max(vid[head[lo]], vid[hi]);
       f(nex + (nex == vid[hi] && !inclusive), vid[lo] + 1);

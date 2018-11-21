@@ -18,8 +18,7 @@ struct Biconnected {
   vector< vector< pair< int, int > > > comps;
   int id = 0;
   vector< pair< int, int > > tmp;
-  Biconnected(vector< vector< int > > g)
-      : n(g.size()), g(g), low(n), ord(n), used(n) {
+  Biconnected(vector< vector< int > > g) : n(g.size()), g(g), low(n), ord(n), used(n) {
     for(int i = 0; i < n; i++)
       if(!used[i]) dfs(i);
   }

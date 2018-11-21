@@ -119,8 +119,7 @@ public:
          << "\n";
     os << "cross points : " << a.cps.size() << "\n";
     for(auto &p : a.cps)
-      os << "(x = " << p.numer << "/" << p.denom << "; " << p.p.a << ", "
-         << p.p.b << ")"
+      os << "(x = " << p.numer << "/" << p.denom << "; " << p.p.a << ", " << p.p.b << ")"
          << "\n";
     return os;
   }

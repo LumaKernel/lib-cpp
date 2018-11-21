@@ -20,8 +20,7 @@ using ll = long long;
 #include <utility>
 #include <vector>
 
-template < class T = long long, bool xIncreasing = false,
-           class Comp = less< T > >
+template < class T = long long, bool xIncreasing = false, class Comp = less< T > >
 struct CHT {
   static T EPS;
   static Comp comp;
@@ -41,8 +40,7 @@ public:
   T f(int i, const T &x) { return lines[i].first * x + lines[i].second; }
   void add(const T &a, const T &b) {
     assert("add monotonic" && (lines.empty() || !comp(lines.back().first, a)));
-    if(lines.size() && lines.back().first == a && !comp(b, lines.back().second))
-      return;
+    if(lines.size() && lines.back().first == a && !comp(b, lines.back().second)) return;
     while((int) lines.size() >= 2 &&
           check(lines[lines.size() - 2], lines.back(), Line(a, b)))
       lines.pop_back();

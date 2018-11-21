@@ -16,8 +16,7 @@ constexpr int MAX_H = 18;
 namespace NTT {
 ll extgcd(ll a, ll b, ll &x, ll &y) {
   ll d;
-  return b == 0 ? (x = 1, y = 0, a)
-                : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
+  return b == 0 ? (x = 1, y = 0, a) : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
 }
 ll modinv(ll a, ll mod) {
   ll x, y;
@@ -37,8 +36,7 @@ ll modpow(ll a, ll b, ll mod) {
 }
 template < ll mod, ll primitive, int MAX_H >
 struct Core {
-  static_assert((mod & ((1 << MAX_H) - 1)) == 1,
-                "mod is too small; comment out");
+  static_assert((mod & ((1 << MAX_H) - 1)) == 1, "mod is too small; comment out");
   using uint = uint_fast32_t;
   // ord zetaList[i] = 2^(i + 1)
   ll zetaList[MAX_H], zetaInvList[MAX_H];
@@ -60,9 +58,8 @@ struct Core {
       ll powZeta = 1;
       for(uint j = 0; j < n; j += i) {
         for(uint k = 0; k < i; ++k) {
-          tmp[j + k] = (a[((j << 1) & mask) + k] +
-                        powZeta * a[(((j << 1) + i) & mask) + k]) %
-                       mod;
+          tmp[j + k] =
+              (a[((j << 1) & mask) + k] + powZeta * a[(((j << 1) + i) & mask) + k]) % mod;
         }
         powZeta = powZeta * zeta % mod;
       }
@@ -87,8 +84,7 @@ struct Core {
     a.resize(n), b.resize(n);
     return _convStrict(a, b, n, h);
   }
-  vector< ll > _convStrict(vector< ll > a, vector< ll > b, uint n,
-                           uint h) const {
+  vector< ll > _convStrict(vector< ll > a, vector< ll > b, uint n, uint h) const {
     fft(a, n, h, 0), fft(b, n, h, 0);
     for(uint i = 0; i < n; ++i) a[i] = a[i] * b[i] % mod;
     fft(a, n, h, 1);
@@ -139,14 +135,13 @@ void conv_for(int n, int h, const vector< ll > &a, const vector< ll > &b,
 }
 
 template <>
-void conv_for< -1 >(int, int, const vector< ll > &, const vector< ll > &,
-                    vector< ll > &, vector< ll > &, vector< vector< ll > > &) {}
+void conv_for< -1 >(int, int, const vector< ll > &, const vector< ll > &, vector< ll > &,
+                    vector< ll > &, vector< vector< ll > > &) {}
 
 template < int USE >
 vector< ll > conv(vector< ll > a, vector< ll > b, ll mod) {
   static_assert(USE >= 1, "USE must be positive");
-  static_assert(
-      USE <= sizeof(NTT_PRIMES) / sizeof(*NTT_PRIMES), "USE is too big");
+  static_assert(USE <= sizeof(NTT_PRIMES) / sizeof(*NTT_PRIMES), "USE is too big");
   int deg = a.size() + b.size() - 1;
   int n = 1, h = 0;
   while(n < deg) n <<= 1, ++h;

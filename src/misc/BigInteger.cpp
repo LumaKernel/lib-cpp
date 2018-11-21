@@ -101,8 +101,7 @@ public:
     if(sign == v.sign) {
       BigInteger res = v;
 
-      for(int i = 0, carry = 0; i < (int) max(a.size(), v.a.size()) || carry;
-          ++i) {
+      for(int i = 0, carry = 0; i < (int) max(a.size(), v.a.size()) || carry; ++i) {
         if(i == (int) res.a.size()) res.a.push_back(0);
         res.a[i] += carry + (i < (int) a.size() ? a[i] : 0);
         carry = res.a[i] >= base;
@@ -207,9 +206,7 @@ public:
     return divmod(*this, v).first;
   }
 
-  BigInteger operator%(const BigInteger &v) const {
-    return divmod(*this, v).second;
-  }
+  BigInteger operator%(const BigInteger &v) const { return divmod(*this, v).second; }
 
   void operator/=(int v) {
     if(v < 0) sign = -sign, v = -v;
@@ -340,8 +337,7 @@ public:
     }
     for(int i = s.size() - 1; i >= pos; i -= base_digits) {
       int x = 0;
-      for(int j = max(pos, i - base_digits + 1); j <= i; j++)
-        x = x * 10 + s[j] - '0';
+      for(int j = max(pos, i - base_digits + 1); j <= i; j++) x = x * 10 + s[j] - '0';
       a.push_back(x);
     }
     trim();

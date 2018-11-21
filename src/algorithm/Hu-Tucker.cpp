@@ -26,8 +26,7 @@ T HuTucker(const vector< T > &w) {
     if(idx >= n) idx -= n; /////
     return !used[idx];
   };
-  function< void(Heap *&, int, int) > check = [&](Heap *&top, int gid,
-                                                  int idx) {
+  function< void(Heap *&, int, int) > check = [&](Heap *&top, int gid, int idx) {
     if(idx < 0) return;
     if(idx < n) {
       used[idx] = 1;

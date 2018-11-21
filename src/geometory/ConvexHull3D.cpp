@@ -42,8 +42,7 @@ public:
     {
       bool found = false;
       for(int i = 2; i < vnum; i++)
-        if(sign(LINFnorm(
-               cross(points[1] - points[0], points[i] - points[0]))) != 0) {
+        if(sign(LINFnorm(cross(points[1] - points[0], points[i] - points[0]))) != 0) {
           swap(points[2], points[i]);
           found = true;
           break;
@@ -86,8 +85,7 @@ public:
         removed[polygon] = 1;
         ok = 1;
         for(int j = 0; j < 3; j++) {
-          int x = prePolygons[polygon][j],
-              y = prePolygons[polygon][(j + 1) % 3];
+          int x = prePolygons[polygon][j], y = prePolygons[polygon][(j + 1) % 3];
           if(x > y) swap(x, y);
           vector< int > newVec;
           for(int poly : edgeToFace[make_pair(x, y)])
@@ -97,8 +95,7 @@ public:
               while(x == prePolygons[poly][z] || y == prePolygons[poly][z]) z++;
               edges.emplace_back(x, y, prePolygons[poly][z], poly);
               for(int v : canBeSeenFrom[poly])
-                if(changeFlag[v] != i && v > i)
-                  changeFlag[v] = i, vs.emplace_back(v);
+                if(changeFlag[v] != i && v > i) changeFlag[v] = i, vs.emplace_back(v);
               break;
             }
           edgeToFace[make_pair(x, y)] = newVec;
@@ -151,8 +148,7 @@ public:
   vector< array< int, 3 > > getPolygons() const { return polygons; }
   array< int, 3 > getPolygon(int id) const { return polygons[id]; }
   array< valarray< Scalar >, 3 > getPolygonPoints(int id) const {
-    return {points[polygons[id][0]], points[polygons[id][1]],
-            points[polygons[id][2]]};
+    return {points[polygons[id][0]], points[polygons[id][1]], points[polygons[id][2]]};
   }
   valarray< Scalar > getPolygonOuterNormalVector(int id) const {
     return polygonOuterNormalVectors[id];
@@ -165,10 +161,9 @@ private:
         cross(points[j] - points[i], points[k] - points[i]));
     Scalar projection =
         dot(prePolygonOuterNormalVectors.back(), (points[inside] - points[i]));
-    Scalar projection2 = inside2 != -1
-                             ? dot(prePolygonOuterNormalVectors.back(),
-                                   (points[inside2] - points[i]))
-                             : 0;
+    Scalar projection2 = inside2 != -1 ? dot(prePolygonOuterNormalVectors.back(),
+                                             (points[inside2] - points[i]))
+                                       : 0;
     if(sign(projection) == 0) projection = projection2, inside = inside2;
     assert(sign(projection) != 0);
     insides.emplace_back(inside);
@@ -177,12 +172,9 @@ private:
       prePolygonOuterNormalVectors.back() *= -1;
     }
     prePolygons.push_back({i, j, k});
-    edgeToFace[make_pair(min(i, j), max(i, j))].emplace_back(
-        prePolygons.size() - 1);
-    edgeToFace[make_pair(min(j, k), max(j, k))].emplace_back(
-        prePolygons.size() - 1);
-    edgeToFace[make_pair(min(k, i), max(k, i))].emplace_back(
-        prePolygons.size() - 1);
+    edgeToFace[make_pair(min(i, j), max(i, j))].emplace_back(prePolygons.size() - 1);
+    edgeToFace[make_pair(min(j, k), max(j, k))].emplace_back(prePolygons.size() - 1);
+    edgeToFace[make_pair(min(k, i), max(k, i))].emplace_back(prePolygons.size() - 1);
     canBeSeenFrom.push_back({});
   }
   void check(int vertex, int polygon) {

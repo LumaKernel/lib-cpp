@@ -34,18 +34,13 @@ struct FractionalCascadingSegmentTree {
   function< U(T &, int x1, int x2) > queryX;
   function< U(const U &, const U &) > mergeY;
   FractionalCascadingSegmentTree() {}
-  FractionalCascadingSegmentTree(
-      int tempH, //
-      function< void(T &, int, const U &) > const &setX,
-      function< void(T &, vector< Index > &) > const &initX,
-      function< U(T &, int, int) > const &queryX,
-      function< U(const U &, const U &) > const &mergeY, U identity = U(),
-      T initial = T())
-      : identity(identity),
-        setX(setX),
-        initX(initX),
-        queryX(queryX),
-        mergeY(mergeY) {
+  FractionalCascadingSegmentTree(int tempH, //
+                                 function< void(T &, int, const U &) > const &setX,
+                                 function< void(T &, vector< Index > &) > const &initX,
+                                 function< U(T &, int, int) > const &queryX,
+                                 function< U(const U &, const U &) > const &mergeY,
+                                 U identity = U(), T initial = T())
+      : identity(identity), setX(setX), initX(initX), queryX(queryX), mergeY(mergeY) {
     h = 1;
     while(h < tempH) h <<= 1;
     dat = vector< T >(2 * h, initial);
@@ -61,8 +56,7 @@ struct FractionalCascadingSegmentTree {
       if(i >= h - 1) {
         sort(begin(indices[i]), end(indices[i]));
         if(doUnique)
-          indices[i].erase(
-              unique(begin(indices[i]), end(indices[i])), end(indices[i]));
+          indices[i].erase(unique(begin(indices[i]), end(indices[i])), end(indices[i]));
         initX(dat[i], indices[i]);
         continue;
       }
@@ -76,8 +70,7 @@ struct FractionalCascadingSegmentTree {
       while(p1 < lsz || p2 < rsz) {
         L[i][p1 + p2] = p1;
         R[i][p1 + p2] = p2;
-        if(p1 < lsz &&
-           (p2 == rsz || indices[i * 2 + 1][p1] <= indices[i * 2 + 2][p2])) {
+        if(p1 < lsz && (p2 == rsz || indices[i * 2 + 1][p1] <= indices[i * 2 + 2][p2])) {
           indices[i][p1 + p2] = indices[i * 2 + 1][p1];
           p1++;
         } else {
@@ -89,8 +82,7 @@ struct FractionalCascadingSegmentTree {
     }
   }
   void set(int y, Index x, const U &val) {
-    int lower =
-        lower_bound(begin(indices[0]), end(indices[0]), x) - begin(indices[0]);
+    int lower = lower_bound(begin(indices[0]), end(indices[0]), x) - begin(indices[0]);
     set(y, lower, val, 0, h, 0);
   }
   void set(int y, int lower, U const &val, int l, int r, int k) {
@@ -102,19 +94,16 @@ struct FractionalCascadingSegmentTree {
   }
   U query(int a, int b, Index l, Index r) {
     if(a >= b || l >= r) return identity;
-    int lower =
-        lower_bound(begin(indices[0]), end(indices[0]), l) - begin(indices[0]);
-    int upper =
-        lower_bound(begin(indices[0]), end(indices[0]), r) - begin(indices[0]);
+    int lower = lower_bound(begin(indices[0]), end(indices[0]), l) - begin(indices[0]);
+    int upper = lower_bound(begin(indices[0]), end(indices[0]), r) - begin(indices[0]);
     return query(a, b, lower, upper, 0, h, 0);
   }
   U query(int a, int b, int lower, int upper, int l, int r, int k) {
     if(lower == upper) return identity;
     if(b <= l || r <= a) return identity;
     if(a <= l && r <= b) return queryX(dat[k], lower, upper);
-    return mergeY(
-        query(a, b, L[k][lower], L[k][upper], l, (l + r) >> 1, k * 2 + 1),
-        query(a, b, R[k][lower], R[k][upper], (l + r) >> 1, r, k * 2 + 2));
+    return mergeY(query(a, b, L[k][lower], L[k][upper], l, (l + r) >> 1, k * 2 + 1),
+                  query(a, b, R[k][lower], R[k][upper], (l + r) >> 1, r, k * 2 + 2));
   }
 };
 

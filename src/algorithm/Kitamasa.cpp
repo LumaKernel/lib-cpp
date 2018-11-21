@@ -8,8 +8,7 @@ using ll = long long;
 // @snippet kitamasa
 
 template < class T >
-vector< T > kitamasa(const vector< T > &c, const vector< T > &u,
-                     const vector< T > &v) {
+vector< T > kitamasa(const vector< T > &c, const vector< T > &u, const vector< T > &v) {
   int k = c.size();
   vector< T > r(2 * k - 1);
   for(int i = 0; i < k; i++)

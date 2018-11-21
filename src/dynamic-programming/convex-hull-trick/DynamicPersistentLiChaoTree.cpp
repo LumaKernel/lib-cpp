@@ -27,9 +27,7 @@ struct DynamicPersistentLiChaoTree {
   static Comp comp;
 
   using Line = pair< T, T >;
-  static inline T f(const Line& line, T x) {
-    return line.first * x + line.second;
-  }
+  static inline T f(const Line& line, T x) { return line.first * x + line.second; }
   struct Node {
     Line line;
     bool used;
@@ -51,9 +49,7 @@ struct DynamicPersistentLiChaoTree {
     NIL->r = NIL;
     roots.push_back(NIL);
   }
-  int add(const T& a, const T& b, int time = -1) {
-    return add(a, b, L, R, time);
-  }
+  int add(const T& a, const T& b, int time = -1) { return add(a, b, L, R, time); }
   // [lx, rx]
   int add(const T& a, const T& b, const T& lx, const T& rx, int time = -1) {
     if(time == -1) time = roots.size() - 1;
@@ -64,8 +60,8 @@ struct DynamicPersistentLiChaoTree {
   }
 
 private:
-  void add(const T& a, const T& b, Node*& node, Node* prevNode, const T& l,
-           const T& r, Line line) {
+  void add(const T& a, const T& b, Node*& node, Node* prevNode, const T& l, const T& r,
+           Line line) {
     node = new Node;
     *node = *prevNode;
     if(b - EPS < l || r < a + EPS) return;
@@ -113,9 +109,7 @@ private:
     } else {
       p = get(x, node->r, (l + r) / 2, r);
     }
-    return node == NIL || (p != NIL && comp(f(p->line, x), f(node->line, x)))
-               ? p
-               : node;
+    return node == NIL || (p != NIL && comp(f(p->line, x), f(node->line, x))) ? p : node;
   }
 };
 
