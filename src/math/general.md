@@ -41,14 +41,14 @@ extgcd(a, b, x, y)は $ab \not= 0$ のとき $$|x| \leq b, |y| \leq a$$ が言�
 帰納法で証明することができます
 
 modinv(a, m)は $a^{-1} \bmod m$ を返します  
-$gcd(a, m) = 1$ であれば $m$ が素数でなくとも逆元を返せるようにextgcdを使っています  
+$\gcd(a, m) = 1$ であれば $m$ が素数でなくとも逆元を返せるようにextgcdを使っています  
 速度もこちらのほうが速い気がします
 
 // @ math
 
 # 大きなmodでの掛け算
 
-二倍しても大丈夫なmodでの掛け算をしたいときに，二分累乗や繰り返し二乗法を使うことでoverflowを防ぐことができますが．ちょっと時間がかかります．多倍長整数を使うのもひとつです
+二倍しても大丈夫なmodでの掛け算をしたいときに，二分累乗や繰り返し二乗法を使うことでoverflowを防ぐことができますが，ちょっと時間がかかります．[多倍長整数]({{ "misc/BigInteger" | absolute_url }})を使うのもありです
 以下では $O(1)$ でやるために `long double` を使った方法を載せます (参考 : [巨大modでの掛け算の高速化 (Codeforces Round #259 D Little Pony and Elements of Harmony) - kazuma8128’s blog](http://kazuma8128.hatenablog.com/entry/2018/06/04/144254){:target="_blank"}<!--_-->)
 
 // @ modmul
