@@ -36,7 +36,7 @@ $\phi(nm)=\phi(n)\phi(m)$ が成り立ちます(乗法性)
 
 $n = p_1^{e_1}p_2^{e_2}\cdots p_m^{e_m}$と素因数分解できるとすると，
 
-$$\phi(n) = n \prod_{i = 1}^m \frac{p_i - 1}{p_i}$$
+$\displaystyle \phi(n) = n \prod\_{i = 1}^m \frac{p\_i - 1}{p\_i}$
 
 となります．これも上記の性質を使えばわかります
 
@@ -91,15 +91,11 @@ $x \geq \log_2 N$ であれば大丈夫です
 
 ---
 
-$$
-\sum_{d\mid n} \phi(d) = n
-$$
+$\displaystyle \sum_{d\mid n} \phi(d) = n$
 
 これとメビウスの反転公式より
 
-$$
-\sum_{d|n} \mu(\frac{n}{d})d = \phi(n)
-$$
+$\displaystyle \sum_{d|n} \mu(\frac{n}{d})d = \phi(n)$
 
 が導ける
 
@@ -112,7 +108,9 @@ $$
 
 # 原始根の数
 
-奇素数 $p$ について $\mathrm{mod}\ p$ における原始根の数は $\phi(\phi(p)) = \phi(p-1)$ 個 参考: [原始根の数のかぞえかた](http://tsujimotter.hatenablog.com/entry/primitive-root){:target="_blank"}<!--_-->
+奇素数 $p$ について $\mathrm{mod}\ p$ における原始根の数は $\phi(\phi(p)) = \phi(p-1)$ 個
+
+参考: [原始根の数のかぞえかた](http://tsujimotter.hatenablog.com/entry/primitive-root){:target="_blank"}<!--_-->
 
 # 実装
 
