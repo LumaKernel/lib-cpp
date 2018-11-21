@@ -20,9 +20,9 @@ using ll = long long;
 /// --- Convex Hull Trick Extended Library {{{ ///
 
 #include <functional>
+#include <iostream>
 #include <limits>
 #include <set>
-#include <iostream>
 #include <utility>
 
 // |ab| < LLONG_MAX/4 ???
@@ -119,7 +119,8 @@ public:
          << "\n";
     os << "cross points : " << a.cps.size() << "\n";
     for(auto &p : a.cps)
-      os << "(x = " << p.numer << "/" << p.denom << "; " << p.p.a << ", " << p.p.b << ")"
+      os << "(x = " << p.numer << "/" << p.denom << "; " << p.p.a << ", "
+         << p.p.b << ")"
          << "\n";
     return os;
   }

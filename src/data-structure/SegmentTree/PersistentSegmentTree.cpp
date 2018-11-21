@@ -109,11 +109,13 @@ private:
 #include <algorithm>
 #include <limits>
 
+constexpr long long inf = 1e18 + 100;
+
 struct Nothing {
   using T = char;
-  using M = char;
-  static constexpr T op(const T &, const T &) { return 0; }
-  static constexpr T identity() { return 0; }
+  using M = T;
+  static constexpr T op(const T &, const T &) { return T(); }
+  static constexpr T identity() { return T(); }
   template < class X >
   static constexpr X actInto(const M &, ll, ll, const X &x) {
     return x;
@@ -123,18 +125,18 @@ struct Nothing {
 struct RangeMin {
   using T = ll;
   static T op(const T &a, const T &b) { return min(a, b); }
-  static constexpr T identity() { return numeric_limits< T >::max(); }
+  static constexpr T identity() { return inf; }
 };
 
 struct RangeMax {
   using T = ll;
   static T op(const T &a, const T &b) { return max(a, b); }
-  static constexpr T identity() { return numeric_limits< T >::min(); }
+  static constexpr T identity() { return -inf; }
 };
 
 struct RangeSum {
   using T = ll;
-  static T op(const T &a, const T &b) { return a + b; }
+  static T op(const T &a, const T &b) { return (a + b) % mod; }
   static constexpr T identity() { return 0; }
 };
 

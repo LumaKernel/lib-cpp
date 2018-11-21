@@ -1,4 +1,5 @@
 // @import header
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
@@ -97,7 +98,8 @@ public:
 
 private:
   // internal node
-  RedBlackTreeSequenceBase(Node *l, Node *r, Color color) : c{l, r}, color(color) {
+  RedBlackTreeSequenceBase(Node *l, Node *r, Color color)
+      : c{l, r}, color(color) {
     prop(this);
   }
 
@@ -213,8 +215,9 @@ public:
   }
   friend X getValue(const Node *a) {
     assert(isLeaf(a));
-    return a ? a->lazy != M_act::identity() ? M_act::actInto(a->accum, -1, 1, a->lazy)
-                                            : a->accum
+    return a ? a->lazy != M_act::identity()
+                   ? M_act::actInto(a->accum, -1, 1, a->lazy)
+                   : a->accum
              : Monoid::identity();
   }
   friend vector< X > getAll(const Node *a) {
@@ -235,7 +238,9 @@ public:
     if(y) y->lazy = M_act::op(m, y->lazy);
     a = merge(merge(x, y), z);
   }
-  friend X query(Node *a) { return a ? (eval(a), a->accum) : Monoid::identity(); }
+  friend X query(Node *a) {
+    return a ? (eval(a), a->accum) : Monoid::identity();
+  }
   friend X query(Node *&a, int l, int r) {
     Node *x, *y, *z;
     tie(x, y, z) = split(a, l, r);
@@ -283,7 +288,8 @@ private:
   // a->[_] is unique, evaled
   // return proped, evaled
   friend Node *check(Node *a, bool R) {
-    if(a->color == BLACK && a->c[!R]->color == RED && a->c[!R]->c[!R]->color == RED) {
+    if(a->color == BLACK && a->c[!R]->color == RED &&
+       a->c[!R]->c[!R]->color == RED) {
       // assert(a->c[!R]->c[R]->color == BLACK); // explicit
       a->color = RED;
       a->c[!R]->color = BLACK;
@@ -365,7 +371,8 @@ public:
   }
 
   // it must be guaranteed that there's enough memory in pool
-  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter,
+             class = typename iterator_traits< InputIter >::value_type >
   friend Node *build(Node *&a, InputIter first, InputIter last) {
     mfree(a);
     int n = distance(first, last);
@@ -375,7 +382,8 @@ public:
     for(int i = 0; i < n; ++i, ++ite) v[i] = make(*ite);
     while(v.size() != 1) {
       tmp.resize(v.size() >> 1);
-      for(size_t i = 0; i < tmp.size(); i++) tmp[i] = merge(v[i << 1], v[(i << 1) | 1]);
+      for(size_t i = 0; i < tmp.size(); i++)
+        tmp[i] = merge(v[i << 1], v[(i << 1) | 1]);
       if(v.size() & 1) tmp.emplace_back(v.back());
       swap(v, tmp);
     }
@@ -388,7 +396,8 @@ private:
   static void getdfs(const Node *a, M m, typename vector< X >::iterator &ite) {
     if(a->lazy != M_act::identity()) m = M_act::op(m, a->lazy);
     if(isLeaf(a)) {
-      *ite++ = m != M_act::identity() ? M_act::actInto(a->accum, -1, 1, m) : a->accum;
+      *ite++ = m != M_act::identity() ? M_act::actInto(a->accum, -1, 1, m)
+                                      : a->accum;
     } else {
       getdfs(a->c[0], m, ite);
       getdfs(a->c[1], m, ite);
@@ -439,12 +448,13 @@ Allocator< RedBlackTreeSequenceBase< Monoid, M_act, isPersistent, Allocator > >
 // }}}
 
 template < class Monoid, class M_act >
-using RBTSeq =
-    RedBlackTreeSequenceBase< Monoid, M_act, false, MemoryPool< POOL_SIZE >::Core >;
+using RBTSeq = RedBlackTreeSequenceBase< Monoid, M_act, false,
+                                         MemoryPool< POOL_SIZE >::Core >;
 
 template < class Monoid, class M_act >
 using PersistentRBTSeq =
-    RedBlackTreeSequenceBase< Monoid, M_act, true, MemoryPool< POOL_SIZE >::Core >;
+    RedBlackTreeSequenceBase< Monoid, M_act, true,
+                              MemoryPool< POOL_SIZE >::Core >;
 
 } // namespace RBT
 
@@ -484,7 +494,7 @@ struct RangeMax {
 
 struct RangeSum {
   using T = ll;
-  static T op(const T &a, const T &b) { return a + b; }
+  static T op(const T &a, const T &b) { return (a + b) % mod; }
   static constexpr T identity() { return 0; }
 };
 
@@ -560,7 +570,7 @@ int main() {
     to_string(seq);
     isLeaf(seq);
     getAll(seq);
-    vector< Node * > v{seq};
+    vector< Node* > v{seq};
     Node::rebuild(v);
     Node::rebuildCheck(v, 10000);
     Node::rebuildCheck(seq, 10000);
