@@ -15,8 +15,8 @@ $\phi(n)$は$n$以下で$n$と互いに素な数がいくつあるか，を表�
 
 $p$を素数，$k$を正整数とすると，
 
-* $\phi(p) = p - 1$
-* $\phi(p^k) = p^k - p^{k-1} = p^k \cdot \frac{p-1}{p}$
+* $\displaystyle \phi(p) = p - 1$
+* $\displaystyle \phi(p^k) = p^k - p^{k-1} = p^k \cdot \frac{p-1}{p}$
 
 となります．このことはすぐわかります
 
@@ -64,11 +64,11 @@ $n \geq 2$ について
 ---
 
 互いに素な $n, m$ について，  
-$n^{\phi(m)} = 1 \mod m$ が成り立ちます
+$n^{\phi(m)} \equiv 1 \mod m$ が成り立ちます
 
 証明については「初等整数論からp進数へ」に書いてありましたが，略して書くと，
 
-$$\{ x_1, x_2, \cdots, x_{\phi(m)} \}$$ をすべての $m$ と互いに素な$m$以下の正整数とすると，$\mod m$を省略すると  
+$$\{ x_1, x_2, \cdots, x_{\phi(m)} \}$$ をすべての $m$ と互いに素な$m$以下の正整数とすると，$\mathrm{mod}\ m$を省略すると  
 $n^{\phi(m)}x_1\cdots x_{\phi(m)} \equiv (nx_1)\cdots (nx_{\phi(m)}) \equiv x_1 \cdots x_{\phi(m)}$ となり，  
 $(x_1 \cdots x_{\phi(m)})$ と $m$ は互いに素なので逆元を両辺にかけて， 証明できます
 
@@ -80,7 +80,7 @@ $A^x \equiv A^{x+\phi(N)} \mod N$ が成り立ちます
 
 $x \geq \log_2 N$ であれば大丈夫です
 
-つまり，$A^x \mod N$ の値は $x \mod \phi(N)$ によってわかるということです
+つまり，$A^x \mod N$ の値は $x \bmod \phi(N)$ によってわかるということです
 
 証明・さらなる議論についてはこちらも同様に  
 [F: ModularPowerEquation!!の謎を紐解く - るまブログ](https://tomorinao.blogspot.com/2018/09/f-modularpowerequation.html){:target="_blank"}<!--_-->に書きました
@@ -95,7 +95,7 @@ $\displaystyle \sum_{d\mid n} \phi(d) = n$
 
 これとメビウスの反転公式より
 
-$\displaystyle \sum_{d|n} \mu(\frac{n}{d})d = \phi(n)$
+$\displaystyle \sum_{d\midn} \mu(\frac{n}{d})d = \phi(n)$
 
 が導ける
 
