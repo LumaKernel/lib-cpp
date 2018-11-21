@@ -5,6 +5,7 @@ order:
   - StronglyConnectedComponent
   - DoublingTree
   - HL-Decomposition
+  - Centroid
   - lowlink
   - BiconnectedComponent
   - BiedgeConnectedComponent

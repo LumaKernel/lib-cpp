@@ -4,5 +4,6 @@ order:
   - CHT
   - CHT-Ex
   - LiChaoTree
-  - DynaimicLiChaoTree
-  - DynaimicPersistentLiChaoTree
+  - DynamicLiChaoTree
+  - DynamicPersistentLiChaoTree
+  - RemovableCHT

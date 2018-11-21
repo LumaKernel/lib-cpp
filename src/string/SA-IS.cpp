@@ -8,7 +8,17 @@ using ll = long long;
 // @snippet sa_is
 /// --- SA-IS {{{ ///
 
-template < class _T = string, class U = char, int K = 256 >
+#include <string>
+#include <vector>
+
+static string push_sentinel(const string &v) { return v + char(); }
+template < class T >
+static vector< T > push_sentinel(vector< T > v) {
+  v.emplace_back(0);
+  return v;
+}
+
+template < class _T = string, class U = char, int K = 128 >
 struct SA {
   using T = _T;
   const int n;
@@ -16,8 +26,9 @@ struct SA {
   vector< int > rnk;
   vector< int > sa;
   int operator[](int i) const { return sa[i]; }
+  template < class V >
   SA(const string &s) : n(s.size()), s(s), rnk(n) {
-    sa_is< T, U >(sa, s + U(0), K); // change if T != string
+    sa_is< T, U >(sa, push_sentinel(s), K);
     sa.erase(begin(sa));
     for(int i = 0; i < n; i++) rnk[sa[i]] = i;
   }
@@ -118,9 +129,7 @@ struct SA {
       count[ch]++;
     }
   }
-  inline bool isLMS(const vector< int > &S, int i) {
-    return i > 0 && !S[i - 1] && S[i];
-  }
+  inline bool isLMS(const vector< int > &S, int i) { return i > 0 && !S[i - 1] && S[i]; }
 };
 
 /// }}}--- ///

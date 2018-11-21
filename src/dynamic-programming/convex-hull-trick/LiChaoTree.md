@@ -28,6 +28,7 @@ CHT-Exの代わりにもなり，線分追加クエリもできます．結構�
 # 検証
 
 * [C - スペースエクスプローラー高橋君 - AtCoder](https://beta.atcoder.jp/contests/colopl2018-final-open/submissions/3596655){:target="_blank"}<!--_-->
+* 線分追加 - [C - Telephone Charge (300) - AtCoder](https://beta.atcoder.jp/contests/code-festival-2018-final-open/submissions/3610515){:target="_blank"}<!--_-->
 
 # 練習問題
 

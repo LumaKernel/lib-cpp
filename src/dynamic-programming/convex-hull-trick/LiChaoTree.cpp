@@ -5,7 +5,8 @@ using ll = long long;
 
 // @@
 // @ Li-Chao Tree
-// @snippet
+// @snippet lichaotree
+// @alias cht_lichaotree
 
 // LiChaoTree<T, Comp>
 // - maximize : let Comp = greater<T>

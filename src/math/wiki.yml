@@ -3,6 +3,7 @@ title: 数学
 order:
   - general
   - PIE
+  - dilworth-theorem
   - Montgomery
   - Monoid
   - LagrangianRelaxation

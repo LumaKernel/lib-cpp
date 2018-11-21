@@ -22,11 +22,12 @@ using ll = long long;
 #include <functional>
 #include <limits>
 #include <set>
+#include <iostream>
 #include <utility>
 
 // |ab| < LLONG_MAX/4 ???
 template < class T = long long, class Comp = less< T > >
-struct DynamicCHT {
+struct CHTEx {
   static T INF;
   static T EPS;
   static Comp comp;
@@ -65,7 +66,7 @@ private:
   typedef typename set< Line >::iterator It;
 
 public:
-  DynamicCHT() {
+  CHTEx() {
     // sentinel
     lines.insert({Line(INF, 0), Line(-INF, 0)});
     cps.insert(CP(Line(INF, 0), Line(-INF, 0)));
@@ -110,7 +111,7 @@ public:
     const Line &p = (--cps.lower_bound(CP(x)))->p;
     return make_pair(p.a, p.b);
   }
-  friend ostream &operator<<(ostream &os, const DynamicCHT &a) {
+  friend ostream &operator<<(ostream &os, const CHTEx &a) {
     os << "\n";
     os << "lines : " << a.lines.size() << "\n";
     for(auto &p : a.lines)
@@ -118,8 +119,7 @@ public:
          << "\n";
     os << "cross points : " << a.cps.size() << "\n";
     for(auto &p : a.cps)
-      os << "(x = " << p.numer << "/" << p.denom << "; " << p.p.a << ", "
-         << p.p.b << ")"
+      os << "(x = " << p.numer << "/" << p.denom << "; " << p.p.a << ", " << p.p.b << ")"
          << "\n";
     return os;
   }
@@ -139,14 +139,14 @@ private:
 };
 
 template < class T, class Comp >
-T DynamicCHT< T, Comp >::INF = numeric_limits< T >::has_infinity
-                                   ? numeric_limits< T >::infinity()
-                                   : numeric_limits< T >::max();
+T CHTEx< T, Comp >::INF = numeric_limits< T >::has_infinity
+                              ? numeric_limits< T >::infinity()
+                              : numeric_limits< T >::max();
 
 template < class T, class Comp >
-T DynamicCHT< T, Comp >::EPS = 1e-19;
+T CHTEx< T, Comp >::EPS = 1e-19;
 
 template < class T, class Comp >
-Comp DynamicCHT< T, Comp >::comp; // only for less and greater
+Comp CHTEx< T, Comp >::comp; // only for less and greater
 
 /// }}}--- ///

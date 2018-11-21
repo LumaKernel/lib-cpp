@@ -1,6 +1,7 @@
 order:
   - data-structure
   - graph
+  - dynamic-programming
   - math
   - geometory
   - algorithm
