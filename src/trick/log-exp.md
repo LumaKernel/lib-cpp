@@ -19,5 +19,5 @@ $\log(N!) = \log(N \times (N-1)!) = \log N + \log(N-1)!$ より `dp[0] = 1, dp[i
 
 * [D - Sushi Restaurant (700) - AtCoder](https://beta.atcoder.jp/contests/code-festival-2018-qualb/tasks/code_festival_2018_qualb_d){:target="_blank"}<!--_-->
   * この手の問題によくあることですが，考察によってはこのテクが不必要かもしれません
-
+* [CODEFES2018 Final B - Theme Color - AtCoder](https://beta.atcoder.jp/contests/code-festival-2018-final-open/tasks/code_festival_2018_final_b){:target="_blank"}<!--_-->
 

@@ -19,6 +19,7 @@ using ll = long long;
 /// --- Dynamic Li-Chao Tree {{{ ///
 
 #include <functional>
+#include <utility>
 
 template < class T = long long, class Comp = less< T > >
 struct DynamicLiChaoTree {

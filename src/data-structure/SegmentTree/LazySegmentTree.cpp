@@ -146,7 +146,7 @@ struct RangeMax {
 
 struct RangeSum {
   using T = ll;
-  static T op(const T &a, const T &b) { return (a + b) % mod; }
+  static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
 

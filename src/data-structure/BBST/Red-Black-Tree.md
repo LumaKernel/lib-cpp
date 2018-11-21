@@ -20,6 +20,8 @@ title: 赤黒木 (Red-Black Tree; RBT)
 
 `Node::rebuildCheck( <node>, threshold = 1e4)` でプールの残りがしきい値を下回ったら `rebuild` してくれる．`<node>`は `Node*&` か `vector<Node*>&`
 
+`mfree( Node* )` でノードのメモリを解法 (メモリプールに返却)
+
 永続時は `clone( Node*& )` でノードを複製できる
 
 ## メモ

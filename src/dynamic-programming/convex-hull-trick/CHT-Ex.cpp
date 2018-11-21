@@ -5,10 +5,10 @@ using ll = long long;
 
 // @@
 // @ Convex Hull Trick Extended Library
-// @snippet     dynamic_cht
-// @alias       cht2 dcht chtex
+// @snippet     chtex
+// @alias       cht2 dcht dynamic_cht
 
-// DynamicCHT<T, Comp>()
+// CHTEx<T, Comp>()
 // - maximize : let Comp = greater<T>
 // === --- ===
 // N = no. of f(x)

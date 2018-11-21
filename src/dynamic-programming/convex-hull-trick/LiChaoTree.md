@@ -20,7 +20,7 @@ CHT-Exの代わりにもなり，線分追加クエリもできます．結構�
 
 `x(x)` で渡して `.prebuild()` すれば準備完了です．その後は `add`, `query` の順序は任意です
 
-`add(a, b)` で $f(x) = ax + b$ を追加．`add(a, b, l, r)` で $f(x) = ax + b \\ \\ (l \leq x \leq b$ を追加
+`add(a, b)` で $f(x) = ax + b$ を追加．`add(a, b, l, r)` で $f(x) = ax + b \\ \\ (l \leq x \leq b)$ を追加
 
 小数なら `(a, b, l-eps, r+eps)` で渡すようにしたほうがいいかもしれない
 

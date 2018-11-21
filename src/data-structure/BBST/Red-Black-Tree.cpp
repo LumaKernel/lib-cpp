@@ -14,6 +14,7 @@ constexpr int POOL_SIZE = 1.1e7;
 // <BBST Basic Funcs> (node [, ...] )
 // build ( node, first, last )
 // Node::rebuildCheck ( <nodes>, threshold = 1e4 )
+// mfree( node )
 // [Persistent] clone ( node [, <range> ] )
 /// --- Red-Black Tree Sequence {{{ ///
 
@@ -91,17 +92,20 @@ private:
   uint_fast8_t color;
   uint_fast8_t level;
 
-public:
+private:
   // leaf node
   RedBlackTreeSequenceBase(X val = Monoid::identity())
       : c{0, 0}, accum(val), sz(1), color(BLACK), level(0) {}
-
-private:
   // internal node
   RedBlackTreeSequenceBase(Node *l, Node *r, Color color)
       : c{l, r}, color(color) {
     prop(this);
   }
+  static Node *make(Node *l, Node *r, Color color) {
+    // assert(l && r && l != alc.next() && r != alc.next()); // explicit
+    return new(alc.alloc()) Node(l, r, color);
+  }
+  static Node *make(const X &x) { return new(alc.alloc()) Node(x); }
 
   // prop and eval {{{
 
@@ -143,13 +147,6 @@ private:
   // }}}
 
   // BBST {{{
-private:
-  static Node *make(Node *l, Node *r, Color color) {
-    // assert(l && r && l != alc.next() && r != alc.next()); // explicit
-    return new(alc.alloc()) Node(l, r, color);
-  }
-  static Node *make(const X &x) { return new(alc.alloc()) Node(x); }
-
 public:
   friend void mfree(Node *a) {
     if(FREE_TYPE == 1)
@@ -321,7 +318,7 @@ private:
   }
   // }}}
 
-  // [RBT] public {{{
+  // [RBT] {{{
 public:
   // return evaled
   friend Node *merge(Node *a, Node *b) {
@@ -494,7 +491,7 @@ struct RangeMax {
 
 struct RangeSum {
   using T = ll;
-  static T op(const T &a, const T &b) { return (a + b) % mod; }
+  static T op(const T &a, const T &b) { return a + b; }
   static constexpr T identity() { return 0; }
 };
 

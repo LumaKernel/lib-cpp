@@ -2,6 +2,8 @@
 title: DAGの最小パス被覆と最大反鎖 (dilworthの定理)
 ---
 
+$\text{dilworthの定理} : \|\text{DAGの最小パス被覆}\| = \|\text{DAGの最大反鎖}\|$
+
 前提知識 : フロー, DAG, 二部グラフ
 
 # DAGの最小パス被覆

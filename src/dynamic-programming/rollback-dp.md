@@ -6,7 +6,7 @@ title: 戻すDP
 
 `dp[i]` が `dp[i+1]` から復元でき，任意をswapできると嬉しいことがある
 
-i番目とN番目をswapしたときの`dp`を`swapped_dp`とすると，`swapped_dp[N-1] (1-indexed)`が求められる
+i番目とN番目をswapしたときの`dp`を`swapped_dp`とすると，`dp[N]` と `swapped_dp[N]`が恒等的に等しくなり，`swapped_dp[N-1] (1-indexed)`が求められる 
 
 つまり，特定のi番目をなかったことにしたりできる
 
