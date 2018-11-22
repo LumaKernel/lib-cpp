@@ -6,11 +6,17 @@ title: Li-Chao Tree (線分など)
 
 CHT-Exの代わりにもなり，線分追加クエリもできます．結構速い
 
-読み方は多分リー・チャオです
+読み方は多分 リー・チャオ です
 
 # 実装
 
 線分も直線も一緒に処理できるようにしました
+
+最小値クエリの数を$N$とすると，
+
+* 直線追加 : $O(\log N)$
+* 線分追加 : $O(\log^2 N)$
+* 最小値クエリ : $O(\log N)$
 
 // @ Li-Chao Tree
 
@@ -31,6 +37,8 @@ CHT-Exの代わりにもなり，線分追加クエリもできます．結構�
 * 線分追加 - [C - Telephone Charge (300) - AtCoder](https://beta.atcoder.jp/contests/code-festival-2018-final-open/submissions/3610515){:target="_blank"}<!--_-->
 
 # 練習問題
+
+なし
 
 # 参考
 

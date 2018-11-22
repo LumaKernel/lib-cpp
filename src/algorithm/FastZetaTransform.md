@@ -18,29 +18,33 @@ title: 高速ゼータ変換, 高速メビウス変換
 
 $a$ から $b$ を求める
 
-## 上位集合に対するゼータ変換
+### 上位集合に対するゼータ変換
 
-$b\_j = \sum\_{j \in i} a\_i$
+$\displaystyle b\_j = \sum\_{j \in i} a\_i$
 
-## 下位集合に対するゼータ変換
+### 下位集合に対するゼータ変換
 
-$b\_j = \sum\_{i \in j} a\_i$
+$\displaystyle b\_j = \sum\_{i \in j} a\_i$
 
 ---
 
 // @ FastZetaTransform
 
+---
+
 `dp[S][i] = Sをi bitまですべて包含している集合の和` というbitDPをしていると考えることができる
+
+必ずしも足し算である必要はなく，`max` などでもいける
 
 # 高速メビウス変換
 
 メビウス変換はゼータ変換の逆操作にあたる
 
-## 上位集合に対するメビウス変換
+### 上位集合に対するメビウス変換
 
 $\displaystyle b\_j = \sum\_{j \subset i} (-1)^{\|A \setminus S\|} a\_i$
 
-## 下位集合に対するメビウス変換
+### 下位集合に対するメビウス変換
 
 $\displaystyle b\_j = \sum\_{i \subset j} (-1)^{\|A \setminus S\|} a\_i$
 
