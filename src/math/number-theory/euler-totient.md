@@ -49,7 +49,7 @@ $n \geq 2$ について
 
 が成り立ちます
 
-証明は [F: ModularPowerEquation!!の謎を紐解く - るまブログ](https://tomorinao.blogspot.com/2018/09/f-modularpowerequation.html){:target="_blank"}に書きました
+証明は [F: ModularPowerEquation!!の謎を紐解く - るまブログ](https://tomorinao.blogspot.com/2018/09/f-modularpowerequation.html){:target="_blank"}<!--_-->に書きました
 
 以上より，$n \geq 3$ に対して $\phi(\phi(n)) \lt n/2$が成り立ちます
 
@@ -72,6 +72,8 @@ $$\{ x_1, x_2, \cdots, x_{\phi(m)} \}$$ をすべての $m$ と互いに素な$m
 $n^{\phi(m)}x_1\cdots x_{\phi(m)} \equiv (nx_1)\cdots (nx_{\phi(m)}) \equiv x_1 \cdots x_{\phi(m)}$ となり，  
 $(x_1 \cdots x_{\phi(m)})$ と $m$ は互いに素なので逆元を両辺にかけて， 証明できます
 
+<!--_-->
+
 ---
 
 十分大きな$x$について，
@@ -91,11 +93,11 @@ $x \geq \log_2 N$ であれば大丈夫です
 
 ---
 
-$\displaystyle \sum_{d\mid n} \phi(d) = n$
+$\displaystyle \sum\_{d\mid n} \phi(d) = n$
 
-これとメビウスの反転公式より
+これと [メビウスの反転公式]({{ "math/number-theory/mobius-inversion" | absolute_url }}) より
 
-$\displaystyle \sum_{d\mid n} \mu(\frac{n}{d})d = \phi(n)$
+$\displaystyle \sum\_{d\mid n} \mu(\frac{n}{d})d = \phi(n)$
 
 が導ける
 

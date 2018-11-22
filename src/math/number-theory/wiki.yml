@@ -3,8 +3,8 @@ title: 整数論
 order:
   - CRT
   - Garner
-  - EulerTotient
-  - moebius
+  - euler-totient
+  - mobius-inversion
   - Baby-Step-Giant-Step
   - Tonelli-Shanks
 

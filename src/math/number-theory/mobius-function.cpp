@@ -4,11 +4,18 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @ moebius
-// @snippet     moebius_func
+// @ mobius-function
+// @snippet     mobius_func
 // @alias mebius_func
+
 // O(N^.5)
-unordered_map< ll, int > moebius(ll n) {
+// mu_enum(n) - mu[all divisors]
+// mu_enum {{{
+
+#include <unordered_map>
+#include <vector>
+
+unordered_map< ll, int > mu_enum(ll n) {
   unordered_map< ll, int > res;
   vector< ll > primes;
   for(ll i = 2; i * i <= n; i++) {
@@ -17,14 +24,15 @@ unordered_map< ll, int > moebius(ll n) {
   if(n != 1) primes.emplace_back(n);
   int m = primes.size();
   for(int i = 0; i < (1 << m); i++) {
-    int mu = 1;
+    int v = 1;
     ll num = 1;
     for(int j = 0; j < m; j++)
       if(i & (1 << j)) {
-        mu *= -1;
+        v *= -1;
         num *= primes[j];
       }
-    res[num] = mu;
+    res[num] = v;
   }
   return res;
 }
+// }}}
