@@ -1,4 +1,5 @@
-* きたまさ法
+* 2次元FFT
+* 高速きたまさ法
 * string
   * bm法
   * 文字列検索まとめ
@@ -14,8 +15,11 @@
     * エルデシュガライの定理
 * 乱数の話題
   * mtがシードランダムなのにシステスに対策があったこととか
+  * 乱択そのものに関してとか
 * 仕様
   * remove
   * remove-before  format前に
-  * print false
+  * print false (もしくは noprint)
+  * include - コードレビューでは消える
+  * only - 確認用
 
