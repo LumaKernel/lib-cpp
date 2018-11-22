@@ -34,6 +34,8 @@ wikipediaなどでは「包除原理の別の形式」として紹介されて�
 
 ゼータ変換とメビウス変換はさらに一般化された考え方があるが，それについては [高速ゼータ変換]({{ "algorithm/FastZetaTransform" | absolute_url }}) に書いた
 
+シグマの下の包除関係を逆転させたものも同様に成り立つ．このことは簡単に示すことができる
+
 # 練習問題
 
 * [E - Couple (うくこん) - AtCoder](https://beta.atcoder.jp/contests/ukuku09/tasks/ukuku09_e){:target="_blank"}<!--_-->
