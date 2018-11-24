@@ -2,6 +2,10 @@
 title: 高速アダマール変換
 ---
 
+# 検証
+
+* bitwise XOR - [Random Nim Generator - CSA](https://csacademy.com/submission/2109230/){:target="_blank"}<!--_-->
+
 # 参考
 
 * [色々な畳み込み - kazuma8128’s blog](http://kazuma8128.hatenablog.com/entry/2018/05/31/144519){:target="_blank"}<!--_-->
