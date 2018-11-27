@@ -6,14 +6,17 @@ using ll = long long;
 // @@
 // @name LinkCutTree Library
 // @snippet     linkcuttree
-// @title Link/Cut Tree
 // @alias       hl_decomp_with_lct
 
-// when link(p, c) , c is root.
-// cut(c), c is not root
-// use make(int index, Monoid::T x)
+// do make(int index, Monoid::T x)
+// link(p, c) , c is root
+// cut(c) , c is not root
+// same(a, b)
+// node->id
 // lc[index] to access nodes
 /// --- LinkCutTree Library {{{ ///
+
+#include <cstdlib>
 
 template < class Monoid, class M_act >
 struct LinkCutTree {
@@ -22,6 +25,7 @@ struct LinkCutTree {
 
   // Splay sequence {{{
   struct Splay {
+    int id;
     Splay *ch[2] = {nullptr, nullptr}, *p = nullptr;
     X val, accum;
     M lazy = M_act::identity(); ///////
@@ -52,22 +56,21 @@ struct LinkCutTree {
       for(; !t->isRoot(); t = t->p) b2t.emplace_back(t);
       t->eval();
       while(b2t.size()) b2t.back()->eval(), b2t.pop_back();
-      // vector< Splay * >().swap(b2t);
     }
     X accumulated(Splay *a) { return !a ? Monoid::identity() : a->accum; }
     int size(Splay *a) { return !a ? 0 : a->sz; }
     // call after touch
     void prop() {
-      if(ch[0]) ch[0]->eval(); ////
-      if(ch[1]) ch[1]->eval(); ////
+      if(ch[0]) ch[0]->eval();
+      if(ch[1]) ch[1]->eval();
       sz = size(ch[0]) + 1 + size(ch[1]);
       accum = Monoid::op(Monoid::op(accumulated(ch[0]), val), accumulated(ch[1]));
     }
-    Splay(const X &val) : val(val), accum(val) {}
+    Splay(const X &val, int id) : id(id), val(val), accum(val) {}
     Splay *rotate(bool R) {
       Splay *t = ch[!R];
       if((ch[!R] = t->ch[R])) ch[!R]->p = this;
-      t->ch[R] = this; ////
+      t->ch[R] = this;
       if((t->p = p)) {
         if(t->p->ch[0] == this) t->p->ch[0] = t;
         if(t->p->ch[1] == this) t->p->ch[1] = t;
@@ -90,17 +93,20 @@ struct LinkCutTree {
             r->rotate(V);
           else
             q->rotate(!V);
-          p->rotate(V); ///////
+          p->rotate(V);
         }
       }
     }
   };
   // }}}
 
-  vector< Splay * > data;
-  LinkCutTree(int n) : data(n) {}
-  Splay *operator[](int i) { return data[i]; }
-  Splay *make(int i, const X &x = Monoid::identity()) { return data[i] = new Splay(x); }
+  Splay *pool;
+  LinkCutTree(int n) { pool = (Splay *) malloc(sizeof(Splay) * n); }
+  ~LinkCutTree() { free(pool); }
+  Splay *operator[](int i) const { return pool + i; }
+  Splay *make(int i, const X &x = Monoid::identity()) {
+    return new(pool + i) Splay(x, i);
+  }
   const X &get(Splay *x) {
     x->evalDown();
     return x->val;
@@ -117,7 +123,7 @@ struct LinkCutTree {
       now->ch[1] = prv;
       now->prop();
     }
-    x->splay(); /////
+    x->splay();
     return prv;
   }
   void cut(Splay *c) {
@@ -152,7 +158,7 @@ struct LinkCutTree {
   }
   Splay *lca(Splay *a, Splay *b) {
 #ifdef DEBUG
-    static const struct CannotLCAAnotherNode {} ex;
+    static const struct CannotLCADifferentNode {} ex;
     if(!same(a, b)) throw ex;
 #endif
     expose(a), a = expose(b);
@@ -253,4 +259,4 @@ struct RangeSumSet {
 
 /// }}}--- ///
 
-// LinkCutTree< RangeSum, RangeSumSet > lc(N);
+LinkCutTree< RangeSum, RangeSumAdd > lc(N);
