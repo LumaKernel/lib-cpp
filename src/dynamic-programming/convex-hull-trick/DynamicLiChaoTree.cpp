@@ -5,8 +5,8 @@ using ll = long long;
 
 // @@
 // @ Dynamic Li-Chao Tree
-// @snippet dyanmiclichaotree
-// @alias dynamiccht_lichao lichao_dynamic
+// @snippet dyanamiclichaotree
+// @alias dynamic_cht_lichao lichao_dynamic
 
 // DynamicLiChaoTree<T, Comp> (L, R [, EPS])
 // - x is [L, R]

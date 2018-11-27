@@ -7,9 +7,9 @@ mt19937などより速い ([僕の記事](http://tomorinao.blogspot.com/2018/08/
 [Treap]({{ "data-structure/BBST/Treap" | absolute_url }}) などでつかったけど  
 マラソンで使ったりすることが多いのかな
 
-TreapはXorShift32のほうがよさそう…どうだろう，あとで変えるかも
-
 ## XorShift128
+
+要件 [UniformRandomBitGenerator](https://ja.cppreference.com/w/cpp/named_req/UniformRandomBitGenerator){:target="_blank"}<!--_--> を満たします (例えば，[shuffle](https://cpprefjp.github.io/reference/algorithm/shuffle.html){:target="_blank"}<!--_-->で使えるなどの嬉しさがあります)
 
 // @ XorShift128
 
