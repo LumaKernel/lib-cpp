@@ -108,7 +108,7 @@ struct LinkCutTree {
     return new(pool + i) Splay(x, i);
   }
   const X &get(Splay *x) {
-    x->evalDown();
+    x->splay();
     return x->val;
   }
   void set(Splay *x, const X &val) {
