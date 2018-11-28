@@ -19,7 +19,7 @@ using Complex = complex< Real >;
 /// --- FFT standard {{{ ///
 
 // FFT
-vector< Complex > dft(vector< Complex > a, bool inverse) {
+vector< Complex > fft(vector< Complex > a, bool inverse) {
   constexpr Real PI = 3.14159265358979323846;
   size_t n = a.size(), mask = n - 1;
   static vector< Complex > tmp;
@@ -41,19 +41,42 @@ vector< Complex > dft(vector< Complex > a, bool inverse) {
   return a;
 }
 
-// convolution
+// c[k] = Σ(k = i + j, a[i] * b[j])
 vector< ll > conv(const vector< ll > &ar, const vector< ll > &br) {
   int deg = ar.size() + br.size() - 1, n = 1;
   while(n < deg) n <<= 1;
   vector< Complex > a(n), b(n);
   for(size_t i = 0; i < ar.size(); ++i) a[i].real(ar[i]);
   for(size_t i = 0; i < br.size(); ++i) b[i].real(br[i]);
-  a = dft(a, false), b = dft(b, false);
+  a = fft(a, false), b = fft(b, false);
   for(int i = 0; i < n; ++i) a[i] *= b[i];
-  a = dft(a, true);
+  a = fft(a, true);
   vector< ll > cr(n);
   for(int i = 0; i < n; ++i) cr[i] = round(a[i].real());
   return cr;
 }
 
 /// }}}--- ///
+
+// @new
+// @ conv-fast with FFT
+
+// convFast {{{
+// c[i + j] = Σ a[i] * b[j]
+vector< ll > convFast(const vector< ll > &ar, const vector< ll > &br) {
+  int deg = ar.size() + br.size() - 1, n = 1;
+  while(n < deg) n <<= 1;
+  vector< Complex > a(n), c(n);
+  for(size_t i = 0; i < ar.size(); ++i) a[i].real(ar[i]);
+  for(size_t i = 0; i < br.size(); ++i) a[i].imag(br[i]);
+  a = fft(a, false);
+  for(int i = 0; i < n; ++i) {
+    int j = i == 0 ? 0 : n - i;
+    c[i] = (a[i] + conj(a[j])) * (a[i] - conj(a[j])) * Complex(0, -.25);
+  }
+  c = fft(c, true);
+  vector< ll > cr(n);
+  for(int i = 0; i < n; ++i) cr[i] = round(c[i].real());
+  return cr;
+}
+// }}}

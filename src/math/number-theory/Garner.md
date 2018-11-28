@@ -120,6 +120,6 @@ $O(k^2 + k\log m)$ぐらいだと思います
 # 参考
 
 * [Garner のアルゴリズムと多倍長整数演算 - kirika_compのブログ](http://kirika-comp.hatenablog.com/entry/2017/12/18/143923){:target="_blank"}<!--_-->
-* [任意modでの畳み込み演算をO(n log(n))で - math314のブログ](http://kirika-comp.hatenablog.com/entry/2017/12/18/143923){:target="_blank"}<!--_-->
+* [任意modでの畳み込み演算をO(n log(n))で - math314のブログ](http://math314.hateblo.jp/entry/2015/05/07/014908){:target="_blank"}<!--_-->
 
 
