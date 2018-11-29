@@ -128,7 +128,7 @@ $\displaystyle \begin{aligned} &f(x) = \sum_{i=0}^{N-1}a_ix^i \\\\ &g(x) = \sum_
 
 $\displaystyle h(x) = \sum_{k=0}^{N+M-2}\sum_{i=0}^{k}a_ib_{k-i}x^k$
 
-ただし，範囲外については0とします
+ただし，範囲外の添字に対しては0とします
 
 ---
 
@@ -276,11 +276,11 @@ DFTを使って畳み込みを計算することをかんがえます
 
 $\widehat{(f\*g)}$ が計算できれば，IDFTすることで目的の $(f\*g)$ が得られます
 
-$\displaystyle \widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} (f*g)(\zeta_N^i)x^i$
+$\displaystyle \widehat{(f\*g)}(x) = \sum\_{i=0}^{N-1} (f\*g)(\zeta\_N^i)x^i$
 
 ここで，定義である $(f*g)(x)=f(x)\cdot g(x)$ を代入すると，
 
-$\displaystyle \widehat{(f*g)}(x) = \sum_{i=0}^{2N-2} f(\zeta_N^i)g(\zeta_N^i)x^i$
+$\displaystyle \widehat{(f\*g)}(x) = \sum\_{i=0}^{N-1} f(\zeta\_N^i)g(\zeta\_N^i)x^i$
 
 ところで，$f(\zeta_N^i)$と$g(\zeta_N^i)$は，$\hat f$と$\hat g$という多項式の係数です
 
@@ -437,7 +437,7 @@ $\displaystyle f(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} \hat{f}(\zeta
 
 関数的に書いたほうが，入力・出力がはっきりとわかりやすいと思うので，書き換えます
 
-$\displaystyle DFT^{-1}(f)(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} f(\zeta_N^{\textcolor{red}{-i}})x^i$
+$\displaystyle DFT\_N^{-1}(f)(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} f(\zeta_N^{\textcolor{red}{-i}})x^i$
 
 DFTと同様に，何を求めればいいかを考えます
 

@@ -71,9 +71,13 @@ vector< Complex > fft(vector< Complex > a, size_t h, bool inverse) {
 
 畳み込みにおけるFFTの回数を (複素数を使う場合限定で) 一回減らすことができます
 
-畳み込みたい多項式 $A(x), B(X)$ に対し， $P(x) = A(x) + B(x) \sqrt{-1}$ というのを考えると $\overline{P(\overline x) = A(\overline x) - B(\overline x)i$ がわかります (上線は [共役複素数](https://mathtrain.jp/kyoyaku){:target="_blank"}<!--_--> を表します)．DFTを求めることは各 $i$ について $A(\zeta_n^i), B(\zeta_n^i)$ を求めることに他ならないわけなので，$$\overline \zeta_n^i = \zeta_n^{-i}$$ に気をつけると，
+畳み込みたい**実数係数の**多項式 $A(x), B(x)$ に対し， $P(x) = A(x) + B(x) \sqrt{-1}$ という多項式 $P$ を考えると $\overline{P(\overline x)} = A(x) - B(x) \sqrt{-1}$ がわかります (上線は [共役複素数](https://mathtrain.jp/kyoyaku){:target="_blank"}<!--_--> を表します)
 
-$\displaystyle A(\zeta\_n^i) = \frac{P(\zeta\_n^i) + \overline P(\zeta\_n^{-i})}{2} \\\\ B(\zeta\_n^i) = \frac{P(\zeta\_n^i) - \overline P(\zeta\_n^{-i})}{2\sqrt{-1}}$
+($\overline {A(x)} = A(\overline x)$ であることによります．これは実数係数でないと成り立たないので，複素数係数ではこの高速化は使えません)
+
+DFTを求めることは各 $i$ について $A(\zeta_n^i), B(\zeta_n^i)$ を求めることに他ならないわけなので，$$\overline {\zeta_n^i} = \zeta_n^{-i}$$ に気をつけると，
+
+$\displaystyle A(\zeta\_n^i) = \frac{P(\zeta\_n^i) + \overline {P(\zeta\_n^{-i})}}{2}, B(\zeta\_n^i) = \frac{P(\zeta\_n^i) - \overline {P(\zeta\_n^{-i})}}{2\sqrt{-1}}$
 
 がわかります．以上より，$P$ **のDFTが求まれば** $A, B$ **のDFTが同時に求まる**ことになります
 
