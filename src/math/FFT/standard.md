@@ -81,7 +81,9 @@ $\displaystyle A(\zeta\_n^i) = \frac{P(\zeta\_n^i) + \overline {P(\zeta\_n^{-i})
 
 がわかります．以上より，$P$ **のDFTが求まれば** $A, B$ **のDFTが同時に求まる**ことになります
 
-// @ conv-fast with FFT
+[2次元FFT]({{ "math/FFT/FFT2" | absolute_url }}) でも使っています．2変数多項式になっても同様に導出できます
+
+上記コード内のconvFastでこの高速化をしています
 
 ---
 

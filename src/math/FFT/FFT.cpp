@@ -7,7 +7,7 @@ using ll = long long;
 // @snippet     fft
 // @alias     conv convfast
 // @options     head
-// @name FFT standard
+// @ FFT standard
 
 /// --- FFT standard {{{ ///
 #include <cassert>
@@ -51,6 +51,7 @@ public:
     int nt = ar.size() + br.size() - 1, n = 1, nh = 0;
     while(n < nt) n <<= 1, ++nh;
     static Complex *a = new Complex[MAX_N], *b = new Complex[MAX_N];
+    for(size_t i = 0; i < n; ++i) a[i] = b[i] = 0;
     for(size_t i = 0; i < ar.size(); ++i) a[i].real(ar[i]);
     for(size_t i = 0; i < br.size(); ++i) b[i].real(br[i]);
     fft(a, n, nh, 0), fft(b, n, nh, 0);
@@ -87,12 +88,12 @@ public:
 using fft = fft_base< 1 << 20, double >;
 
 // @new
-// @ FFT 2D
+// @ FFT2
 // @snippet fft2
 // @alias conv2
 
 // require FFT standard
-/// --- FFT 2D {{{ ///
+/// --- FFT2 {{{ ///
 
 template < int MAX_N, int MAX_NM, class Real, class Complex = complex< Real > >
 class fft2_base : public fft_base< MAX_N, Real, Complex > {
@@ -112,7 +113,7 @@ class fft2_base : public fft_base< MAX_N, Real, Complex > {
   }
 
   // semi-private
-  static void fft2(Complex *a, size_t n, size_t m, size_t nh, size_t mh, bool inverse) {
+  static void fft2(Complex *a, size_t n, size_t nh, size_t m, size_t mh, bool inverse) {
     // assert(n == (1u << nh));
     // assert(m == (1u << mh));
     for(int t = 0; t < 2; ++t) {
@@ -130,11 +131,12 @@ class fft2_base : public fft_base< MAX_N, Real, Complex > {
     while(n < nt) n <<= 1, ++nh;
     while(m < mt) m <<= 1, ++mh;
     static Complex *a = new Complex[MAX_NM], *c = new Complex[MAX_NM];
+    for(size_t i = 0; i < n * m; ++i) a[i] = 0;
     for(size_t i = 0; i < ar.size(); ++i)
       for(size_t j = 0; j < ar[0].size(); ++j) a[(i << mh) | j].real(ar[i][j]);
     for(size_t i = 0; i < br.size(); ++i)
       for(size_t j = 0; j < br[0].size(); ++j) a[(i << mh) | j].imag(br[i][j]);
-    fft2(a, n, m, nh, mh, 0);
+    fft2(a, n, nh, m, mh, 0);
     for(int i = 0; i < n; ++i)
       for(int j = 0; j < m; ++j) {
         int k = i == 0 ? 0 : n - i;
@@ -142,7 +144,7 @@ class fft2_base : public fft_base< MAX_N, Real, Complex > {
         c[(i << mh) | j] = (a[(i << mh) | j] + conj(a[(k << mh) | l])) *
                            (a[(i << mh) | j] - conj(a[(k << mh) | l])) * Complex(0, -.25);
       }
-    fft2(c, n, m, nh, mh, 1);
+    fft2(c, n, nh, m, mh, 1);
     vector< vector< ll > > cr(n, vector< ll >(m));
     for(int i = 0; i < n; ++i)
       for(int j = 0; j < m; ++j) cr[i][j] = round(c[(i << mh) | j].real());
