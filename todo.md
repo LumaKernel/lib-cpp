@@ -24,4 +24,7 @@
   * print false (もしくは noprint)
   * include - コードレビューでは消える
   * only - 確認用
+  * g++, clang++での自動コンパイルチェック
+  * 高速化
+  * テストの実行, 提出してAC, TLEの確認
 

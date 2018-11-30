@@ -2,6 +2,22 @@
 title: 高速アダマール変換
 ---
 
+draft
+
+# bitwise-XORによる畳込み
+
+TODO : 式
+
+# bitwise-ANDによる畳込み
+
+TODO : 式
+TODO : link
+
+# bitwise-ORによる畳込み
+
+TODO : 式
+TODO : link
+
 # 検証
 
 * bitwise XOR - [Random Nim Generator - CSA](https://csacademy.com/submission/2109230/){:target="_blank"}<!--_-->
