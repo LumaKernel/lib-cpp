@@ -9,6 +9,7 @@ using ll = long long;
 
 // require math library
 /// --- Garner Library {{{ ///
+#include <vector>
 ll garner(const vector< ll > &x, vector< ll > mods, ll mod) {
   mods.emplace_back(mod);
   vector< ll > coeffs(x.size() + 1, 1); // coeffs[i]v_i
