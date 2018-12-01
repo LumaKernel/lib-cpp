@@ -8,8 +8,9 @@ using ll = long long;
 // @snippet     geometory
 // @alias       geo
 
-using Scalar = long double;
-using Float = long double;
+// when Scalar is float-like, let Float = Scalar
+using Scalar = double;
+using Float = double;
 // EPS
 const Scalar EPS = 1e-11;
 constexpr Float PI = 3.14159265358979323;
@@ -28,11 +29,9 @@ struct Segment : public pair< Point, Point > {
 };
 inline Scalar dot(const Point &a, const Point &b) { return real(conj(a) * b); };
 inline Scalar cross(const Point &a, const Point &b) { return imag(conj(a) * b); };
+
 // L2 norm
-template < class T >
-inline Float norm(const Point &a) {
-  return abs(a);
-}
+inline Float norm(const Point &a) { return abs(a); }
 
 int sign(Scalar x) {
   if(x < -EPS) return -1;
@@ -46,8 +45,7 @@ int sign(Scalar x) {
 // -2 : b--c--a
 //  0 : b--a--c
 int ccw(const Point &a, Point b, Point c) {
-  b -= a;
-  c -= a;
+  b -= a, c -= a;
   if(cross(b, c) > EPS) return +1;
   if(cross(b, c) < -EPS) return -1;
   if(dot(b, c) < 0) return 0;
@@ -91,12 +89,16 @@ Float area3(T a, T b, T c) {
   return sqrt(s * (s - a) * (s - b) * (s - c));
 }
 
-Float dist(const Line &line, const Point &p) {
+inline Float dist(const Point &p, const Point &q) { return norm(p - q); }
+
+inline Float dist(const Line &line, const Point &p) {
   return (Float) cross(p - line.first, line.second - line.first) /
          abs(line.second - line.first);
 }
 
-Float dist(const Segment &segment, const Point &p) {
+inline Float dist(const Point &p, const Line &line) { return dist(line, p); }
+
+inline Float dist(const Segment &segment, const Point &p) {
   if(sign(dot(segment.first - segment.second, p - segment.second)) *
          sign(dot(segment.second - segment.first, p - segment.first)) >=
      0)
@@ -105,7 +107,9 @@ Float dist(const Segment &segment, const Point &p) {
     return min(norm(p - segment.first), norm(p - segment.second));
 }
 
-Float dist(const Segment &a, const Segment &b) {
+inline Float dist(const Point &p, const Segment &segment) { return dist(segment, p); }
+
+inline Float dist(const Segment &a, const Segment &b) {
   return min({
       dist(a, b.first),
       dist(a, b.second),
@@ -114,12 +118,12 @@ Float dist(const Segment &a, const Segment &b) {
   });
 }
 
-bool isCrossing(const Segment &a, const Segment &b) {
+inline bool isCrossing(const Segment &a, const Segment &b) {
   return ccw(a.first, a.second, b.first) * ccw(a.first, a.second, b.second) <= 0 &&
          ccw(b.first, b.second, a.first) * ccw(b.first, b.second, a.second) <= 0;
 }
 
-Point intersection(const Line &a, const Line &b) {
+inline Point intersection(const Line &a, const Line &b) {
   return a.first +              //
          (a.second - a.first) * //
              cross(a.first - b.first, b.second - b.first) *
