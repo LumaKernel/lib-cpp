@@ -2,8 +2,7 @@
 title: 2次元FFT
 ---
 
-[2変数の多項式](https://ja.wikipedia.org/wiki/多変数多項式){:target="_blank"}<!--_--> $f(x, y) = \sum\_{i,j} a\_{i, j}x^i y^j$ 2つをかけ合わせます
-
+[2変数の多項式](https://ja.wikipedia.org/wiki/多変数多項式){:target="_blank"}<!--_--> $f(x, y) = \sum\_{i,j} a\_{i, j}x^i y^j$ 2つをかけ合わせます 
 係数 $a$ は実数，$N \times M$ の行列 ( = 2次元配列 ) とします
 
 # 要約
@@ -71,8 +70,6 @@ $(\spadesuit)$ の行での式変形については [FFT導入]({{ "FFT/introduc
 $$(f * g) = \mathrm{DFT}_{N, M}^{-1} (\mathrm{DFT}_{N, M} (f) \cdot \mathrm{DFT}_{N, M} (g))$$
 
 なお，多項式同士の演算 $\cdot$ は係数ごとの掛け算 (component-wise multiplication)
-
-$$a_{i, j} = \mathrm{DFT}_{N, M}^{-1} (\mathrm{DFT}_{N, M} (f) \cdot \mathrm{DFT}_{N, M} (g))$$
 
 ### 証明
 
