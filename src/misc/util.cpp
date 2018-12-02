@@ -36,3 +36,9 @@ template < class T, class U > inline void smin(T &a, const U &b) { a = a < (T) b
 template < class T, class U > inline void smax(T &a, const U &b) { a = a < (T) b ? b : a; }
 // clang-format on
 // }}}
+
+// @ isInside
+// @snippet isinside
+// @alias inside outside
+
+bool isInside(int y, int x, int h, int w) { return 0 <= y && 0 <= x && y < h && x < w; }
