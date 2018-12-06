@@ -15,14 +15,32 @@ using ll = long long;
 // [ll index] -= , +=
 /// --- HashString with rolling-hash {{{ ///
 
-#include <functional>
+// #include <functional>
 #include <iterator>
 #include <string>
 #include <vector>
 
-template < int mod, int* B, int SZ >
+template < int N, int mod, int* B, int SZ >
 class HashString {
-  typedef long long ll;
+  static_assert(N >= 1, "N must be positive");
+
+  class PowTable {
+  public:
+    int table[SZ][(N + 1) * 2 + 1];
+    PowTable() {
+      for(int i = 0; i < SZ; i++) {
+        table[i][N] = 1;
+        for(int j = 1; j <= N; j++) {
+          table[i][j + N] = (ll) table[i][j - 1 + N] * B[i] % mod;
+        }
+        table[i][N - 1] = modinv(B[i]);
+        for(int j = -2; j >= -N; j--) {
+          table[i][j + N] = (ll) table[i][j + 1 + N] * table[i][N - 1] % mod;
+        }
+      }
+    }
+  };
+  static PowTable table;
 
 public:
   static int modpow(int x, ll y) {
@@ -59,26 +77,39 @@ public:
     for(int i = 0; i < SZ; i++) {
       ll tmp = 1;
       for(InputIter now = first; now != last; ++now, tmp = tmp * B[i] % mod) {
-        hashed[i] = (hashed[i] + (ll) tmp * *now % mod) % mod;
+        hashed[i] = (hashed[i] + tmp * ll(*now) % mod) % mod;
       }
     }
   }
 
   class Accessor {
-    const ll x;
+    const ll n;
     HashString& str;
 
   public:
-    Accessor(ll x, HashString& str) : x(x), str(str) {}
+    Accessor(ll n, HashString& str) : n(n), str(str) {}
     template < class T >
     void operator+=(T c) {
       for(ll i = 0; i < SZ; i++) {
-        str.hashed[i] = (str.hashed[i] + (ll) modpow(B[i], x) * ll(c) % mod) % mod;
+        ll bn = -N <= n && n <= N ? table.table[i][n + N] : modpow(B[i], n);
+        str.hashed[i] = (str.hashed[i] + bn * ll(c) % mod + mod) % mod;
       }
     }
     template < class T >
     void operator-=(T c) {
       *this += -ll(c);
+    }
+    void operator+=(const HashString& a) {
+      for(ll i = 0; i < SZ; i++) {
+        ll bn = -N <= n && n <= N ? table.table[i][n + N] : modpow(B[i], n);
+        str.hashed[i] = (str.hashed[i] + bn * a.hashed[i] % mod + mod) % mod;
+      }
+    }
+    void operator-=(const HashString& a) {
+      for(ll i = 0; i < SZ; i++) {
+        ll bn = -N <= n && n <= N ? table.table[i][n + N] : modpow(B[i], n);
+        str.hashed[i] = (str.hashed[i] - bn * a.hashed[i] % mod + mod) % mod;
+      }
     }
   };
 
@@ -86,7 +117,8 @@ public:
 
   void shift(ll n = 1) {
     for(int i = 0; i < SZ; i++) {
-      hashed[i] = (ll) hashed[i] * modpow(B[i], n) % mod;
+      ll bn = -N <= n && n <= N ? table.table[i][n + N] : modpow(B[i], n);
+      hashed[i] = (ll) hashed[i] * bn % mod;
     }
   }
 
@@ -97,8 +129,36 @@ public:
     return 1;
   }
 
+  HashString& operator+=(const HashString& a) {
+    for(int i = 0; i < SZ; i++) {
+      hashed[i] += a.hashed[i];
+      if(hashed[i] >= mod) hashed[i] -= mod;
+    }
+    return *this;
+  }
+
+  HashString& operator-=(const HashString& a) {
+    for(int i = 0; i < SZ; i++) {
+      hashed[i] += mod - a.hashed[i];
+      if(hashed[i] >= mod) hashed[i] -= mod;
+    }
+    return *this;
+  }
+
+  HashString operator+(const HashString& a) const {
+    HashString tmp = *this;
+    tmp += a;
+    return tmp;
+  }
+
+  HashString operator-(const HashString& a) const {
+    HashString tmp = *this;
+    tmp -= a;
+    return tmp;
+  }
+
   template < class T >
-  void push_front(T a) {
+  void push_front(const T& a) {
     for(int i = 0; i < SZ; i++) {
       hashed[i] = (ll) hashed[i] * B[i] % mod;
       hashed[i] = (hashed[i] + ll(a)) % mod;
@@ -106,9 +166,10 @@ public:
   }
 
   template < class T >
-  void changeAt(ll x, T a, T b) {
+  void changeAt(ll n, T a, T b) {
     for(int i = 0; i < SZ; i++) {
-      hashed[i] = (hashed[i] + (mod + ll(b) - ll(a)) * modpow(B[i], x) % mod) % mod;
+      ll bn = -N <= n && n <= N ? table.table[i][n + N] : modpow(B[i], n);
+      hashed[i] = (hashed[i] + (mod + ll(b) - ll(a)) * bn % mod) % mod;
     }
   }
 
@@ -122,17 +183,28 @@ public:
     return os;
   }
 };
+template < int N, int mod, int* B, int SZ >
+typename HashString< N, mod, B, SZ >::PowTable HashString< N, mod, B, SZ >::table;
 
-int _hs_B[] = {114514, 1919, 810};
-using mystring = HashString< 1'000'000'007, _hs_B, sizeof(_hs_B) / sizeof(_hs_B[0]) >;
+constexpr int _hs_N = 1e6;
 
-template < int mod, int* B, int SZ >
-struct std::hash< HashString< mod, B, SZ > > {
+int _hs_B[] = {
+    114514,
+    1919,
+    810,
+};
+
+using mystring =
+    HashString< _hs_N, 1'000'000'007, _hs_B, sizeof(_hs_B) / sizeof(_hs_B[0]) >;
+
+namespace std {
+template < int N, int mod, int* B, int SZ >
+struct hash< HashString< N, mod, B, SZ > > {
   template < class T >
   static void hash_combine(size_t& seed, T const& v) {
     seed ^= hash< T >{}(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
   }
-  size_t operator()(const HashString< mod, B, SZ >& a) {
+  size_t operator()(const HashString< N, mod, B, SZ >& a) {
     size_t seed = 0;
     for(int i = 0; i < SZ; i++) {
       hash_combine(seed, a.hashed[i]);
@@ -140,5 +212,6 @@ struct std::hash< HashString< mod, B, SZ > > {
     return seed;
   }
 };
+} // namespace std
 
 /// }}}--- ///
