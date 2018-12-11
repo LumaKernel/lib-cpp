@@ -5,12 +5,13 @@ using ll = long long;
 
 // @@
 // @name ModInt Library
-// @snippet     modint
+// @snippet modint
 
 /// --- ModInt Library {{{ ///
 #include <ostream>
 template < ll mod = (ll) 1e9 + 7 >
 struct ModInt {
+  // math {{{
   static inline ll extgcd(ll a, ll b, ll &x, ll &y) {
     ll d;
     return b == 0 ? (x = 1, y = 0, a) : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
@@ -32,6 +33,7 @@ struct ModInt {
     }
     return r;
   }
+  // }}}
 
   ll val;
   constexpr ModInt() : val(0) {}
@@ -49,6 +51,7 @@ public:
   explicit operator T() {
     return T(val);
   }
+  // ModInt <arithmetic-operator>[=] ModInt {{{
   ModInt operator+(ModInt const &rhs) const {
     ModInt tmp = *this;
     tmp += rhs;
@@ -80,6 +83,8 @@ public:
     return *this;
   }
   ModInt &operator/=(ModInt const &rhs) { return *this *= rhs.inv(); }
+  // }}}
+  // increment, decrement {{{
   ModInt operator++(int) {
     ModInt tmp = *this;
     val = val + 1;
@@ -100,7 +105,9 @@ public:
     val = val == 0 ? mod - 1 : val - 1;
     return *this;
   }
+  // }}}
   ModInt operator-() const { return ModInt(val == 0 ? 0 : mod - val, 0); }
+  // ModInt <arithmetic-operator>[=] T {{{
   template < typename T >
   ModInt operator+(T const &rhs) const {
     return ModInt(val + rhs % mod);
@@ -137,12 +144,14 @@ public:
     val = val * modinv(rhs, mod) % mod;
     return *this;
   }
+  // }}}
   ModInt inv() const { return ModInt(modinv(val), 0); }
   ModInt operator~() const { return inv(); }
   friend ostream &operator<<(ostream &os, ModInt const &mv) {
     os << mv.val;
     return os;
   }
+  // T <arithmetic-operator> ModInt {{{
   friend constexpr ModInt operator+(ll a, ModInt const &mv) {
     return ModInt(a % mod + mv.val);
   }
@@ -155,15 +164,15 @@ public:
   friend constexpr ModInt operator/(ll a, ModInt const &mv) {
     return ModInt((mod + a % mod) * modinv(mv.val) % mod, 0);
   }
-  ModInt operator^(ll x) const {
-    ModInt tmp = *this;
-    tmp ^= x;
-    return tmp;
-  }
+  // }}}
+  // power {{{
+  ModInt operator^(ll x) const { return pow(*this, x); }
   ModInt &operator^=(ll x) {
     val = modpow(val, x);
     return *this;
   }
+  friend ModInt pow(ModInt x, ll y) { return ModInt(modpow(x.val, y), 0); }
+  // }}}
 };
 /// }}}--- ///
 
