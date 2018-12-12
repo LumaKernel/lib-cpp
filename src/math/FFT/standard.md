@@ -58,7 +58,6 @@ vector< Complex > fft(vector< Complex > a, size_t h, bool inverse) {
 }
 ```
 
-
 コード中の `zeta_i` は $\zeta_{2^{h-t}}^i$ です
 
 これを書き換えると以下のようになります．in-placeではなくなります
@@ -97,9 +96,13 @@ $\displaystyle A(\zeta\_n^i) = \frac{P(\zeta\_n^i) + \overline {P(\zeta\_n^{-i})
 
 # 練習問題
 
-* [C - 高速フーリエ変換 - AtCoder](https://beta.atcoder.jp/contests/atc001/tasks/fft_c){:target="_blank"}<!--_-->
-* [E - Couple - AtCoder](https://beta.atcoder.jp/contests/ukuku09/tasks/ukuku09_e){:target="_blank"}<!--_-->
+* [ATC001 - C - 高速フーリエ変換 - AtCoder](https://beta.atcoder.jp/contests/atc001/tasks/fft_c){:target="_blank"}<!--_-->
 * [0025 - のえるちゃん選び - ねねじゃっじ](https://luzhiled.me/problems/25){:target="_blank"}<!--_-->
+
+### [NTT]({{ "math/FFT/NTT" | absolute_url }})
+
+* [うくコン - E - Couple - AtCoder](https://beta.atcoder.jp/contests/ukuku09/tasks/ukuku09_e){:target="_blank"}<!--_-->
+* [F - Many Easy Problems (1900) - AtCoder](https://beta.atcoder.jp/contests/agc005/tasks/agc005_f){:target="_blank"}<!--_-->
 
 # 参考
 

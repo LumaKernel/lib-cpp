@@ -31,4 +31,4 @@ public:
 // }}}
 
 template < class T, size_t N >
-using myarry = LoopArray< T, N >;
+using myarray = LoopArray< T, N >;
