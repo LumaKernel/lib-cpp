@@ -26,6 +26,7 @@ map< T, int > compress(const vector< T > &v) {
 }
 // }}}
 
+// @new
 // @ smin, smax
 // @snippet smin
 // @alias smax
@@ -37,6 +38,7 @@ template < class T, class U > inline void smax(T &a, const U &b) { a = a < (T) b
 // clang-format on
 // }}}
 
+// @new
 // @ isInside
 // @snippet isinside
 // @alias inside outside
