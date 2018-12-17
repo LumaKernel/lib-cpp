@@ -37,6 +37,8 @@ FFTは数列同士の畳込み(=多項式の掛け算)を$O(N \log N)$で行う�
 
 上記のリンクはすべて「高校数学の美しい物語」です．復習用にご参照ください
 
+以下，虚数単位を $i$ と書くことは**ありません**．添字の整数として用います
+
 # 多項式
 
 多項式とは，$x^2 + x - 1$みたいな式のことで，$x$ についての多項式は，係数 $a_i(i \geq 0)$を用いて $a_ix^i$ と書ける項を足していったものです
@@ -45,7 +47,7 @@ $i$は虚数単位ではなく，整数です
 
 $x^i$の$i$の部分を次数といいます
 
-多項式は次数が$0$異常なので，$x^2 + x - 1$ではなく，$-1 + x + x^2$の順序で書くことにします
+多項式は次数が$0$以上なので，$x^2 + x - 1$ではなく，$-1 + x + x^2$の順序で書くことにします
 
 多項式の次数とは，その多項式の中で最高次の項の次数をいいます
 
@@ -61,13 +63,13 @@ $\log x$や$2^x + 3\sqrt x$ は多項式ではありません
 
 多項式は係数によって決まるので，係数数列を多項式の代わりに保持することができます
 
-$f(x) = -1 + x + x^2$の係数数列は $$a =\{-1, 1, 1\}$$ です
+例えば，$f(x) = -1 + 2x + x^2$の係数数列は $$a =\{-1, 2, 1\}$$ です
 
 数列はこの記事では $a = (a_i)_{i=0}^{N-1}$のように書いたりします
 
 $k$次の多項式は一般に
 
-$\displaystyle f(x) = a_0x^0 + a\_1x^1 + \cdots a\_kx^k = \sum_{i=0}^k a_ix^i$
+$\displaystyle f(x) = a_0x^0 + a\_1x^1 + \cdots + a\_kx^k = \sum_{i=0}^k a_ix^i$
 
 とかけます
 
@@ -77,7 +79,7 @@ $\displaystyle f(x) = a_0x^0 + a\_1x^1 + \cdots a\_kx^k = \sum_{i=0}^k a_ix^i$
 
 また，サイズ $N$ の多項式を，次数が $N-1$ 以下の多項式とします
 
-$-1$ は $x^0$ の分です
+$-1$ は $x^0$ の分です (0-indexedだから，ということ)
 
 # 畳み込み
 
@@ -93,7 +95,13 @@ $a,b,c$を係数とする多項式をそれぞれ$f,g,h$としましょう
 
 すなわち，
 
-$\displaystyle \begin{aligned} &f(x) = a_0 + a_1x + a_2x^2 + \cdots a_{N-1}x^{N-1} \\\\ &g(x) = b_0 + b_1x + b_2x^2 + \cdots b_{M-1}x^{M-1} \\\\ &h(x) = c_0 + c_1x + c_2x^2 + \cdots c_{N + M -2}x^{N + M - 2} \end{aligned}$
+$$
+\begin{aligned}
+&f(x) = a_0 + a_1x + a_2x^2 + \cdots + a_{N-1}x^{N-1} \\
+&g(x) = b_0 + b_1x + b_2x^2 + \cdots + b_{M-1}x^{M-1} \\
+&h(x) = c_0 + c_1x + c_2x^2 + \cdots + c_{N + M -2}x^{N + M - 2} \\
+\end{aligned}
+$$
 
 です
 
@@ -103,22 +111,47 @@ $f(x) \times g(x) = h(x)$ となるのがわかりますか?
 
 $f(x) = 1 + 3x + 2x^2$と$g(x) = 2 -  x^2$を考えます
 
-$\displaystyle \begin{aligned} f(x) \times g(x) &=&&(1 + 3x + 2x^2)(2 -  x^2) \\\\ &=&& (1\cdot 2) + (1\cdot (-1) + 3 \cdot 2)x \\\\ &&&+ (1 \cdot (-1) + 3 \cdot 0 + 2 \cdot 2)x^2 \\\\ &&&+ (3 \cdot (-1) + 2 \cdot 0)x^3  \\\\ &&&+ (2 \cdot (-1) )x^4  \\\\ \end{aligned}$
+$$
+\begin{aligned}
+f(x) \times g(x) &=&&(1 + 3x + 2x^2)(2 -  x^2) \\
+&=&& (1\cdot 2) x^0 \\
+&&&+ (1\cdot (-1) + 3 \cdot 2)x^1 \\
+&&&+ (1 \cdot (-1) + 3 \cdot 0 + 2 \cdot 2)x^2 \\
+&&&+ (3 \cdot (-1) + 2 \cdot 0)x^3  \\
+&&&+ (2 \cdot (-1) )x^4  \\
+&=&& 2 + 5x + 3x^2 - 3x^3 - 2x^4 \\
+\end{aligned}
+$$
 
 これが多項式同士の掛け算です
 
 
 もう一つ， $f(x) = a_0 + a_1x + a_2x^2$ と $f(x) = b_0 + b_1x + b_2x^2$ を考えます
 
-$\begin{aligned} f(x) \times g(x) &=&&(a_0 + a_1x + a_2x^2)(b_0 + b_1x + b_2x^2) \\\\ &=&& (a_0b_0)x^0 \\\\ &&& + (a_0b_1 + a_1b_0)x^1 \\\\ &&&+ (a_0b_2 + a_1b_1+a_2b_0)x^2 \\\\ &&&+ (a_1b_2 + a_2b_1)x^3  \\\\ &&&+ (a_2b_2)x^4  \\\\ \end{aligned}$
+$$
+\begin{aligned}
+f(x) \times g(x) &=&&(a_0 + a_1x + a_2x^2)(b_0 + b_1x + b_2x^2) \\
+&=&& (a_0b_0)x^0 \\
+&&& + (a_0b_1 + a_1b_0)x^1 \\
+&&&+ (a_0b_2 + a_1b_1+a_2b_0)x^2 \\
+&&&+ (a_1b_2 + a_2b_1)x^3 \\
+&&&+ (a_2b_2)x^4 \\
+\end{aligned}
+$$
 
-わかりましたか？
+えーわかりますでしょうか
 
 $x^k$の係数は$a_ib_j$を足したものになっていますが，$i + j = k$となります
 
 一般的にかくと，
 
-$\displaystyle \begin{aligned} &f(x) = \sum_{i=0}^{N-1}a_ix^i \\\\ &g(x) = \sum_{j=0}^{M-1}b_jx^j \\\\ &f(x)\times g(x) = h(x) = \sum_{i=0}^{N+M-2}c_ix^i \\\\ &h(x) = \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}a_ib_jx^{i+j} \end{aligned}$
+$$
+\begin{aligned} &f(x) = \sum_{i=0}^{N-1}a_ix^i \\
+&g(x) = \sum_{j=0}^{M-1}b_jx^j \\
+&f(x)\times g(x) = h(x) = \sum_{i=0}^{N+M-2}c_ix^i \\
+&h(x) = \sum_{i=0}^{N-1}\sum_{j=0}^{M-1}a_ib_jx^{i+j} \\
+\end{aligned}
+$$
 
 というところまでいきます．なぜそうなるか，という点については，素直に掛け合わせてシグマを入れ替えるとそうなるからです
 
@@ -128,11 +161,11 @@ $\displaystyle \begin{aligned} &f(x) = \sum_{i=0}^{N-1}a_ix^i \\\\ &g(x) = \sum_
 
 $\displaystyle h(x) = \sum_{k=0}^{N+M-2}\sum_{i=0}^{k}a_ib_{k-i}x^k$
 
-ただし，範囲外の添字に対しては0とします
+ただし，範囲外の添字に対しては係数は0とします
 
 ---
 
-以上，数列の畳込みと，それが多項式において掛け算と等しくなる，ということを説明しました
+以上，**数列の畳み込み**と，それが**多項式において掛け算と等しくなる**，ということを説明しました
 
 $h(x) = f(x) \times g(x) = (f \ast g) (x)$ と書きます
 
@@ -184,7 +217,13 @@ $\displaystyle \sum_{i=0}^{N-1}\zeta_N^{ki} = \begin{cases} N & (k \equiv 0 \mod
 
 $k\equiv 0$は簡単なので，$otherwise$について示す
 
-$\displaystyle \begin{aligned} \sum_{i=0}^{N-1}\zeta_N^{ki} &= \frac{\zeta_N^N - 1}{\zeta_N - 1}& \text{等比級数より} \\\\ &= \frac{\zeta_N^0 - 1}{\zeta_N - 1}& \mathrm{mod}\ Nにより\\ &= \frac{1 - 1}{\zeta_N - 1} = 0 \end{aligned}$
+$$
+\begin{aligned}
+\sum_{i=0}^{N-1}\zeta_N^{ki} &= \frac{\zeta_N^N - 1}{\zeta_N - 1}& (\text{等比級数より}) \\
+&= \frac{\zeta_N^0 - 1}{\zeta_N - 1}& (\mathrm{mod}\ Nにより) \\
+&= \frac{1 - 1}{\zeta_N - 1} = 0
+\end{aligned}
+$$
 
 等比級数の公式が複素数に適用できるかというのは，自分で複素数考慮で求めなおしたりすれば自明
 
@@ -196,7 +235,7 @@ $\omega$(オメガ)などで代用しても大丈夫ですし，書いている�
 
 # 離散フーリエ変換
 
-$\displaystyle \hat{f}(x) = f(\zeta_N^0)x^0 + f(\zeta_N^i)x^1 +\cdots + f(\zeta_N^{N-1})x^{N-1} = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$
+$\displaystyle \hat{f}(x) = f(\zeta_N^0)x^0 + f(\zeta_N^1)x^1 +\cdots + f(\zeta_N^{N-1})x^{N-1} = \sum_{i=0}^{N-1} f(\zeta_N^i)x^i$
 
 と定義します
 
@@ -274,7 +313,7 @@ $\displaystyle \mathrm{DFT}_N^{-1}(\mathrm{DFT}_N(f))=f$
 
 DFTを使って畳み込みを計算することをかんがえます
 
-$\widehat{(f\*g)}$ が計算できれば，IDFTすることで目的の $(f\*g)$ が得られます
+$\widehat{(f\*g)}$ が計算できれば，IDFTすることで目的の $(f\*g)$ が得られます．DFTの定義より，
 
 $\displaystyle \widehat{(f\*g)}(x) = \sum\_{i=0}^{N-1} (f\*g)(\zeta\_N^i)x^i$
 
@@ -441,7 +480,7 @@ $\displaystyle DFT\_N^{-1}(f)(x) = \textcolor{red}{\frac{1}{N}}\sum_{i=0}^{N-1} 
 
 DFTと同様に，何を求めればいいかを考えます
 
-$\frac{1}{N}$ は後から掛ければどうにでもなるので一旦無視します
+$\frac{1}{N}$ は後から掛ければどうにでもなるので一旦無視します．以下が求まればいいです．
 
 $\displaystyle f(\zeta_N^{-0}), f(\zeta_N^{-1}), \cdots, f(\zeta_N^{-(N-1)})$
 
@@ -608,9 +647,16 @@ FFTのアルゴリズムには色々とあり，基底 (いくつに分けるか
 
 詳しくは [Cooley-Tukey FFT]({{ "math/FFT/Cooley-Tukey-FFT" | absolute_url }}) を参照してください
 
+## [二次元FFT]({{ "math/FFT/FFT2" | absolute_url }})
+
+難しそうと思うかもしれませんが，FFTへの理解を深める手助けになるかと思います
+
+DFTを係数による表示で紹介しています．それによりDFTをより扱いやすくなるかと思います
+
+
 ---
 
-長文になりましたが，読んでいただきありがとうございました．700行近くになってしまいました．不明瞭な部分があれば下のコメントにて教えてください．正まで時間がかかるかもしれません，ご了承下さい
+長文になりましたが，読んでいただきありがとうございました．700行近くになってしまいました．不明瞭な部分があれば下のコメントにて教えてください．修正まで時間がかかるかもしれません，ご了承下さい
 
 # 参考
 
