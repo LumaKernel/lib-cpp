@@ -4,8 +4,8 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @snippet     bipartiteMatching
-// @alias       flowBipariteMatching
+// @snippet     bipartite_matching
+// @alias       flow_bipariteMatching nibu_matching
 // @name BipartiteMatching Library
 
 // constructor(n)

@@ -1,0 +1,6 @@
+type: dir
+title: 組み合せ数学
+order:
+  - binomial-coefficients
+  - Halls-marriage-theorem
+

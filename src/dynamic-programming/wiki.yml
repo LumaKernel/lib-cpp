@@ -1,5 +1,6 @@
 type: dir
 title: 動的計画法
 order:
+  - bitdp-to-subsets
   - rollback-dp
   - convex-hull-trick
