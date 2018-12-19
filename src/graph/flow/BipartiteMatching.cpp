@@ -6,7 +6,7 @@ using ll = long long;
 // @@
 // @snippet     bipartite_matching
 // @alias       flow_bipariteMatching nibu_matching
-// @name BipartiteMatching Library
+// @ BipartiteMatching
 
 // constructor(n)
 // addEdge(a, b) // bipartite graph (undirected)
@@ -23,7 +23,9 @@ using ll = long long;
 // O(V + E)
 // isolated cannot be covered
 // match2[i] = 1 or 0
-/// --- BipartiteMatching Library {{{ ///
+/// --- BipartiteMatching {{{ ///
+#include <queue>
+#include <vector>
 struct BipartiteMatching {
   int n;
   vector< vector< int > > g;

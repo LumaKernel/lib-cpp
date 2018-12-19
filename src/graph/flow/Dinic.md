@@ -16,15 +16,20 @@ $O(EV^2)$
 なんでかとかはわかってない  
 ちゃんと考えるとできるのかもしれない  
 
-実用上はとても速いが最悪ケースが知られているため，任意のグラフが与えられるような問題は向いていない．グラフに帰着できる問題などは意図的にグラフを操作しにくいのであれば，Dinic法が有効，ということがある (参考 : [ここ](http://topcoder.g.hatena.ne.jp/Mi_Sawa/20140311){:target="_blank"}<!--_-->の「結論」)
+実用上はとても速いが最悪ケースが知られているため，任意のグラフが与えられるような問題は向いていない．**グラフに帰着できる問題**などは**意図的にグラフを操作しにくい**のであれば，Dinic法が有効，ということがある (参考 : [ここ](http://topcoder.g.hatena.ne.jp/Mi_Sawa/20140311){:target="_blank"}<!--_-->の「結論」)
 
 # 実装
 
-// @ Max Flow with Dinic Library
+// @ Max Flow with Dinic
 
 # 検証
 
-* [F - Lotus Leaves - AtCoder](https://beta.atcoder.jp/contests/arc074/submissions/2141547){:target="_blank"}<!--_-->
+* [AGC029F - Construction of a tree - AtCoder](https://atcoder.jp/contests/agc029/submissions/3823160){:target="_blank"}<!--_-->
+
+# 練習問題
+
+* [ARC074F - Lotus Leaves (800) - AtCoder](https://atcoder.jp/contests/arc074/tasks/arc074_d){:target="_blank"}<!--_-->
+* [AGC029F - Construction of a tree (2200) - AtCoder](https://atcoder.jp/contests/agc029/tasks/agc029_f){:target="_blank"}<!--_-->
 
 # 参考
 
