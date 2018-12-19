@@ -11,7 +11,7 @@ using ll = long long;
 // constructor(n)
 // addEdge(a, b) // bipartite graph (undirected)
 // === build() returns max flow ===
-// O(VE) but very fast
+// O(VE) but very fast (like O(min{V, E}V))
 // match[i] = some or -1
 // === restoreMinVertexCover() ===
 // O(V + E)
@@ -38,14 +38,16 @@ struct BipartiteMatching {
 
 private:
   vector< int > used;
+  int color = 1;
 
 public:
   int build() {
-    match = vector< int >(n, -1);
+    match.resize(n), match.assign(n, -1);
+    used.resize(n);
     int flow = 0;
     for(int i = 0; i < n; i++) {
-      if(match[i] < 0) {            ///
-        used = vector< int >(n, 0); ///
+      if(match[i] < 0) {
+        color++;
         if(dfs(i)) flow++;
       }
     }
@@ -113,8 +115,8 @@ public:
 
 private:
   bool dfs(int v) {
-    if(used[v]) return false; ///
-    used[v] = 1;
+    if(used[v] == color) return false; ///
+    used[v] = color;
     for(int u : g[v])
       if(match[u] < 0 || dfs(match[u])) {
         match[v] = u;
