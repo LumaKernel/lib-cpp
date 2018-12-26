@@ -55,7 +55,7 @@ vector< T > fmt(vector< T > a, bool toUpper) {
 // }}}
 
 // @new
-// @ FWT with AND
+// @ Convolution with AND
 // @snippet and_conv
 // @alias fwt_and fwht_and conv_and hadamard_and
 
@@ -73,7 +73,7 @@ vector< T > convAND(vector< T > a, vector< T > b) {
 // }}}
 
 // @new
-// @ FWT with OR
+// @ Convolution with OR
 // @snippet or_conv
 // @alias fwt_or fwht_or conv_or hadamard_or
 
