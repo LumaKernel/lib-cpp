@@ -36,16 +36,17 @@ wikipediaなどでは「包除原理の別の形式」として紹介されて�
 
 **シグマの下の包除関係を逆転させたもの**も同様に成り立つ．このことは簡単に示すことができる
 
+一般化された包除原理から，通常の包除原理を導くことができる
+
 # 練習問題
 
-* [E - Couple (うくこん) - AtCoder](https://beta.atcoder.jp/contests/ukuku09/tasks/ukuku09_e){:target="_blank"}<!--_-->
+* [うくこん E - Couple - AtCoder](https://atcoder.jp/contests/ukuku09/tasks/ukuku09_e){:target="_blank"}<!--_-->
   * [解説](https://tomorinao.blogspot.com/2018/10/divide-and-conquer-fft.html){:target="_blank"}<!--_-->
 * [「みんなのプロコン 2018」決勝 - A - Uncommon (600) - AtCoder](https://beta.atcoder.jp/contests/yahoo-procon2018-final/tasks/yahoo_procon2018_final_a){:target="_blank"}<!--_-->
-* [D - ~K Perm Counting (900) - AtCoder](https://beta.atcoder.jp/contests/agc005/tasks/agc005_d){:target="_blank"}<!--_-->
-
-### 一般化されたPIE
-
-* [F - Squirrel Migration (800) - AtCoder](https://beta.atcoder.jp/contests/arc087/tasks/arc087_d){:target="_blank"}<!--_-->
+* [AGC005 D - ~K Perm Counting (900) - AtCoder](https://atcoder.jp/contests/agc005/tasks/agc005_d){:target="_blank"}<!--_-->
+* [ARC087 F - Squirrel Migration (800) - AtCoder](https://atcoder.jp/contests/arc087/tasks/arc087_d){:target="_blank"}<!--_-->
+* [ARC101 E - Ribbons on Tree (900) - AtCoder](https://atcoder.jp/contests/arc101/tasks/arc101_c){:target="_blank"}<!--_-->
+* [ARC101 E - Everything on It (900) - AtCoder](https://atcoder.jp/contests/arc096/tasks/arc096_c){:target="_blank"}<!--_-->
 
 # 参考
 
