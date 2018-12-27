@@ -2,7 +2,7 @@ type: dir
 title: 線形代数
 order:
   - matrix
-  - GaussJordan
+  - GaussianElimination
   - Givens
   - rank-and-forest-maximum-matching
 
