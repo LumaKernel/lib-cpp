@@ -44,7 +44,7 @@ unionとfindにはそれぞれ実現方法がいろいろあります
 
 Union by sizeとPath compressionを用いています
 
-// @ Union Find Library
+// @ Union Find
 
 # 検証
 

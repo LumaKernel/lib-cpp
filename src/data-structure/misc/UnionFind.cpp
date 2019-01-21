@@ -6,10 +6,10 @@ using ll = long long;
 // @@
 // @snippet     unionfind
 // @alias       uf
-// @name Union Find Library
+// @ Union Find
 
-/// --- Union Find Library {{{ ///
-
+/// --- Union Find {{{ ///
+#include <vector>
 struct UF {
   int n;
   vector< int > par;
@@ -26,5 +26,4 @@ struct UF {
     par[a] = b;
   }
 };
-
 /// }}}--- ///
