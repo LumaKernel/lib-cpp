@@ -32,7 +32,6 @@ title: 基本
 
 gcd, lcm, extgcd, modinv, modpow
 
-剰余を使わない高速なgcdもありますが，  
 gcd(a,b)の計算量は $O(\log \max(a, b))$ です
 
 証明は蟻本にありますが，第一引数が2段階の再帰で $1/2$ 以下になることから言えます
@@ -45,6 +44,27 @@ $\gcd(a, m) = 1$ であれば $m$ が素数でなくとも逆元を返せるよ�
 速度もこちらのほうが速い気がします
 
 // @ math
+
+# 剰余を使わないgcd
+
+`%2` などは `&1` と読み替えてください
+
+```cpp
+Integer gcd(Integer a, Integer b) {
+  if(a < 0) a = -a;
+  if(b < 0) b = -b;
+  Integer res = 1;
+  while(a != b) {
+    if(a < b) swap(a, b);
+    if(b == 0) break;
+    if(!(a % 2) && !(b % 2)) res *= 2, a /= 2, b /= 2;
+    else if(!(a % 2)) a /= 2;
+    else if(!(b % 2)) b /= 2;
+    else a = (a - b) / 2;
+  }
+  return res * a;
+}
+```
 
 # 大きなmodでの掛け算
 
