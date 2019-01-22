@@ -56,6 +56,10 @@ pivottingの方法で，部分選択はその列についてのみ見る，完�
 
 * [Strange Couple - AOJ](http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=3349472#1){:target="_blank"}<!--_-->
 
+ランク (自由度)
+
+* [JAG春2013 J - Tree Reconstruction - AtCoder](https://atcoder.jp/contests/jag2013spring/submissions/4068497){:target="_blank"}<!--_-->
+
 # 練習問題
 
 * [Strange Couple - AOJ](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2171){:target="_blank"}<!--_-->

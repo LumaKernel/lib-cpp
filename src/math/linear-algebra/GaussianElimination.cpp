@@ -150,13 +150,13 @@ T det(vector< vector< T > > mat) {
 // @new
 // @ Matrix Rank
 // @snippet rank
+// @alias matrank
 
-// rank {{{
+// matrank, degree_of_freedom {{{
 #include <vector>
 template < class T >
 int matrank(vector< vector< T > > mat) {
   size_t n = mat.size(), m = mat[0].size();
-  int res = 0;
   size_t now = 0;
   for(size_t i = 0; i < m; i++) {
     int pivot = now;
@@ -165,8 +165,8 @@ int matrank(vector< vector< T > > mat) {
       if(mat[pivot][i] != T(0)) break;
       pivot = j;
     }
-    if(mat[now][i] == T(0)) continue;
-    swap(mat[i], mat[pivot]);
+    if(mat[pivot][i] == T(0)) continue;
+    swap(mat[now], mat[pivot]);
     for(size_t j = i + 1; j < m; j++) {
       mat[now][j] /= mat[now][i];
     }
@@ -175,9 +175,12 @@ int matrank(vector< vector< T > > mat) {
         mat[j][k] -= mat[j][i] * mat[now][k];
       }
     now++;
-    res++;
     if(now == n) break;
   }
-  return res;
+  return now;
+}
+template < class T >
+int degree_of_freedom(const vector< vector< T > > &mat) {
+  return mat[0].size() - matrank(mat);
 }
 // }}}
