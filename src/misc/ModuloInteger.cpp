@@ -48,9 +48,9 @@ private:
 
 public:
   template < class T >
-    explicit operator T() {
-      return T(val);
-    }
+  explicit operator T() {
+    return T(val);
+  }
   // ModInt <arithmetic-operator>[=] ModInt {{{
   ModInt operator+(ModInt const &rhs) const {
     ModInt tmp = *this;
@@ -109,41 +109,41 @@ public:
   ModInt operator-() const { return ModInt(val == 0 ? 0 : mod - val, 0); }
   // ModInt <arithmetic-operator>[=] T {{{
   template < typename T >
-    ModInt operator+(T const &rhs) const {
-      return ModInt(val + rhs % mod);
-    }
+  ModInt operator+(T const &rhs) const {
+    return ModInt(val + rhs % mod);
+  }
   template < typename T >
-    ModInt operator-(T const &rhs) const {
-      return ModInt(mod + val - rhs % mod);
-    }
+  ModInt operator-(T const &rhs) const {
+    return ModInt(mod + val - rhs % mod);
+  }
   template < typename T >
-    ModInt operator*(T const &rhs) const {
-      return ModInt(val * (rhs % mod));
-    }
+  ModInt operator*(T const &rhs) const {
+    return ModInt(val * (rhs % mod));
+  }
   template < typename T >
-    ModInt operator/(T const &rhs) const {
-      return ModInt(val * modinv(rhs));
-    }
+  ModInt operator/(T const &rhs) const {
+    return ModInt(val * modinv(rhs));
+  }
   template < typename T >
-    ModInt &operator+=(T const &rhs) {
-      val = (mod + val + rhs % mod) % mod;
-      return *this;
-    }
+  ModInt &operator+=(T const &rhs) {
+    val = (mod + val + rhs % mod) % mod;
+    return *this;
+  }
   template < typename T >
-    ModInt &operator-=(T const &rhs) {
-      val = (mod + val - rhs % mod) % mod;
-      return *this;
-    }
+  ModInt &operator-=(T const &rhs) {
+    val = (mod + val - rhs % mod) % mod;
+    return *this;
+  }
   template < typename T >
-    ModInt &operator*=(T const &rhs) {
-      val = val * (mod + rhs % mod) % mod;
-      return *this;
-    }
+  ModInt &operator*=(T const &rhs) {
+    val = val * (mod + rhs % mod) % mod;
+    return *this;
+  }
   template < typename T >
-    ModInt &operator/=(T const &rhs) {
-      val = val * modinv(rhs, mod) % mod;
-      return *this;
-    }
+  ModInt &operator/=(T const &rhs) {
+    val = val * modinv(rhs, mod) % mod;
+    return *this;
+  }
   // }}}
   ModInt inv() const { return ModInt(modinv(val), 0); }
   ModInt operator~() const { return inv(); }
@@ -152,10 +152,10 @@ public:
     return os;
   }
   // equality operator {{{
-  ModInt operator==(const ModInt & a) const { return val == a.val; }
-  ModInt operator!=(const ModInt & a) const { return val != a.val; }
-  ModInt operator==(const ll & a) const { return val == ModInt(a); }
-  ModInt operator!=(const ll & a) const { return val != ModInt(a); }
+  ModInt operator==(const ModInt &a) const { return val == a.val; }
+  ModInt operator!=(const ModInt &a) const { return val != a.val; }
+  ModInt operator==(const ll &a) const { return val == ModInt(a); }
+  ModInt operator!=(const ll &a) const { return val != ModInt(a); }
   // }}}
   // T <arithmetic-operator> ModInt {{{
   friend constexpr ModInt operator+(ll a, ModInt const &mv) {
@@ -182,4 +182,4 @@ public:
 };
 /// }}}--- ///
 
-using mint = ModInt<>;
+using modint = ModInt<>;

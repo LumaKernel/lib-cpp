@@ -1,5 +1,5 @@
 // @import header
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
 
@@ -8,94 +8,94 @@ using ll = long long;
 // @snippet     gaussjordan
 // @alias       gauss
 
-// return (m + 1)-length vector when unsolvable
-// NOTE : when size < m , indefite
+// return ( values, solvable )
+// return 0-length vector when unsolvable
 /// --- Gaussian Elimination {{{ ///
+// using Gauss-Jordan Elimination
 #include <cassert>
+#include <cmath>
+#include <utility>
 #include <vector>
 template < class T >
-vector< T > Gauss_float(vector< vector< T > > mat, vector< T > v, T eps = T(1e-9)) {
+pair< vector< T >, bool > Gauss_float(vector< vector< T > > &mat, vector< T > v,
+                                      T eps = T(1e-9)) {
   size_t n = mat.size(), m = mat[0].size();
   assert(n == v.size());
   for(size_t i = 0; i < n; i++) {
-    mat[i].emplace_back(v[i]);
+    mat[i].push_back(v[i]);
   }
   size_t now = 0;
   for(size_t i = 0; i < m; i++) {
-    int pivot = i;
+    int pivot = now;
     // pivotting
-    for(size_t j = i + 1; j < m; j++) {
-      if(abs(mat[pivot][i] < abs(mat[j][i]))) pivot = j;
+    for(size_t j = now + 1; j < n; j++) {
+      if(abs(mat[pivot][i]) < abs(mat[j][i])) pivot = j;
     }
-    if(mat[pivot][i] <= eps) continue;
+    if(abs(mat[pivot][i]) <= eps) continue;
     swap(mat[now], mat[pivot]);
-    for(size_t j = i + 1; j <= n; j++) {
+    for(size_t j = i + 1; j <= m; j++) {
       mat[now][j] /= mat[now][i];
     }
     for(size_t j = 0; j < n; j++)
       if(j != i) {
-        for(size_t k = i + 1; k <= n; k++) {
+        for(size_t k = i + 1; k <= m; k++) {
           mat[j][k] -= mat[j][i] * mat[now][k];
         }
       }
     now++;
     if(now == n) break;
   }
-  v.resize(now);
-  for(size_t i = 0; i < now; i++) v[i] = mat[i][m];
+  for(size_t i = 0; i < n; i++) v[i] = mat[i][m];
   for(size_t i = now; i < n; i++) {
-    T r(0);
-    if(now == m) {
-      for(size_t j = 0; j < m; j++) {
-        r += mat[i][j] * v[j];
-      }
-    }
-    r -= mat[i][m];
-    if(abs(r) > eps) return vector<T>(m + 1);
+    if(abs(mat[i][m]) > eps) return make_pair(v, false);
   }
-  return v;
+  return make_pair(v, true);
 }
 template < class T >
-vector< T > Gauss(vector< vector< T > > mat, vector< T > v) {
+pair< vector< T >, bool > Gauss(vector< vector< T > > &mat, vector< T > v) {
   size_t n = mat.size(), m = mat[0].size();
   assert(n == v.size());
   for(size_t i = 0; i < n; i++) {
-    mat[i].emplace_back(v[i]);
+    mat[i].push_back(v[i]);
   }
   size_t now = 0;
   for(size_t i = 0; i < m; i++) {
-    for(size_t j = i + 1; j <= n; j++) {
+    int pivot = now;
+    // pivotting
+    for(size_t j = now + 1; j < n; j++) {
+      if(mat[pivot][i] != T(0)) break;
+      pivot = j;
+    }
+    if(mat[pivot][i] == T(0)) continue;
+    swap(mat[now], mat[pivot]);
+    for(size_t j = i + 1; j <= m; j++) {
       mat[now][j] /= mat[now][i];
     }
     for(size_t j = 0; j < n; j++)
       if(j != i) {
-        for(size_t k = i + 1; k <= n; k++) {
+        for(size_t k = i + 1; k <= m; k++) {
           mat[j][k] -= mat[j][i] * mat[now][k];
         }
       }
     now++;
     if(now == n) break;
   }
-  v.resize(now);
-  for(size_t i = 0; i < now; i++) v[i] = mat[i][m];
+  for(size_t i = 0; i < n; i++) v[i] = mat[i][m];
   for(size_t i = now; i < n; i++) {
-    T r(0);
-    if(now == m) {
-      for(size_t j = 0; j < m; j++) {
-        r += mat[i][j] * v[j];
-      }
-    }
-    r -= mat[i][m];
-    if(r != T(0)) return vector<T>(m + 1);
+    if(mat[i][m] != T(0)) return make_pair(v, false);
   }
-  return v;
+  return make_pair(v, true);
 }
 /// }}}--- ///
 
+// @new
 // @ Matrix Determinant
 // @snippet det
 
 // det {{{
+#include <cassert>
+#include <cmath>
+#include <vector>
 template < class T >
 T det_float(vector< vector< T > > mat, T eps = T(1e-9)) {
   size_t n = mat.size();
@@ -107,7 +107,7 @@ T det_float(vector< vector< T > > mat, T eps = T(1e-9)) {
     for(size_t j = i + 1; j < n; j++) {
       if(abs(mat[pivot][i]) < abs(mat[j][i])) pivot = j;
     }
-    if(mat[pivot][i] <= eps) return T(0);
+    if(abs(mat[pivot][i]) <= eps) return T(0);
     swap(mat[i], mat[pivot]);
     res *= mat[i][i];
     for(size_t j = i + 1; j < n; j++) {
@@ -121,11 +121,19 @@ T det_float(vector< vector< T > > mat, T eps = T(1e-9)) {
   return res;
 }
 template < class T >
-T det(vector< vector< T > > mat, T eps = T(1e-9)) {
+T det(vector< vector< T > > mat) {
   size_t n = mat.size();
   assert(n == mat[0].size());
   T res(1);
   for(size_t i = 0; i < n; i++) {
+    int pivot = i;
+    // pivotting
+    for(size_t j = i + 1; j < n; j++) {
+      if(mat[pivot][i] != T(0)) break;
+      pivot = j;
+    }
+    if(mat[pivot][i] == T(0)) return T(0);
+    swap(mat[i], mat[pivot]);
     res *= mat[i][i];
     for(size_t j = i + 1; j < n; j++) {
       mat[i][j] /= mat[i][i];
@@ -139,17 +147,26 @@ T det(vector< vector< T > > mat, T eps = T(1e-9)) {
 }
 // }}}
 
+// @new
 // @ Matrix Rank
 // @snippet rank
 
 // rank {{{
+#include <vector>
 template < class T >
 int matrank(vector< vector< T > > mat) {
   size_t n = mat.size(), m = mat[0].size();
   int res = 0;
   size_t now = 0;
   for(size_t i = 0; i < m; i++) {
-    if(mat[now][i] == 0) continue;
+    int pivot = now;
+    // pivotting
+    for(size_t j = now + 1; j < n; j++) {
+      if(mat[pivot][i] != T(0)) break;
+      pivot = j;
+    }
+    if(mat[now][i] == T(0)) continue;
+    swap(mat[i], mat[pivot]);
     for(size_t j = i + 1; j < m; j++) {
       mat[now][j] /= mat[now][i];
     }
@@ -164,4 +181,3 @@ int matrank(vector< vector< T > > mat) {
   return res;
 }
 // }}}
-

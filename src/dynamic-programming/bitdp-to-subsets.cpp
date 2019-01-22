@@ -44,4 +44,3 @@ for(int i = (1 << S) - 2; i >= 0; i--) {
   for(int j = i; j < 1 << S; j = (j + 1) | i) {
   }
 }
-
