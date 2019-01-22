@@ -9,16 +9,32 @@ using ll = long long;
 // @alias fraction
 
 /// --- Rational Library {{{ ///
-
 #include <iostream>
 #include <utility>
 template < class Integer = long long >
 struct Rational {
-  static Integer gcd(Integer a, Integer b) { return b == 0 ? a : gcd(b, a % b); }
+  static Integer gcd(Integer a, Integer b) {
+    if(a < 0) a = -a;
+    if(b < 0) b = -b;
+    Integer res = 1;
+    while(a != b) {
+      if(a < b) swap(a, b);
+      if(b == 0) break;
+      if(!(a % 2) && !(b % 2)) res *= 2, a /= 2, b /= 2;
+      else if(!(a % 2)) a /= 2;
+      else if(!(b % 2)) b /= 2;
+      else a = (a - b) / 2;
+    }
+    return res * a;
+  }
   Integer numer, denom;
-  Rational(Integer numer = 0, Integer denom = 1) : numer(numer), denom(denom) {
+  Rational(Integer numer = 0) : numer(numer), denom(1) { }
+  Rational(Integer numer, Integer denom) : numer(numer), denom(denom) {
     reduce();
   }
+private:
+  Rational(Integer numer, Integer denom, int) : numer(numer), denom(denom) { }
+public:
   void reduce() {
     assert(denom != 0);
     Integer g = gcd(numer, denom);
@@ -30,7 +46,7 @@ struct Rational {
     return T(T(numer) / T(denom));
   }
   Rational operator+() const { return *this; }
-  Rational operator-() const { return Rational(-numer, denom); }
+  Rational operator-() const { return Rational(-numer, denom, 0); }
   // Rational <arithmetic operator> Rational {{{
   Rational operator+(const Rational &a) const {
     return Rational(a.numer * denom + numer * a.denom, denom * a.denom);
@@ -63,7 +79,7 @@ struct Rational {
   Rational operator+(Integer a) const { return *this + Rational(a); }
   Rational operator-(Integer a) const { return *this + Rational(-a); }
   Rational operator*(Integer a) const { return *this * Rational(a); }
-  Rational operator/(Integer a) const { return *this * Rational(1, a); }
+  Rational operator/(Integer a) const { return *this * Rational(1, a, 0); }
   Rational &operator+=(Integer a) {
     *this = *this + a;
     return *this;
@@ -110,6 +126,5 @@ struct Rational {
   Integer bunsi() const { return numer; }
   Integer bunbo() const { return denom; }
 };
-
 /// }}}--- ///
-typedef Rational<> rational;
+using rational = Rational<>;
