@@ -18,7 +18,7 @@ using ll = long long;
 #include <vector>
 template < class T >
 tuple< vector< T >, bool, int > Gauss_float(vector< vector< T > > &mat, vector< T > v,
-                                      T eps = T(1e-9)) {
+                                            T eps = T(1e-9)) {
   size_t n = mat.size(), m = mat[0].size();
   assert(n == v.size());
   for(size_t i = 0; i < n; i++) {

@@ -20,20 +20,24 @@ struct Rational {
     while(a != b) {
       if(a < b) swap(a, b);
       if(b == 0) break;
-      if(!(a % 2) && !(b % 2)) res *= 2, a /= 2, b /= 2;
-      else if(!(a % 2)) a /= 2;
-      else if(!(b % 2)) b /= 2;
-      else a = (a - b) / 2;
+      if(!(a % 2) && !(b % 2))
+        res *= 2, a /= 2, b /= 2;
+      else if(!(a % 2))
+        a /= 2;
+      else if(!(b % 2))
+        b /= 2;
+      else
+        a = (a - b) / 2;
     }
     return res * a;
   }
   Integer numer, denom;
-  Rational(Integer numer = 0) : numer(numer), denom(1) { }
-  Rational(Integer numer, Integer denom) : numer(numer), denom(denom) {
-    reduce();
-  }
+  Rational(Integer numer = 0) : numer(numer), denom(1) {}
+  Rational(Integer numer, Integer denom) : numer(numer), denom(denom) { reduce(); }
+
 private:
-  Rational(Integer numer, Integer denom, int) : numer(numer), denom(denom) { }
+  Rational(Integer numer, Integer denom, int) : numer(numer), denom(denom) {}
+
 public:
   void reduce() {
     assert(denom != 0);
