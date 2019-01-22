@@ -113,11 +113,9 @@ T det_float(vector< vector< T > > mat, T eps = T(1e-9)) {
     for(size_t j = i + 1; j < n; j++) {
       mat[i][j] /= mat[i][i];
     }
-    for(size_t j = 0; j < n; j++)
-      if(j != i) {
-        for(size_t k = i + 1; k < n; k++) {
-          mat[j][k] -= mat[j][i] * mat[i][k];
-        }
+    for(size_t j = i + 1; j < n; j++)
+      for(size_t k = i + 1; k < n; k++) {
+        mat[j][k] -= mat[j][i] * mat[i][k];
       }
   }
   return res;
@@ -132,11 +130,9 @@ T det(vector< vector< T > > mat, T eps = T(1e-9)) {
     for(size_t j = i + 1; j < n; j++) {
       mat[i][j] /= mat[i][i];
     }
-    for(size_t j = 0; j < n; j++)
-      if(j != i) {
-        for(size_t k = i + 1; k < n; k++) {
-          mat[j][k] -= mat[j][i] * mat[i][k];
-        }
+    for(size_t j = i + 1; j < n; j++)
+      for(size_t k = i + 1; k < n; k++) {
+        mat[j][k] -= mat[j][i] * mat[i][k];
       }
   }
   return res;
@@ -157,11 +153,9 @@ int matrank(vector< vector< T > > mat) {
     for(size_t j = i + 1; j < m; j++) {
       mat[now][j] /= mat[now][i];
     }
-    for(size_t j = 0; j < n; j++)
-      if(j != now) {
-        for(size_t k = i + 1; k < m; k++) {
-          mat[j][k] -= mat[j][i] * mat[now][k];
-        }
+    for(size_t j = now + 1; j < n; j++)
+      for(size_t k = i + 1; k < m; k++) {
+        mat[j][k] -= mat[j][i] * mat[now][k];
       }
     now++;
     res++;
