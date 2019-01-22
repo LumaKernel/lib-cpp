@@ -78,4 +78,5 @@ pivottingの方法で，部分選択はその列についてのみ見る，完�
 * [行階段形 - Wikipedia](https://ja.wikipedia.org/wiki/行階段形){:target="_blank"}<!--_-->
 * [不定・不能と線型代数 - pepsin-amylaseの日記](https://topcoder.g.hatena.ne.jp/pepsin-amylase/20131203/1385984601){:target="_blank"}<!--_-->
 * [競技プログラミングにおける連立方程式問題まとめ - はまやんはまやんはまやん](https://www.hamayanhamayan.com/entry/2017/03/15/221719){:target="_blank"}<!--_-->
+* [線形代数Ｉ - 武内修＠筑波大](https://dora.bk.tsukuba.ac.jp/~takeuchi/?線形代数Ｉ){:target="_blank"}<!--_-->
 

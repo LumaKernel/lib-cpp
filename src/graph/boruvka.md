@@ -10,13 +10,15 @@ title : 最小全域木 (borůvka法)
 
 よって $O(\log N)$ 回のステップ，各ステップで [UnionFind]({{ "data-structure/misc/UnionFind" | absolute_url }}) による連結性の計算，最小コスト辺の計算の分だけの時間がかかる
 
-実装中の関数 `f` は所属を受け取り，書く所属ごとの最小コスト辺と行き先を返す関数とする
+実装中の関数 `f` は所属を受け取り，各所属ごとの最小コスト辺と行き先を返す関数とする
 
-計算量は $O(\sum_n f(n) + N \alpha (N) \log N)$ で，$\alpha (N)$ は [UnionFind]({{ "data-structure/misc/UnionFind" | absolute_url }}) の操作にかかる時間，$n$ は $N, \lfloor N/2 \rfloor, \dots, 1$ を回す
+計算量は $O(\sum_n f(n) + N \alpha (N) \log N)$ で，$\alpha (N)$ は [UnionFind]({{ "data-structure/misc/UnionFind" | absolute_url }}) の操作にかかる時間，$n$ は $N, \lfloor N/2 \rfloor, \lfloor \lfloor N/2 \rfloor /2 \rfloor, \dots, 1$ を回す
+
+例えば，通常のMSTであれば $f(n) = M$ となる (全ての辺を調べれば良いので，$n$に依存しない)
 
 # 実装
 
-// @ bruvka
+// @ boruvka
 
 # 検証
 
