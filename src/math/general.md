@@ -98,5 +98,5 @@ ll modmul_slow(ll a, ll b, ll mod) {
 # 参考
 
 * 蟻本
+* アルゴリズムイントロダクション
 * [巨大modでの掛け算の高速化 (Codeforces Round #259 D Little Pony and Elements of Harmony) - kazuma8128’s blog](http://kazuma8128.hatenablog.com/entry/2018/06/04/144254){:target="_blank"}<!--_-->
-

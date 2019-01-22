@@ -8,7 +8,7 @@ using ll = long long;
 // @snippet     gaussjordan
 // @alias       gauss
 
-// return ( values, solvable )
+// return ( values, isSolvable, rank )
 // return 0-length vector when unsolvable
 /// --- Gaussian Elimination {{{ ///
 // using Gauss-Jordan Elimination
@@ -17,7 +17,7 @@ using ll = long long;
 #include <utility>
 #include <vector>
 template < class T >
-pair< vector< T >, bool > Gauss_float(vector< vector< T > > &mat, vector< T > v,
+tuple< vector< T >, bool, int > Gauss_float(vector< vector< T > > &mat, vector< T > v,
                                       T eps = T(1e-9)) {
   size_t n = mat.size(), m = mat[0].size();
   assert(n == v.size());
@@ -47,12 +47,12 @@ pair< vector< T >, bool > Gauss_float(vector< vector< T > > &mat, vector< T > v,
   }
   for(size_t i = 0; i < n; i++) v[i] = mat[i][m];
   for(size_t i = now; i < n; i++) {
-    if(abs(mat[i][m]) > eps) return make_pair(v, false);
+    if(abs(mat[i][m]) > eps) return make_tuple(v, false, now);
   }
-  return make_pair(v, true);
+  return make_tuple(v, true, now);
 }
 template < class T >
-pair< vector< T >, bool > Gauss(vector< vector< T > > &mat, vector< T > v) {
+tuple< vector< T >, bool, int > Gauss(vector< vector< T > > &mat, vector< T > v) {
   size_t n = mat.size(), m = mat[0].size();
   assert(n == v.size());
   for(size_t i = 0; i < n; i++) {
@@ -82,9 +82,9 @@ pair< vector< T >, bool > Gauss(vector< vector< T > > &mat, vector< T > v) {
   }
   for(size_t i = 0; i < n; i++) v[i] = mat[i][m];
   for(size_t i = now; i < n; i++) {
-    if(mat[i][m] != T(0)) return make_pair(v, false);
+    if(mat[i][m] != T(0)) return make_tuple(v, false, now);
   }
-  return make_pair(v, true);
+  return make_tuple(v, true, now);
 }
 /// }}}--- ///
 
