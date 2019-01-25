@@ -55,7 +55,8 @@ public:
   }
   static int extgcd(int a, int b, int& x, int& y) {
     int d;
-    return b == 0 ? (x = 1, y = 0, a) : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
+    return b == 0 ? (x = a < 0 ? -1 : 1, y = 0, a < 0 ? -a : a)
+                  : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
   }
   static int modinv(int a) {
     int x, y;

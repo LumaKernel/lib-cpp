@@ -8,7 +8,8 @@ ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
 ll extgcd(ll a, ll b, ll &x, ll &y) {
   ll d;
-  return b == 0 ? (x = 1, y = 0, a) : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
+  return b == 0 ? (x = a < 0 ? -1 : 1, y = 0, a < 0 ? -a : a)
+                : (d = extgcd(b, a % b, y, x), y -= a / b * x, d);
 }
 ll modinv(ll a, ll mod = 1e9 + 7) {
   ll x = 0, y = 0;

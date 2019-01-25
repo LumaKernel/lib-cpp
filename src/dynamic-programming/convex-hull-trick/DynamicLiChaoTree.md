@@ -32,4 +32,6 @@ EPSを渡す必要があります
 # 検証
 
 * [C - スペースエクスプローラー高橋君 - AtCoder](https://beta.atcoder.jp/contests/colopl2018-final-open/submissions/3599211){:target="_blank"}<!--_-->
+* [C - Kalila and Dimna in the Logging Industry - codeforces](https://codeforces.com/contest/319/submission/48887914){:target="_blank"}<!--_-->
+  * overflowとTLが厳しいため，overflowする前に丸めるようにしている
 

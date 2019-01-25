@@ -32,12 +32,6 @@ DPにも使える (ページ下部の参考も参照してください)
 * `query(x)` : getと同様の計算量
   * `x` での最小 (最大) 値
 
-# 検証
-
-* [C - スペースエクスプローラー高橋君 - AtCoder](https://beta.atcoder.jp/contests/colopl2018-final-open/submissions/2171456){:target="_blank"}<!--_-->
-  * このときの実装は少々バグがあります
-* [D - Computer Game - codeforces](https://codeforces.com/contest/1067/submission/45446448){:target="_blank"}<!--_-->
-
 # メモ
 
 直線が不必要な条件
@@ -54,6 +48,19 @@ $(b_3-b_2)(a_2-a_1) \geq (b_2-b_1)(a_3-a_2)$ へ一意に変形できる
 `(aの正の最小値)(bの正の最小値)` より小さな正の値を採用するといい
 
 たとえばデフォルトでは `1e-19` になっているが，これは両方が小数9桁ずつを想定している
+
+# overflow対策
+
+TLに余裕がある場合は [多倍長整数]({{ "misc/BigInteger" | absolute_url }})，  
+TLが厳しい場合はテンプレートの `D` に `double` などの浮動小数点数を入れて掛け算するときだけ `double` で計算するというものです
+
+# 検証
+
+* [C - スペースエクスプローラー高橋君 - AtCoder](https://beta.atcoder.jp/contests/colopl2018-final-open/submissions/2171456){:target="_blank"}<!--_-->
+  * このときの実装は少々バグがあります
+* [D - Computer Game - codeforces](https://codeforces.com/contest/1067/submission/45446448){:target="_blank"}<!--_-->
+* [C - Kalila and Dimna in the Logging Industry - codeforces](https://codeforces.com/contest/319/submission/48890326){:target="_blank"}<!--_-->
+  * overflow対策で `D = double` としています
 
 # 参考
 

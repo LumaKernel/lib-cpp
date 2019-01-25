@@ -25,8 +25,7 @@ using ll = long long;
 #include <set>
 #include <utility>
 
-// |ab| < LLONG_MAX/4 ???
-template < class T = long long, class Comp = less< T > >
+template < class T = long long, class Comp = less< T >, class D = T >
 struct CHTEx {
   static T INF;
   static T EPS;
@@ -43,22 +42,22 @@ private:
   struct CP {
     T numer, denom; // x-coordinate; denom is non-negative for comparison
     Line p;
-    CP(const T &n) : numer(n), denom(1), p(0, 0) {}
+    CP(const T &n) : numer(n), denom(1), p(T(0), T(0)) {}
     // p1 < p2
     CP(const Line &p1, const Line &p2) : p(p2) {
       if(p1.a == INF || p1.a == -INF)
-        numer = -INF, denom = 1;
+        numer = -INF, denom = T(1);
       else if(p2.a == INF || p2.a == -INF)
-        numer = INF, denom = 1;
+        numer = INF, denom = T(1);
       else {
         numer = p1.b - p2.b, denom = p2.a - p1.a;
         if(denom < 0) numer = -numer, denom = -denom;
       }
     }
     bool operator<(const CP &rhs) const {
-      if(numer == INF || rhs.numer == -INF) return 0;
-      if(numer == -INF || rhs.numer == INF) return 1;
-      return numer * rhs.denom < rhs.numer * denom;
+      if(numer == INF || rhs.numer == -INF) return false;
+      if(numer == -INF || rhs.numer == INF) return true;
+      return (D) numer * rhs.denom < (D) rhs.numer * denom;
     }
   };
   set< Line > lines;
@@ -134,19 +133,19 @@ private:
     if(p1.a == p2.a) return 1;
     if(p1.a == INF || p1.a == -INF || p3.a == INF || p3.a == -INF) return 0;
     //  cp(p2, p3).x <= cp(p2, p1).x
-    return (p2.a - p1.a) * (p3.b - p2.b) + EPS >= (p2.b - p1.b) * (p3.a - p2.a);
+    return (D)(p2.a - p1.a) * (p3.b - p2.b) + EPS >= (D)(p2.b - p1.b) * (p3.a - p2.a);
   }
 };
 
-template < class T, class Comp >
-T CHTEx< T, Comp >::INF = numeric_limits< T >::has_infinity
-                              ? numeric_limits< T >::infinity()
-                              : numeric_limits< T >::max();
+template < class T, class Comp, class D >
+T CHTEx< T, Comp, D >::INF = numeric_limits< T >::has_infinity
+                                 ? numeric_limits< T >::infinity()
+                                 : numeric_limits< T >::max();
 
-template < class T, class Comp >
-T CHTEx< T, Comp >::EPS = 1e-19;
+template < class T, class Comp, class D >
+T CHTEx< T, Comp, D >::EPS = 1e-19;
 
-template < class T, class Comp >
-Comp CHTEx< T, Comp >::comp; // only for less and greater
+template < class T, class Comp, class D >
+Comp CHTEx< T, Comp, D >::comp; // only for less and greater
 
 /// }}}--- ///

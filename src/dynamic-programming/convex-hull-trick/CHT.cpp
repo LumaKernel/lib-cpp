@@ -14,13 +14,12 @@ using ll = long long;
 // - minimize : (a) desc
 // - maximize : (a) asc
 /// --- Convex Hull Trick Library {{{ ///
-
 #include <cassert>
 #include <functional>
 #include <utility>
 #include <vector>
-
-template < class T = long long, bool xIncreasing = false, class Comp = less< T > >
+template < class T = long long, bool xIncreasing = false, class Comp = less< T >,
+           class D = T >
 struct CHT {
   static T EPS;
   static Comp comp;
@@ -34,12 +33,12 @@ public:
   bool check(Line l1, Line l2, Line l3) {
     if(l2.first == l3.first) return 1;
     // cp(l2, l3).x <= cp(l2, l1).x
-    return (l2.first - l1.first) * (l3.second - l2.second) + EPS >=
-           (l3.first - l2.first) * (l2.second - l1.second);
+    return (D)(l2.first - l1.first) * (l3.second - l2.second) + EPS >=
+           (D)(l3.first - l2.first) * (l2.second - l1.second);
   }
   T f(int i, const T &x) { return lines[i].first * x + lines[i].second; }
   void add(const T &a, const T &b) {
-    assert("add monotonic" && (lines.empty() || !comp(lines.back().first, a)));
+    assert("add monotonically" && (lines.empty() || !comp(lines.back().first, a)));
     if(lines.size() && lines.back().first == a && !comp(b, lines.back().second)) return;
     while((int) lines.size() >= 2 &&
           check(lines[lines.size() - 2], lines.back(), Line(a, b)))
@@ -71,10 +70,10 @@ public:
   }
 };
 
-template < class T, bool xIncreasing, class Comp >
-T CHT< T, xIncreasing, Comp >::EPS = 1e-19;
+template < class T, bool xIncreasing, class Comp, class D >
+T CHT< T, xIncreasing, Comp, D >::EPS = 1e-19;
 
-template < class T, bool xIncreasing, class Comp >
-Comp CHT< T, xIncreasing, Comp >::comp;
+template < class T, bool xIncreasing, class Comp, class D >
+Comp CHT< T, xIncreasing, Comp, D >::comp;
 
 /// }}}--- ///

@@ -6,6 +6,7 @@ order:
   - dilworth-theorem
   - Montgomery
   - Monoid
+  - Monge
   - LagrangianRelaxation
   - combinatorics
   - number-theory
