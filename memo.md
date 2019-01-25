@@ -11,3 +11,12 @@ $1{:target="_blank"}$2
 
 \[(.*[^\\])\|(.*)\]\(http
 [$1\|$2](http
+
+
+図の貼り方
+img/hoge.pngに置いて，
+![キャプション]({{ "img/hoge.png" | absolute_url }})
+
+
+
+
