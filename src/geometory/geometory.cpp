@@ -29,6 +29,8 @@ struct Segment : public pair< Point, Point > {
 };
 inline Scalar dot(const Point &a, const Point &b) { return real(conj(a) * b); };
 inline Scalar cross(const Point &a, const Point &b) { return imag(conj(a) * b); };
+inline Scalar X(const Point &a) { return real(a); }
+inline Scalar Y(const Point &a) { return imag(a); }
 
 // L2 norm
 inline Float norm(const Point &a) { return abs(a); }
@@ -51,6 +53,16 @@ int ccw(const Point &a, Point b, Point c) {
   if(dot(b, c) < 0) return 0;
   if(norm(b) < norm(c)) return +2;
   return -2;
+}
+
+// the smaller it is, the nearer
+Scalar nearness(const Point &a, const Point &b) {
+  return abs(a.real() - b.real()) + abs(a.imag() - b.imag());
+}
+
+Scalar nearness(const Line &a, const Line &b) {
+  return min(nearness(a.first, b.first) + nearness(a.second, b.second),
+             nearness(a.first, b.second) + nearness(a.second, b.first));
 }
 
 inline complex< Float > to_float(const Point &v) {
@@ -126,8 +138,8 @@ inline bool isCrossing(const Segment &a, const Segment &b) {
 inline Point intersection(const Line &a, const Line &b) {
   return a.first +              //
          (a.second - a.first) * //
-             cross(a.first - b.first, b.second - b.first) *
-             cross(a.first - a.second, b.second - b.first);
+             cross(b.second - b.first, a.first - b.first) /
+             cross(b.second - b.first, a.first - a.second);
 }
 
 /// }}}--- ///
@@ -138,9 +150,14 @@ inline Point intersection(const Line &a, const Line &b) {
 // @name Geometory Circle Library
 
 // Scalar must be Float
+// require geometory
 /// --- Geometory Circle Library {{{ ///
 // center, radius
 using Circle = pair< Point, Scalar >;
+
+Scalar nearness(const Circle &a, const Circle &b) {
+  return nearness(a.first, b.first) + abs(a.second - b.second);
+}
 
 // -1 : 0 share (outside)
 //  1 : 0 share (B in A)
@@ -181,7 +198,7 @@ vector< Point > intersections(const Circle &a, const Line &line) {
   Scalar d = norm(a.first - p);
   if(abs(d - a.second) < EPS) {
     res.emplace_back(p);
-  } else if(abs(d) < a.second) {
+  } else if(d < a.second) {
     Scalar len = sqrt(a.second * a.second - d * d);
     Point share = len * normalize(line.first - line.second);
     res.emplace_back(p + share);
@@ -252,6 +269,7 @@ vector< Line > commonTangentLines(Circle a, Circle b) {
 // @alias       geo_polygon caliper
 // @name Geometory Polygon Library
 
+// require geometory
 /// --- Geometory Polygon Library {{{ ///
 // ok for either ccw or cw
 Scalar area(const Polygon &poly) {
@@ -290,7 +308,7 @@ int inside(const Polygon &poly, const Point &p) {
 
 // param ccwConvex must be ccw and convex
 Scalar caliper(const Polygon &ccwConvex) {
-  constexpr auto comp = [](Point a, Point b) {
+  const auto comp = [](Point a, Point b) {
     return a.real() == b.real() ? a.imag() < b.imag() : a.real() < b.real();
   };
   size_t i, j;

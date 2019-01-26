@@ -44,3 +44,26 @@ template < class T, class U > inline void smax(T &a, const U &b) { a = a < (T) b
 // @alias inside outside
 
 bool isInside(int y, int x, int h, int w) { return 0 <= y && 0 <= x && y < h && x < w; }
+
+// @new
+// @ Unique Overlaps
+// @snippet unique_overlaps
+// @alias remove_overlaps
+// @alias overlaps_remove
+
+// uniqueOverlaps {{{
+template < class T >
+vector< pair< T, T > > uniqueOverlaps(const vector< pair< T, T > > &v) {
+  sort(v.begin(), v.end());
+  vector< pair< T, T > > w;
+  pair< T, T > now = v[0];
+  for(size_t i = 1; i < v.size(); i++) {
+    if(v[i].first <= now.second && now.second <= v[i].second)
+      now.second = v[i].second;
+    else
+      w.push_back(now), now = v[i];
+  }
+  w.push_back(now);
+  return w;
+}
+// }}}
