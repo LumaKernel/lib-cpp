@@ -31,7 +31,7 @@ Monotone Minima によりこれは $O(N M \log M)$で計算できる
 
 # 条件を満たすための十分条件
 
-まず，$k \lt j$ という制約から $w_i[k + 1, j]$ は 上三角についてのみ定義されていればいい．この上三角について [Concave Quadratic Inequality]({{ "math/Monge#ConvexQI" | absolute_url }}) が満たされるならば$(\spadesuit)$が成立する
+まず，$k \lt j$ という制約から $w_i[k + 1, j]$ は 上三角についてのみ定義されていればいい．この上三角について [Concave Quadratic Inequality]({{ "math/Monge#convex-qi" | absolute_url }}) が満たされるならば$(\spadesuit)$が成立する
 
 ### 証明
 
@@ -165,10 +165,11 @@ $w$は [Monotone Minima]({{ "dynamic-programming/Monotone-Minima" | absolute_url
 # 練習問題
 
 * [F - Yet Another Minimization Problem - codeforces](https://codeforces.com/contest/868/problem/F){:target="_blank"}<!--_-->
+* [#426 div1 B - The Bakery - codeforces](https://codeforces.com/contest/833/problem/B){:target="_blank"}<!--_-->
 
 # 参考
 
-* [ei1333さんの解説](https://ei1333.hateblo.jp/entry/2017/10/06/115551){:target="_blank"}
+* [ei1333さんの解説](https://ei1333.hateblo.jp/entry/2017/10/06/115551){:target="_blank"}<!--_-->
 * [codeforcesのDP高速化まとめ記事](https://codeforces.com/blog/entry/8219#comment-139242){:target="_blank"}<!--_-->
 * [codeforcesのDP高速化問題まとめ記事](https://codeforces.com/blog/entry/47932){:target="_blank"}<!--_-->
 * [Totally Monotone Matrix Searching (SMAWK algorithm) - 週刊 spaghetti_source](https://topcoder.g.hatena.ne.jp/spaghetti_source/20120923/1348327542){:target="_blank"}<!--_-->

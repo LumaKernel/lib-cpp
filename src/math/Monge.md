@@ -8,11 +8,13 @@ $N \times M$ の行列 $w$ を考えます (以下では二変数関数のよう
 
 # Monge
 
-"もんじゅ" とよむ
+"もんじゅ" とよむ (?)
 
 任意の $i \lt j,~k \lt l$ について $w(i, k) + w(j, l) \leq w(i, l) + w(j, k)$ が成り立つ
 
 Concave Quadratic Inequalityともいう (他にも色々あるようです)
+
+単に QI と呼ばれることも
 
 Monge性を満たす行列のことを Monge Arraies, Monge Matricesという
 
@@ -24,11 +26,24 @@ Monge性を満たす行列のことを Monge Arraies, Monge Matricesという
 
 任意の部分行列 (連結している必要はありません) について Monotone
 
+同値な言い換えとして，任意の$2 \times 2$ 部分行列について Monotone
+
 # Monotone
 
-**各行の最も左の最小値**が右下がりにある行列のこと
+**各行の最も左 (最も右) の最小値**が右下がりにある行列のこと
 
-最も左，というのは定義だと思います[^1]
+最も右については解釈の仕方に自身がありません
+
+最も右で考えても最も左で考えても，という意味だと思います
+
+(Abstractに最も左，に対してのみ定義しているような文献もありましたが全文を読んでいないのでわかりません)
+
+ある $2 \times 2$ の行列 $\left(\begin{array}{}a & b \\ c & d \end{array}\right)$ が Monotone であるとは，
+
+* $c \lt d$ ならば $a \lt b$
+* $c = d$ ならば $a \leq b$
+
+が成り立つことです
 
 定義より，TMならばMonotoneです
 
@@ -36,7 +51,7 @@ MongeならばTMでもあります
 
 ### 証明
 
-TMでないとする．$i \lt j,~k \lt l$ で，$w(i, k) \gt w(i, l)$ かつ $w(j, k) \leq w(j, l)$ であるようなものが存在する．$w(i, k) + w(j, l) \gt w(i, l) + w(j, k)$ が導かれるが，これはMongeではない
+TMでないとする．$i \lt j,~k \lt l$ で，「$w(i, k) \geq w(i, l)$ かつ $w(j, k) \lt w(j, l)$」 か 「$w(i, k) \gt w(i, l)$ かつ $w(j, k) = w(j, l)$」 であるようなものが存在する．どちらにせよ $w(i, k) + w(j, l) \gt w(i, l) + w(j, k)$ が導かれるが，これはMongeを満たさない
 
 よって背理法よりMongeならばTM ■
 
@@ -44,7 +59,7 @@ TMでないとする．$i \lt j,~k \lt l$ で，$w(i, k) \gt w(i, l)$ かつ $w(
 
 # Convex QI
 
-これはConcave QIの条件の不等号の向きを変えたものです
+これはConcave QIの条件の不等号の向きを変えたものです (Inverse QIとも呼ばれている[^1])
 
 任意の $i \lt j,~k \lt l$ について $w(i, k) + w(j, l) \geq w(i, l) + w(j, k)$ が成り立つ
 
@@ -55,6 +70,16 @@ TMでないとする．$i \lt j,~k \lt l$ で，$w(i, k) \gt w(i, l)$ かつ $w(
 Mongeの条件に加えて $j \lt k$ であるものです
 
 Mongeであれば上三角Mongeです
+
+# Closest Zero Property
+
+文献 \[1\] で出てきたワードです
+
+$l \lt k$ に対し $$f(r) = w(l, r) - w(k, r) - a$$ が0となるような$r$を$O(1)$で求められる場合，Closest Zero Propertyと言います
+
+これが嬉しい性質になることは割と自然なことなので特別覚えておくようなことでもないかと思います
+
+
 
 # 参考
 
@@ -68,6 +93,7 @@ Mongeであれば上三角Mongeです
 * [DPF: The SMAWK Algorithm](http://web.cs.unlv.edu/larmore/Courses/CSC477/monge.pdf){:target="_blank"}<!--_-->
 * [PDF: Dynamic Programming Speedups](http://www.cse.ust.hk/~golin/COMP572/Notes/DP_speedup.pdf){:target="_blank"}<!--_-->
 * [直前合宿 講義スライド](https://www.slideshare.net/ikumihide/ss-50881829){:target="_blank"}<!--_-->
+* [Geometric applications of a matrix-searching algorithm](https://link.springer.com/article/10.1007%2FBF01840359){:target="_blank"}<!--_--> のAbstract
 
-[^1]: [Geometric applications of a matrix-searching algorithm](https://link.springer.com/article/10.1007%2FBF01840359){:target="_blank"}<!--_--> のAbstract
+[^1]: [Speeding up dynamic programming with applications to molecular biology](https://www.sciencedirect.com/science/article/pii/0304397589901011){:target="_blank"}<!--_-->
 

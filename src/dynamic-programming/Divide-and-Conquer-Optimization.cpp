@@ -15,8 +15,8 @@ using ll = long long;
 // A[i][j] := min argmin(0 <= k < j, g(i, j, k))
 // NOTE : f(i, j) = g(i, j, A[i][j])
 // A must satisfy A[i][j] <= A[i][j + 1]
-// That w satisfies convex QI is sufficient
-// Convex QI is w[|======|] + w[|--==--|] >= w[|--====|] + w[|====--|]
+// That w satisfies Convex QI is sufficient
+// Convex QI is w[|===|] + w[|-=-|] >= w[|-==|] + w[|==-|]
 // time : O(n m log m)
 // space : O(nm)
 // return f[n][m] vector
@@ -30,7 +30,7 @@ auto DACOptimization(size_t n, size_t m, T identity, const F &w) {
       is_same< T, decltype(w(0, 0, 0)) >::value, "T must equal to typeof w(...)");
 #endif
   vector< vector< T > > f(n, vector< T >(m));
-  for(size_t i = 0; i < m; i++) f[0][i] = w(0, 0, i), dump(i, w(0, 0, i));
+  for(size_t i = 0; i < m; i++) f[0][i] = w(0, 0, i);
   for(size_t i = 1; i < n; i++) {
     // 0 <= k < j
     auto h = [&](int j, int k) {
@@ -39,7 +39,7 @@ auto DACOptimization(size_t n, size_t m, T identity, const F &w) {
       return val;
     };
     auto argmin = MonotoneMinima< T >(m, m, h, identity, LOWER_EXCLUSIVE);
-    for(size_t j = 0; j < m; j++) f[i][j] = argmin[j].second, dump(i, j, argmin[j]);
+    for(size_t j = 0; j < m; j++) f[i][j] = argmin[j].second;
   }
   return f;
 }
