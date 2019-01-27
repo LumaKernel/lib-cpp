@@ -67,3 +67,18 @@ vector< pair< T, T > > uniqueOverlaps(const vector< pair< T, T > > &v) {
   return w;
 }
 // }}}
+
+// @new
+// @ construct modinv
+// @snippet construct_modinvs
+// @alias modinvs_construct
+// @comment TODO : maintenance it
+
+// construct_modinvs {{{
+vector< ll > construct_modinvs(int n, ll mod = ll(1e9 + 7)) {
+  vector< ll > res(n + 1);
+  res[1] = 1;
+  for(int i = 2; i <= n; i++) res[i] = mod - res[mod % i] * (mod / i) % mod;
+  return res;
+}
+// }}}

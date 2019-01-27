@@ -80,37 +80,37 @@ auto range2Dloop(T &val, ll ty1, ll tx1, ll y2, ll x2, int h, int w) {
 // @alias accum1d 1d_range_accum loop_range1d
 
 // accum1D, range1D, range1Dloop {{{
-#include<vector>
-template<class T>
+#include <vector>
+template < class T >
 void accum1D(T &a, int n) {
-  for(int i = 1; i < n; i++) a[i] += a[i-1];
+  for(int i = 1; i < n; i++) a[i] += a[i - 1];
 }
-template<class T>
-void accum1D(vector<T> &a) {
+template < class T >
+void accum1D(vector< T > &a) {
   accum1D(a, a.size());
 }
-template<class T, int N>
+template < class T, int N >
 void accum1D(T a[N]) {
   accum1D(a, N);
 }
 
-template<class T>
+template < class T >
 auto range1D(const T &a, int l, int r, int n) {
   if(r >= n) r = n - 1;
   auto res(a[r]);
   if(l - 1 >= 0) res -= a[l - 1];
   return res;
 }
-template<class T>
-auto range1D(vector<T> &a, int l, int r) {
+template < class T >
+auto range1D(vector< T > &a, int l, int r) {
   return range1D(a, l, r, a.size());
 }
-template<class T, int N>
+template < class T, int N >
 auto range1D(T a[N], int l, int r) {
   return range1D(a, l, r, N);
 }
 
-template<class T>
+template < class T >
 auto range1Dloop(const T &a, ll tl, ll r, int n) {
   decltype(a[0]) res(0);
   if(tl > r) return res;
@@ -120,19 +120,19 @@ auto range1Dloop(const T &a, ll tl, ll r, int n) {
   r += l - tl;
   ll gr = r / n;
   if(gr == 0) {
-    res += range1D<T>(a, l, r, n);
+    res += range1D< T >(a, l, r, n);
   } else {
-    res += range1D<T>(a, l, n - 1, n);
-    res += range1D<T>(a, 0, r % n, n);
-    res += range1D<T>(a, 0, n - 1, n) * (gr - 1);
+    res += range1D< T >(a, l, n - 1, n);
+    res += range1D< T >(a, 0, r % n, n);
+    res += range1D< T >(a, 0, n - 1, n) * (gr - 1);
   }
   return res;
 }
-template<class T>
-T range1Dloop(vector<T> &a, ll l, ll r) {
+template < class T >
+T range1Dloop(vector< T > &a, ll l, ll r) {
   return range1Dloop(a, l, r, a.size());
 }
-template<class T, int N>
+template < class T, int N >
 T range1Dloop(T a[N], ll l, ll r) {
   return range1Dloop(a, l, r, N);
 }
