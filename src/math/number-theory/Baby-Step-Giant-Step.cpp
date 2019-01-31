@@ -9,8 +9,8 @@ using ll = long long;
 
 // require math library
 // modlog(a, b, p) = log_a b
-// gcd(a, p) = 1
-// modlog {{{
+// gcd(a, p) is arbitrary
+// modlog(a, b, p) {{{
 
 // Baby-Step Giant-Step algorithm
 ll modlog(ll a, ll b, ll p) {
