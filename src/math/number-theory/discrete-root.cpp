@@ -18,4 +18,3 @@ ll modroot(ll a, ll b, ll p, ll primitiveRoot) {
   return y == -1 ? -1 : modpow(primitiveRoot, y, p);
 }
 // }}}
-
