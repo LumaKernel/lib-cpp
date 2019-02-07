@@ -6,15 +6,17 @@ using ll = long long;
 // @@
 // @ Convex Hull Trick Extended Library
 // @snippet     chtex
-// @alias       cht2 dcht dynamic_cht
+// @alias       cht2 dcht dynamic_cht convexhulltrick_ex
 
 // CHTEx<T, Comp>()
 // - maximize : let Comp = greater<T>
 // === --- ===
 // N = no. of f(x)
-// .add(a, b) : f(x) = ax + b : amortized O(log N)
+// .add(a, b, id?) : f(x) = ax + b : amortized O(log N)
 // .query(x) : returns f(x), when f minimize f(x) : O(log N)
-// .get(x) : returns f that minimize f(x) as (a, b) : O(log N)
+// .get(x) : line : O(log N)
+// line.id
+// line.calc(x)
 // === --- ===
 // f can duplicate
 /// --- Convex Hull Trick Extended Library {{{ ///
@@ -34,10 +36,12 @@ struct CHTEx {
 private:
   struct Line { // ax + b
     T a, b;
-    Line(const T &a, const T &b) : a(a), b(b) {}
+    int id;
+    Line(const T &a, const T &b, int id = 0) : a(a), b(b), id(id) {}
     bool operator<(const Line &rhs) const { // (a, b)
       return a != rhs.a ? comp(rhs.a, a) : comp(b, rhs.b);
     }
+    T calc(const T &x) { return a * x + b; }
   };
   struct CP {
     T numer, denom; // x-coordinate; denom is non-negative for comparison
@@ -65,13 +69,9 @@ private:
   typedef typename set< Line >::iterator It;
 
 public:
-  CHTEx() {
-    // sentinel
-    lines.insert({Line(INF, 0), Line(-INF, 0)});
-    cps.insert(CP(Line(INF, 0), Line(-INF, 0)));
-  }
-  void add(const T &a, const T &b) {
-    const Line p(a, b);
+  CHTEx() { clear(); }
+  void add(const T &a, const T &b, int id = 0) {
+    const Line p(a, b, id);
     It pos = lines.insert(p).first;
     if(check(*prev(pos), p, *next(pos))) {
       // ax + b is unnecessary
@@ -102,13 +102,18 @@ public:
     cps.insert(CP(*prev(pos), *pos));
     cps.insert(CP(*pos, *next(pos)));
   }
-  T query(const T &x) const {
-    pair< T, T > p = get(x);
-    return p.first * x + p.second;
+  T query(const T &x) const { return get(x).calc(x); }
+  Line get(const T &x) const {
+    assert(cps.size());
+    return (--cps.lower_bound(CP(x)))->p;
   }
-  pair< T, T > get(const T &x) const {
-    const Line &p = (--cps.lower_bound(CP(x)))->p;
-    return make_pair(p.a, p.b);
+  void clear() {
+    cps.clear();
+    lines.clear();
+
+    // sentinel
+    lines.insert({Line(INF, 0), Line(-INF, 0)});
+    cps.insert(CP(Line(INF, 0), Line(-INF, 0)));
   }
   friend ostream &operator<<(ostream &os, const CHTEx &a) {
     os << "\n";
@@ -146,6 +151,6 @@ template < class T, class Comp, class D >
 T CHTEx< T, Comp, D >::EPS = 1e-19;
 
 template < class T, class Comp, class D >
-Comp CHTEx< T, Comp, D >::comp; // only for less and greater
+Comp CHTEx< T, Comp, D >::comp; // only for less or greater
 
 /// }}}--- ///

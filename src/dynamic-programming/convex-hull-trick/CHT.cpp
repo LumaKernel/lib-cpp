@@ -10,9 +10,13 @@ using ll = long long;
 
 // CHT<T, x-increasing?, Comp>
 // - maximize : let Comp = greater<T>
-// .add(a, b) : f(x) = ax + b
+// .add(a, b, id?) : f(x) = ax + b
 // - minimize : (a) desc
 // - maximize : (a) asc
+// .query(x)
+// .get(x) : line
+// line.id
+// line.calc(x)
 /// --- Convex Hull Trick Library {{{ ///
 #include <cassert>
 #include <functional>
@@ -25,7 +29,11 @@ struct CHT {
   static Comp comp;
 
 private:
-  using Line = pair< T, T >;
+  struct Line : pair< T, T > {
+    int id;
+    Line(T a, T b, int id = 0) : pair< T, T >(a, b), id(id) {}
+    T calc(const T &x) { return x * pair< T, T >::first + pair< T, T >::second; }
+  };
 
 public:
   vector< Line > lines;
@@ -37,22 +45,29 @@ public:
            (D)(l3.first - l2.first) * (l2.second - l1.second);
   }
   T f(int i, const T &x) { return lines[i].first * x + lines[i].second; }
-  void add(const T &a, const T &b) {
+  void add(const T &a, const T &b, int id = 0) {
     assert("add monotonically" && (lines.empty() || !comp(lines.back().first, a)));
     if(lines.size() && lines.back().first == a && !comp(b, lines.back().second)) return;
+    Line line(a, b, id);
     while((int) lines.size() >= 2 &&
-          check(lines[lines.size() - 2], lines.back(), Line(a, b)))
+          check(lines[lines.size() - 2], lines.back(), line))
       lines.pop_back();
-    lines.emplace_back(a, b);
+    lines.push_back(line);
   }
-  T query(const T &x) {
-    Line p = get(x);
-    return p.first * x + p.second;
-  }
-  pair< T, T > get(const T &x) {
+  T query(const T &x) { return get(x).calc(x); }
+
+private:
+  size_t head = 0;
+  bool used = false;
+  T last;
+
+public:
+  Line get(const T &x) {
     assert(lines.size());
     if(xIncreasing) {
-      static size_t head = 0;
+      assert("query increasingly!" && (!used || last <= x));
+      used = true;
+      last = x;
       if(head >= lines.size()) head = lines.size() - 1;
       while(head + 1 < lines.size() && comp(f(head + 1, x), f(head, x))) head++;
       return lines[head];
@@ -67,6 +82,11 @@ public:
       }
       return lines[ok];
     }
+  }
+  void clear() {
+    head = 0;
+    used = false;
+    lines.clear();
   }
 };
 
