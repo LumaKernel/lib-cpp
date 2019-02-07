@@ -26,16 +26,17 @@ using ll = long long;
 //
 // hi is sufficient if it is the max of w
 
-// GeneralPenalizeSpeedup<State>(to, from, k, droppable, reset, calc, lo, hi, times, comp?) {{{
+// GeneralPenalizeSpeedup<State>(to, from, k, droppable, reset, calc, lo, hi, times,
+// comp?) {{{
+#include <cassert>
+#include <functional>
 #include <map>
 #include <tuple>
-#include <functional>
-#include <cassert>
 template < class State, class Float = double, class ResetF, class CalcF,
            class Compare = less< Float > >
-Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int droppable, ResetF reset,
-                      CalcF calc, Float lo, Float hi, int times,
-                      Compare comp = Compare()) {
+Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int droppable,
+                             ResetF reset, CalcF calc, Float lo, Float hi, int times,
+                             Compare comp = Compare()) {
   assert(droppable >= 0);
   if(from == to) return Float(0);
   assert(k > 0);
@@ -90,17 +91,20 @@ Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int drop
 // GeneralPenalizeSpeedup<State>(to, from, k, droppable, reset, calc, lo, hi, comp?) {{{
 template < class State, class Float = double, class ResetF, class CalcF,
            class Compare = less< Float > >
-Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int droppable, const ResetF &reset,
-                      const CalcF& calc, Float lo, Float hi, Compare comp = Compare()) {
+Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int droppable,
+                             const ResetF &reset, const CalcF &calc, Float lo, Float hi,
+                             Compare comp = Compare()) {
   return GeneralPenalizeSpeedup< State, Float, ResetF, CalcF, Compare >(
-      to, from, k, droppable, reset, calc, lo, hi, ceil(log2(abs(hi - lo) * 2 * k)) + 1, comp);
+      to, from, k, droppable, reset, calc, lo, hi, ceil(log2(abs(hi - lo) * 2 * k)) + 1,
+      comp);
 }
 // }}}
 // GeneralPenalizeSpeedup<State>(to, from, k, droppable, reset, calc, hi, comp?) {{{
 template < class State, class Float = double, class ResetF, class CalcF,
            class Compare = less< Float > >
-Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int droppable, const ResetF &reset,
-                      const CalcF &calc, Float hi, Compare comp = Compare()) {
+Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int droppable,
+                             const ResetF &reset, const CalcF &calc, Float hi,
+                             Compare comp = Compare()) {
   return GeneralPenalizeSpeedup< State, Float, ResetF, CalcF, Compare >(
       to, from, k, droppable, reset, calc, -hi, hi, comp);
 }
@@ -111,15 +115,15 @@ Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int drop
 // and w is Convex QI
 
 // PenalizeSpeedup(int n, k, droppable, reset, calc, lo, hi, times, comp?) {{{
+#include <cassert>
+#include <functional>
 #include <map>
 #include <tuple>
-#include <functional>
-#include <cassert>
 #include <vector>
 template < class Float = double, class ResetF, class CalcF,
            class Compare = less< Float > >
-Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const CalcF &calc, Float lo,
-                      Float hi, int times, Compare comp = Compare()) {
+Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const CalcF &calc,
+                      Float lo, Float hi, int times, Compare comp = Compare()) {
   assert(droppable >= 0);
   if(n == 0) return 0;
   assert(k > 0 && n > 0);
@@ -176,8 +180,8 @@ Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const Ca
 // PenalizeSpeedup(int n, k, droppable, reset, calc, lo, hi, comp?) {{{
 template < class Float = double, class ResetF, class CalcF,
            class Compare = less< Float > >
-Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const CalcF &calc, Float lo,
-                      Float hi, Compare comp = Compare()) {
+Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const CalcF &calc,
+                      Float lo, Float hi, Compare comp = Compare()) {
   return PenalizeSpeedup< Float, ResetF, CalcF, Compare >(
       n, k, droppable, reset, calc, lo, hi, ceil(log2(abs(hi - lo) * k)) + 1, comp);
 }
@@ -185,8 +189,8 @@ Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const Ca
 // PenalizeSpeedup(int n, k, droppable, reset, calc, hi, comp?) {{{
 template < class Float = double, class ResetF, class CalcF,
            class Compare = less< Float > >
-Float PenalizeSpeedup(int n, int k, int droppable,const  ResetF &reset, const CalcF &calc, Float hi,
-                      Compare comp = Compare()) {
+Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const CalcF &calc,
+                      Float hi, Compare comp = Compare()) {
   return PenalizeSpeedup< Float, ResetF, CalcF, Compare >(
       n, k, droppable, reset, calc, -hi, hi, comp);
 }

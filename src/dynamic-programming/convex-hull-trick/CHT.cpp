@@ -49,8 +49,7 @@ public:
     assert("add monotonically" && (lines.empty() || !comp(lines.back().first, a)));
     if(lines.size() && lines.back().first == a && !comp(b, lines.back().second)) return;
     Line line(a, b, id);
-    while((int) lines.size() >= 2 &&
-          check(lines[lines.size() - 2], lines.back(), line))
+    while((int) lines.size() >= 2 && check(lines[lines.size() - 2], lines.back(), line))
       lines.pop_back();
     lines.push_back(line);
   }
