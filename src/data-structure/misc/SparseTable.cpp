@@ -14,9 +14,9 @@ using ll = long long;
 // .query(l, r) : [l, r)
 /// --- Sparse Table {{{ ///
 #include <cassert>
+#include <initializer_list>
 #include <iterator>
 #include <vector>
-#include <initializer_list>
 template < class SemiLattice >
 struct SparseTable {
   using T = typename SemiLattice::T;
@@ -35,10 +35,10 @@ struct SparseTable {
     copy(first, last, begin(t[0]));
     build();
   }
-  SparseTable(vector<T> v, T identity = T())
-    : SparseTable(v.begin(), v.end(), identity) { }
-  SparseTable(initializer_list<T> v, T identity = T())
-    : SparseTable(v.begin(), v.end(), identity) { }
+  SparseTable(vector< T > v, T identity = T())
+      : SparseTable(v.begin(), v.end(), identity) {}
+  SparseTable(initializer_list< T > v, T identity = T())
+      : SparseTable(v.begin(), v.end(), identity) {}
   void set(size_t i, T val) {
     assert(i < n);
     t[0][i] = val;
