@@ -5,16 +5,18 @@ using ll = long long;
 
 // @@
 // @ LazySegmentTree
-// @snippet     lazysegmenttree
-// @alias       lazy lazyseg
-// NOTE : query in range!
-/// --- LazySegmentTree {{{ ///
+// @snippet lazysegmenttree
+// @alias lazy lazyseg
 
+// LazySegmentTree( size [, initial] )
+// LazySegmentTree( <data> )
+/// --- LazySegmentTree {{{ ///
+#include <cassert>
+#include <initializer_list>
 #include <iostream>
 #include <vector>
-
 template < class Monoid, class M_act >
-struct LazySegTree {
+struct LazySegmentTree {
 private:
   using X = typename Monoid::T;
   using M = typename M_act::M;
@@ -46,8 +48,8 @@ private:
   }
 
 public:
-  LazySegTree() : n(0) {}
-  LazySegTree(int n, X initial = Monoid::identity()) : n(n) {
+  LazySegmentTree() : n(0) {}
+  LazySegmentTree(int n, X initial = Monoid::identity()) : n(n) {
     h = 1;
     while(1 << h < n) h++;
     data.resize(2 * n, initial);
@@ -60,14 +62,18 @@ public:
       nodeLeft[i] = min(nodeLeft[i * 2], nodeLeft[i * 2 + 1]),
       nodeLength[i] = nodeLength[i * 2] + nodeLength[i * 2 + 1];
   }
-  template < class InputIter,
-             class = typename std::iterator_traits< InputIter >::value_type >
-  LazySegTree(InputIter first, InputIter last) : LazySegTree(std::distance(first, last)) {
-    copy(first, last, std::begin(data) + n);
+  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
+  LazySegmentTree(InputIter first, InputIter last)
+      : LazySegmentTree(distance(first, last)) {
+    copy(first, last, begin(data) + n);
     for(int i = n - 1; i > 0; i--) // fill from deep
       data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
   }
+  LazySegmentTree(vector< X > v) : LazySegmentTree(v.begin(), v.end()) {}
+  LazySegmentTree(initializer_list< X > v) : LazySegmentTree(v.begin(), v.end()) {}
   void act(int l, int r, const M &m) {
+    if(l < 0) l = 0;
+    if(r >= n) r = n - 1;
     evalDown(l);
     evalDown(r - 1);
     int tl = l, tr = r;
@@ -78,16 +84,20 @@ public:
     propUp(tl);
     propUp(tr - 1);
   }
-  void set(int i, const X &x) {
+  void set(size_t i, const X &x) {
+    assert(i < n);
     evalDown(i);
     data[i + n] = x;
     propUp(i);
   }
-  X get(int i) {
+  X get(size_t i) {
+    assert(i < n);
     evalDown(i);
     return data[i + n];
   }
   X query(int l, int r) {
+    if(l < 0) l = 0;
+    if(r >= n) r = n - 1;
     evalDown(l);
     evalDown(r - 1);
     X tmpL = Monoid::identity(), tmpR = Monoid::identity();
@@ -101,8 +111,8 @@ public:
 #ifdef DEBUG
     if(r < 0) r = n;
     DEBUG_OUT << "{";
-    for(int i = 0; i < std::min(r, n); i++) DEBUG_OUT << (i ? ", " : "") << get(i);
-    DEBUG_OUT << "}" << std::endl;
+    for(int i = 0; i < min(r, n); i++) DEBUG_OUT << (i ? ", " : "") << get(i);
+    DEBUG_OUT << "}" << endl;
 #endif
   }
 };
@@ -187,4 +197,4 @@ struct RangeSumSet {
 
 /// }}}--- ///
 
-LazySegTree< RangeSum, RangeSumAdd > seg(N);
+LazySegmentTree< RangeSum, RangeSumAdd > seg(N);
