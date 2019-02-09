@@ -1,0 +1,8 @@
+type: dir
+title: DP高速化
+order:
+  # - MongeDP
+  - Monotone-Minima
+  - Divide-and-Conquer-Optimization
+  - QI-Speedup
+  - AlienDP

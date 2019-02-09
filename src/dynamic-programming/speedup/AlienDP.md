@@ -10,7 +10,7 @@ AlienDPという名前は [IOI 2016 Aliens](https://www.ioi-jp.org/ioi/2016/task
 
 AlienDPの本質はDAG上の**2頂点対(単一パス)k辺最短経路問題**である
 
-# 執筆中 (ΦωΦ)
+# 執筆中
 
 解説書きます，しばしお待ちを！
 

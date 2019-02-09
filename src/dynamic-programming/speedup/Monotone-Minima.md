@@ -2,7 +2,9 @@
 title: Monotone Minima
 ---
 
-図となにか
+執筆中です
+
+TODO : 図となにか
 
 # 移動回数は準線形
 

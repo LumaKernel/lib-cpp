@@ -38,7 +38,7 @@ Monge性を満たす行列のことを Monge Arraies, Monge Matricesという
 
 (Abstractに最も左，に対してのみ定義しているような文献もありましたが全文を読んでいないのでわかりません)
 
-ある $2 \times 2$ の行列 $\left(\begin{array}{}a & b \\ c & d \end{array}\right)$ が Monotone であるとは，
+ある $2 \times 2$ の行列 $\displaystyle \left(\begin{array}{}a & b \\ c & d \end{array}\right)$ が Monotone であるとは，
 
 * $c \lt d$ ならば $a \lt b$
 * $c = d$ ならば $a \leq b$

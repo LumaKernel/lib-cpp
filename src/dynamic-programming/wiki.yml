@@ -4,8 +4,3 @@ order:
   - bitdp-to-subsets
   - rollback-dp
   - convex-hull-trick
-  # - MongeDP
-  - Monotone-Minima
-  - Divide-and-Conquer-Optimization
-  - QI-Speedup
-  - AlienDP

@@ -19,7 +19,7 @@ $$
 
 任意の $i, j$ について $A[i][j] \leq A[i][j+1]~~(\spadesuit)$ が成り立つ場合はDivide and Conquer Optimization (以降DAC Opt. と書く) を適用できる
 
-DAC Opt.のメインアイデアは上記の制約$(\spadesuit)$をもとに，[Monotone Minima]({{ "dynamic-programming/Monotone-Minima" | absolute_url }}) を行うことである．Monotone Minima自体の説明はそちらに譲る
+DAC Opt.のメインアイデアは上記の制約$(\spadesuit)$をもとに，[Monotone Minima]({{ "dynamic-programming/speedup/Monotone-Minima" | absolute_url }}) を行うことである．Monotone Minima自体の説明はそちらに譲る
 
 y軸方向に$j$, x軸方向に$k$ をとり，$g(i, j, k)$ をプロットすることを考える (これは行列とみなすことができる) ．各行についてその行の最小値 (で最も左) となる場所に注目すると，制約$(\spadesuit)$によりこれは右下がりにプロットされることになる
 
@@ -135,9 +135,9 @@ $$
 
 となり，上のほうが$XZ$の分だけ大きい．よってConvex QIが (上三角に対して) 示されたのでDAC Opt.が適用できる
 
-$w$は [Monotone Minima]({{ "dynamic-programming/Monotone-Minima" | absolute_url }}) に書いてあるが，$l, r$ の移動が準線形の回数で押さえられるため [Mo]({{ "algorithm/Mo" | absolute_url }}) のような，しゃくとりのようなことをすればよい
+$w$は [Monotone Minima]({{ "dynamic-programming/speedup/Monotone-Minima" | absolute_url }}) に書いてあるが，$l, r$ の移動が準線形の回数で押さえられるため [Mo]({{ "algorithm/Mo" | absolute_url }}) のような，しゃくとりのようなことをすればよい
 
-[submission](https://codeforces.com/contest/868/submission/48876868){:target="_blank"}([backup](https://gist.github.com/LumaKernel/2701c70245296cb9a3932d8885ab1efb){:target="_blank"})
+[submission](https://codeforces.com/contest/868/submission/48876868){:target="_blank"} ([mirror](https://gist.github.com/LumaKernel/2701c70245296cb9a3932d8885ab1efb){:target="_blank"})
 
 <br>
 <br>
@@ -154,7 +154,7 @@ $w$は [Monotone Minima]({{ "dynamic-programming/Monotone-Minima" | absolute_url
 
 # 実装
 
-[Monotone Minima]({{ "dynamic-programming/Monotone-Minima" | absolute_url }}) が必要
+[Monotone Minima]({{ "dynamic-programming/speedup/Monotone-Minima" | absolute_url }}) が必要
 
 // @ Divide and Conquer Optimization
 
