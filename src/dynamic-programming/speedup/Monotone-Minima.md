@@ -16,7 +16,7 @@ $y$ は $O(H \log H)$ 回，$x$ は $O(W \log H)$ 回となります
 
 2冪に丸めて完全二分木上のDFSの経路の長さを解析することでも同様の結果を得られます
 
-この性質が使える問題を [Divide and Conquer Optimization]({{ "dynamic-programming/Divide-and-Conquer-Optimization" | absolute_url }}) で紹介しています
+この性質が使える問題を [Divide and Conquer Optimization]({{ "dynamic-programming/speedup/Divide-and-Conquer-Optimization" | absolute_url }}) で紹介しています
 
 # 実装
 
