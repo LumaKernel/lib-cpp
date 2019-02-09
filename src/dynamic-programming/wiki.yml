@@ -3,4 +3,5 @@ title: 動的計画法
 order:
   - bitdp-to-subsets
   - rollback-dp
+  - speedup
   - convex-hull-trick
