@@ -25,15 +25,20 @@ FFTは数列同士の畳込み(=多項式の掛け算)を$O(N \log N)$で行う�
 * 高校数学
   * 虚数とか，複素数とか
     * $\omega^3=1$とかがわかればいいと思います
-    * [1の三乗根オメガを用いた計算と因数分解](https://mathtrain.jp/sumtouhi){:target="_blank"}<!--_-->
+    * [1の三乗根オメガを用いた計算と因数分解](https://mathtrain.jp/omega){:target="_blank"}<!--_-->
+    * 以下の記事にあるように，複素数を図形でイメージできるとなお良いです
+    * [1のn乗根の導出と複素数平面](https://mathtrain.jp/njokonof1){:target="_blank"}<!--_-->
     * [直交座標と極座標（２次元）の変換とメリットの比較](https://mathtrain.jp/kyokuzahyo){:target="_blank"}<!--_-->
   * 等比級数
     * 一部の証明にちょっとだけ使います
     * [等比数列の和の公式の証明といろいろな例](https://mathtrain.jp/sumtouhi){:target="_blank"}<!--_-->
 * $\sum$を入れ替えられることとか
-  * [シグマ計算を機械的に行うための３つの公式](https://mathtrain.jp/sumtouhi){:target="_blank"}<!--_-->
+  * [シグマ計算を機械的に行うための３つの公式](https://mathtrain.jp/sigma){:target="_blank"}<!--_-->
 * 分割統治法の考え方と，その計算量
   * $T(n)=2T(n/2)+O(n)$ の時，$T(n)=O(n\log n)$ です
+* 多項式
+  * [単項式，多項式，整式](https://mathtrain.jp/seishiki){:target="_blank"}<!--_-->
+  * この記事内でも少し説明します
 
 上記のリンクはすべて「高校数学の美しい物語」です．復習用にご参照ください
 
@@ -115,11 +120,11 @@ $$
 \begin{aligned}
 f(x) \times g(x) &=&&(1 + 3x + 2x^2)(2 -  x^2) \\
 &=&& (1\cdot 2) x^0 \\
-&&&+ (1\cdot (-1) + 3 \cdot 2)x^1 \\
-&&&+ (1 \cdot (-1) + 3 \cdot 0 + 2 \cdot 2)x^2 \\
-&&&+ (3 \cdot (-1) + 2 \cdot 0)x^3  \\
+&&&+ (3 \cdot 2)x^1 \\
+&&&+ (1 \cdot (-1) + 2 \cdot 2)x^2 \\
+&&&+ (3 \cdot (-1))x^3  \\
 &&&+ (2 \cdot (-1) )x^4  \\
-&=&& 2 + 5x + 3x^2 - 3x^3 - 2x^4 \\
+&=&& 2 + 6x + 3x^2 - 3x^3 - 2x^4 \\
 \end{aligned}
 $$
 
@@ -141,7 +146,7 @@ $$
 
 えーわかりますでしょうか
 
-$x^k$の係数は$a_ib_j$を足したものになっていますが，$i + j = k$となります
+$x^k$の係数は$i + j = k$という条件を満たす全ての$i,j$についての，$a_ib_j$を足したものになっています
 
 一般的にかくと，
 
@@ -165,7 +170,7 @@ $\displaystyle h(x) = \sum_{k=0}^{N+M-2}\sum_{i=0}^{k}a_ib_{k-i}x^k$
 
 ---
 
-以上，**数列の畳み込み**と，それが**多項式において掛け算と等しくなる**，ということを説明しました
+以上，<strong style="color:red">数列の畳み込みと，それが多項式において掛け算と等しくなる</strong>，ということを説明しました
 
 $h(x) = f(x) \times g(x) = (f \ast g) (x)$ と書きます
 
@@ -656,9 +661,11 @@ DFTを係数による表示で紹介しています．それによりDFTをよ�
 
 ---
 
-長文になりましたが，読んでいただきありがとうございました．700行近くになってしまいました．不明瞭な部分があれば下のコメントにて教えてください．修正まで時間がかかるかもしれません，ご了承下さい
+長文になりましたが，読んでいただきありがとうございました．700行近くになってしまいました．不明瞭な部分があれば下のコメントか[twitter](https://twitter.com/lumc_){:target="_blank"}<!--_-->にて教えてくださると助かります．修正まで時間がかかるかもしれません，ご了承下さい
 
 # 参考
 
-* [高速フーリエ変換 (AtCoder) - SlideShare](){:target="_blank"}<!--_-->
+* [高速フーリエ変換 (AtCoder) - SlideShare](https://www.slideshare.net/chokudai/fft-49066791){:target="_blank"}<!--_-->
+* [多項式 - wikipedia](https://ja.wikipedia.org/wiki/多項式){:target="_blank"}<!--_-->
+* [多項式を使うテクニックたち - yukicoder](https://yukicoder.me/wiki/polynomial_techniques){:target="_blank"}<!--_-->
 

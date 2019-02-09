@@ -26,8 +26,9 @@ using ll = long long;
 //
 // hi is sufficient if it is the max of w
 
-// GeneralPenalizeSpeedup<State>(to, from, k, droppable, reset, calc, lo, hi, times,
-// comp?) {{{
+// GeneralPenalizeSpeedup<State>
+// (to, from, k, droppable, reset, calc, lo, hi, times, comp?)
+// {{{
 #include <cassert>
 #include <functional>
 #include <map>
@@ -58,17 +59,18 @@ Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int drop
     memo.clear();
     links.clear();
 
-    if(comp(C, 0)) {
-      memo[to] = C * droppable;
-      links[to] = droppable;
-    } else {
-      memo[to] = Float(0);
-      links[to] = 0;
-    }
+    memo[to] = Float(0);
+    links[to] = 0;
 
     reset();
 
     D(from);
+
+    // NOTE : acutualy, all nodes are added
+    if(comp(C, 0)) {
+      memo[from] += C * droppable;
+      links[from] += droppable;
+    }
   };
 
   if(comp(hi, lo)) swap(lo, hi); // for maximize
@@ -83,8 +85,9 @@ Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int drop
       lo = mid;
   }
 
-  // just K個使ったと考えて良い
-  solve(hi);
+  // assume that we used just K edges
+  solve(lo);
+
   return memo[from] - hi * k;
 }
 // }}}
@@ -114,6 +117,7 @@ Float GeneralPenalizeSpeedup(const State &to, const State &from, int k, int drop
 // d(i, k) = min(j < i, d(j, k - 1) + w[j + 1, i])
 // and w is Convex QI
 
+// NOTE : 1-indexed
 // PenalizeSpeedup(int n, k, droppable, reset, calc, lo, hi, times, comp?) {{{
 #include <cassert>
 #include <functional>
@@ -132,8 +136,9 @@ Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const Ca
   vector< Float > memo(n + 1);
   vector< int > links(n + 1);
 
+  int now;
   function< Float(State) > D = [&](State s) {
-    assert(0 <= s && s <= n);
+    assert(0 <= s && s < now);
     return memo[s];
   };
 
@@ -141,22 +146,24 @@ Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const Ca
     memo.assign(n + 1, Float(0));
     links.assign(n + 1, 0);
 
-    if(comp(C, 0)) {
-      memo[to] = C * droppable;
-      links[to] = droppable;
-    } else {
-      memo[to] = Float(0);
-      links[to] = 0;
-    }
+    memo[to] = Float(0);
+    links[to] = 0;
 
     reset();
 
-    for(int i = 1; i <= n; i++) {
+    for(now = 1; now <= n; now++) {
       Float val;
       State before;
-      tie(val, before) = calc(D, i);
-      memo[i] = val + C;
-      links[i] = links[before] + 1;
+      tie(val, before) = calc(D, now);
+      assert(0 <= before && before < now);
+      memo[now] = val + C;
+      links[now] = links[before] + 1;
+    }
+
+    // NOTE : acutualy, all nodes (except "to") are added
+    if(comp(C, 0)) {
+      memo[from] += C * droppable;
+      links[from] += droppable;
     }
   };
 
@@ -172,8 +179,10 @@ Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const Ca
       lo = mid;
   }
 
-  // just K個使ったと考えて良い
+  // assume that we used just K edges
+  hi = (hi + lo) / 2;
   solve(hi);
+
   return memo[from] - hi * k;
 }
 // }}}
@@ -195,3 +204,16 @@ Float PenalizeSpeedup(int n, int k, int droppable, const ResetF &reset, const Ca
       n, k, droppable, reset, calc, -hi, hi, comp);
 }
 // }}}
+
+// reset : () => void
+// calc : (D : InpuType, state) => (value, before)
+
+template < class State = int, class Float = double >
+using InputType = function< Float(State) >;
+
+using State = int;
+using Float = double;
+void reset() {}
+// DO USE D function , DO NOT determine by yourself
+// to be careful about TYPE (particular, use Float)
+pair< Float, State > calc(const InputType< State, Float > &D, State i) {}

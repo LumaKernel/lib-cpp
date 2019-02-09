@@ -5,8 +5,8 @@ using ll = long long;
 
 // @@
 // @ SegmentTree
-// @snippet     segmenttree
-// @alias       seg
+// @snippet segmenttree
+// @alias seg
 
 // SegmentTree( size [, initial] )
 // SegmentTree( <data> )
@@ -50,7 +50,8 @@ public:
   }
   T query(int l, int r) {
     if(l < 0) l = 0;
-    if(r >= n) r = n - 1;
+    if(l >= r) return Monoid::identity();
+    if(r > n) r = n;
     T tmpL = Monoid::identity(), tmpR = Monoid::identity();
     for(l += n, r += n; l < r; l >>= 1, r >>= 1) {
       if(l & 1) tmpL = Monoid::op(tmpL, data[l++]);

@@ -25,5 +25,6 @@ struct UF {
     par[b] += par[a];
     par[a] = b;
   }
+  void clear() { par.assign(n, -1); }
 };
 /// }}}--- ///
