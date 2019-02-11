@@ -102,7 +102,7 @@ $reverse$ と名付けた
 
 ## モノイド，モノイド作用の例
 
-// @ Monoid, M_act examples
+// @ M_act examples
 
 # 参考
 

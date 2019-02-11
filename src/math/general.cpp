@@ -9,7 +9,6 @@ using ll = long long;
 
 // O(N^.5)
 /// --- isPrime {{{ ///
-
 bool isPrime(ll n) {
   if(n < 2) return false;
   for(ll i = 2; i * i <= n; i++) {
@@ -17,7 +16,6 @@ bool isPrime(ll n) {
   }
   return true;
 }
-
 /// }}}--- ///
 
 // @new

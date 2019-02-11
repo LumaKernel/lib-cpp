@@ -11,10 +11,14 @@ using ll = long long;
 // set (i, val) or assign ( <data> )
 // WARN : build(root = 0) !!!
 //     or dfs(roots) & init() !!
-// lca (a, b)
-// query(hi, a, hi_inclusive?)
+// .lca(a, b)
+// .query(hi, a, hi_inclusive?)
+// .climb(from, steps)
+// .descend(from, to, steps)
 /// --- Doubilng Tree Library {{{ ///
-
+#include<vector>
+#include<iterator>
+#include<cassert>
 template < class Monoid >
 struct DoublingTree {
   using T = typename Monoid::T;
@@ -53,7 +57,8 @@ struct DoublingTree {
     for(int root : roots) dfs(root);
     init();
   }
-  void build(int root = 0) {
+  void build(size_t root = 0) {
+    assert(root < n);
     dfs(root);
     init();
   }
@@ -70,7 +75,8 @@ struct DoublingTree {
       }
     }
   }
-  void dfs(int i, int p = -1, int d = 0) {
+  void dfs(size_t i, int p = -1, int d = 0) {
+    assert(i < n);
     depth[i] = d;
     par[0][i] = p;
     for(int j : tree[i])
@@ -78,15 +84,22 @@ struct DoublingTree {
         dfs(j, i, d + 1);
       }
   }
-  int climb(int a, ll k) {
+  int climb(size_t a, ll steps) {
+    assert(a < n);
     for(int i = logn - 1; i >= 0 && a != -1; i--)
-      if(k >= (1 << i)) a = par[i][a], k -= 1 << i;
-    assert(a == -1 || k == 0);
+      if(steps >= (1 << i)) a = par[i][a], steps -= 1 << i;
+    assert(a == -1 || steps == 0);
     return a;
   }
-
-public:
-  int lca(int a, int b) {
+  int descend(size_t from, size_t to, ll steps = 1) {
+    assert(from < n && to < n);
+    assert(depth[to] >= depth[from]);
+    int up = depth[to] - depth[from] - steps;
+    if(up < 0) up = 0;
+    return climb(to, up);
+  }
+  int lca(size_t a, size_t b) {
+    assert(a < n && b < n);
     if(depth[a] < depth[b]) swap(a, b);
     for(int k = logn - 1; k >= 0; k--) {
       int na = par[k][a];
@@ -102,7 +115,8 @@ public:
     }
     return par[0][a];
   }
-  T query(int hi, int a, bool inclusive = true) {
+  T query(size_t hi, size_t a, bool inclusive = true) {
+    assert(hi < n && a < n);
     T res = Monoid::identity();
     for(int k = logn - 1; k >= 0; k--) {
       int na = par[k][a];
@@ -114,17 +128,14 @@ public:
     return res;
   }
 };
-
 /// }}}--- ///
 
 /// --- Monoid examples {{{ ///
-
-#include <algorithm>
-
 constexpr long long inf = 1e18 + 100;
-
+#include <algorithm>
 struct Nothing {
   using T = char;
+  using Monoid = Nothing;
   using M = T;
   static constexpr T op(const T &, const T &) { return T(); }
   static constexpr T identity() { return T(); }
@@ -134,24 +145,56 @@ struct Nothing {
   }
 };
 
+template < class U = long long >
 struct RangeMin {
-  using T = ll;
+  using T = U;
   static T op(const T &a, const T &b) { return min(a, b); }
-  static constexpr T identity() { return inf; }
+  static constexpr T identity() { return T(inf); }
 };
 
+template < class U = long long >
 struct RangeMax {
-  using T = ll;
+  using T = U;
   static T op(const T &a, const T &b) { return max(a, b); }
-  static constexpr T identity() { return -inf; }
+  static constexpr T identity() { return -T(inf); }
 };
 
+template < class U = long long >
 struct RangeSum {
-  using T = ll;
+  using T = U;
   static T op(const T &a, const T &b) { return a + b; }
-  static constexpr T identity() { return 0; }
+  static constexpr T identity() { return T(0); }
 };
 
+template < class U >
+struct RangeProd {
+  using T = U;
+  static T op(const T &a, const T &b) { return a * b; }
+  static constexpr T identity() { return T(1); }
+};
+
+template < class U = long long >
+struct RangeOr {
+  using T = U;
+  static T op(const T &a, const T &b) { return a | b; }
+  static constexpr T identity() { return T(0); }
+};
+
+#include <bitset>
+
+template < class U = long long >
+struct RangeAnd {
+  using T = U;
+  static T op(const T &a, const T &b) { return a & b; }
+  static constexpr T identity() { return T(-1); }
+};
+
+template < size_t N >
+struct RangeAnd< bitset< N > > {
+  using T = bitset< N >;
+  static T op(const T &a, const T &b) { return a & b; }
+  static constexpr T identity() { return bitset< N >().set(); }
+};
 /// }}}--- ///
 
-DoublingTree< RangeSum > eca(N);
+DoublingTree< RangeSum<> > eca(N);

@@ -82,3 +82,99 @@ vector< ll > construct_modinvs(int n, ll mod = ll(1e9 + 7)) {
   return res;
 }
 // }}}
+
+// @new
+// @ Indexer
+// @snippet indexer
+// @alias indexed
+
+// Indexer {{{
+#include <functional>
+#include <ostream>
+template < class T, template < class > class Compare = less >
+struct Indexer {
+  static Compare< int > comp;
+  T val;
+  int i;
+  Indexer(T val = T(), int i = 0) : val(val), i(i) {}
+  Indexer &setValue(int val) { this->val = val; }
+  Indexer &setIndex(int i) { this->i = i; }
+  bool operator<(const Indexer &a) const {
+    if(val < a.val) return true;
+    if(a.val < val) return false;
+    if(i != a.i) return comp(i, a.i);
+    return false;
+  }
+  Indexer &operator+=(const T &a) {
+    val += a;
+    return *this;
+  }
+  Indexer &operator-=(const T &a) {
+    val -= a;
+    return *this;
+  }
+  Indexer &operator*=(const T &a) {
+    val *= a;
+    return *this;
+  }
+  Indexer &operator/=(const T &a) {
+    val /= a;
+    return *this;
+  }
+  Indexer operator+() const {
+    Indexer tmp = *this;
+    tmp.val = +tmp.val;
+    return tmp;
+  }
+  Indexer operator-() const {
+    Indexer tmp = *this;
+    tmp.val = -tmp.val;
+    return tmp;
+  }
+  Indexer operator+(const T &a) const {
+    Indexer tmp = *this;
+    tmp += a;
+    return tmp;
+  }
+  Indexer operator-(const T &a) const {
+    Indexer tmp = *this;
+    tmp -= a;
+    return tmp;
+  }
+  Indexer operator*(const T &a) const {
+    Indexer tmp = *this;
+    tmp *= a;
+    return tmp;
+  }
+  Indexer operator/(const T &a) const {
+    Indexer tmp = *this;
+    tmp /= a;
+    return tmp;
+  }
+  friend Indexer operator+(const T &a, const Indexer &b) {
+    Indexer tmp = b;
+    tmp.val = a + tmp.val;
+    return tmp;
+  }
+  friend Indexer operator-(const T &a, const Indexer &b) {
+    Indexer tmp = b;
+    tmp.val = a - tmp.val;
+    return tmp;
+  }
+  friend Indexer operator*(const T &a, const Indexer &b) {
+    Indexer tmp = b;
+    tmp.val = a * tmp.val;
+    return tmp;
+  }
+  friend Indexer operator/(const T &a, const Indexer &b) {
+    Indexer tmp = b;
+    tmp.val = a / tmp.val;
+    return tmp;
+  }
+  friend ostream &operator<<(ostream &os, const Indexer &a) {
+    return os << "(" << a.val << ", i: " << a.i << ")";
+  }
+};
+template < class T, template < class > class Compare >
+Compare< int > Indexer< T, Compare >::comp;
+// }}}

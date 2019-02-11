@@ -11,6 +11,7 @@ using ll = long long;
 #include <ostream>
 template < ll mod = (ll) 1e9 + 7 >
 struct ModInt {
+  static ModInt unused;
   // math {{{
   static inline ll extgcd(ll a, ll b, ll &x, ll &y) {
     ll d;
@@ -181,6 +182,8 @@ public:
   friend ModInt pow(ModInt x, ll y) { return ModInt(modpow(x.val, y), 0); }
   // }}}
 };
+template < ll mod >
+ModInt< mod > ModInt< mod >::unused(-1, 0);
 /// }}}--- ///
 
 using modint = ModInt<>;
