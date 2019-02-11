@@ -15,8 +15,8 @@ using ll = long long;
 // node->id
 // lc[index] to access nodes
 /// --- LinkCutTree {{{ ///
-#include <vector>
 #include <cstdlib>
+#include <vector>
 template < class M_act >
 struct LinkCutTree {
   using Monoid = typename M_act::Monoid;

@@ -103,13 +103,11 @@ private:
 /// }}}--- ///
 
 /// --- Monoid examples {{{ ///
-
-#include <algorithm>
-
 constexpr long long inf = 1e18 + 100;
-
+#include <algorithm>
 struct Nothing {
   using T = char;
+  using Monoid = Nothing;
   using M = T;
   static constexpr T op(const T &, const T &) { return T(); }
   static constexpr T identity() { return T(); }
@@ -119,22 +117,55 @@ struct Nothing {
   }
 };
 
+template < class U = long long >
 struct RangeMin {
-  using T = ll;
+  using T = U;
   static T op(const T &a, const T &b) { return min(a, b); }
-  static constexpr T identity() { return inf; }
+  static constexpr T identity() { return T(inf); }
 };
 
+template < class U = long long >
 struct RangeMax {
-  using T = ll;
+  using T = U;
   static T op(const T &a, const T &b) { return max(a, b); }
-  static constexpr T identity() { return -inf; }
+  static constexpr T identity() { return -T(inf); }
 };
 
+template < class U = long long >
 struct RangeSum {
-  using T = ll;
+  using T = U;
   static T op(const T &a, const T &b) { return a + b; }
-  static constexpr T identity() { return 0; }
+  static constexpr T identity() { return T(0); }
+};
+
+template < class U >
+struct RangeProd {
+  using T = U;
+  static T op(const T &a, const T &b) { return a * b; }
+  static constexpr T identity() { return T(1); }
+};
+
+template < class U = long long >
+struct RangeOr {
+  using T = U;
+  static T op(const T &a, const T &b) { return a | b; }
+  static constexpr T identity() { return T(0); }
+};
+
+#include <bitset>
+
+template < class U = long long >
+struct RangeAnd {
+  using T = U;
+  static T op(const T &a, const T &b) { return a & b; }
+  static constexpr T identity() { return T(-1); }
+};
+
+template < size_t N >
+struct RangeAnd< bitset< N > > {
+  using T = bitset< N >;
+  static T op(const T &a, const T &b) { return a & b; }
+  static constexpr T identity() { return bitset< N >().set(); }
 };
 
 /// }}}--- ///

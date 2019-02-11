@@ -100,7 +100,6 @@ template < class T, class = typename iterator_traits< typename T::iterator >::va
 // }}}
 
 /// --- isPrime {{{ ///
-
 bool isPrime(ll n) {
   if(n < 2) return false;
   for(ll i = 2; i * i <= n; i++) {
@@ -108,7 +107,6 @@ bool isPrime(ll n) {
   }
   return true;
 }
-
 /// }}}--- ///
 
 // {{{

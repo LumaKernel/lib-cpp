@@ -16,9 +16,9 @@ using ll = long long;
 // .climb(from, steps)
 // .descend(from, to, steps)
 /// --- Doubilng Tree Library {{{ ///
-#include<vector>
-#include<iterator>
-#include<cassert>
+#include <cassert>
+#include <iterator>
+#include <vector>
 template < class Monoid >
 struct DoublingTree {
   using T = typename Monoid::T;
@@ -195,6 +195,7 @@ struct RangeAnd< bitset< N > > {
   static T op(const T &a, const T &b) { return a & b; }
   static constexpr T identity() { return bitset< N >().set(); }
 };
+
 /// }}}--- ///
 
 DoublingTree< RangeSum<> > eca(N);
