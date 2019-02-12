@@ -66,11 +66,13 @@ pivottingの方法で，部分選択はその列についてのみ見る，完�
 
 * [JAG春2013 J - Tree Reconstruction - AtCoder](https://atcoder.jp/contests/jag2013spring/submissions/4068497){:target="_blank"}<!--_-->
   * [rational]({{ "misc/Rational" | absolute_url }}) は少し時間がかかるため，gcdを行わないことで対応した
+* [みんプロ2019 E - Odd Subrectangles (800) - AtCoder](https://atcoder.jp/contests/yahoo-procon2019-qual/submissions/4226187){:target="_blank"}<!--_-->
 
 # 練習問題
 
 * [Strange Couple - AOJ](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2171){:target="_blank"}<!--_-->
 * [D - 数列 XOR (600) - AtCoder](https://beta.atcoder.jp/contests/bitflyer2018-final-open/tasks/bitflyer2018_final_d){:target="_blank"}<!--_-->
+* [みんプロ2019 E - Odd Subrectangles (800) - AtCoder](https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_e){:target="_blank"}<!--_-->
 
 # 参考
 
