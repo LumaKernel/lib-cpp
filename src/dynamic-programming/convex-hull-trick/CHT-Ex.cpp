@@ -41,7 +41,7 @@ private:
       return a != rhs.a ? comp(rhs.a, a) : comp(b, rhs.b);
     }
     T calc(const T &x) { return a * x + b; }
-    friend ostream& operator<<(ostream& os, const Line& line) {
+    friend ostream &operator<<(ostream &os, const Line &line) {
       os << "(" << line.a << ", " << line.b;
       return os;
     }
@@ -121,8 +121,7 @@ public:
   friend ostream &operator<<(ostream &os, const CHTEx &a) {
     os << "CHT-Ex\n";
     os << a.lines.size() << "lines\n";
-    for(auto &p : a.lines)
-      os << p << "\n";
+    for(auto &p : a.lines) os << p << "\n";
     os << "cross points : " << a.cps.size() << "\n";
     for(auto &p : a.cps)
       os << "(x = " << p.numer << "/" << p.denom << "; " << p.p.a << ", " << p.p.b << ")"
