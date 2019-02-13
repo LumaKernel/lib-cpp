@@ -14,7 +14,7 @@ title: 直線追加任意順序のCHT
 
 [ここ](http://d.hatena.ne.jp/sune2/20140310/1394440369){:target="_blank"}<!--_--> で紹介されているものに手を加えたもの
 
-// @ Convex Hull Trick Extended Library
+// @ Convex Hull Trick Extended
 
 インターフェースは [CHT]({{ "dynamic-programming/convex-hull-trick/CHT" | absolute_url }}) と同じ
 
