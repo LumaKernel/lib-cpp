@@ -63,7 +63,7 @@ $$\sum_{k=0}^r \binom m k \binom n {r - k} = \binom {m + n} r$$
 
 <a target="_blank" href="https://en.wikipedia.org/wiki/Double_counting_(proof_technique)">double counting</a> による証明を紹介する
 
-両辺ともに 男 $m$ 人，女 $n$ 人から $k$ 人 選ぶ方法になっている
+両辺ともに 男 $m$ 人，女 $n$ 人から $r$ 人 選ぶ方法になっている
 
 左辺は 男を $k$ 人選ぶと固定したものを数えている
 
@@ -79,13 +79,13 @@ $$\sum_{i = r}^n \binom i r = \binom {n + 1} {r + 1}$$
 
 <a target="_blank" href="https://en.wikipedia.org/wiki/Double_counting_(proof_technique)">double counting</a> で証明する
 
-$n$個の星を$k$個の瓶に詰め込む場合の数を考える (<a href="https://en.wikipedia.org/wiki/Stars_and_bars_(combinatorics)">Stars and bars</a>)
+$n$個の星を$k$個の区域に分ける場合の数を考える (<a href="https://en.wikipedia.org/wiki/Stars_and_bars_(combinatorics)">Stars and bars</a>)
 
 $n$個の星と$k-1$個の仕切りを並び替えてできる列の数に等しいので，
 
 $$\binom {n + k - 1} {k - 1}$$
 
-となる．また，１つめの瓶に詰め込む星の数 $i$ で場合分けすると，
+となる．また，１つめの区域に振り分ける星の数 $i$ で場合分けすると，
 
 $$\binom {n + k - 1} {k - 1} = \sum_{i=0}^n \binom {n + k - 2 - i} {k - 2}$$
 ここで，$$r = k - 2$$, $$n' = n + k - 2 = n + r$$ とおくと
