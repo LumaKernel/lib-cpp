@@ -1,6 +1,7 @@
 type: dir
 title: 動的計画法
 order:
+  - knapsack
   - bitdp-to-subsets
   - rollback-dp
   - speedup
