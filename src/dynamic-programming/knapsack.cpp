@@ -45,7 +45,6 @@ vector< ll > knapsack1(const vector< unsigned long long >& x, const vector< ll >
           //  = max{a[i][j] + -j * y[i], a[i][j + 1] + -(j + 1) * y[i], ...}
           //      + (j + k) * y[i]
           size_t u = (W - r) / x[i];
-          // window sliding technique
           deque< pair< ll, size_t > > deq;
           for(size_t j = 0; j <= u; j++) {
             ll nval = dp0[j * x[i] + r] - j * y[i];
@@ -89,7 +88,6 @@ vector< ll > knapsack2(const vector< ll >& x, const vector< unsigned >& y,
         //  = min{a[i][j] + -j * x[i], a[i][j + 1] + -(j + 1) * x[i], ...}
         //      + (j + k) * x[i]
         size_t u = (value_max - r) / y[i];
-        // window sliding technique
         deque< pair< ll, size_t > > deq;
         for(size_t j = 0; j <= u; j++) {
           if((ull) dp0[j * y[i] + r] <= W) {
