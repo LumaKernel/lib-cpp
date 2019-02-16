@@ -138,7 +138,7 @@ unsigned long long knapsack3(const vector< unsigned long long >& x,
     nx[i] = x[ord[i]];
     ny[i] = y[ord[i]];
 
-    nz[i] = min(z[ord[i]], (ull) n - 1);
+    nz[i] = min(z[ord[i]], (ull) Y - 1);
     zz[i] = z[ord[i]] - nz[i];
   }
 
