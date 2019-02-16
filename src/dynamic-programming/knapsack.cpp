@@ -16,11 +16,11 @@ using ll = long long;
 // O(min{NW, N \sum {xz}}) < O(N^2 XZ) time
 // O(W) space
 // knapsack1(<ull>, <ll>, <uint>, uint) {{{
-#include<vector>
-#include<cassert>
-#include<deque>
+#include <cassert>
+#include <deque>
+#include <vector>
 vector< ll > knapsack1(const vector< unsigned long long >& x, const vector< ll >& y,
-                      const vector< unsigned >& z, unsigned W) {
+                       const vector< unsigned >& z, unsigned W) {
   using ull = unsigned long long;
   size_t n = x.size();
   assert(n == y.size());
@@ -56,7 +56,7 @@ vector< ll > knapsack1(const vector< unsigned long long >& x, const vector< ll >
           }
         }
       } else {
-        for(auto & el : dp) el += y[i] * z[i];
+        for(auto& el : dp) el += y[i] * z[i];
       }
     }
   return dp;
@@ -67,7 +67,7 @@ vector< ll > knapsack1(const vector< unsigned long long >& x, const vector< ll >
 // O(N \sum {yz}) < O(N^2 YZ) time
 // knapsack2(<ll>, <uint>, <uint>, ull) {{{
 vector< ll > knapsack2(const vector< ll >& x, const vector< unsigned >& y,
-                      const vector< unsigned >& z, unsigned long long W) {
+                       const vector< unsigned >& z, unsigned long long W) {
   using ull = unsigned long long;
   size_t n = x.size();
   assert(n == y.size());
@@ -112,8 +112,9 @@ vector< ll > knapsack2(const vector< ll >& x, const vector< unsigned >& y,
 #include <algorithm>
 #include <numeric>
 unsigned long long knapsack3(const vector< unsigned long long >& x,
-                            const vector< unsigned >& y, const vector< unsigned long long > &z,
-                            unsigned long long W) {
+                             const vector< unsigned >& y,
+                             const vector< unsigned long long >& z,
+                             unsigned long long W) {
   using ull = unsigned long long;
   size_t n = x.size();
   assert(n == y.size());
@@ -142,7 +143,7 @@ unsigned long long knapsack3(const vector< unsigned long long >& x,
   }
 
   auto sub = knapsack2(nx, ny, nz, W);
-  
+
   vector< ull > xz_sum(n);
   vector< ull > yz_sum(n);
   for(size_t i = 0; i < n; i++) xz_sum[i] = nx[i] * zz[i];
