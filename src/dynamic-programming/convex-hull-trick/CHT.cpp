@@ -8,12 +8,13 @@ using ll = long long;
 // @snippet     cht
 // @alias       convexhulltrick
 
-// CHT<a-increasing, T, x-type = 0, is-minimize = true>
-// maximatoin : let is-minimize = true
+// CHT<a-increasing, T, x-type = 0, is-minimize = true, D = double>
 // x-type : [0 : random, +1 : asc, -1 : desc]
-// .add(a, b, id?) : f(x) = ax + b
+// === --- ===
+// .add(a, b [, id]) : f(x) = ax + b
 // .query(x)
 // .get(x) : line
+// === --- ===
 // line.a, line.b, line.id
 // line.calc(x)
 /// --- Convex Hull Trick {{{ ///
@@ -23,7 +24,7 @@ using ll = long long;
 #include <utility>
 #include <vector>
 template < bool aIncreasing, class T = long long, int xType = 0, bool isMinimize = true,
-           class D = T >
+           class D = double >
 struct CHT {
   static_assert(xType == 0 || xType == 1 || xType == -1, "xType must be in {0, +1, -1}");
   static T EPS;

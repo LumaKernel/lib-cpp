@@ -9,7 +9,7 @@ $O(\log N)$ で1クエリを処理でき，[HL分解]({{ "graph/HL-Decomposition
 [HL分解]({{ "graph/HL-Decomposition" | absolute_url }})とちがって，  
 遅延させたりもできず，通常のセグ木でできることができます
 
-// @ Doubilng Tree Library
+// @ Doubilng Tree
 
 # 検証
 

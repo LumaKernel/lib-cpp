@@ -167,6 +167,7 @@ private:
 /// }}}--- ///
 
 // never forget to init SparseTable by yourself
+// WARNING : DO DOUBLE-CHECK !
 // FC-SegmentTree Example {{{
 
 using Under = SparseTable< RMQSL >;
@@ -198,6 +199,7 @@ FractionalCascadingSegmentTree< Under, Data, 1 > ecas(
 // @alias   bit_on_fc_seg
 
 // one add // range sum
+// WARNING : DO DOUBLE-CHECK !
 // BIT on FC-SegmentTree {{{
 
 using Under = BIT<>;
@@ -226,6 +228,7 @@ FractionalCascadingSegmentTree< Under, Data > qina(
 // @snippet fc_seg_seg
 // @alias   seg_on_fc_seg
 
+// WARNING : DO DOUBLE-CHECK !
 // SegmentTree on FC-SegmentTree {{{
 
 using Under = Seg;
@@ -241,13 +244,13 @@ FractionalCascadingSegmentTree< Under, Data, 1 > ecas(
     },
     // init x
     [](Under &dat, const vector< ll > &indices) -> void {
-      dat = Under(indices.size(), 0); // serve initial?
+      dat = Under(indices.size(), inf_monoid?); // serve initial?
     },
     // query [l, r) // l < r
     [](Under &dat, int l, int r) -> Data { return dat.query(l, r); },
     // merge y-direction
-    [](Data a, Data b) -> Data { return max(a, b); }
+    [](Data a, Data b) -> Data { return min(a, b); }
     // optional identity
     ,
-    inf);
+    inf_monoid);
 // }}}

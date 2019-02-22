@@ -8,13 +8,13 @@ using ll = long long;
 // @snippet     chtex
 // @alias       cht2 dcht dynamic_cht convexhulltrick_ex
 
-// CHTEx<T, Comp>()
-// - maximize : let Comp = greater<T>
+// CHTEx<T, is-minimize = true, D = double>
+// N is no. of added lines
 // === --- ===
-// N = no. of f(x)
-// .add(a, b, id?) : f(x) = ax + b : amortized O(log N)
-// .query(x) : returns f(x), when f minimize f(x) : O(log N)
+// .add(a, b [, id]) : f(x) = ax + b : amortized O(log N)
+// .query(x) : O(log N)
 // .get(x) : line : O(log N)
+// === --- ===
 // line.a, line.b, line.id
 // line.calc(x)
 // === --- ===
@@ -26,11 +26,17 @@ using ll = long long;
 #include <set>
 #include <utility>
 
-template < class T = long long, class Comp = less< T >, class D = T >
+template < class T = long long, bool isMinimize = true, class D = double >
 struct CHTEx {
   static T INF;
   static T EPS;
-  static Comp comp;
+
+  static inline bool comp(const T &a, const T &b) {
+    if(isMinimize)
+      return a < b;
+    else
+      return a > b;
+  }
 
 private:
   struct Line { // ax + b
@@ -42,7 +48,7 @@ private:
     }
     T calc(const T &x) { return a * x + b; }
     friend ostream &operator<<(ostream &os, const Line &line) {
-      os << "(" << line.a << ", " << line.b;
+      os << "(" << line.a << ", " << line.b << ")";
       return os;
     }
   };
@@ -119,10 +125,13 @@ public:
     cps.insert(CP(Line(INF, 0), Line(-INF, 0)));
   }
   friend ostream &operator<<(ostream &os, const CHTEx &a) {
-    os << "CHT-Ex\n";
-    os << a.lines.size() << "lines\n";
-    for(auto &p : a.lines) os << p << "\n";
-    os << "cross points : " << a.cps.size() << "\n";
+    os << "CHT-Ex[" << (isMinimize ? "min" : "max") << "]\n";
+    assert(a.lines.size() >= 2);
+    os << a.lines.size() - 2 << " lines (excluding sentinel)\n";
+    for(auto it = next(a.lines.begin()); next(it) != a.lines.end(); ++it)
+      os << *it << "\n";
+    os << a.cps.size() << " cross points"
+       << "\n";
     for(auto &p : a.cps)
       os << "(x = " << p.numer << "/" << p.denom << "; " << p.p.a << ", " << p.p.b << ")"
          << "\n";
@@ -143,14 +152,12 @@ private:
   }
 };
 
-template < class T, class Comp, class D >
-T CHTEx< T, Comp, D >::INF = numeric_limits< T >::has_infinity
+template < class T, bool isMinimize, class D >
+T CHTEx< T, isMinimize, D >::INF = numeric_limits< T >::has_infinity
                                  ? numeric_limits< T >::infinity()
                                  : numeric_limits< T >::max();
 
-template < class T, class Comp, class D >
-T CHTEx< T, Comp, D >::EPS = 1e-19;
+template < class T, bool isMinimize, class D >
+T CHTEx< T, isMinimize, D >::EPS = 1e-19;
 
-template < class T, class Comp, class D >
-Comp CHTEx< T, Comp, D >::comp; // only for less or greater
 /// }}}--- ///
