@@ -13,10 +13,12 @@ using ll = long long;
 // .setProcessIn (func)
 // .setProcessOut(func)
 // === .build() ===
-// .par[i] // parent of i in reformed graph whose depth is O(log N)
+// info about reformed graph (depth is O(log N))
+// .par[i] : int
+// .child[i] : vector<int>
 /// --- Centroid Decomposition {{{ ///
-#include <functional>
 #include <cassert>
+#include <functional>
 #include <vector>
 struct CentroidDecomposition {
   using graph_type = vector< vector< int > >;
@@ -29,8 +31,10 @@ struct CentroidDecomposition {
       size_t n,
       const process_type process_in = [&](int, const vector< bool > &) -> void {},
       const process_type process_out = [&](int, const vector< bool > &) -> void {})
-      : n(n), process_in(process_in), process_out(process_out) {}
-  CentroidDecomposition(const graph_type &tree) : CentroidDecomposition(tree.size()) {}
+      : n(n), tree(n), process_in(process_in), process_out(process_out) {}
+  CentroidDecomposition(const graph_type &tree) : CentroidDecomposition(tree.size()) {
+    this->tree = tree;
+  }
   void setProcessIn(const process_type &process_in) { this->process_in = process_in; };
   void setProcessOut(const process_type &process_out) { this->process_out = process_out; }
   void addEdge(size_t a, size_t b) {
@@ -46,26 +50,29 @@ private:
 
 public:
   vector< int > par;
+  vector< vector< int > > child;
   void build() {
     assert(!built);
     built = 1;
     processing.resize(n);
     sub.resize(n);
     par.resize(n);
+    child.resize(n);
     decomposite(0, -1);
   }
 
 private:
-  void decomposite(int start, int p) {
+  int decomposite(int start, int p) {
     dfs(start, -1);
     int centroid = search_centroid(start, -1, sub[start] / 2);
     par[centroid] = p;
     process_in(centroid, processing);
     processing[centroid] = 1;
     for(auto &j : tree[centroid])
-      if(!processing[j]) decomposite(j, centroid);
+      if(!processing[j]) child[centroid].push_back(decomposite(j, centroid));
     processing[centroid] = 0;
     process_out(centroid, processing);
+    return centroid;
   }
   void dfs(int i, int p) {
     sub[i] = 1;
@@ -85,6 +92,6 @@ private:
 };
 /// }}}--- ///
 
+// do NOT go to vertex v when u[v] is true !!!!
 // void processIn(int c, const vector< bool > &u) {}
 // void processOut(int c, const vector< bool > &u) {}
-
