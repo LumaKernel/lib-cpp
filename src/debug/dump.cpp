@@ -13,8 +13,8 @@ using ll = long long;
 // DEBUG {{{
 #include <array>
 #include <deque>
-#include <ostream>
 #include <list>
+#include <ostream>
 #include <queue>
 #include <stack>
 #include <tuple>
@@ -64,8 +64,8 @@ ostream &operator<<(ostream &os, queue< T, Container > a) {
   return os;
 }
 #ifdef DEBUG
-  #if !defined(DEBUG_OUT)
-  #define DEBUG_OUT cerr
+#if !defined(DEBUG_OUT)
+#define DEBUG_OUT cerr
 #endif
 #define dump(...)                                                                \
   [&]() {                                                                        \
