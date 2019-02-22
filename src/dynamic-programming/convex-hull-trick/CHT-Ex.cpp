@@ -154,8 +154,8 @@ private:
 
 template < class T, bool isMinimize, class D >
 T CHTEx< T, isMinimize, D >::INF = numeric_limits< T >::has_infinity
-                                 ? numeric_limits< T >::infinity()
-                                 : numeric_limits< T >::max();
+                                       ? numeric_limits< T >::infinity()
+                                       : numeric_limits< T >::max();
 
 template < class T, bool isMinimize, class D >
 T CHTEx< T, isMinimize, D >::EPS = 1e-19;

@@ -62,7 +62,7 @@ private:
 /// }}}--- ///
 
 /// --- Monoid examples {{{ ///
-constexpr long long inf = 1e18 + 100;
+constexpr long long inf_monoid = 1e18 + 100;
 #include <algorithm>
 struct Nothing {
   using T = char;
@@ -80,14 +80,14 @@ template < class U = long long >
 struct RangeMin {
   using T = U;
   static T op(const T &a, const T &b) { return min(a, b); }
-  static constexpr T identity() { return T(inf); }
+  static constexpr T identity() { return T(inf_monoid); }
 };
 
 template < class U = long long >
 struct RangeMax {
   using T = U;
   static T op(const T &a, const T &b) { return max(a, b); }
-  static constexpr T identity() { return -T(inf); }
+  static constexpr T identity() { return -T(inf_monoid); }
 };
 
 template < class U = long long >
