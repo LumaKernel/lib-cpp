@@ -32,10 +32,14 @@ map< T, int > compress(const vector< T > &v) {
 // @alias smax
 
 // smin, smax {{{
-// clang-format off
-template < class T, class U > inline void smin(T &a, const U &b) { a = a < (T) b ? a : b; }
-template < class T, class U > inline void smax(T &a, const U &b) { a = a < (T) b ? b : a; }
-// clang-format on
+template < class T, class U >
+inline void smin(T &a, const U &b) {
+  a = a < (T) b ? a : b;
+}
+template < class T, class U >
+inline void smax(T &a, const U &b) {
+  a = a < (T) b ? b : a;
+}
 // }}}
 
 // @new
