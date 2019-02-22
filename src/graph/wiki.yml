@@ -4,8 +4,9 @@ order:
   - general
   - StronglyConnectedComponent
   - DoublingTree
-  - HL-Decomposition
   - Centroid
+  - CentroidDecomposition
+  - HL-Decomposition
   - lowlink
   - BiconnectedComponent
   - BiedgeConnectedComponent

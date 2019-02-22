@@ -37,6 +37,10 @@ title: 直線追加任意順序のCHT
 * [C - Kalila and Dimna in the Logging Industry - codeforces](https://codeforces.com/contest/319/submission/48890326){:target="_blank"}<!--_-->
   * overflow対策で `D = double` としています
 
+# 練習問題
+
+* [NIKKEI 2019本選 G - Greatest Journey (1200) - AtCoder](https://atcoder.jp/contests/nikkei2019-final/tasks/nikkei2019_final_g){:target="_blank"}<!--_-->
+
 # 参考
 
 * [Convex Hull Trick - 競技プログラミング+αなブログ](http://d.hatena.ne.jp/sune2/20140310/1394440369){:target="_blank"}<!--_-->

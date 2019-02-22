@@ -7,7 +7,7 @@ using ll = long long;
 // @snippet doubling_tree
 // @name Doubilng Tree
 
-// DoublingTree ( <graph> , initial? )
+// DoublingTree ( <tree> , initial? )
 // .addEdge(a, b)
 // .set(i, val) or .assign( <data> )
 // === initiation ===
@@ -41,6 +41,7 @@ struct DoublingTree {
     while((1 << h) < n) h++;
     return h;
   }
+  DoublingTree() : n(0) {}
   DoublingTree(size_t n, const T &initial = Monoid::identity())
       : n(n),
         logn(log(n)),
@@ -79,7 +80,10 @@ struct DoublingTree {
     dfs(root);
     init();
   }
+  bool initiated = 0;
   void init() {
+    assert(!initiated);
+    initiated = 1;
     for(int k = 1; k < logn; k++) {
       for(size_t i = 0; i < n; i++) {
         int p = par[k - 1][i];
@@ -102,6 +106,7 @@ struct DoublingTree {
       }
   }
   int climb(size_t a, ll steps) {
+    assert(initiated);
     assert(a < n);
     for(int i = logn - 1; i >= 0 && a != -1; i--)
       if(steps >= (1 << i)) a = par[i][a], steps -= 1 << i;
@@ -109,13 +114,20 @@ struct DoublingTree {
     return a;
   }
   int descend(size_t from, size_t to, ll steps = 1) {
+    assert(initiated);
     assert(from < n && to < n);
     assert(depth[to] >= depth[from]);
     int up = depth[to] - depth[from] - steps;
     if(up < 0) up = 0;
     return climb(to, up);
   }
+  int steps(size_t from, size_t to) {
+    assert(initiated);
+    assert(from < n && to < n);
+    return depth[from] + depth[to] - depth[lca(from, to)] * 2;
+  }
   int lca(size_t a, size_t b) {
+    assert(initiated);
     assert(a < n && b < n);
     if(depth[a] < depth[b]) swap(a, b);
     for(int k = logn - 1; k >= 0; k--) {
@@ -133,6 +145,7 @@ struct DoublingTree {
     return par[0][a];
   }
   T query(size_t hi, size_t a, bool inclusive = true) {
+    assert(initiated);
     assert(hi < n && a < n);
     T res = Monoid::identity();
     for(int k = logn - 1; k >= 0; k--) {
