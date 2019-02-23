@@ -9,13 +9,13 @@ using ll = long long;
 // @alias jusinbunkai
 // @alias decomp_centroid
 
-// CentroidDecomposition( <tree> [, process_in [, process_out] ] )
-// .setProcessIn (func)
-// .setProcessOut(func)
-// === .build() ===
+// CentroidDecomposition( <tree> [, process ] )
+// .setProcess(func)
+// === .build() : returns root id ===
 // info about reformed graph (depth is O(log N))
 // .par[i] : int
 // .child[i] : vector<int>
+// .sz[i] : int : subtree size
 /// --- Centroid Decomposition {{{ ///
 #include <cassert>
 #include <functional>
@@ -25,18 +25,16 @@ struct CentroidDecomposition {
   using process_type = function< void(int centroid, const vector< bool > &) >;
   size_t n;
   graph_type tree;
-  process_type process_in, process_out;
+  process_type process;
   CentroidDecomposition() : n(0) {}
-  CentroidDecomposition(
-      size_t n,
-      const process_type process_in = [&](int, const vector< bool > &) -> void {},
-      const process_type process_out = [&](int, const vector< bool > &) -> void {})
-      : n(n), tree(n), process_in(process_in), process_out(process_out) {}
+  CentroidDecomposition(size_t n,
+                        const process_type process =
+                            [&](int, const vector< bool > &) -> void {})
+      : n(n), tree(n), process(process) {}
   CentroidDecomposition(const graph_type &tree) : CentroidDecomposition(tree.size()) {
     this->tree = tree;
   }
-  void setProcessIn(const process_type &process_in) { this->process_in = process_in; };
-  void setProcessOut(const process_type &process_out) { this->process_out = process_out; }
+  void setProcess(const process_type &process) { this->process = process; }
   void addEdge(size_t a, size_t b) {
     assert(a < n && b < n);
     tree[a].push_back(b);
@@ -49,29 +47,32 @@ private:
   bool built = 0;
 
 public:
+  int root = -1;
   vector< int > par;
+  vector< int > sz;
   vector< vector< int > > child;
-  void build() {
+  int build() {
     assert(!built);
     built = 1;
     processing.resize(n);
     sub.resize(n);
     par.resize(n);
+    sz.resize(n);
     child.resize(n);
-    decomposite(0, -1);
+    return root = decomposite(0, -1);
   }
 
 private:
   int decomposite(int start, int p) {
     dfs(start, -1);
     int centroid = search_centroid(start, -1, sub[start] / 2);
+    sz[centroid] = sub[start];
     par[centroid] = p;
-    process_in(centroid, processing);
     processing[centroid] = 1;
     for(auto &j : tree[centroid])
       if(!processing[j]) child[centroid].push_back(decomposite(j, centroid));
     processing[centroid] = 0;
-    process_out(centroid, processing);
+    process(centroid, processing);
     return centroid;
   }
   void dfs(int i, int p) {
@@ -93,5 +94,4 @@ private:
 /// }}}--- ///
 
 // do NOT go to vertex v when u[v] is true !!!!
-// void processIn(int c, const vector< bool > &u) {}
-// void processOut(int c, const vector< bool > &u) {}
+// void process(int c, const vector< bool > &u) {}

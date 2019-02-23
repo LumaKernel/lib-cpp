@@ -2,10 +2,15 @@
 title: 重心分解 (Centroid Decomposition)
 ---
 
+木を重心分解する
+
 # キーワード
+
+基本的にパスに関する質問
 
 * ある点を始点とするパスのなかで 最適なものを答えよ / 条件をみたすものを数え上げよ
 * ある条件を満たすパスを数え上げよ
+* ある点を通る条件を満たすパスを数え上げよ
 
 # メモ
 
@@ -43,15 +48,25 @@ DFSすればよい
 
 # 検証
 
-すべて bottom-up に書いている
+bottom-up で書いた
 
 * [#199 div2 E - Xenia and Tree - codefroces](https://codeforces.com/contest/342/submission/50313110){:target="_blank"}<!--_-->
 * [みんプロ2018 決勝 C - 木の問題 (1200) - AtCoder](https://atcoder.jp/contests/yahoo-procon2018-final-open/submissions/4349163){:target="_blank"}<!--_-->
+
+top-down で書いた
+
+* [Path Inversions - CSAcademy](https://csacademy.com/submission/2164172/){:target="_blank"}<!--_-->
+
+inline のみですませた
+
+* [#458 E - Palindromes in a Tree - codeforces](https://codeforces.com/contest/914/submission/50353783){:target="_blank"}<!--_-->
 
 # 練習問題
 
 * [#199 div2 E - Xenia and Tree - codefroces](https://codeforces.com/contest/342/problem/E){:target="_blank"}<!--_-->
 * [#190 div1 C - Ciel the Commander - codeforces](https://codeforces.com/problemset/problem/321/C){:target="_blank"}<!--_-->
+* [Path Inversions - CSAcademy](https://csacademy.com/contest/archive/task/path-inversions/statement/){:target="_blank"}<!--_-->
+* [#458 E - Palindromes in a Tree - codeforces](https://codeforces.com/contest/914/problem/E){:target="_blank"}<!--_-->
 * [NIKKEI 2019本選 G - Greatest Journey (1200) - AtCoder](https://atcoder.jp/contests/nikkei2019-final/tasks/nikkei2019_final_g){:target="_blank"}<!--_-->
 * [みんプロ2018 決勝 C - 木の問題 (1200) - AtCoder](https://atcoder.jp/contests/yahoo-procon2018-final-open/tasks/yahoo_procon2018_final_c){:target="_blank"}<!--_-->
 
