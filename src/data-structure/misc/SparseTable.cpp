@@ -4,14 +4,12 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @name Sparse Table
-// @snippet     sparsetable
-// @title Sparse Table
-// @alias       rmq
-// NOTE : query in range!
+// @ Sparse Table
+// @snippet sparsetable
+// @alias rmq_sparsetable
 
-// SparseTable( <data> , identity ? )
-// .query(l, r) : [l, r)
+// SparseTable( <data> [, default_value] )
+// .fold(l, r) : [l, r)
 /// --- Sparse Table {{{ ///
 #include <cassert>
 #include <initializer_list>
@@ -19,48 +17,56 @@ using ll = long long;
 #include <vector>
 template < class SemiLattice >
 struct SparseTable {
+public:
   using T = typename SemiLattice::T;
-  size_t n;
-  vector< size_t > log2;
+  using size_type = size_t;
+
+private:
+  size_type n;
+  vector< size_type > log2;
   vector< vector< T > > t;
-  T identity;
+  T default_value;
+
+public:
   SparseTable() : n(0) {}
-  SparseTable(size_t n, T identity = T()) : n(n), log2(n + 1), identity(identity) {
-    for(size_t i = 2; i <= n; i++) log2[i] = log2[i >> 1] + 1;
-    t.resize(log2[n] + 1, vector< T >(n, identity));
+  SparseTable(size_type n, T default_value = T())
+      : n(n), log2(n + 1), default_value(default_value) {
+    for(size_type i = 2; i <= n; i++) log2[i] = log2[i >> 1] + 1;
+    t.resize(log2[n] + 1, vector< T >(n, default_value));
   }
   template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
-  SparseTable(InputIter first, InputIter last, T identity = T())
-      : SparseTable(distance(first, last), identity) {
+  SparseTable(InputIter first, InputIter last, T default_value = T())
+      : SparseTable(distance(first, last), default_value) {
     copy(first, last, begin(t[0]));
     build();
   }
-  SparseTable(vector< T > v, T identity = T())
-      : SparseTable(v.begin(), v.end(), identity) {}
-  SparseTable(initializer_list< T > v, T identity = T())
-      : SparseTable(v.begin(), v.end(), identity) {}
-  void set(size_t i, T val) {
+  SparseTable(vector< T > v, T default_value = T())
+      : SparseTable(v.begin(), v.end(), default_value) {}
+  SparseTable(initializer_list< T > v, T default_value = T())
+      : SparseTable(v.begin(), v.end(), default_value) {}
+  void set(size_type i, T val) {
     assert(i < n);
     t[0][i] = val;
   }
-  T get(size_t i) {
+  T get(size_type i) {
     assert(i < n);
     return t[0][i];
   }
   void build() {
-    for(size_t j = 0; j < log2[n]; j++) {
-      size_t w = 1 << j;
-      for(size_t i = 0; i + (w << 1) <= n; i++) {
+    for(size_type j = 0; j < log2[n]; j++) {
+      size_type w = 1 << j;
+      for(size_type i = 0; i + (w << 1) <= n; i++) {
         t[j + 1][i] = SemiLattice::op(t[j][i], t[j][i + w]);
       }
     }
   }
-  T query(int l, int r) {
-    if(r - l < 1) return identity;
-    assert(r <= n);
-    int j = log2[r - l];
+  T fold(size_type l, size_type r) {
+    if(r - l < 1) return default_value;
+    assert(l < n && r <= n);
+    size_type j = log2[r - l];
     return SemiLattice::op(t[j][l], t[j][r - (1 << j)]);
   }
+  size_type size() { return n; }
 };
 /// }}}--- ///
 
@@ -71,4 +77,5 @@ struct RMQSL {
 };
 // }}}
 
-SparseTable< RMQSL > rmq(N, inf);
+using SPT = SparseTable< RMQSL >;
+SPT rmq(N, inf);

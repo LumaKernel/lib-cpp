@@ -147,7 +147,7 @@ public:
     if(tr != nullptr) tr->lazy = M_act::op(m, tr->lazy);
     merge(merge(tl, tr), sr);
   }
-  friend X query(TreapSeq *a, int l, int r) {
+  friend X fold(TreapSeq *a, int l, int r) {
     TreapSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);

@@ -139,7 +139,7 @@ public:
     if(tr != nullptr) tr->lazy = M_act::op(m, tr->lazy);
     a = merge(merge(tl, tr), sr);
   }
-  friend X query(RBSTSeq *&a, int l, int r) {
+  friend X fold(RBSTSeq *&a, int l, int r) {
     RBSTSeq *sl, *sr, *tl, *tr;
     tie(sl, sr) = split(a, r);
     tie(tl, tr) = split(sl, l);

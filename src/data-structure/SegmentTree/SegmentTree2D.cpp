@@ -5,10 +5,9 @@ using ll = long long;
 
 // @@
 // @snippet     seg2d
-// @name 2D SegmentTree
+// @ 2D SegmentTree
 // @alias        static_seg_2d 2d_seg
 // constructor(int sizex, int sizey, T identity, func merge)
-// WARN : query in range by yourself!
 /// --- 2D SegmentTree {{{ ///
 
 #include <functional>
@@ -55,20 +54,20 @@ private:
   }
 
 public:
-  T query(int xl, int xr, int yl, int yr) { return queryx(xl, xr, yl, yr, 0, sizex, 0); }
+  T fold(int xl, int xr, int yl, int yr) { return foldx(xl, xr, yl, yr, 0, sizex, 0); }
 
 private:
-  T queryx(int xl, int xr, int yl, int yr, int sxl, int sxr, int k) {
+  T foldx(int xl, int xr, int yl, int yr, int sxl, int sxr, int k) {
     if(xr <= sxl || sxr <= xl) return identity;
-    if(xl <= sxl && sxr <= xr) return queryy(k, yl, yr, 0, sizey, 0);
-    return merge(queryx(xl, xr, yl, yr, sxl, (sxl + sxr) / 2, k * 2 + 1),
-                 queryx(xl, xr, yl, yr, (sxl + sxr) / 2, sxr, k * 2 + 2));
+    if(xl <= sxl && sxr <= xr) return foldy(k, yl, yr, 0, sizey, 0);
+    return merge(foldx(xl, xr, yl, yr, sxl, (sxl + sxr) / 2, k * 2 + 1),
+                 foldx(xl, xr, yl, yr, (sxl + sxr) / 2, sxr, k * 2 + 2));
   }
-  T queryy(int kx, int yl, int yr, int syl, int syr, int k) {
+  T foldy(int kx, int yl, int yr, int syl, int syr, int k) {
     if(yr <= syl || syr <= yl) return identity;
     if(yl <= syl && syr <= yr) return dat[kx * sizey * 2 + k];
-    return merge(queryy(kx, yl, yr, syl, (syl + syr) / 2, k * 2 + 1),
-                 queryy(kx, yl, yr, (syl + syr) / 2, syr, k * 2 + 2));
+    return merge(foldy(kx, yl, yr, syl, (syl + syr) / 2, k * 2 + 1),
+                 foldy(kx, yl, yr, (syl + syr) / 2, syr, k * 2 + 2));
   }
 };
 

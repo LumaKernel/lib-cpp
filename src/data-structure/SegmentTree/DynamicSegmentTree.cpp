@@ -4,13 +4,11 @@ using namespace std;
 using ll = long long;
 
 // @@
+// @ Dynamic SegmentTree
 // @snippet     dynamicsegmenttree
 // @alias       segdynamic
-// @ Dynamic SegmentTree
 
-// Note : to get faster, use map by yourself
 /// --- Dynamic SegmentTree {{{ ///
-
 template < class Monoid >
 struct DynamicSegmentTree {
   using T = typename Monoid::T;
@@ -43,19 +41,19 @@ private:
   inline T calc(Node *node) { return node == nullptr ? Monoid::identity() : node->value; }
 
 public:
-  T query(int a, int b) {
+  T fold(int a, int b) {
     if(a < 0 || b > n || b <= a) return Monoid::identity();
-    return query(a, b, 0, n, top);
+    return fold(a, b, 0, n, top);
   }
-  T get(int i) { return query(i, i + 1); }
+  T get(int i) { return fold(i, i + 1); }
 
 private:
-  T query(int a, int b, int l, int r, Node *node) {
+  T fold(int a, int b, int l, int r, Node *node) {
     if(node == nullptr) return Monoid::identity();
     if(b <= l || r <= a) return Monoid::identity();
     if(a <= l && r <= b) return node->value;
     return Monoid::op(
-        query(a, b, l, (l + r) / 2, node->l), query(a, b, (l + r) / 2, r, node->r));
+        fold(a, b, l, (l + r) / 2, node->l), fold(a, b, (l + r) / 2, r, node->r));
   }
 };
 
@@ -129,4 +127,4 @@ struct RangeAnd< bitset< N > > {
 
 /// }}}--- ///
 
-using Seg = DynamicSegmentTree< RangeMin >;
+using Seg = DynamicSegmentTree< RangeMin<> >;

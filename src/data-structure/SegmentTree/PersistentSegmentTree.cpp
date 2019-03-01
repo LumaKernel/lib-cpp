@@ -4,15 +4,13 @@ using namespace std;
 using ll = long long;
 
 // @@
+// @ Persistent SegmentTree
 // @snippet     persistent_seg
 // @alias       seg_persistent
-// @ Persistent SegmentTree
 
-// NOTE : query in range!
-// initial time : 0
-// set( i , time? ) returns newTime ( = after updating )
-// query( [l, r) , time? = .lastRoot )
-// get( i , time? = .lastRoot )
+// .set( i , time = .lastRoot ) returns new time ( after updating )
+// .fold( l, r, time = .lastRoot ) : [l, r)
+// .get( i , time = .lastRoot )
 /// --- Persistent SegmentTree {{{ ///
 
 #include <vector>
@@ -73,17 +71,17 @@ public:
     }
     data[k] = Monoid::op(data[lch[k]], data[rch[k]]);
   }
-  T get(int i, int time = -1) { return query(i, i + 1, time); }
-  T query(int a, int b, int time = -1) {
+  T get(int i, int time = -1) { return fold(i, i + 1, time); }
+  T fold(int a, int b, int time = -1) {
     if(time == -1) time = roots.size() - 1;
-    return query(a, b, 0, n, roots[time]);
+    return fold(a, b, 0, n, roots[time]);
   }
-  T query(int a, int b, int l, int r, int k) {
+  T fold(int a, int b, int l, int r, int k) {
     if(k == 0) return Monoid::identity();
     if(b <= l || r <= a) return Monoid::identity();
     if(a <= l && r <= b) return data[k];
     return Monoid::op(
-        query(a, b, l, (l + r) >> 1, lch[k]), query(a, b, (l + r) >> 1, r, rch[k]));
+        fold(a, b, l, (l + r) >> 1, lch[k]), fold(a, b, (l + r) >> 1, r, rch[k]));
   }
 
 private:
@@ -170,4 +168,4 @@ struct RangeAnd< bitset< N > > {
 
 /// }}}--- ///
 
-using Seg = PersistentSegTree< RangeMin >;
+using Seg = PersistentSegTree< RangeMin<> >;

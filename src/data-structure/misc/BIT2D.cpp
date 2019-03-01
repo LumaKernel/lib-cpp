@@ -4,13 +4,14 @@ using namespace std;
 using ll = long long;
 
 // @@
-// @name 2D BIT Library
+// @name 2D BIT
 // @snippet     bit2d
 // @alias       2dbit
 
 // NOTE : query in range and x1 <= x2, y is same
-/// --- 2D BIT Library {{{ ///
-
+/// --- 2D BIT {{{ ///
+#include <functional>
+#include <vector>
 template < class T = ll, class V = function< T(T, T) > >
 struct BIT2D {
   int h, w;
@@ -50,5 +51,4 @@ private:
     return r;
   }
 };
-
 /// }}}--- ///

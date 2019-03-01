@@ -48,7 +48,7 @@ public:
     assert(i < n);
     return data[i + n];
   }
-  T query(int l, int r) {
+  T fold(int l, int r) {
     if(l < 0) l = 0;
     if(l >= r) return Monoid::identity();
     if(r > n) r = n;

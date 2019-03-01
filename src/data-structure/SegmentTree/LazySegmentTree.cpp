@@ -100,7 +100,7 @@ public:
     evalDown(i);
     return data[i + n];
   }
-  X query(int l, int r) {
+  X fold(int l, int r) {
     if(l < 0) l = 0;
     if(l >= r) return Monoid::identity();
     if(r > (int) n) r = n;

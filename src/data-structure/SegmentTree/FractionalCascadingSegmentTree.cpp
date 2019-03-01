@@ -13,8 +13,8 @@ using ll = long long;
 // .index(y, x)
 // === init(doUnique) ===
 // .set(y, x, val)         // index(y, x) must be done
-// .query(yl, yr, xl, xr)
-// .query(y, x)
+// .fold(yl, yr, xl, xr)
+// .fold(y, x)
 // === --- ===
 // only offline
 /// --- Fractional Cascading SegmentTree {{{ ///
@@ -33,16 +33,16 @@ struct FractionalCascadingSegmentTree {
   U identity;
   function< void(T &, int x, const U &) > setX;
   function< void(T &, vector< Index > &) > initX;
-  function< U(T &, int x1, int x2) > queryX;
+  function< U(T &, int x1, int x2) > foldX;
   function< U(const U &, const U &) > mergeY;
   FractionalCascadingSegmentTree() {}
   FractionalCascadingSegmentTree(size_t tempH, //
                                  const function< void(T &, int, const U &) > &setX,
                                  const function< void(T &, vector< Index > &) > &initX,
-                                 const function< U(T &, int, int) > &queryX,
+                                 const function< U(T &, int, int) > &foldX,
                                  const function< U(const U &, const U &) > &mergeY,
                                  U identity = U(), T initial = T())
-      : identity(identity), setX(setX), initX(initX), queryX(queryX), mergeY(mergeY) {
+      : identity(identity), setX(setX), initX(initX), foldX(foldX), mergeY(mergeY) {
     h = 1;
     while(h < tempH) h <<= 1;
     dat = vector< T >(2 * h, initial);
@@ -138,8 +138,8 @@ private:
   }
 
 public:
-  U query(Index y, Index x) { return query(y, y + Index(1), x, x + Index(1)); }
-  U query(Index a, Index b, Index l, Index r) {
+  U fold(Index y, Index x) { return fold(y, y + Index(1), x, x + Index(1)); }
+  U fold(Index a, Index b, Index l, Index r) {
     if(a >= b || l >= r) return identity;
     size_t lower = lower_bound(begin(indices[1]), end(indices[1]), l) - begin(indices[1]);
     size_t upper = lower_bound(begin(indices[1]), end(indices[1]), r) - begin(indices[1]);
@@ -151,16 +151,16 @@ public:
       a2 = a, b2 = b;
       assert(a2 < h && b2 <= h);
     }
-    return query(a2, b2, lower, upper, 0, h, 1);
+    return fold(a2, b2, lower, upper, 0, h, 1);
   }
 
 private:
-  U query(size_t a, size_t b, size_t lower, size_t upper, size_t l, size_t r, size_t k) {
+  U fold(size_t a, size_t b, size_t lower, size_t upper, size_t l, size_t r, size_t k) {
     if(lower == upper) return identity;
     if(b <= l || r <= a) return identity;
-    if(a <= l && r <= b) return queryX(dat[k], lower, upper);
-    return mergeY(query(a, b, L[k][lower], L[k][upper], l, (l + r) >> 1, k * 2),
-                  query(a, b, R[k][lower], R[k][upper], (l + r) >> 1, r, k * 2 + 1));
+    if(a <= l && r <= b) return foldX(dat[k], lower, upper);
+    return mergeY(fold(a, b, L[k][lower], L[k][upper], l, (l + r) >> 1, k * 2),
+                  fold(a, b, R[k][lower], R[k][upper], (l + r) >> 1, r, k * 2 + 1));
   }
 };
 
@@ -184,8 +184,8 @@ FractionalCascadingSegmentTree< Under, Data, 1 > ecas(
     [](Under &dat, const vector< ll > &indices) -> void {
       dat = Under(indices.size()); // serve initial?
     },
-    // query [l, r) // l < r
-    [](Under &dat, int l, int r) -> Data { return dat.query(l, r); },
+    // fold [l, r) // l < r
+    [](Under &dat, int l, int r) -> Data { return dat.fold(l, r); },
     // merge y-direction
     [](Data a, Data b) -> Data { return a + b; }
     // optional identity
@@ -213,7 +213,7 @@ FractionalCascadingSegmentTree< Under, Data > qina(
     [](Under &dat, const vector< ll > &indices) -> void {
       dat = Under(indices.size()); // serve initial?
     },
-    // query [l, r) // l < r
+    // fold [l, r) // l < r
     [](Under &dat, int l, int r) -> Data { return dat.range(l, r - 1); },
     // merge y-direction
     [](Data a, Data b) -> Data { return a + b; }
@@ -246,8 +246,8 @@ FractionalCascadingSegmentTree< Under, Data, 1 > ecas(
     [](Under &dat, const vector< ll > &indices) -> void {
       dat = Under(indices.size(), inf_monoid?); // serve initial?
     },
-    // query [l, r) // l < r
-    [](Under &dat, int l, int r) -> Data { return dat.query(l, r); },
+    // fold [l, r) // l < r
+    [](Under &dat, int l, int r) -> Data { return dat.fold(l, r); },
     // merge y-direction
     [](Data a, Data b) -> Data { return min(a, b); }
     // optional identity
