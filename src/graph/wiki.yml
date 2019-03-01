@@ -10,11 +10,12 @@ order:
   - lowlink
   - BiconnectedComponent
   - BiedgeConnectedComponent
+  - DSU-on-Tree
   - DP-all-subtree
-  - GraphUtil
-  - isSameTree
   - MST
   - boruvka
+  - isSameTree
+  - GraphUtil
   - A-star
   - IDA-star
   - flow
