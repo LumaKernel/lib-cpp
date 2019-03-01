@@ -166,4 +166,3 @@ unsigned long long knapsack3(const vector< unsigned long long >& x,
   return res;
 }
 // }}}
-

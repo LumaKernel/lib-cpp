@@ -1,5 +1,5 @@
 ---
-title: DSU on Tree
+title: 根付き木に対する部分木クエリ (DSU on Tree)
 ---
 
 根付き木に対し部分木クエリを行います
@@ -18,7 +18,7 @@ title: DSU on Tree
 
 より正確には，これは実装を見てから理解したほうがいいと思うが，
 
-* ある頂点を有効化/無効化する
+* ある頂点を 有効化/無効化 する
 * 各頂点vについて部分木が有効になったタイミングでクエリに答える
 
 といったことができればいい
@@ -27,9 +27,9 @@ title: DSU on Tree
 
 # 計算量について
 
-[HL分解]({{ "graph/HL-Decomposition" | absolute_url }}) による木の変換を考える．HLD StyleはLight Edgeを登ったタイミングで全ての部分木内の頂点を走査している
+[HL分解]({{ "graph/HL-Decomposition" | absolute_url }}) による木の変換を考える．HLD Styleは Light Edge を登ったタイミングで全ての部分木内の頂点を走査している
 
-ここで各頂点についていつ走査されるか考える．これは根へと向かう途中にある Light Edgeの本数だが，これは $O(\log N)$ 本となる．よって全体で $O(N \log N)$ となる
+ここで各頂点についていつ走査されるか考える．これは根へと向かう途中にある Light Edge の本数だが，これは $O(\log N)$ 本となる．よって全体で $O(N \log N)$ となる
 
 # 実装
 
@@ -38,6 +38,7 @@ title: DSU on Tree
 # 検証
 
 * [ECR47 F - Dominant Indices - codeforces](https://codeforces.com/contest/1009/submission/50643706){:target="_blank"}<!--_-->
+  * 少し応用．`rem` が行われるタイミングで完全にリセットして，`add` が行われたらその頂点を候補とする，`ans[heavy[i]]` との比較をする，といったことをしている
 
 # 練習問題
 

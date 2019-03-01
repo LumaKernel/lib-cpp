@@ -36,8 +36,8 @@ private:
   // call before use val, accum
   friend void eval(TreapSeq *a) {
     if(a->lazy != M_act::identity()) {
-      a->val = M_act::actInto(a->lazy, -1, 1, a->val);
-      a->accum = M_act::actInto(a->lazy, -1, a->sz, a->accum);
+      a->val = M_act::actInto(a->lazy, 1, a->val);
+      a->accum = M_act::actInto(a->lazy, a->sz, a->accum);
       if(a->l != nullptr) a->l->lazy = M_act::op(a->lazy, a->l->lazy);
       if(a->r != nullptr) a->r->lazy = M_act::op(a->lazy, a->r->lazy);
       a->lazy = M_act::identity();
@@ -176,7 +176,7 @@ struct Nothing {
   static constexpr T op(const T &, const T &) { return T(); }
   static constexpr T identity() { return T(); }
   template < class X >
-  static constexpr X actInto(const M &, ll, ll, const X &x) {
+  static constexpr X actInto(const M &, ll, const X &x) {
     return x;
   }
 };
@@ -242,7 +242,7 @@ struct RangeMinAdd {
   using Monoid = RangeMin< U >;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll, ll, const X &x) { return m + x; }
+  static X actInto(const M &m, ll, const X &x) { return m + x; }
 };
 
 template < class U = long long, class V = U >
@@ -252,7 +252,7 @@ struct RangeMaxAdd {
   using Monoid = RangeMax< U >;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll, ll, const X &x) { return m + x; }
+  static X actInto(const M &m, ll, const X &x) { return m + x; }
 };
 
 template < class U = long long, class V = U >
@@ -262,7 +262,7 @@ struct RangeMinSet {
   using X = typename Monoid::T;
   static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return -M(inf_monoid); }
-  static X actInto(const M &m, ll, ll, const X &) { return m; }
+  static X actInto(const M &m, ll, const X &) { return m; }
 };
 
 template < class U = long long, class V = U >
@@ -272,7 +272,7 @@ struct RangeMaxSet {
   using X = typename Monoid::T;
   static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return -M(inf_monoid); }
-  static X actInto(const M &m, ll, ll, const X &) { return m; }
+  static X actInto(const M &m, ll, const X &) { return m; }
 };
 
 template < class U = long long, class V = U >
@@ -282,7 +282,7 @@ struct RangeSumAdd {
   using Monoid = RangeSum< U >;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll, ll n, const X &x) { return m * n + x; }
+  static X actInto(const M &m, ll n, const X &x) { return m * n + x; }
 };
 
 template < class U = long long, class V = U >
@@ -292,7 +292,7 @@ struct RangeSumSet {
   using Monoid = RangeSum< U >;
   static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return -M(inf_monoid); }
-  static X actInto(const M &m, ll, ll n, const X &) { return m * n; }
+  static X actInto(const M &m, ll n, const X &) { return m * n; }
 };
 
 template < class U, class V = U >
@@ -311,7 +311,7 @@ struct RangeProdMul {
   }
   static M op(const M &a, const M &b) { return a * b; }
   static constexpr M identity() { return M(1); }
-  static X actInto(const M &m, ll, ll n, const X &x) { return x * mpow(m, n); }
+  static X actInto(const M &m, ll n, const X &x) { return x * mpow(m, n); }
 };
 
 template < class U, class V = U >
@@ -321,7 +321,7 @@ struct RangeProdSet {
   using Monoid = RangeProd< U >;
   static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return V::unused; }
-  static X actInto(const M &m, ll, ll n, const X &) {
+  static X actInto(const M &m, ll n, const X &) {
     return RangeProdMul< U, V >::mpow(m, n);
   }
 };
@@ -333,7 +333,7 @@ struct RangeOr2 {
   using Monoid = RangeOr< U >;
   static M op(const M &a, const M &b) { return a | b; }
   static constexpr M identity() { return M(0); }
-  static X actInto(const M &m, ll, ll, const X &x) { return m | x; }
+  static X actInto(const M &m, ll, const X &x) { return m | x; }
 };
 
 template < class U = long long, class V = U >
@@ -343,7 +343,7 @@ struct RangeAnd2 {
   using Monoid = RangeAnd< U >;
   static M op(const M &a, const M &b) { return a & b; }
   static constexpr M identity() { return M(-1); }
-  static X actInto(const M &m, ll, ll, const X &x) { return m & x; }
+  static X actInto(const M &m, ll, const X &x) { return m & x; }
 };
 
 template < class U, size_t N >
@@ -353,11 +353,12 @@ struct RangeAnd2< U, bitset< N > > {
   using Monoid = RangeAnd< U >;
   static M op(const M &a, const M &b) { return a & b; }
   static constexpr M identity() { return bitset< N >().set(); }
-  static X actInto(const M &m, ll, ll, const X &x) { return m & x; }
+  static X actInto(const M &m, ll, const X &x) { return m & x; }
 };
 /// }}}--- ///
 
-TreapSeq< RangeMinSet<> > *seq = nullptr;
+using Seq = TreapSeq< RangeMinSet<> > *;
+Seq seq = nullptr;
 
 // @new
 // @name Treap Multiset Library
@@ -471,7 +472,8 @@ public:
     prop(a);
   }
   friend Key getKth(TreapMultiset *&a, int k) {
-    static const struct CannotGetKthOfNullptr {} ex;
+    static const struct CannotGetKthOfNullptr {
+    } ex;
     if(a == nullptr) throw ex;
     if(k <= size(a->l)) {
       if(k == size(a->l)) return a->key;
@@ -500,4 +502,5 @@ public:
 
 /// }}}--- ///
 
-TreapMultiset< ll > *ms = nullptr;
+using MS = TreapMultiset< ll > *;
+MS ms = nullptr;

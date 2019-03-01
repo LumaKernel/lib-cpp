@@ -33,8 +33,8 @@ private:
   // call before use val, accum
   friend void eval(RBSTSeq *a) {
     if(a->lazy != M_act::identity()) {
-      a->val = M_act::actInto(a->lazy, -1, 1, a->val);
-      a->accum = M_act::actInto(a->lazy, -1, a->sz, a->accum);
+      a->val = M_act::actInto(a->lazy, 1, a->val);
+      a->accum = M_act::actInto(a->lazy, a->sz, a->accum);
       if(a->l != nullptr) a->l->lazy = M_act::op(a->lazy, a->l->lazy);
       if(a->r != nullptr) a->r->lazy = M_act::op(a->lazy, a->r->lazy);
       a->lazy = M_act::identity();
@@ -349,7 +349,8 @@ struct RangeAnd2< U, bitset< N > > {
 };
 /// }}}--- ///
 
-RBSTSeq< RangeMinAdd<> > *seq = nullptr;
+using Seq = RBSTSeq< RangeMinAdd<> > *;
+Seq seq = nullptr;
 
 // @new
 // @name RBST Multiset Library
@@ -453,7 +454,8 @@ public:
     prop(a);
   }
   friend Key getKth(RBSTMultiset *&a, int k) {
-    static const struct CannotGetKthOfNullptr {} ex;
+    static const struct CannotGetKthOfNullptr {
+    } ex;
     if(a == nullptr) throw ex;
     if(k <= size(a->l)) {
       if(k == size(a->l)) return a->key;
@@ -482,4 +484,5 @@ public:
 
 /// }}}--- ///
 
-RBSTMultiset< ll > *ms = nullptr;
+using MS = RBSTMultiset< ll > *;
+MS ms = nullptr;
