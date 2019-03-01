@@ -191,7 +191,7 @@ struct Nothing {
   static constexpr T op(const T &, const T &) { return T(); }
   static constexpr T identity() { return T(); }
   template < class X >
-  static constexpr X actInto(const M &, ll, const X &x) {
+  static constexpr X actInto(const M &, ll, ll, const X &x) {
     return x;
   }
 };
@@ -375,4 +375,3 @@ struct RangeAnd2< U, bitset< N > > {
 using LCT = LinkCutTree< RangeSumAdd<> >;
 
 LCT lc(N);
-

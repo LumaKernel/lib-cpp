@@ -21,6 +21,7 @@ public:
   using Monoid = typename M_act::Monoid;
   using X = typename Monoid::T;
   using M = typename M_act::M;
+
 private:
   size_t n;
   int h;
@@ -112,9 +113,7 @@ public:
     }
     return Monoid::op(tmpL, tmpR);
   }
-  int size() {
-    return n;
-  }
+  int size() { return n; }
   inline void dum(int r = -1) {
 #ifdef DEBUG
     if(r < 0) r = n;
@@ -137,7 +136,7 @@ struct Nothing {
   static constexpr T op(const T &, const T &) { return T(); }
   static constexpr T identity() { return T(); }
   template < class X >
-  static constexpr X actInto(const M &, ll, const X &x) {
+  static constexpr X actInto(const M &, ll, ll, const X &x) {
     return x;
   }
 };
@@ -321,4 +320,3 @@ struct RangeAnd2< U, bitset< N > > {
 using Seg = LazySegmentTree< RangeSumAdd<> >;
 
 Seg seg(N);
-

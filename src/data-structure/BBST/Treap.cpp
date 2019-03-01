@@ -176,7 +176,7 @@ struct Nothing {
   static constexpr T op(const T &, const T &) { return T(); }
   static constexpr T identity() { return T(); }
   template < class X >
-  static constexpr X actInto(const M &, ll, const X &x) {
+  static constexpr X actInto(const M &, ll, ll, const X &x) {
     return x;
   }
 };
@@ -472,8 +472,7 @@ public:
     prop(a);
   }
   friend Key getKth(TreapMultiset *&a, int k) {
-    static const struct CannotGetKthOfNullptr {
-    } ex;
+    static const struct CannotGetKthOfNullptr {} ex;
     if(a == nullptr) throw ex;
     if(k <= size(a->l)) {
       if(k == size(a->l)) return a->key;
