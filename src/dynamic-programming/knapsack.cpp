@@ -8,7 +8,7 @@ using ll = long long;
 // @snippet knapsack
 // @alias napsack
 
-// x : weight
+// x : cost
 // y : value
 // z : limit
 // knapsack
@@ -166,3 +166,4 @@ unsigned long long knapsack3(const vector< unsigned long long >& x,
   return res;
 }
 // }}}
+

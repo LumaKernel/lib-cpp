@@ -75,6 +75,7 @@ struct RangeAnd< bitset< N > > {
 
 /// }}}--- ///
 
+// @new
 // @ My Monoid Template
 // @snippet mymonoid
 // @alias monoid_my
@@ -83,12 +84,12 @@ struct RangeAnd< bitset< N > > {
 struct MyMonoid {
   using T = ll;
   static T op(const T &a, const T &b) { return min(a, b); }
-  static constexpr T identity() { return inf; }
+  static constexpr T identity() { return inf_monoid; }
 };
 struct MyMAct {
-  using X = ll;
-  using M = ll;
   using Monoid = MyMonoid;
+  using X = Monoid::T;
+  using M = ll;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
   static X actInto(const M &m, ll, ll, const X &x) { return m + x; }
