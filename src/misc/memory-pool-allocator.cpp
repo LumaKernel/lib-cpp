@@ -62,9 +62,9 @@ struct memory_pool {
 // @alias pool_no_deallocate
 
 // memory_pool_no_deallocate {{{
+#include <iostream>
 #include <memory>
 #include <vector>
-#include <iostream>
 template < int POOL_SIZE >
 struct memory_pool_no_deallocate {
   template < class T >
@@ -190,9 +190,9 @@ struct memory_block {
 // @alias block_no_deallocate
 
 // memory_block_no_deallocate {{{
+#include <iostream>
 #include <memory>
 #include <vector>
-#include <iostream>
 template < size_t BLOCK_SIZE >
 struct memory_block_no_deallocate {
   static_assert(BLOCK_SIZE > 0, "BLOCK_SIZE must be positive");

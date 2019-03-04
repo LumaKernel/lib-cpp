@@ -221,10 +221,10 @@ struct RangeAnd {
 };
 
 template < size_t N >
-struct RangeAnd< bitset< N > > {
-  using T = bitset< N >;
+struct RangeAnd< std::bitset< N > > {
+  using T = std::bitset< N >;
   static T op(const T &a, const T &b) { return a & b; }
-  static constexpr T identity() { return bitset< N >().set(); }
+  static constexpr T identity() { return std::bitset< N >().set(); }
 };
 
 /// }}}--- ///
