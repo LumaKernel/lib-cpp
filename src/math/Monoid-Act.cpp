@@ -1,6 +1,6 @@
 // @import header
 // #include <bits/stdc++.h>
-using namespace std;
+// using namespace std;
 using ll = long long;
 
 // @@
@@ -189,12 +189,12 @@ struct RangeAnd2 {
 };
 
 template < class U, size_t N >
-struct RangeAnd2< U, bitset< N > > {
+struct RangeAnd2< U, std::bitset< N > > {
   using X = U;
-  using M = bitset< N >;
+  using M = std::bitset< N >;
   using Monoid = RangeAnd< U >;
   static M op(const M &a, const M &b) { return a & b; }
-  static constexpr M identity() { return bitset< N >().set(); }
+  static constexpr M identity() { return std::bitset< N >().set(); }
   static X actInto(const M &m, ll, const X &x) { return m & x; }
 };
 /// }}}--- ///

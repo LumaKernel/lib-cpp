@@ -1,6 +1,6 @@
 // @import header
 // #include <bits/stdc++.h>
-using namespace std;
+// using namespace std;
 using ll = long long;
 
 // @@
@@ -67,10 +67,10 @@ struct RangeAnd {
 };
 
 template < size_t N >
-struct RangeAnd< bitset< N > > {
-  using T = bitset< N >;
+struct RangeAnd< std::bitset< N > > {
+  using T = std::bitset< N >;
   static T op(const T &a, const T &b) { return a & b; }
-  static constexpr T identity() { return bitset< N >().set(); }
+  static constexpr T identity() { return std::bitset< N >().set(); }
 };
 
 /// }}}--- ///
@@ -83,7 +83,7 @@ struct RangeAnd< bitset< N > > {
 // my monoid, m-act {{{
 struct MyMonoid {
   using T = ll;
-  static T op(const T &a, const T &b) { return min(a, b); }
+  static T op(const T &a, const T &b) { return std::min(a, b); }
   static constexpr T identity() { return inf_monoid; }
 };
 struct MyMAct {
@@ -92,6 +92,6 @@ struct MyMAct {
   using M = ll;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll, ll, const X &x) { return m + x; }
+  static X actInto(const M &m, ll, const X &x) { return m + x; }
 };
 // }}}

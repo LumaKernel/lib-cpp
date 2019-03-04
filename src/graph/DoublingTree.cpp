@@ -17,7 +17,7 @@ using ll = long long;
 // .lca(a, b)
 // .fold(hi, a, hi_inclusive = true)
 // .climb(from, steps)
-// .descend(from, to, steps)
+// .descendTo(from, to, steps)
 // === --- ===
 // .depth[a]
 // .par[i][a] // climb 2^i times from [a]
@@ -113,7 +113,7 @@ struct DoublingTree {
     assert(a == -1 || steps == 0);
     return a;
   }
-  int descend(size_t from, size_t to, ll steps = 1) {
+  int descendTo(size_t from, size_t to, ll steps = 1) {
     assert(initiated);
     assert(from < n && to < n);
     assert(depth[to] >= depth[from]);

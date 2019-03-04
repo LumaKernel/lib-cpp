@@ -7,3 +7,4 @@ order:
   - bitUtil
   - Factorial
   - XorShift
+  - memory-pool-allocator
