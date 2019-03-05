@@ -1,9 +1,3 @@
-// @import header
-// #include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-
-// @@
 // @ Monoid examples
 // @snippet monoid_expamples
 
@@ -17,7 +11,7 @@ struct Nothing {
   static constexpr T op(const T &, const T &) { return T(); }
   static constexpr T identity() { return T(); }
   template < class X >
-  static constexpr X actInto(const M &, ll, ll, const X &x) {
+  static constexpr X actInto(const M &, long long, const X &x) {
     return x;
   }
 };
@@ -82,14 +76,14 @@ struct RangeAnd< std::bitset< N > > {
 
 // my monoid, m-act {{{
 struct MyMonoid {
-  using T = ll;
+  using T = long long;
   static T op(const T &a, const T &b) { return std::min(a, b); }
   static constexpr T identity() { return inf_monoid; }
 };
 struct MyMAct {
   using Monoid = MyMonoid;
   using X = Monoid::T;
-  using M = ll;
+  using M = long long;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
   static X actInto(const M &m, ll, const X &x) { return m + x; }

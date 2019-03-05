@@ -1,14 +1,14 @@
 // @import header
 // #include <bits/stdc++.h>
-// using namespace std;
-// using ll = long long;
+using namespace std;
+using ll = long long;
 
 // @@
 // @ LCP Array Library
 // @snippet lcp_array
 // require SA
 /// --- LCP Array Library {{{ ///
-#include<vector>
+#include <vector>
 template < class S = SA<> >
 struct LCP {
   using T = typename S::T;

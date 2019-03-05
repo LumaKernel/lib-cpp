@@ -123,6 +123,8 @@ struct SA {
       count[ch]++;
     }
   }
-  inline bool isLMS(const std::vector< int > &S, int i) { return i > 0 && !S[i - 1] && S[i]; }
+  inline bool isLMS(const std::vector< int > &S, int i) {
+    return i > 0 && !S[i - 1] && S[i];
+  }
 };
 /// }}}--- ///

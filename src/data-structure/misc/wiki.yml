@@ -4,6 +4,7 @@ order:
   - BIT
   - BIT2D
   - SparseTable
+  - DisjointSparseTable
   - LinkCutTree
   - UnionFind
 
