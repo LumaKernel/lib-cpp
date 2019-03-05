@@ -5,7 +5,7 @@ order:
   - LazySegmentTree
   - SegmentTree2D
   - DynamicSegmentTree
-  # - DynamicSegmentTree2D
   - FractionalCascadingSegmentTree
   - PersistentSegmentTree
+  - PersistentLazySegmentTree
 
