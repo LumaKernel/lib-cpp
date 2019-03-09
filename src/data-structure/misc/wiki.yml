@@ -1,7 +1,7 @@
 type: dir
 title: いろいろ
 order:
-  - BIT
+  - BinaryIndexedTree
   - BIT2D
   - SparseTable
   - DisjointSparseTable
