@@ -1,20 +1,19 @@
-// @import header
-// #include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-
-// @@
 // @ Kitamasa Library
 // @snippet kitamasa
 
+// kitamasa(c, u, v) {{{
+#include <vector>
 template < class T >
-vector< T > kitamasa(const vector< T > &c, const vector< T > &u, const vector< T > &v) {
-  int k = c.size();
-  vector< T > r(2 * k - 1);
-  for(int i = 0; i < k; i++)
-    for(int j = 0; j < k; j++) r[i + j] += u[i] * v[j];
-  for(int i = 2 * k - 2; i >= k; i--)
-    for(int j = 0; j < k; j++) r[i - k + j] += r[i] * c[j];
+std::vector< T > kitamasa(const std::vector< T > &c, const std::vector< T > &u,
+                          const std::vector< T > &v) {
+  using size_type = std::size_t;
+  size_type k = c.size();
+  std::vector< T > r(2 * k - 1);
+  for(size_type i = 0; i < k; i++)
+    for(size_type j = 0; j < k; j++) r[i + j] += u[i] * v[j];
+  for(size_type i = 2 * k - 2; i >= k; i--)
+    for(size_type j = 0; j < k; j++) r[i - k + j] += r[i] * c[j];
   r.resize(k);
   return r;
 }
+// }}}

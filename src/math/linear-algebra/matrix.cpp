@@ -1,21 +1,17 @@
-// @import header
-// #include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-
-// @@
 // @ Matrix mult pow Library
 // @snippet matrix
 
+// mult(a, b), makeE(n), pow(a, k)
 /// --- Matrix mult pow Library {{{ ///
-
+#include <vector>
 template < class T >
-vector< vector< T > > mult(vector< vector< T > > a, vector< vector< T > > b) {
+std::vector< std::vector< T > > mult(std::vector< std::vector< T > > a,
+                                     std::vector< std::vector< T > > b) {
   assert(a[0].size() == b.size());
-  vector< vector< T > > res(a.size(), vector< T >(b[0].size(), 0));
-  for(size_t i = 0; i < a.size(); i++) {
-    for(size_t j = 0; j < b[0].size(); j++) {
-      for(size_t k = 0; k < b.size(); k++) {
+  std::vector< std::vector< T > > res(a.size(), std::vector< T >(b[0].size(), 0));
+  for(std::size_t i = 0; i < a.size(); i++) {
+    for(std::size_t j = 0; j < b[0].size(); j++) {
+      for(std::size_t k = 0; k < b.size(); k++) {
         res[i][j] += a[i][k] * b[k][j];
       }
     }
@@ -24,16 +20,17 @@ vector< vector< T > > mult(vector< vector< T > > a, vector< vector< T > > b) {
 }
 
 template < class T >
-vector< vector< T > > makeE(int n) {
-  vector< vector< T > > r(n, vector< T >(n, 0));
-  for(int i = 0; i < n; i++) r[i][i] = T(1);
+std::vector< std::vector< T > > makeE(std::size_t n) {
+  std::vector< std::vector< T > > r(n, std::vector< T >(n, 0));
+  for(std::size_t i = 0; i < n; i++) r[i][i] = 1;
   return r;
 }
 
 template < class T >
-vector< vector< T > > pow(vector< vector< T > > a, ll k) {
+std::vector< std::vector< T > > pow(std::vector< std::vector< T > > a,
+                                    unsigned long long k) {
   assert(a.size() == a[0].size());
-  vector< vector< T > > r = makeE< T >(a.size());
+  std::vector< std::vector< T > > r = makeE< T >(a.size());
   while(k) {
     if(k & 1) r = mult(r, a);
     a = mult(a, a);
@@ -41,8 +38,7 @@ vector< vector< T > > pow(vector< vector< T > > a, ll k) {
   }
   return r;
 }
-
 /// }}}--- ///
 
-using Vec = vector< ll >;
-using Mat = vector< Vec >;
+// using Vec = std::vector< modint >;
+// using Mat = std::vector< Vec >;

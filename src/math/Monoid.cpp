@@ -19,14 +19,14 @@ struct Nothing {
 template < class U = long long >
 struct RangeMin {
   using T = U;
-  static T op(const T &a, const T &b) { return min(a, b); }
+  static T op(const T &a, const T &b) { return std::min< T >(a, b); }
   static constexpr T identity() { return T(inf_monoid); }
 };
 
 template < class U = long long >
 struct RangeMax {
   using T = U;
-  static T op(const T &a, const T &b) { return max(a, b); }
+  static T op(const T &a, const T &b) { return std::max< T >(a, b); }
   static constexpr T identity() { return -T(inf_monoid); }
 };
 
@@ -77,7 +77,7 @@ struct RangeAnd< std::bitset< N > > {
 // my monoid, m-act {{{
 struct MyMonoid {
   using T = long long;
-  static T op(const T &a, const T &b) { return std::min(a, b); }
+  static T op(const T &a, const T &b) { return std::min< T >(a, b); }
   static constexpr T identity() { return inf_monoid; }
 };
 struct MyMAct {
@@ -86,6 +86,6 @@ struct MyMAct {
   using M = long long;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll, const X &x) { return m + x; }
+  static X actInto(const M &m, long long, const X &x) { return m + x; }
 };
 // }}}

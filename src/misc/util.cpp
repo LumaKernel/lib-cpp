@@ -1,9 +1,3 @@
-// @import header
-// #include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-
-// @@
 // @ uniq, compress
 // @snippet uniq
 // @alias compress
@@ -13,13 +7,13 @@ using ll = long long;
 #include <map>
 #include <vector>
 template < class T >
-void uniq(vector< T > &v) {
+void uniq(std::vector< T > &v) {
   sort(v.begin(), v.end());
   v.erase(unique(v.begin(), v.end()), v.end());
 }
 template < class T >
-map< T, int > compress(const vector< T > &v) {
-  map< T, int > mp;
+std::map< T, int > compress(const std::vector< T > &v) {
+  std::map< T, int > mp;
   int i = -1;
   for(auto &e : v) mp[e] = ++i;
   return mp;
@@ -43,11 +37,11 @@ inline void smax(T &a, const U &b) {
 // }}}
 
 // @new
-// @ isInside
+// @ is inside
 // @snippet isinside
 // @alias inside outside
 
-bool isInside(int y, int x, int h, int w) { return 0 <= y && 0 <= x && y < h && x < w; }
+bool is_inside(int y, int x, int h, int w) { return 0 <= y && 0 <= x && y < h && x < w; }
 
 // @new
 // @ Unique Overlaps
@@ -55,13 +49,14 @@ bool isInside(int y, int x, int h, int w) { return 0 <= y && 0 <= x && y < h && 
 // @alias remove_overlaps
 // @alias overlaps_remove
 
-// uniqueOverlaps {{{
+// unique_overlaps {{{
 template < class T >
-vector< pair< T, T > > uniqueOverlaps(const vector< pair< T, T > > &v) {
+std::vector< std::pair< T, T > > unique_overlaps(
+    const std::vector< std::pair< T, T > > &v) {
   sort(v.begin(), v.end());
-  vector< pair< T, T > > w;
-  pair< T, T > now = v[0];
-  for(size_t i = 1; i < v.size(); i++) {
+  std::vector< std::pair< T, T > > w;
+  std::pair< T, T > now = v[0];
+  for(std::size_t i = 1; i < v.size(); i++) {
     if(v[i].first <= now.second && now.second <= v[i].second)
       now.second = v[i].second;
     else
@@ -76,13 +71,13 @@ vector< pair< T, T > > uniqueOverlaps(const vector< pair< T, T > > &v) {
 // @ construct modinv
 // @snippet construct_modinvs
 // @alias modinvs_construct
-// @comment TODO : maintenance it
 
 // construct_modinvs {{{
-vector< ll > construct_modinvs(int n, ll mod = ll(1e9 + 7)) {
-  vector< ll > res(n + 1);
+std::vector< unsigned long long > construct_modinvs(
+    std::size_t n, unsigned long long mod = static_cast< unsigned long long >(1e9 + 7)) {
+  std::vector< unsigned long long > res(n + 1);
   res[1] = 1;
-  for(int i = 2; i <= n; i++) res[i] = mod - res[mod % i] * (mod / i) % mod;
+  for(std::size_t i = 2; i <= n; i++) res[i] = mod - res[mod % i] * (mod / i) % mod;
   return res;
 }
 // }}}
@@ -95,7 +90,7 @@ vector< ll > construct_modinvs(int n, ll mod = ll(1e9 + 7)) {
 // Indexer {{{
 #include <functional>
 #include <ostream>
-template < class T, template < class > class Compare = less >
+template < class T, template < class > class Compare = std::less >
 struct Indexer {
   static Compare< int > comp;
   T val;
@@ -175,7 +170,7 @@ struct Indexer {
     tmp.val = a / tmp.val;
     return tmp;
   }
-  friend ostream &operator<<(ostream &os, const Indexer &a) {
+  friend std::ostream &operator<<(std::ostream &os, const Indexer &a) {
     return os << "(" << a.val << ", i: " << a.i << ")";
   }
 };

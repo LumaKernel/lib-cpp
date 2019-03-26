@@ -1,9 +1,3 @@
-// @import header
-// #include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-
-// @@
 // @ SegmentTree
 // @snippet segmenttree
 // @alias seg
@@ -20,8 +14,9 @@ template < class Monoid >
 struct SegmentTree {
 private:
   using T = typename Monoid::T;
-  int n;
-  vector< T > data;
+  using size_type = std::size_t;
+  size_type n;
+  std::vector< T > data;
   // call after touch data[i]
   void prop(int i) { data[i] = Monoid::op(data[2 * i], data[2 * i + 1]); }
 
@@ -31,14 +26,15 @@ public:
     data.resize(n * 2, initial);
     for(int i = n - 1; i > 0; i--) data[i] = Monoid::op(data[i * 2], data[i * 2 + 1]);
   }
-  template < class InputIter, class = typename iterator_traits< InputIter >::value_type >
+  template < class InputIter,
+             class = typename std::iterator_traits< InputIter >::value_type >
   SegmentTree(InputIter first, InputIter last) : SegmentTree(distance(first, last)) {
-    copy(first, last, begin(data) + n);
+    copy(first, last, data.begin() + n);
     // fill from deep
     for(int i = n - 1; i > 0; i--) prop(i);
   }
-  SegmentTree(vector< T > v) : SegmentTree(v.begin(), v.end()) {}
-  SegmentTree(initializer_list< T > v) : SegmentTree(v.begin(), v.end()) {}
+  SegmentTree(std::vector< T > v) : SegmentTree(v.begin(), v.end()) {}
+  SegmentTree(std::initializer_list< T > v) : SegmentTree(v.begin(), v.end()) {}
   void set(size_t i, const T &v) {
     assert(i < n);
     data[i += n] = v;
@@ -51,7 +47,7 @@ public:
   T fold(int l, int r) {
     if(l < 0) l = 0;
     if(l >= r) return Monoid::identity();
-    if(r > n) r = n;
+    if(r > static_cast< int >(n)) r = n;
     T tmpL = Monoid::identity(), tmpR = Monoid::identity();
     for(l += n, r += n; l < r; l >>= 1, r >>= 1) {
       if(l & 1) tmpL = Monoid::op(tmpL, data[l++]);
@@ -59,12 +55,13 @@ public:
     }
     return Monoid::op(tmpL, tmpR);
   }
+  size_type size() { return n; }
   inline void dum(int r = -1) {
 #ifdef DEBUG
     if(r < 0) r = n;
     DEBUG_OUT << "{";
-    for(int i = 0; i < min(r, n); i++) DEBUG_OUT << (i ? ", " : "") << get(i);
-    DEBUG_OUT << "}" << endl;
+    for(int i = 0; i < std::min< int >(r, n); i++) DEBUG_OUT << (i ? ", " : "") << get(i);
+    DEBUG_OUT << "}" << std::endl;
 #endif
   }
 };
@@ -88,14 +85,14 @@ struct Nothing {
 template < class U = long long >
 struct RangeMin {
   using T = U;
-  static T op(const T &a, const T &b) { return min(a, b); }
+  static T op(const T &a, const T &b) { return std::min< T >(a, b); }
   static constexpr T identity() { return T(inf_monoid); }
 };
 
 template < class U = long long >
 struct RangeMax {
   using T = U;
-  static T op(const T &a, const T &b) { return max(a, b); }
+  static T op(const T &a, const T &b) { return std::max< T >(a, b); }
   static constexpr T identity() { return -T(inf_monoid); }
 };
 
@@ -139,4 +136,3 @@ struct RangeAnd< std::bitset< N > > {
 /// }}}--- ///
 
 using Seg = SegmentTree< RangeMin<> >;
-Seg seg(N);

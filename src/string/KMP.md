@@ -53,6 +53,8 @@ KMPを用いて各iについてs[0,i]の最小周期がわかる．
 
 * [F - 最良表現 (900) - AtCoder](https://beta.atcoder.jp/contests/arc060/tasks/arc060_d){:target="_blank"}<!--_-->
 * [D - Refactoring - codeforces](https://codeforces.com/contest/1055/problem/D){:target="_blank"}<!--_-->
+* [#545 div1 B - Camp Schedule - codeforces](https://codeforces.com/contest/1137/problem/B){:target="_blank"}<!--_-->
+
 * https://xmascontest2015.contest.atcoder.jp/tasks/xmascontest2015_d
 
 # 参考

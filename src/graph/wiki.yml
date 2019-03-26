@@ -14,6 +14,7 @@ order:
   - DP-all-subtree
   - MST
   - boruvka
+  - MinimumSpanningArborescence
   - isSameTree
   - GraphUtil
   - A-star

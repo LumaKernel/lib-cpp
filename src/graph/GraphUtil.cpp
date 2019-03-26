@@ -1,32 +1,67 @@
-// @import header
-// #include <bits/stdc++.h>
-using namespace std;
-using ll = long long;
-
-// @@
-// @snippet     treediameter
-// @alias       diameteroftree chokkei
-// @name Tree Diametor
-/// Tree Diametor {{{
-
-int treeDiameter(const vector< vector< int > > &tree) {
-  int far = 0, dep = -1;
-  function< void(int, int, int) > dfs = [&](int i, int p, int d) {
-    if(dep < d) far = i, dep = d;
-    for(int j : tree[i])
-      if(j != p) dfs(j, i, d + 1);
+// @ Tree Diametor
+// @snippet tree_diameter
+// @alias diameter_of_tree chokkei_of_tree
+// tree_diameter( <tree> ) : (size, p1, p2) {{{
+#include <stack>
+#include <tuple>
+#include <vector>
+std::tuple< int, std::size_t, std::size_t > tree_diameter(
+    const std::vector< std::vector< int > > &tree) {
+  using size_type = std::size_t;
+  size_type farthest, a, b, depth;
+  auto dfs = [&](size_type i) {
+    farthest = i;
+    std::stack< std::tuple< size_type, int, size_type > > stk;
+    stk.emplace(i, -1, 0);
+    while(stk.size()) {
+      size_type i, d;
+      int p;
+      std::tie(i, p, d) = stk.top();
+      stk.pop();
+      if(depth < d) farthest = i, depth = d;
+      for(int j : tree[i])
+        if(j != p) stk.emplace(j, i, d + 1);
+    }
   };
-  dfs(0, -1, 0);
-  dep = -1;
-  dfs(far, -1, 0);
-  return dep;
+  dfs(0);
+  dfs(a = farthest);
+  b = farthest;
+  return std::make_tuple(depth, a, b);
 }
-
 // }}}
 
 // @new
-// @snippet     dijkstragraph
-// @name dijkstra graph
+// @ Distance of Tree
+// @snippet dist_tree
+// @alias tree_dist
+// get_dist_tree( <tree>, from ) {{{
+#include <cassert>
+#include <stack>
+#include <vector>
+std::vector< int > get_dist_tree(const std::vector< std::vector< int > > tree,
+                                 std::size_t from) {
+  using size_type = std::size_t;
+  size_type n = tree.size();
+  assert(from < n);
+  std::vector< int > res(n);
+  std::stack< std::tuple< size_type, int, int > > stk;
+  stk.emplace(from, -1, 0);
+  while(stk.size()) {
+    size_type i;
+    int p, d;
+    std::tie(i, p, d) = stk.top();
+    stk.pop();
+    res[i] = d;
+    for(auto j : tree[i])
+      if(j != p) stk.emplace(j, i, d + 1);
+  }
+  return res;
+}
+// }}}
+
+// @new
+// @ dijkstra graph
+// @snippet     dijkstra_graph
 vector< ll > dist(n, 1e18);
 // dijkstra {{{
 {
@@ -54,9 +89,9 @@ vector< ll > dist(n, 1e18);
 // }}}
 
 // @new
-// @snippet     dijkstragrid
-// @alias       bfs01 01bfs
-// @name dijkstra grid
+// @ dijkstra grid
+// @snippet dijkstragrid
+// @alias bfs01 01bfs
 vector< vector< ll > > dist(h, vector< ll >(w, 1e18));
 // dijkstra {{{
 {
