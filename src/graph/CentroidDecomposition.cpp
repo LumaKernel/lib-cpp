@@ -27,9 +27,8 @@ struct CentroidDecomposition {
   graph_type tree;
   process_type process;
   CentroidDecomposition() : n(0) {}
-  CentroidDecomposition(size_t n,
-                        const process_type process =
-                            [&](int, const vector< bool > &) -> void {})
+  CentroidDecomposition(size_t n, const process_type process =
+                                      [&](int, const vector< bool > &) -> void {})
       : n(n), tree(n), process(process) {}
   CentroidDecomposition(const graph_type &tree) : CentroidDecomposition(tree.size()) {
     this->tree = tree;

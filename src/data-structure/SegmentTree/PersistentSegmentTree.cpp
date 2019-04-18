@@ -126,7 +126,7 @@ template < class U = long long >
 struct RangeMax {
   using T = U;
   static T op(const T &a, const T &b) { return std::max< T >(a, b); }
-  static constexpr T identity() { return -T(inf_monoid); }
+  static constexpr T identity() { return T(-inf_monoid); }
 };
 
 template < class U = long long >

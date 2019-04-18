@@ -7,8 +7,8 @@
 // DEBUG {{{
 #include <array>
 #include <deque>
+#include <iostream>
 #include <list>
-#include <ostream>
 #include <queue>
 #include <stack>
 #include <tuple>

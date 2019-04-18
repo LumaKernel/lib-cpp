@@ -65,7 +65,7 @@ public:
   using M = typename M_act::M;
 
   using size_type = unsigned long long;
-  using user_size_type = long long;
+  using index_type = long long;
   using node_type = PersistentLazySegmentTreeNode< M_act >;
   using pointer = node_type *;
   using const_pointer = const node_type *;
@@ -142,9 +142,9 @@ private:
   }
 
 public:
-  PersistentLazySegmentTree act(user_size_type l, user_size_type r, const M &m) const {
+  PersistentLazySegmentTree act(index_type l, index_type r, const M &m) const {
     if(l < 0) l = 0;
-    if(r > (user_size_type) n) r = n;
+    if(r > (index_type) n) r = n;
     if(l >= r) return *this;
     pointer new_root = clone(root);
     act(l, r, m, new_root, 0, n);
@@ -178,9 +178,9 @@ public:
     return fold(i, i + 1);
   }
 
-  X fold(user_size_type l, user_size_type r) const {
+  X fold(index_type l, index_type r) const {
     if(l < 0) l = 0;
-    if(r > (user_size_type) n) r = n;
+    if(r > (index_type) n) r = n;
     if(l >= r) return Monoid::identity();
     return fold(l, r, M_act::identity(), root, 0, n);
   }
@@ -198,21 +198,25 @@ private:
   }
 
 public:
-  static const user_size_type not_found = -1;
+  static const index_type not_found = -1;
   template < class T >
-  user_size_type binary_search(user_size_type l, user_size_type r, bool maximize,
-                               T exists) const {
+  index_type binary_search(bool maximize, const T &exists) {
+    return binary_search(0, n, maximize, exists);
+  }
+  template < class T >
+  index_type binary_search(index_type l, index_type r, bool maximize,
+                           const T &exists) const {
     if(l < 0) l = 0;
-    if(r > (user_size_type) n) r = n;
+    if(r > static_cast< index_type >(n)) r = n;
     if(l >= r) return not_found;
     return binary_search(l, r, maximize, exists, M_act::identity(), root, 0, n);
   }
 
 private:
   template < class T >
-  user_size_type binary_search(size_type a, size_type b, bool maximize, T exists,
-                               M folded_act, const_pointer k, size_type l,
-                               size_type r) const {
+  index_type binary_search(size_type a, size_type b, bool maximize, const T &exists,
+                           M folded_act, const_pointer k, size_type l,
+                           size_type r) const {
     if(b <= l || r <= a) return not_found;
     if(k) folded_act = M_act::op(folded_act, k->lazy);
     if(a <= l && r <= b) {
@@ -220,7 +224,7 @@ private:
       if(!exists(x, l, r)) return not_found;
       if(r - l == 1) return l;
     }
-    user_size_type i;
+    index_type i;
     if(maximize) {
       i = binary_search(
           a, b, maximize, exists, folded_act, k ? k->right : 0, (l + r) >> 1, r);
@@ -270,7 +274,7 @@ template < class U = long long >
 struct RangeMax {
   using T = U;
   static T op(const T &a, const T &b) { return std::max< T >(a, b); }
-  static constexpr T identity() { return -T(inf_monoid); }
+  static constexpr T identity() { return T(-inf_monoid); }
 };
 
 template < class U = long long >
@@ -320,7 +324,7 @@ struct RangeMinAdd {
   using Monoid = RangeMin< U >;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll, const X &x) { return m + x; }
+  static X actInto(const M &m, long long, const X &x) { return m + x; }
 };
 
 template < class U = long long, class V = U >
@@ -330,7 +334,7 @@ struct RangeMaxAdd {
   using Monoid = RangeMax< U >;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll, const X &x) { return m + x; }
+  static X actInto(const M &m, long long, const X &x) { return m + x; }
 };
 
 template < class U = long long, class V = U >
@@ -339,8 +343,8 @@ struct RangeMinSet {
   using Monoid = RangeMin< U >;
   using X = typename Monoid::T;
   static M op(const M &a, const M &) { return a; }
-  static constexpr M identity() { return -M(inf_monoid); }
-  static X actInto(const M &m, ll, const X &) { return m; }
+  static constexpr M identity() { return M(-inf_monoid); }
+  static X actInto(const M &m, long long, const X &x) { return m == identity() ? x : m; }
 };
 
 template < class U = long long, class V = U >
@@ -349,8 +353,8 @@ struct RangeMaxSet {
   using Monoid = RangeMax< U >;
   using X = typename Monoid::T;
   static M op(const M &a, const M &) { return a; }
-  static constexpr M identity() { return -M(inf_monoid); }
-  static X actInto(const M &m, ll, const X &) { return m; }
+  static constexpr M identity() { return M(-inf_monoid); }
+  static X actInto(const M &m, long long, const X &x) { return m == identity() ? x : m; }
 };
 
 template < class U = long long, class V = U >
@@ -360,7 +364,7 @@ struct RangeSumAdd {
   using Monoid = RangeSum< U >;
   static M op(const M &a, const M &b) { return a + b; }
   static constexpr M identity() { return 0; }
-  static X actInto(const M &m, ll n, const X &x) { return m * n + x; }
+  static X actInto(const M &m, long long n, const X &x) { return m * n + x; }
 };
 
 template < class U = long long, class V = U >
@@ -369,8 +373,10 @@ struct RangeSumSet {
   using M = V;
   using Monoid = RangeSum< U >;
   static M op(const M &a, const M &) { return a; }
-  static constexpr M identity() { return -M(inf_monoid); }
-  static X actInto(const M &m, ll n, const X &) { return m * n; }
+  static constexpr M identity() { return M(-inf_monoid); }
+  static X actInto(const M &m, long long n, const X &x) {
+    return m == identity() ? x : m * n;
+  }
 };
 
 template < class U, class V = U >
@@ -378,7 +384,7 @@ struct RangeProdMul {
   using X = U;
   using M = V;
   using Monoid = RangeProd< U >;
-  static M mpow(M a, ll b) {
+  static M mpow(M a, long long b) {
     X r(1);
     while(b) {
       if(b & 1) r = r * a;
@@ -389,7 +395,7 @@ struct RangeProdMul {
   }
   static M op(const M &a, const M &b) { return a * b; }
   static constexpr M identity() { return M(1); }
-  static X actInto(const M &m, ll n, const X &x) { return x * mpow(m, n); }
+  static X actInto(const M &m, long long n, const X &x) { return x * mpow(m, n); }
 };
 
 template < class U, class V = U >
@@ -399,7 +405,8 @@ struct RangeProdSet {
   using Monoid = RangeProd< U >;
   static M op(const M &a, const M &) { return a; }
   static constexpr M identity() { return V::unused; }
-  static X actInto(const M &m, ll n, const X &) {
+  static X actInto(const M &m, long long n, const X &) {
+    if(m == identity()) return;
     return RangeProdMul< U, V >::mpow(m, n);
   }
 };
@@ -411,7 +418,7 @@ struct RangeOr2 {
   using Monoid = RangeOr< U >;
   static M op(const M &a, const M &b) { return a | b; }
   static constexpr M identity() { return M(0); }
-  static X actInto(const M &m, ll, const X &x) { return m | x; }
+  static X actInto(const M &m, long long, const X &x) { return m | x; }
 };
 
 template < class U = long long, class V = U >
@@ -421,7 +428,7 @@ struct RangeAnd2 {
   using Monoid = RangeAnd< U >;
   static M op(const M &a, const M &b) { return a & b; }
   static constexpr M identity() { return M(-1); }
-  static X actInto(const M &m, ll, const X &x) { return m & x; }
+  static X actInto(const M &m, long long, const X &x) { return m & x; }
 };
 
 template < class U, size_t N >
@@ -431,7 +438,7 @@ struct RangeAnd2< U, std::bitset< N > > {
   using Monoid = RangeAnd< U >;
   static M op(const M &a, const M &b) { return a & b; }
   static constexpr M identity() { return std::bitset< N >().set(); }
-  static X actInto(const M &m, ll, const X &x) { return m & x; }
+  static X actInto(const M &m, long long, const X &x) { return m & x; }
 };
 /// }}}--- ///
 

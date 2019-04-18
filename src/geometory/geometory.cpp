@@ -123,10 +123,7 @@ inline Float dist(const Point &p, const Segment &segment) { return dist(segment,
 
 inline Float dist(const Segment &a, const Segment &b) {
   return min({
-      dist(a, b.first),
-      dist(a, b.second),
-      dist(b, a.first),
-      dist(b, a.second),
+      dist(a, b.first), dist(a, b.second), dist(b, a.first), dist(b, a.second),
   });
 }
 
