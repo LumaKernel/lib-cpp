@@ -14,9 +14,9 @@ using ll = long long;
 // from s to t; s, t is State
 // dist(v, k) := k-edge shortest path from v to t
 // dist(t, 0) = 0
-// dist(s, k') is answer when k' is in [k - droppable, k]
+// dist(s, k') can be answer when k' is in [k - droppable, k]
 // for every fixed v, dist(v, k) must be downward convex function regarding k as input
-// (call this condition as Convexity)
+// (call this condition Convexity)
 //
 // when G is perfect DAG,
 // that the cost function w satisfies Convex QI is sufficient for Convexity

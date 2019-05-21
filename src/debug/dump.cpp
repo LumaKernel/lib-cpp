@@ -95,9 +95,9 @@ std::ostream &operator<<(std::ostream &os, const T &a) {
   return os;
 }
 #else
-#define dump(...) (42)
-#define dump2D(...) (42)
-#define dump1D(...) (42)
+#define dump(...) ((void) 42)
+#define dump2D(...) ((void) 42)
+#define dump1D(...) ((void) 42)
 template <
     class T, class = typename std::iterator_traits< decltype(begin(T())) >::value_type,
     class = typename std::enable_if< !std::is_same< T, std::string >::value >::type >
