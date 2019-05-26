@@ -12,7 +12,7 @@ $N \times M$ の行列 $w$ を考えます (以下では二変数関数のよう
 
 任意の $i \lt j,~k \lt l$ について $w(i, k) + w(j, l) \leq w(i, l) + w(j, k)$ が成り立つ
 
-Concave Quadratic Inequalityともいう (他にも色々あるようです)
+Concave Quadratic Inequality (Concave QI) ともいう (他にも色々あるようです)
 
 単に QI と呼ばれることも
 
@@ -73,13 +73,16 @@ Mongeであれば上三角Mongeです
 
 # Closest Zero Property
 
-文献 \[1\] で出てきたワードです
+これ[^1] に出てきました.
 
 $l \lt k$ に対し $$f(r) = w(l, r) - w(k, r) - a$$ が0となるような$r$を$O(1)$で求められる場合，Closest Zero Propertyと言います
 
 これが嬉しい性質になることは割と自然なことなので特別覚えておくようなことでもないかと思います
 
 
+# Convex/Concave Monge
+
+Convex/Concave Mongeの不等号の向きは文献によって違う[^2].
 
 # 参考
 
@@ -96,4 +99,5 @@ $l \lt k$ に対し $$f(r) = w(l, r) - w(k, r) - a$$ が0となるような$r$�
 * [Geometric applications of a matrix-searching algorithm](https://link.springer.com/article/10.1007%2FBF01840359){:target="_blank"}<!--_--> のAbstract
 
 [^1]: [Speeding up dynamic programming with applications to molecular biology](https://www.sciencedirect.com/science/article/pii/0304397589901011){:target="_blank"}<!--_-->
+[^2]: [Dynamic programming with convexity, concavity and sparsity*](https://core.ac.uk/download/pdf/82676028.pdf) "The definitions of convexity and concavity were interchanged in some references. " とある.
 

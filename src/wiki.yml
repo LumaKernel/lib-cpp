@@ -1,12 +1,12 @@
 order:
-  # - data-structure
-  # - graph
+  - data-structure
+  - graph
   - dynamic-programming
-  # - math
-  # - geometory
-  # - algorithm
-  # - string
-  # - misc
-  # - trick
-  # - trap
-  # - topic
+  - math
+  - geometory
+  - algorithm
+  - string
+  - misc
+  - trick
+  - trap
+  - topic
