@@ -47,9 +47,9 @@ private:
 public:
   HLD() : n(0) {}
   HLD(size_type n, size_type root = 0)
-    : n(n), hd(n), tl(n), sub(n), dep(n), par(n), vid(n), tree(n) {
-      setRoot(root);
-    }
+      : n(n), hd(n), tl(n), sub(n), dep(n), par(n), vid(n), tree(n) {
+    setRoot(root);
+  }
   HLD(const graph_type &tree, size_type root) : HLD(tree.size(), root) {
     this->tree = tree;
   }
@@ -216,7 +216,8 @@ public:
     assert(tree[a].back() != par[a]);
     return tree[a].back();
   }
-  void fold(size_type hi, int lo, std::function< void(int, int) > f, bool inclusive) const {
+  void fold(size_type hi, int lo, std::function< void(int, int) > f,
+            bool inclusive) const {
     assert(built);
     assert(hi < n && 0 <= lo && lo < (int) n);
     while(lo != -1 && dep[lo] >= dep[hi]) {
