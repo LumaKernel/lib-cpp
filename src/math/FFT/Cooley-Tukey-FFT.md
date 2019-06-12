@@ -2,7 +2,7 @@
 title: Cooley-Tukey FFT
 ---
 
-多項式を高速に畳み込みます
+数列を高速に畳み込みます (多項式の掛け算)
 
 2基底で，in-place (余分なメモリを使わない) なFFTです
 
@@ -20,14 +20,28 @@ $$
 
 これを，左辺の$i$のパリティ (偶奇) で分けます．まず偶数の場合を考えます
 
-$$
 \begin{aligned}
 f(\zeta_N^{2i})
-&= \sum_{j=0}^{N/2 - 1} a_j \zeta_N^{2ij} +  a_{j+N/2} \zeta_N^{2i(j + N/2)} \\
-&= \sum_{j=0}^{N/2 - 1} a_j \zeta_{N/2}^{ij} +  a_{j+N/2} \zeta_{N/2}^{ij} \\
-&= \sum_{j=0}^{N/2 - 1} (a_j +  a_{j+N/2})\zeta_{N/2}^{ij}
+&= \sum_{j=0}^{N} a_j \zeta_N^{2ij}
+\\
+&= \sum_{j=0}^{N/2-1} a_j \zeta_N^{2ij}
++ \sum_{j=N/2}^{N} a_j \zeta_N^{2ij}
+\\
+&= \sum_{j=0}^{N/2-1} a_j \zeta_N^{2ij}
++ \sum_{j=0}^{N/2-1} a_{\overline{j+N/2}} \zeta_N^{2i(j+N/2)}
+\\
+&= \sum_{j=0}^{N/2 - 1} \left\{
+  a_j \zeta_N^{2ij}
+  + a_{\overline{j+N/2}} \zeta_N^{2i(j + N/2)}
+\right\}
+\\
+&= \sum_{j=0}^{N/2 - 1} \left\{
+  a_j \zeta_{N/2}^{ij}
+  + a_{\overline{j+N/2}} \zeta_{N/2}^{ij}
+\right\}
+\\
+&= \sum_{j=0}^{N/2 - 1} (a_j +  a_{\overline{j+N/2}})\zeta_{N/2}^{ij}
 \end{aligned}
-$$
 
 例えば，$b_i = a_i + a_{i + N/2}$ という長さ $N/2$ の数列を作ると，
 
@@ -38,10 +52,30 @@ $$a_{2i} = (\mathrm{DFT}_{N/2}(b))_i$$
 $$
 \begin{aligned}
 f(\zeta_N^{2i+1})
-&= \sum_{j=0}^{N/2 - 1} a_j \zeta_N^{(2i+1)j} +  a_{j+N/2} \zeta_N^{(2i+1)(j + N/2)} \\
-&= \sum_{j=0}^{N/2 - 1} a_j \zeta_{N/2}^{ij}\zeta_{N}^j -  a_{j+N/2} \zeta_{N/2}^{ij}\zeta_{N}^j \\
-&= \sum_{j=0}^{N/2 - 1} ((a_j - a_{j+N/2})\zeta_N^j)\zeta_{N/2}^{ij}
+&= \sum_{j=0}^{N} a_j \zeta_N^{(2i+1)j}
+\\
+&= \sum_{j=0}^{N/2-1} a_j \zeta_N^{(2i+1)j}
++ \sum_{j=N/2}^{N} a_j \zeta_N^{(2i+1)j}
+\\
+&= \sum_{j=0}^{N/2-1} a_j \zeta_N^{(2i+1)j}
++ \sum_{j=0}^{N/2-1} a_{\overline {j+N/2}} \zeta_N^{(2i+1)(j+N/2)}
+\\
+&= \sum_{j=0}^{N/2 - 1} \left\{
+  a_j \zeta_N^{(2i+1)j}
+  + a_{\overline{j+N/2}} \zeta_N^{(2i+1)(j + N/2)}
+\right\}
+\\
+&= \sum_{j=0}^{N/2 - 1} \left\{
+  a_j \zeta_{N/2}^{ij}\zeta_{N}^j
+  - a_{\overline{j+N/2}} \zeta_{N/2}^{ij}\zeta_{N}^j
+\right\} & (注1)
+\\
+&= \sum_{j=0}^{N/2 - 1} ((a_j - a_{\overline{j+N/2}})\zeta_N^j)\zeta_{N/2}^{ij}
 \end{aligned}
+
+\\
+
+注1 : 指数法則, 原始根の約分みたいな性質, \zeta_1=1,\zeta_2=-1より
 $$
 
 例えば，$c_i = (a_i - a_{i + N/2})\zeta_N^i$ という長さ $N/2$ の数列を作ると，

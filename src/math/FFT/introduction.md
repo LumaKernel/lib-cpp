@@ -29,7 +29,7 @@ FFTは数列同士の畳込み(=多項式の掛け算)を$O(N \log N)$で行う�
     * 以下の記事にあるように，複素数を図形でイメージできるとなお良いです
     * [1のn乗根の導出と複素数平面](https://mathtrain.jp/njokonof1){:target="_blank"}<!--_-->
     * [直交座標と極座標（２次元）の変換とメリットの比較](https://mathtrain.jp/kyokuzahyo){:target="_blank"}<!--_-->
-  * 等比級数
+  * 等比数列の和
     * 一部の証明にちょっとだけ使います
     * [等比数列の和の公式の証明といろいろな例](https://mathtrain.jp/sumtouhi){:target="_blank"}<!--_-->
 * $\sum$を入れ替えられることとか
@@ -205,7 +205,7 @@ $\zeta_3 = \omega$ だ
 
 位数なんて難しい話は抜きにして，
 
-$\displaystyle \zeta_N = \cos(\frac{2\pi}{N}) +\sqrt {-1}\sin(\frac{2\pi}{N})$
+$\displaystyle \zeta_N = \cos(\frac{2\pi}{N}) +\sqrt {-1}\sin(\frac{2\pi}{N}) = \exp(\frac{2\pi}{N})$
 
 と定めれば条件を満たす
 
@@ -224,13 +224,13 @@ $k\equiv 0$は簡単なので，$otherwise$について示す
 
 $$
 \begin{aligned}
-\sum_{i=0}^{N-1}\zeta_N^{ki} &= \frac{\zeta_N^N - 1}{\zeta_N - 1}& (\text{等比級数より}) \\
+\sum_{i=0}^{N-1}\zeta_N^{ki} &= \frac{\zeta_N^N - 1}{\zeta_N - 1}& (\text{等比数列の和より}) \\
 &= \frac{\zeta_N^0 - 1}{\zeta_N - 1}& (\mathrm{mod}\ Nにより) \\
 &= \frac{1 - 1}{\zeta_N - 1} = 0
 \end{aligned}
 $$
 
-等比級数の公式が複素数に適用できるかというのは，自分で複素数考慮で求めなおしたりすれば自明
+等比数列の和の公式が複素数に適用できるかというのは，自分で複素数考慮で求めなおしたりすれば自明
 
 ---
 
