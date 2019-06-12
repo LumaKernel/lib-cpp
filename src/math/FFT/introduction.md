@@ -176,15 +176,13 @@ $h(x) = f(x) \times g(x) = (f \ast g) (x)$ と書きます
 
 # 愚直に求める
 
-簡単のため $\|a\| = \|b\| = N$ とする
-
 ```cpp
 vector<int> conv(vector<int> a, vector<int> b) {
   int deg = a.size() + b.size() - 1;
   vector<int> c(deg);
   for(int i = 0; i < a.size(); i++)
     for(int j = 0; j < b.size(); j++)
-      c[i + j] = a[i] * b[j];
+      c[i + j] += a[i] * b[j];
   return c;
 }
 ```
@@ -194,6 +192,8 @@ vector<int> conv(vector<int> a, vector<int> b) {
 これは見たまま，$O(N^2)$となる
 
 # 1の原始N乗根
+
+簡単のため, $\|a\| = \|b\| = N$ とする
 
 離散フーリエ変換に行く前に， $\zeta_N$ について説明する
 
@@ -388,9 +388,9 @@ $\displaystyle \begin{aligned} &f_0(x) &= a_0 + a_2x + a_4x^2 + \cdots &= \sum_{
 
 $N$ は後々のために2べきとします
 
-$f(x) = f_0(x^2) + xf_1(x^2)$ になることが分かるかと思います．$f(\zeta_N^i)$ に代入します
+$f(x) = f_0(x^2) + xf_1(x^2)$ になることが分かるかと思います．$x = \zeta_N^i$ を代入します
 
-$\displaystyle f(\zeta_N^i) = f_0(\zeta_N^2i) + \zeta_N^i\cdot f_1(\zeta_N^2i)$
+$\displaystyle f(\zeta_N^i) = f_0(\zeta_N^{2i}) + \zeta_N^i\cdot f_1(\zeta_N^{2i})$
 
 ここで， $\zeta_{nk}^{ik}=\zeta_n^i$ を思い出してください（約分みたいなもの）
 
