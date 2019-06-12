@@ -20,6 +20,7 @@ $$
 
 これを，左辺の$i$のパリティ (偶奇) で分けます．まず偶数の場合を考えます
 
+$$
 \begin{aligned}
 f(\zeta_N^{2i})
 &= \sum_{j=0}^{N} a_j \zeta_N^{2ij}
@@ -42,6 +43,7 @@ f(\zeta_N^{2i})
 \\
 &= \sum_{j=0}^{N/2 - 1} (a_j +  a_{\overline{j+N/2}})\zeta_{N/2}^{ij}
 \end{aligned}
+$$
 
 例えば，$b_i = a_i + a_{i + N/2}$ という長さ $N/2$ の数列を作ると，
 
