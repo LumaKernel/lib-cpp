@@ -38,6 +38,18 @@ titile: 線形代数
 * [PDF: 線形代数](http://www.math.okayama-u.ac.jp/~hashimoto/paper/class/linear.pdf){:target="_blank"}<!--_-->
   * 帰納法で一意性と存在性を証明している
 
+# その他
+
+* [A Positive Definite Matrix Has a Unique Positive Definite Square Root](https://yutsumura.com/a-positive-definite-matrix-has-a-unique-positive-definite-square-root/){:target="_blank"}<!--_-->
+  * 正定値行列は 自然数 $n$ に対して, $n$ 乗根が正定値行列内で一意に存在する. (これは $n = 2$ のときだが ,そのまま拡張すればいい)
+  * 更に拡張して, 正定値行列の任意の有理数乗が, 正定値行列内で一意に定義できる
+* [How to prove the existence and uniqueness of Cholesky decomposition?](https://math.stackexchange.com/questions/2509810/how-to-prove-the-existence-and-uniqueness-of-cholesky-decomposition)
+  * $P \geq 0 \LongRightarrow$
+  * コレスキー分解の一意性
+* [Cholesky for Non-Positive Definite Matrices の答え](https://math.stackexchange.com/a/423171)
+  * 半正定値行列に対する, 対角化とQR分解を用いた, コレスキー分解もどきの存在性の証明
+
+
 
 余談
 

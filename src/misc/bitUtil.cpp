@@ -101,3 +101,16 @@ int bitreversell(ll x) {
   x = (x << 32) | (x >> 32);
   return x;
 }
+
+// @new bitrotation
+// @snippet bitrot
+// @alias rot_bit
+// @alias rotation_bit
+// @alias kaiten_bit
+// x を右に r だけ回転 (b bits)
+ll bitrot(ll x, int r, int b = 32) {
+  r %= b;
+  if(r < 0) r += b;
+  if(r == 0) return x;
+  return (x >> r) | ((x & ((1ll << r) - 1)) << (b - r));
+}

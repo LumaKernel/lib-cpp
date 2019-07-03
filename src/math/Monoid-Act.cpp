@@ -70,6 +70,7 @@ struct RangeAnd< std::bitset< N > > {
 
 /// }}}--- ///
 
+// TODO : identityならなにもしない, を自分でやる
 /// --- M_act examples {{{ ///
 template < class U = long long, class V = U >
 struct RangeMinAdd {
@@ -163,6 +164,26 @@ struct RangeProdSet {
     if(m == identity()) return;
     return RangeProdMul< U, V >::mpow(m, n);
   }
+};
+
+template < class U = long long, class V = U >
+struct RangeOrSet {
+  using X = U;
+  using M = V;
+  using Monoid = RangeOr< U >;
+  static M op(const M &a, const M &b) { return a == identity() ? b : a; }
+  static constexpr M identity() { return M(-inf_monoid); }
+  static X actInto(const M &m, long long, const X &x) { return m == identity() ? x : m; }
+};
+
+template < class U = long long, class V = U >
+struct RangeAndSet {
+  using X = U;
+  using M = V;
+  using Monoid = RangeAnd< U >;
+  static M op(const M &a, const M &b) { return a == identity() ? b : a; }
+  static constexpr M identity() { return M(-inf_monoid); }
+  static X actInto(const M &m, long long, const X &x) { return m == identity() ? x : m; }
 };
 
 template < class U = long long, class V = U >

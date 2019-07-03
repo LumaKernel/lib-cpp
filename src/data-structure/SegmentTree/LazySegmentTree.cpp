@@ -290,6 +290,26 @@ struct RangeProdSet {
 };
 
 template < class U = long long, class V = U >
+struct RangeOrSet {
+  using X = U;
+  using M = V;
+  using Monoid = RangeOr< U >;
+  static M op(const M &a, const M &b) { return a == identity() ? b : a; }
+  static constexpr M identity() { return M(-inf_monoid); }
+  static X actInto(const M &m, long long, const X &x) { return m == identity() ? x : m; }
+};
+
+template < class U = long long, class V = U >
+struct RangeAndSet {
+  using X = U;
+  using M = V;
+  using Monoid = RangeAnd< U >;
+  static M op(const M &a, const M &b) { return a == identity() ? b : a; }
+  static constexpr M identity() { return M(-inf_monoid); }
+  static X actInto(const M &m, long long, const X &x) { return m == identity() ? x : m; }
+};
+
+template < class U = long long, class V = U >
 struct RangeOr2 {
   using X = U;
   using M = V;

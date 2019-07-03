@@ -6,7 +6,7 @@ title: HL分解 (Heavy-Light Decomposition)
 
 新しい木は高さが $O(\log N)$ となります
 
-頂点にデータを乗せて，パスクエリをこなすことができます
+頂点にデータを乗せて, パスクエリをこなすことができます
 
 さらに，EulerTourの要領で部分木クエリもできます
 
@@ -18,7 +18,7 @@ title: HL分解 (Heavy-Light Decomposition)
 
 もし根付きでなければ適当に根を決める．全ての頂点からその子へと伸びる辺について，**一番部分木のサイズが大きい頂点へとつながる辺** を Heavy Edge, それ以外を Light Edge と呼びます
 
-そうすると，根から順にLight Edgeをたどることは $O(\log N)$ 回しかできません．なぜなら，Light Edgeを選ぶと部分木のサイズが $1/2$ 以下になるからです
+そうすると，根から順に **Light Edge をたどることは $O(\log N)$ 回しかできない**. なぜなら，Light Edgeを選ぶと部分木のサイズが $1/2$ 以下になるから
 
 Heavy Edgeによるパスを考えます．これを一つの頂点と捉え，Light Edgeが新たな辺として木を成していると捉えることができます
 
@@ -35,6 +35,8 @@ Heavy Edgeの処理は Euler Tour と同様にして [セグメントツリー](
 
 # 実装
 
+使い方はコード冒頭のコメントに, だいたい書いています
+
 // @ HL-Decomposition
 
 # 検証
@@ -48,6 +50,7 @@ Heavy Edgeの処理は Euler Tour と同様にして [セグメントツリー](
 * [PCK 2017 pre 12 ネットワークの課金システム - AOJ](https://onlinejudge.u-aizu.ac.jp/problems/0367){:target="_blank"}<!--_-->
 * [No.235 めぐるはめぐる (5) - yukicoder](https://yukicoder.me/problems/no/235){:target="_blank"}<!--_-->
 * [RUPC 2015 - Tree - AOJ](http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2667){:target="_blank"}<!--_-->
+* [#563 F - Ehab and the Big Finale - codeforces](https://codeforces.com/contest/1174/problem/F){:target="_blank"}<!--_-->
 
 # 参考
 
