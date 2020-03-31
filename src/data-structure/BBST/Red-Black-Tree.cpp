@@ -210,10 +210,9 @@ public:
   }
   friend X getValue(const Node *a) {
     assert(isLeaf(a));
-    return a
-               ? a->lazy != M_act::identity() ? M_act::actInto(a->accum, 1, a->lazy)
-                                              : a->accum
-               : Monoid::identity();
+    return a ? a->lazy != M_act::identity() ? M_act::actInto(a->accum, 1, a->lazy)
+                                            : a->accum
+             : Monoid::identity();
   }
   friend vector< X > getAll(const Node *a) {
     vector< X > v(size(a));

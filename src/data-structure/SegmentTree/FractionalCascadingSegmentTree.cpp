@@ -190,7 +190,7 @@ FractionalCascadingSegmentTree< Under, Data, 1 > ecas(
     [](Data a, Data b) -> Data { return a + b; }
     // optional identity
     // , identity
-    );
+);
 // }}}
 
 // @new
@@ -219,7 +219,7 @@ FractionalCascadingSegmentTree< Under, Data > qina(
     [](Data a, Data b) -> Data { return a + b; }
     // optional identity
     // , identity
-    );
+);
 
 // }}}
 

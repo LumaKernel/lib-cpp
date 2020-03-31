@@ -190,7 +190,9 @@ typename HashString< N, mod, B, SZ >::PowTable HashString< N, mod, B, SZ >::tabl
 constexpr int _hs_N = 1e6;
 
 int _hs_B[] = {
-    114514, 1919, 810,
+    114514,
+    1919,
+    810,
 };
 
 using mystring =
