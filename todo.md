@@ -1,6 +1,8 @@
 * toptree
 * WM
 * 高速きたまさ法
+* kirchhoffの定理
+* ラプラシアン行列
 * string
   * bm法
   * 文字列検索まとめ
